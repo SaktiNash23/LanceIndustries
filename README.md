@@ -9,3 +9,4 @@ Current Development Phase: Prototyping
   the changes made in a specific commit.
 
 * Project Setup (Created Basic Folder Structure, Platform set to Android)
+* Project Setup 1.1 (Added a Prefabs Folder)
