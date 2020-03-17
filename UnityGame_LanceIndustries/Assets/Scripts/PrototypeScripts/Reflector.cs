@@ -4,38 +4,70 @@ using UnityEngine;
 
 public class Reflector : MonoBehaviour
 {
-    public enum DIRECTION
+
+    public Material redMat;
+    private SpriteRenderer rend;
+
+    private void Awake()
     {
-        UP,
-        DOWN,
-        LEFT,
-        RIGHT
+        rend = GetComponent<SpriteRenderer>();
     }
 
-    public DIRECTION dir;
-
-    void OnTriggerEnter(Collider col)
+    void OnTriggerEnter2D(Collider2D col)
     {
-      
-        if(col.tag == "Laser")
+        if (col.tag == "Laser")
         {
-            if (dir == DIRECTION.RIGHT)
-            {
-                Vector3 tempVector = col.gameObject.GetComponent<Proto_Projectile>().DirectionVector;
+            col.gameObject.transform.position = gameObject.transform.position;
+            Vector3 tempVector = col.gameObject.GetComponent<Proto_Projectile>().DirectionVector;
 
+            //Can deflect UP and LEFT lasers
+            if (rend.flipX == false && rend.flipY == true)
+            {      
                 if (tempVector == Vector3.up)
                 {
                     col.gameObject.GetComponent<Proto_Projectile>().DirectionVector = Vector3.right;
+                }
+
+                if (tempVector == Vector3.left)
+                {
+                    col.gameObject.GetComponent<Proto_Projectile>().DirectionVector = Vector3.down;
+                }
+            }
+
+            //Can deflect DOWN & RIGHT lasers
+            if (rend.flipX == true && rend.flipY == false)
+            {
+                if (tempVector == Vector3.right)
+                {
+                    col.gameObject.GetComponent<Proto_Projectile>().DirectionVector = Vector3.up;
+                }
+
+                if (tempVector == Vector3.down)
+                {
+                    col.gameObject.GetComponent<Proto_Projectile>().DirectionVector = Vector3.left;
+                }
+            }
+
+            //Can deflect UP and RIGHT lasers
+            if(rend.flipX == true && rend.flipY == true)
+            {
+                if (tempVector == Vector3.up)
+                {
+                    col.gameObject.GetComponent<Proto_Projectile>().DirectionVector = Vector3.left;
                 }
 
                 if (tempVector == Vector3.right)
                 {
                     col.gameObject.GetComponent<Proto_Projectile>().DirectionVector = Vector3.down;
                 }
+            }
 
+            //Can deflect DOWN and LEFT lasers
+            if(rend.flipX == false && rend.flipY == false)
+            {
                 if (tempVector == Vector3.down)
                 {
-                    col.gameObject.GetComponent<Proto_Projectile>().DirectionVector = Vector3.left;
+                    col.gameObject.GetComponent<Proto_Projectile>().DirectionVector = Vector3.right;
                 }
 
                 if (tempVector == Vector3.left)
@@ -44,30 +76,8 @@ public class Reflector : MonoBehaviour
                 }
             }
 
-            if(dir == DIRECTION.LEFT)
-            {
-                Vector3 tempVector = col.gameObject.GetComponent<Proto_Projectile>().DirectionVector;
-
-                if (tempVector == Vector3.up)
-                {
-                    col.gameObject.GetComponent<Proto_Projectile>().DirectionVector = Vector3.left;
-                }
-
-                if (tempVector == Vector3.right)
-                {
-                    col.gameObject.GetComponent<Proto_Projectile>().DirectionVector = Vector3.up;
-                }
-
-                if (tempVector == Vector3.down)
-                {
-                    col.gameObject.GetComponent<Proto_Projectile>().DirectionVector = Vector3.right;
-                }
-
-                if (tempVector == Vector3.left)
-                {
-                    col.gameObject.GetComponent<Proto_Projectile>().DirectionVector = Vector3.down;
-                }
-            }   
         }
+
     }
+
 }

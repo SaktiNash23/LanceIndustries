@@ -2,20 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Proto_Projectile : MonoBehaviour
 {
     public float projectileSpeed;
     private Vector3 directionVector;
+    private Rigidbody2D rb;
 
     void Awake()
     {
         directionVector = new Vector3(0.0f, 1.0f, 0.0f);
+        rb = GetComponent<Rigidbody2D>();
+       
     }
-
-    // Update is called once per frame
-    void Update()
+    
+    void FixedUpdate()
     {
-        transform.localPosition += directionVector * projectileSpeed * Time.deltaTime;     
+        rb.MovePosition(transform.position + directionVector * projectileSpeed * Time.fixedDeltaTime);
     }
 
     public Vector3 DirectionVector
@@ -30,4 +33,6 @@ public class Proto_Projectile : MonoBehaviour
             directionVector = value;
         }
     }
+
+ 
 }
