@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Reflector
   - Laser
+  - InvalidBounds
   layers:
   - Default
   - TransparentFX

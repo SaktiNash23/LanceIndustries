@@ -11,3 +11,6 @@ Current Development Phase: Prototyping
 * Project Setup (Created Basic Folder Structure, Platform set to Android)
 * Project Setup 1.1 (Added a Prefabs Folder)
 * Prototype v1.0 (Created a simple prototype, still needs more iterations)
+* Make a new scene for Map Editor, Make mockup for loading map UI in scene, Create Menu Item Editor for creating scriptable object, Add Naughty Attributes
+* Updated scripts for Laser Origin, Reflectors. Created new prefabs for laser, laser origin & reflector. Added placeholder asset for testing purposes
+* Created scriptable objects to store data for the reflectors. Updated the reflector prefab with more 2D Box Colliders

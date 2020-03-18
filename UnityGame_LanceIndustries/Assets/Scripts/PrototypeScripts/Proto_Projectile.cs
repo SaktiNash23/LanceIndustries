@@ -18,7 +18,7 @@ public class Proto_Projectile : MonoBehaviour
     
     void FixedUpdate()
     {
-        rb.MovePosition(transform.position + directionVector * projectileSpeed * Time.fixedDeltaTime);
+        rb.MovePosition(transform.position + directionVector.normalized * projectileSpeed * Time.fixedDeltaTime);
     }
 
     public Vector3 DirectionVector
@@ -31,6 +31,14 @@ public class Proto_Projectile : MonoBehaviour
         set
         {
             directionVector = value;
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        if(col.tag == "InvalidBounds")
+        {
+            directionVector = Vector2.zero;
         }
     }
 

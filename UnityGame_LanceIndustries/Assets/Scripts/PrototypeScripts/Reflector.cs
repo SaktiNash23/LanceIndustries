@@ -4,24 +4,23 @@ using UnityEngine;
 
 public class Reflector : MonoBehaviour
 {
+    public Reflector_SO reflector_SO;
 
-    public Material redMat;
-    private SpriteRenderer rend;
-
-    private void Awake()
+    private void Start()
     {
-        rend = GetComponent<SpriteRenderer>();
+        //Initializes the reflector angle based on data stored in ScriptableObject
+        transform.rotation = Quaternion.Euler(0.0f, 0.0f, reflector_SO.zRotation);
     }
 
     void OnTriggerEnter2D(Collider2D col)
-    {
+    {    
         if (col.tag == "Laser")
         {
             col.gameObject.transform.position = gameObject.transform.position;
             Vector3 tempVector = col.gameObject.GetComponent<Proto_Projectile>().DirectionVector;
 
-            //Can deflect UP and LEFT lasers
-            if (rend.flipX == false && rend.flipY == true)
+            //Can deflect laser towards DOWN or RIGHT direction
+            if (reflector_SO.reflectDirTag == "DownRight")
             {      
                 if (tempVector == Vector3.up)
                 {
@@ -34,8 +33,8 @@ public class Reflector : MonoBehaviour
                 }
             }
 
-            //Can deflect DOWN & RIGHT lasers
-            if (rend.flipX == true && rend.flipY == false)
+            //Can deflect towards UP or LEFT direction
+            if (reflector_SO.reflectDirTag == "UpLeft")
             {
                 if (tempVector == Vector3.right)
                 {
@@ -48,8 +47,8 @@ public class Reflector : MonoBehaviour
                 }
             }
 
-            //Can deflect UP and RIGHT lasers
-            if(rend.flipX == true && rend.flipY == true)
+            //Can deflect laser towards DOWN or LEFT direction
+            if(reflector_SO.reflectDirTag == "DownLeft")
             {
                 if (tempVector == Vector3.up)
                 {
@@ -62,8 +61,8 @@ public class Reflector : MonoBehaviour
                 }
             }
 
-            //Can deflect DOWN and LEFT lasers
-            if(rend.flipX == false && rend.flipY == false)
+            //Can deflect laser towards UP or RIGHT direction
+            if(reflector_SO.reflectDirTag == "UpRight")
             {
                 if (tempVector == Vector3.down)
                 {
@@ -76,8 +75,6 @@ public class Reflector : MonoBehaviour
                 }
             }
 
-        }
-
+        }      
     }
-
 }
