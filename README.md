@@ -14,3 +14,5 @@ Current Development Phase: Prototyping
 * Make a new scene for Map Editor, Make mockup for loading map UI in scene, Create Menu Item Editor for creating scriptable object, Add Naughty Attributes
 * Updated scripts for Laser Origin, Reflectors. Created new prefabs for laser, laser origin & reflector. Added placeholder asset for testing purposes
 * Created scriptable objects to store data for the reflectors. Updated the reflector prefab with more 2D Box Colliders
+* Changed the implementation for how the laser detects the reflectors (Now uses raycast instead of trigger for improved consistency), updated the colliders 
+	for reflectors, created prefab and simple script to test Grid (will add rest of implementation for Grid soon).
