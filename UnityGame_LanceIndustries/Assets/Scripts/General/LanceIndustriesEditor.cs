@@ -28,4 +28,15 @@ public class LanceIndustriesEditor
 
         CreateAsset<MapInfo>(path);
     }
+
+    [MenuItem("LanceIndustries/Map/MapInfoLibrary")]
+    public static void CreateMapInfoLibrary()
+    {
+        string path = EditorUtility.SaveFilePanel("Create a Map Info Library.", "Assets/", "New Map Info Library.asset", "asset");
+
+        if (path == "")
+            return;
+
+        CreateAsset<MapInfoLibrary>(path);
+    }
 }
