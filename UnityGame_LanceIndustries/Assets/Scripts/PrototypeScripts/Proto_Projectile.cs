@@ -10,20 +10,37 @@ public class Proto_Projectile : MonoBehaviour
     private Rigidbody2D rb;
     private bool reflectorHit = false;
     public RaycastHit2D hitStore;
+    private int layerMask;
+    private float lifeTime = 3.0f;
+
 
     void Awake()
     {
         directionVector = new Vector3(0.0f, 1.0f, 0.0f);
-        rb = GetComponent<Rigidbody2D>();  
+        rb = GetComponent<Rigidbody2D>();
+
+        layerMask = 1 << 8;
+        layerMask = ~layerMask; //Ask raycast to ignore only Layer 8 which is the IgnoredByProjectile layer
     }
     
+    void Update()
+    {
+        if (lifeTime > 0.0f)
+            lifeTime -= Time.deltaTime;
+        else
+        {         
+            Destroy(gameObject);
+            Debug.Log("Projectile lifetime expired");
+        }
+    }
+
     void FixedUpdate()
     {
         rb.MovePosition(transform.position + directionVector.normalized * projectileSpeed * Time.fixedDeltaTime);
 
         if (reflectorHit == false)
         {
-            RaycastHit2D hitStore = Physics2D.Raycast(transform.position, directionVector, 0.2f);
+            RaycastHit2D hitStore = Physics2D.Raycast(transform.position, directionVector, 0.2f, layerMask);
             Debug.DrawRay(transform.position, directionVector * 0.2f);
 
             if (hitStore)
@@ -35,10 +52,54 @@ public class Proto_Projectile : MonoBehaviour
                     if (reflectorHit == false)
                     {
                         reflectorHit = true;
-                        hitStore.collider.gameObject.GetComponent<Reflector>().calculateLaser(hitStore, gameObject);
+                        hitStore.collider.gameObject.GetComponent<Reflector>().calculateLaser_Basic(hitStore, gameObject);
+                        //hitStore.collider.gameObject.GetComponent<Reflector>().retrieveLaserProperties(hitStore, gameObject);
+                        //hitStore.collider.gameObject.GetComponent<Reflector>().calculateLaser_Base();
+                        //hitStore.collider.gameObject.GetComponent<Reflector>().setReflectorLaserColor();
                     }
                 }
-                else if(hitStore.collider.gameObject.tag == "InvalidBounds")
+
+                if(hitStore.collider.gameObject.tag == "ReflectorTranslucent")
+                {
+                    Debug.Log("Reflector Translucent HIT");
+
+                    if (reflectorHit == false)
+                    {
+                        reflectorHit = true;
+                        hitStore.collider.gameObject.GetComponent<Reflector_Translucent>().calculateLaser_Translucent(hitStore, gameObject);
+                    }
+                }
+
+                if(hitStore.collider.gameObject.tag == "ReflectorDoubleWay")
+                {
+                    Debug.Log("Reflector Translucent HIT");
+
+                    if (reflectorHit == false)
+                    {
+                        reflectorHit = true;
+                        hitStore.collider.gameObject.GetComponent<Reflector_DoubleWay>().calculateLaser_DoubleWay(hitStore, gameObject);
+                    }
+                }
+
+                if(hitStore.collider.gameObject.tag == "ReflectorSplit")
+                {
+                    if (reflectorHit == false)
+                    {
+                        reflectorHit = true;
+                        hitStore.collider.gameObject.GetComponent<Reflector_Split>().calculateLaser_Split(hitStore, gameObject);
+                    }
+                }
+
+                if(hitStore.collider.gameObject.tag == "ReflectorThreeWay")
+                {
+                    if (reflectorHit == false)
+                    {
+                        reflectorHit = true;
+                        hitStore.collider.gameObject.GetComponent<Reflector_ThreeWay>().calculateLaser_ThreeWay(hitStore, gameObject);
+                    }
+                }
+
+                if(hitStore.collider.gameObject.tag == "InvalidBounds")
                 {
                     Destroy(gameObject);
                 }
