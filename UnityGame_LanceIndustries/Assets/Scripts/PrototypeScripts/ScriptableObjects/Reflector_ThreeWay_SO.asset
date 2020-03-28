@@ -10,12 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d66708e16e8fb354ab9dd2d9d6cc2648, type: 3}
-  m_Name: Reflector_SO_Type2
+  m_Name: Reflector_ThreeWay_SO
   m_EditorClassIdentifier: 
-  reflectableDirections: Up & Left
-  reflectorSprite: {fileID: 21300000, guid: 1f2f0f8525b71194db5da4df859a7db7, type: 3}
-  spriteFlipX: 1
-  spriteFlipY: 0
-  reflectDirTag: UpLeft
-  laserMaterial: {fileID: 2100000, guid: 6fa9f7f73c2753243bf12fb9cbb94652, type: 2}
-  zRotation: 90
+  reflectorSprite: {fileID: 21300000, guid: 812c54f47afee0049846b5e9e1fbe1c3, type: 3}
+  laserMaterialToChange: {fileID: 2100000, guid: 30d8d949796c7e243915cc700e388be1,
+    type: 2}

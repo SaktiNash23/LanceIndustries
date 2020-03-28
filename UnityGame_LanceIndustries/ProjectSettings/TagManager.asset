@@ -7,6 +7,10 @@ TagManager:
   - Reflector
   - Laser
   - InvalidBounds
+  - ReflectorTranslucent
+  - ReflectorDoubleWay
+  - ReflectorSplit
+  - ReflectorThreeWay
   layers:
   - Default
   - TransparentFX
@@ -16,6 +20,7 @@ TagManager:
   - UI
   - 
   - 
+  - IgnoredByProjectile
   - MapEditorInSceneObject
   - 
   - 

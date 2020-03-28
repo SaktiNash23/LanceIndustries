@@ -56,7 +56,7 @@ public class Proto_LaserOrigin : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        if(Input.GetMouseButtonDown(1))
         {
             Debug.Log(transform.rotation.eulerAngles);
             GameObject projectile = Instantiate(projectileSphere, transform.position, Quaternion.identity);
