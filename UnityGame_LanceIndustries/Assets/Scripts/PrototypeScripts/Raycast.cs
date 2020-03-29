@@ -7,6 +7,7 @@ public class Raycast : MonoBehaviour
     void OnMouseDown()
     {
         rotateReflector((transform.rotation.eulerAngles.z));
+        Debug.Log("aswe");
     }
 
 
