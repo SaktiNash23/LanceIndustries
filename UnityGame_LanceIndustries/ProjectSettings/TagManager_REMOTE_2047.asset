@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Reflector
+  - Laser
+  - InvalidBounds
+  - ReflectorTranslucent
+  - ReflectorDoubleWay
+  - ReflectorSplit
+  - ReflectorThreeWay
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - IgnoredByProjectile
+  - MapEditorInSceneObject
+  - TestingOnly
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: UI
+    uniqueID: 669775333
+    locked: 0
+  - name: MapEditorTopLayer
+    uniqueID: 3729566351
+    locked: 0

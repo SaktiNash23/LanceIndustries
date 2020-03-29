@@ -1,104 +1,106 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using NaughtyAttributes;
 
-public class Reflector : MonoBehaviour
-{
-    private Reflector_SO reflectorBase_SO;
-
-    protected Vector2 referenceVector;
-    protected RaycastHit2D referenceHitParam;
-    protected GameObject referenceProjectile;
-
-    void Start()
+    public class Reflector : MonoBehaviour
     {
-        reflectorBase_SO = GameManager.gameManagerInstance.allReflectorSO[0]; //Index 0: Base Reflector
-    }
+        private Reflector_SO reflectorBase_SO;
 
-    public void retrieveLaserProperties(RaycastHit2D hitParam, GameObject projectile)
-    {
-        referenceVector = projectile.GetComponent<Proto_Projectile>().DirectionVector;
-        referenceHitParam = hitParam;
-        referenceProjectile = projectile;
-    }
+        protected Vector2 referenceVector;
+        protected RaycastHit2D referenceHitParam;
 
-    public void calculateLaser_Base()
-    {
-        if (referenceProjectile.GetComponent<Proto_Projectile>().ReflectorHit == true)
+        protected GameObject referenceProjectile;
+
+        void Start()
         {
-            referenceProjectile.transform.position = referenceHitParam.point;
+            reflectorBase_SO = GameManager.gameManagerInstance.allReflectorSO[0]; //Index 0: Base Reflector
         }
 
-        if (transform.rotation.eulerAngles.z == 0.0f)
+        public void retrieveLaserProperties(RaycastHit2D hitParam, GameObject projectile)
         {
-            if (referenceVector == Vector2.down)
-            {
-                referenceProjectile.gameObject.GetComponent<Proto_Projectile>().DirectionVector = Vector2.right;
-            }
-
-            if (referenceVector == Vector2.left)
-            {
-                referenceProjectile.gameObject.GetComponent<Proto_Projectile>().DirectionVector = Vector2.up;
-            }
+            referenceVector = projectile.GetComponent<Proto_Projectile>().DirectionVector;
+            referenceHitParam = hitParam;
+            referenceProjectile = projectile;
         }
 
-        if (transform.rotation.eulerAngles.z == 90.0f)
+        public void calculateLaser_Base()
         {
-            if (referenceVector == Vector2.right)
+            if (referenceProjectile.GetComponent<Proto_Projectile>().ReflectorHit == true)
             {
-                referenceProjectile.GetComponent<Proto_Projectile>().DirectionVector = Vector3.up;
+                referenceProjectile.transform.position = referenceHitParam.point;
             }
 
-            if (referenceVector == Vector2.down)
+            if (transform.rotation.eulerAngles.z == 0.0f)
             {
-                referenceProjectile.GetComponent<Proto_Projectile>().DirectionVector = Vector2.left;
+                if (referenceVector == Vector2.down)
+                {
+                    referenceProjectile.gameObject.GetComponent<Proto_Projectile>().DirectionVector = Vector2.right;
+                }
+
+                if (referenceVector == Vector2.left)
+                {
+                    referenceProjectile.gameObject.GetComponent<Proto_Projectile>().DirectionVector = Vector2.up;
+                }
             }
+
+            if (transform.rotation.eulerAngles.z == 90.0f)
+            {
+                if (referenceVector == Vector2.right)
+                {
+                    referenceProjectile.GetComponent<Proto_Projectile>().DirectionVector = Vector3.up;
+                }
+
+                if (referenceVector == Vector2.down)
+                {
+                    referenceProjectile.GetComponent<Proto_Projectile>().DirectionVector = Vector2.left;
+                }
+            }
+
+            if (transform.rotation.eulerAngles.z == 180.0f)
+            {
+                if (referenceVector == Vector2.up)
+                {
+                    referenceProjectile.gameObject.GetComponent<Proto_Projectile>().DirectionVector = Vector2.left;
+                }
+
+                if (referenceVector == Vector2.right)
+                {
+                    referenceProjectile.GetComponent<Proto_Projectile>().DirectionVector = Vector2.down;
+                }
+            }
+
+            if (transform.rotation.eulerAngles.z == 270.0f)
+            {
+                if (referenceVector == Vector2.up)
+                {
+                    referenceProjectile.GetComponent<Proto_Projectile>().DirectionVector = Vector2.right;
+                }
+                else if (referenceVector == Vector2.left)
+                {
+                    referenceProjectile.GetComponent<Proto_Projectile>().DirectionVector = Vector2.down;
+                }
+            }
+
+            //referenceProjectile.GetComponent<Proto_Projectile>().Invoke("reflectorHitFalse", 0.02f);
         }
 
-        if (transform.rotation.eulerAngles.z == 180.0f)
-        {
-            if (referenceVector == Vector2.up)
-            {
-                referenceProjectile.gameObject.GetComponent<Proto_Projectile>().DirectionVector = Vector2.left;
-            }
 
-            if (referenceVector == Vector2.right)
-            {
-                referenceProjectile.GetComponent<Proto_Projectile>().DirectionVector = Vector2.down;
-            }
+        public void calculateLaser_Basic(RaycastHit2D hitParam, GameObject projectile)
+        {
+            retrieveLaserProperties(hitParam, projectile);
+            calculateLaser_Base();
+            setReflectorLaserColor();
+            setReflectorHitFalseForProjectile();
         }
 
-        if (transform.rotation.eulerAngles.z == 270.0f)
+        public virtual void setReflectorLaserColor()
         {
-            if (referenceVector == Vector2.up)
-            {
-                referenceProjectile.GetComponent<Proto_Projectile>().DirectionVector = Vector2.right;
-            }
-            else if (referenceVector == Vector2.left)
-            {
-                referenceProjectile.GetComponent<Proto_Projectile>().DirectionVector = Vector2.down;
-            }
+            referenceProjectile.GetComponent<TrailRenderer>().material = reflectorBase_SO.laserMaterialToChange;
         }
 
-        //referenceProjectile.GetComponent<Proto_Projectile>().Invoke("reflectorHitFalse", 0.02f);
+        public virtual void setReflectorHitFalseForProjectile()
+        {
+            referenceProjectile.GetComponent<Proto_Projectile>().Invoke("reflectorHitFalse", 0.02f);
+        }
     }
-
-
-    public void calculateLaser_Basic(RaycastHit2D hitParam, GameObject projectile)
-    {
-        retrieveLaserProperties(hitParam, projectile);
-        calculateLaser_Base();
-        setReflectorLaserColor();
-        setReflectorHitFalseForProjectile();
-    }
-
-    public virtual void setReflectorLaserColor()
-    {
-        referenceProjectile.GetComponent<TrailRenderer>().material = reflectorBase_SO.laserMaterialToChange;
-    }
-
-    public virtual void setReflectorHitFalseForProjectile()
-    {
-        referenceProjectile.GetComponent<Proto_Projectile>().Invoke("reflectorHitFalse", 0.02f);
-    }
-}

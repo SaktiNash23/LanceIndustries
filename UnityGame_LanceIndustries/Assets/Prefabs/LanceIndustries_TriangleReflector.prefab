@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1682300063}
   - component: {fileID: 1682300064}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: InvalidBounds1
   m_TagString: InvalidBounds
   m_Icon: {fileID: 0}
@@ -67,7 +67,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1690996581}
   - component: {fileID: 1690996582}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: InvalidBounds0
   m_TagString: InvalidBounds
   m_Icon: {fileID: 0}
@@ -125,7 +125,7 @@ GameObject:
   - component: {fileID: 8343602470798806713}
   - component: {fileID: 8993220391234800158}
   - component: {fileID: 6383169552369817910}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Reflector
   m_TagString: Reflector
   m_Icon: {fileID: 0}
@@ -176,8 +176,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a069f405742d4e64e9c79578dd9fdeb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reflector_SO: {fileID: 11400000, guid: 941bc131841076146a0883e325087317, type: 2}
-  yellowMat: {fileID: 2100000, guid: fa1312c4608f5fd4cb506468799e4c8a, type: 2}
 --- !u!1 &4096889186759365130
 GameObject:
   m_ObjectHideFlags: 0
@@ -188,9 +186,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4096889186759365126}
   - component: {fileID: 4096889186759365127}
-  m_Layer: 2
+  - component: {fileID: 922849317}
+  - component: {fileID: 922849318}
+  m_Layer: 8
   m_Name: LanceIndustries_TriangleReflector
-  m_TagString: Reflector
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -261,3 +261,41 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!61 &922849317
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4096889186759365130}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 3.3, y: 3.62}
+    newSize: {x: 3.3, y: 3.62}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 3.3, y: 3.62}
+  m_EdgeRadius: 0
+--- !u!114 &922849318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4096889186759365130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb717f55205c69249866b8a6dec81246, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
