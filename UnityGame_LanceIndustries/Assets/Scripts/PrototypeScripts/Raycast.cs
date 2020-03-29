@@ -24,4 +24,8 @@ public class Raycast : MonoBehaviour
             transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
     }
 
+    public void TestFunc()
+    {
+        Debug.Log("COOL");
+    }
 }
