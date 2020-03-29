@@ -8,6 +8,7 @@ public class Raycast : MonoBehaviour
     {
         rotateReflector((transform.rotation.eulerAngles.z));
         Debug.Log("ADASDAS");
+        Debug.Log("aswe");
     }
 
 
