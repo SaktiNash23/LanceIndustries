@@ -161,6 +161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80649697db093ae42979690d04feb179, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  btnMap: {fileID: 2756274455685909322}
   txtMapNo: {fileID: 2756274456587469915}
   txtMapName: {fileID: 2756274456447296851}
 --- !u!1 &2756274456447296845
