@@ -11,6 +11,7 @@ public class Raycast : MonoBehaviour
         Debug.Log("aswe");
         Debug.Log("wer");
         Debug.LogWarning("WARNINGASFDA");
+        Debug.Log("TESTSTASAD");
     }
 
 
