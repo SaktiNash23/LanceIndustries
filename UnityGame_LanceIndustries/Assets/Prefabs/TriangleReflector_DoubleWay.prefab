@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3440957651725477610}
   m_Layer: 8
   m_Name: TriangleReflector_DoubleWay
-  m_TagString: Untagged
+  m_TagString: ReflectorGM
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -125,6 +125,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb717f55205c69249866b8a6dec81246, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isHoldingDown: 0
+  rayLength: 0.4
+  timeUntilHold: 0
+  minTimeHold: 0.2
+  inGrid: 0
+  isOccupied: 0
+  gridReference: {fileID: 0}
 --- !u!1 &2579105007867708090
 GameObject:
   m_ObjectHideFlags: 0

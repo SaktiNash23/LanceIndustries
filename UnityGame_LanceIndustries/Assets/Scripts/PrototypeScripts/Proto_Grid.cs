@@ -1,17 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using NaughtyAttributes;
 
 public class Proto_Grid : MonoBehaviour
 {
-    void OnTriggerEnter2D(Collider2D col)
-    {
-        Debug.Log("Reflector within Grid");
-    }
+    public bool isOccupied_Grid = false;
+    public GameObject reflectorStored_Grid;
+    
 
-    void OnTriggerExit2D(Collider2D col)
+    public bool isOccupied_GridAccessor
     {
-        Debug.Log("Reflector out of Grid");
-    }
+        get
+        {
+            return isOccupied_Grid;
+        }
 
+        set
+        {
+            isOccupied_Grid = value;
+        }
+    }
 }

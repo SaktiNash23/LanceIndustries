@@ -190,7 +190,7 @@ GameObject:
   - component: {fileID: 922849318}
   m_Layer: 8
   m_Name: LanceIndustries_TriangleReflector
-  m_TagString: Untagged
+  m_TagString: ReflectorGM
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -274,7 +274,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.00000023841858, y: -0.047902107}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -299,3 +299,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb717f55205c69249866b8a6dec81246, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isHoldingDown: 0
+  rayLength: 0.4
+  timeUntilHold: 0
+  minTimeHold: 0.2
+  inGrid: 0
+  isOccupied: 0
+  gridReference: {fileID: 0}
