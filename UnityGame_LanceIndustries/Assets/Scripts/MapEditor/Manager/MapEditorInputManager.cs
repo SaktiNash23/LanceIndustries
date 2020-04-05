@@ -9,9 +9,18 @@ public enum INPUT_MODE
     SELECTING = 1
 }
 
+public enum GIZMO_MODE
+{
+    NONE = 0,
+    MOVE = 1,
+    ROTATE = 2,
+    SCALE = 3
+}
+
 public class MapEditorInputManager : MonoBehaviour
 {
     public INPUT_MODE CurrentInputMode { get; set; } = INPUT_MODE.NONE;
+    public GIZMO_MODE CurrentGizmoMode { get; set; } = GIZMO_MODE.MOVE;
 
     private Camera cachedMainCamera = null;
 
@@ -44,21 +53,43 @@ public class MapEditorInputManager : MonoBehaviour
 
     private void Update()
     {
-        if(CurrentInputMode == INPUT_MODE.SELECTING)
+        if(Input.GetMouseButtonDown(0))
         {
-            Vector3 cameraPos = cachedMainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, cachedMainCamera.farClipPlane));
-            selectingObject.transform.position = cameraPos;
-            if(Input.GetMouseButtonDown(0))
+            Ray mouseRay = cachedMainCamera.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            LayerMask layerMask = LayerMask.GetMask("MapEditorInSceneObject");
+
+            if (selectingObject == null)
             {
-                SwitchInputMode(INPUT_MODE.NONE);
+                if (Physics.Raycast(mouseRay, out hit, cachedMainCamera.farClipPlane + 5.0f, layerMask))
+                {
+                    SelectObject(hit.collider.GetComponent<MapEditorInSceneObject>());
+                }
             }
-            else if(Input.GetMouseButtonDown(1))
+            else
             {
-                Destroy(selectingObject.gameObject);
-                selectingObject = null;
-                SwitchInputMode(INPUT_MODE.NONE);
+                if (!Physics.Raycast(mouseRay, out hit, cachedMainCamera.farClipPlane + 5.0f, layerMask))
+                {
+                    SwitchInputMode(INPUT_MODE.NONE);
+                }
             }
         }
+
+        //if(CurrentInputMode == INPUT_MODE.SELECTING)
+        //{
+        //    //Vector3 cameraPos = cachedMainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, cachedMainCamera.farClipPlane));
+        //    //selectingObject.transform.position = cameraPos;
+        //    if(Input.GetMouseButtonDown(0))
+        //    {
+        //        //SwitchInputMode(INPUT_MODE.NONE);
+        //    }
+        //    else if(Input.GetMouseButtonDown(1))
+        //    {
+        //        Destroy(selectingObject.gameObject);
+        //        selectingObject = null;
+        //        SwitchInputMode(INPUT_MODE.NONE);
+        //    }
+        //}
     }
 
     //------------------------------ INPUT MANAGER FUNCTIONS ------------------------------//
@@ -71,10 +102,13 @@ public class MapEditorInputManager : MonoBehaviour
             case INPUT_MODE.NONE:
                 if (selectingObject)
                 {
-                    selectingObject.ToggleColliderFor(false, 0.1f);
                     selectingObject.UpdateInSceneObjectData();
+                    selectingObject.RemoveGizmo();
                 }
                 selectingObject = null;
+                break;
+            case INPUT_MODE.SELECTING:
+                selectingObject.CreateGizmo(CurrentGizmoMode);
                 break;
         }
     }
@@ -87,7 +121,7 @@ public class MapEditorInputManager : MonoBehaviour
 
     public void SelectObject(MapEditorInSceneObject selectedObj)
     {
-        SwitchInputMode(INPUT_MODE.SELECTING);
         selectingObject = selectedObj;
+        SwitchInputMode(INPUT_MODE.SELECTING);
     }
 }

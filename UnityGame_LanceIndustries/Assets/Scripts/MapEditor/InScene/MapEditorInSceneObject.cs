@@ -18,10 +18,11 @@ public enum IN_SCENE_OBJECT_TYPES
 public class MapEditorInSceneObject : MonoBehaviour
 {
     [BoxGroup("MAP EDITOR IN SCENE OBJECT SETTINGS")] public IN_SCENE_OBJECT_TYPES inSceneObjectType;
-    [BoxGroup("MAP EDITOR IN SCENE OBJECT REFERNECES")] public EventTrigger eventTrigger;
-    [BoxGroup("MAP EDITOR IN SCENE OBJECT REFERNECES")] public Collider2D col;
+    [BoxGroup("MAP EDITOR IN SCENE OBJECT REFERENCES")] public EventTrigger eventTrigger;
 
     public InSceneObjectData inSceneObjectData { get; set; } = new InSceneObjectData();
+
+    private GizmoBase attachedGizmo;
 
     //------------------------------ MONOBEHAVIOUR FUNCTIONS -----------------------------//
 
@@ -39,22 +40,10 @@ public class MapEditorInSceneObject : MonoBehaviour
 
     private void PointerClickAction(PointerEventData pointerEventData)
     {
-        if (MapEditorInputManager.Instance.CurrentInputMode == INPUT_MODE.NONE)
-        {
-            MapEditorInputManager.Instance.SelectObject(this);
-        }
-    }
-
-    public void ToggleColliderFor(bool targetBool, float duration)
-    {
-        StartCoroutine(ToggleColliderForCoroutine(targetBool, duration));
-    }
-
-    private IEnumerator ToggleColliderForCoroutine(bool targetBool, float duration)
-    {
-        col.enabled = targetBool;
-        yield return new WaitForSeconds(duration);
-        col.enabled = !targetBool;
+        //if (MapEditorInputManager.Instance.CurrentInputMode == INPUT_MODE.NONE)
+        //{
+        //    MapEditorInputManager.Instance.SelectObject(this);
+        //}
     }
 
     public void UpdateInSceneObjectData()
@@ -63,6 +52,29 @@ public class MapEditorInSceneObject : MonoBehaviour
         inSceneObjectData.rotation = transform.rotation;
         inSceneObjectData.scale = transform.localScale;
     }
+
+    public void CreateGizmo(GIZMO_MODE gizmoMode)
+    {
+        switch (gizmoMode)
+        {
+            case GIZMO_MODE.MOVE:
+                attachedGizmo = Instantiate(MapEditorUIManager.Instance.moveGizmoPrefab, transform.position, Quaternion.identity, transform);
+                attachedGizmo.AssignInSceneObject(this);
+                break;
+        }
+    }
+
+    public void RemoveGizmo()
+    {
+        Destroy(attachedGizmo.gameObject);
+        attachedGizmo = null;
+    }
+}
+
+[Serializable]
+public class InSceneObjectDataHolder
+{
+    public List<InSceneObjectData> inSceneObjectDatas;
 }
 
 [Serializable]

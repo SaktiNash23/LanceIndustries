@@ -44,7 +44,6 @@ TagManager:
   - 
   - 
   - 
-  - 
   m_SortingLayers:
   - name: Default
     uniqueID: 0
@@ -52,6 +51,9 @@ TagManager:
   - name: UI
     uniqueID: 669775333
     locked: 0
-  - name: MapEditorTopLayer
+  - name: MapEditorLayer
     uniqueID: 3729566351
+    locked: 0
+  - name: UITop
+    uniqueID: 1824814125
     locked: 0

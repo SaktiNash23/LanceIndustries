@@ -19,16 +19,19 @@ public class MapEditorUIManager : MonoBehaviour
     [BoxGroup("PANEL CREATE MAP REFERENCES")] [SerializeField] GameObject gameObjSameMapNameWarning;
 
     [BoxGroup("PANEL MAP EDITING REFERENCES")] [SerializeField] CanvasGroup cgPanelMapEditing;
+    [BoxGroup("PANEL MAP EDITING REFERENCES")] [SerializeField] CanvasGroup cgPanelMapEditingTopLayer;
     [BoxGroup("MAP EDITOR IN SCENE OBJECT PREFABS")] [SerializeField] MapEditorInSceneObject verticalLinePrefab;
     [BoxGroup("MAP EDITOR IN SCENE OBJECT PREFABS")] [SerializeField] MapEditorInSceneObject horizontalLinePrefab;
     [BoxGroup("MAP EDITOR IN SCENE OBJECT PREFABS")] [SerializeField] MapEditorInSceneObject originPointPrefab;
     [BoxGroup("MAP EDITOR IN SCENE OBJECT PREFABS")] [SerializeField] MapEditorInSceneObject destinationPointPrefab;
 
+    [BoxGroup("GIZMOS REFERENCES")] public MoveGizmo moveGizmoPrefab;
+
     private float contentMapListMinDeltaY;
 
     private List<MapButton> mapButtons = new List<MapButton>();
 
-    public string LoadedMapDataPath;
+    [HideInInspector] public string LoadedMapDataPath;
 
     private static MapEditorUIManager _instance;
     public static MapEditorUIManager Instance
@@ -50,6 +53,11 @@ public class MapEditorUIManager : MonoBehaviour
         {
             _instance = this;
         }
+    }
+
+    private void Start()
+    {
+        InitializeMapSelectionButtons();
     }
 
     //-------------------------- PANEL MENU SCREEN FUNCTIONS --------------------------//
@@ -88,7 +96,9 @@ public class MapEditorUIManager : MonoBehaviour
         cgPanelMapEditing.alpha = 1f;
         cgPanelMapEditing.interactable = true;
         cgPanelMapEditing.blocksRaycasts = true;
-
+        cgPanelMapEditingTopLayer.alpha = 1f;
+        cgPanelMapEditingTopLayer.interactable = true;
+        cgPanelMapEditingTopLayer.blocksRaycasts = true;
         StartCoroutine(LoadInSceneObjects(0.25f));
     }
 
@@ -97,28 +107,29 @@ public class MapEditorUIManager : MonoBehaviour
         yield return new WaitForSeconds(delay);
         TextAsset mapData = AssetDatabase.LoadAssetAtPath<TextAsset>(LoadedMapDataPath);
         string jsonData = mapData.text;
-        InSceneObjectData[] inSceneObjectDatas = JsonHelper.FromJson<InSceneObjectData>(jsonData);
-        for(int i = 0; i < inSceneObjectDatas.Length; i++)
+        InSceneObjectDataHolder inSceneObjectDataHolder = JsonUtility.FromJson<InSceneObjectDataHolder>(jsonData);
+        if(inSceneObjectDataHolder != null)
         {
-            MapEditorInSceneObject inSceneObject = null;
-
-            switch (inSceneObjectDatas[i].inSceneObjectType)
+            foreach(var inSceneObjectData in inSceneObjectDataHolder.inSceneObjectDatas)
             {
-                case IN_SCENE_OBJECT_TYPES.VERTICAL_LINE:
-                    inSceneObject = Instantiate<MapEditorInSceneObject>(verticalLinePrefab, inSceneObjectDatas[i].position, inSceneObjectDatas[i].rotation);
-                    break;
-                case IN_SCENE_OBJECT_TYPES.HORIZONTAL_LINE:
-                    inSceneObject = Instantiate<MapEditorInSceneObject>(horizontalLinePrefab, inSceneObjectDatas[i].position, inSceneObjectDatas[i].rotation);
-                    break;
-                case IN_SCENE_OBJECT_TYPES.ORIGIN_POINT:
-                    inSceneObject = Instantiate<MapEditorInSceneObject>(originPointPrefab, inSceneObjectDatas[i].position, inSceneObjectDatas[i].rotation);
-                    break;
-                case IN_SCENE_OBJECT_TYPES.DESTINATION_POINT:
-                    inSceneObject = Instantiate<MapEditorInSceneObject>(destinationPointPrefab, inSceneObjectDatas[i].position, inSceneObjectDatas[i].rotation);
-                    break;
-            }
+                MapEditorInSceneObject inSceneObject = null;
 
-            //inSceneObject.transform.localScale = inSceneObjectDatas[i].scale;
+                switch (inSceneObjectData.inSceneObjectType)
+                {
+                    case IN_SCENE_OBJECT_TYPES.VERTICAL_LINE:
+                        inSceneObject = Instantiate<MapEditorInSceneObject>(verticalLinePrefab, inSceneObjectData.position, inSceneObjectData.rotation);
+                        break;
+                    case IN_SCENE_OBJECT_TYPES.HORIZONTAL_LINE:
+                        inSceneObject = Instantiate<MapEditorInSceneObject>(horizontalLinePrefab, inSceneObjectData.position, inSceneObjectData.rotation);
+                        break;
+                    case IN_SCENE_OBJECT_TYPES.ORIGIN_POINT:
+                        inSceneObject = Instantiate<MapEditorInSceneObject>(originPointPrefab, inSceneObjectData.position, inSceneObjectData.rotation);
+                        break;
+                    case IN_SCENE_OBJECT_TYPES.DESTINATION_POINT:
+                        inSceneObject = Instantiate<MapEditorInSceneObject>(destinationPointPrefab, inSceneObjectData.position, inSceneObjectData.rotation);
+                        break;
+                }
+            }
         }
     }
 
@@ -186,6 +197,9 @@ public class MapEditorUIManager : MonoBehaviour
 
         LibraryLinker.Instance.MapInfoLib.mapInfos.Add(mapInfo);
         AssetDatabase.Refresh();
+
+        LoadedMapDataPath = mapDataSavePath;
+        InitializeMapSelectionButtons();
     }
 
     //--------------------------- IN SCENE MAP EDITING FUNCTIONS ---------------------------//
@@ -194,17 +208,39 @@ public class MapEditorUIManager : MonoBehaviour
     {
         MapEditorInSceneObject[] inSceneObjects = FindObjectsOfType<MapEditorInSceneObject>();
         InSceneObjectData[] inSceneObjectDatas = new InSceneObjectData[inSceneObjects.Length];
+        InSceneObjectDataHolder inSceneObjectDataHolder = new InSceneObjectDataHolder();
+        inSceneObjectDataHolder.inSceneObjectDatas = new List<InSceneObjectData>();
         for(int i = 0; i < inSceneObjects.Length; i++)
         {
             InSceneObjectData objectData = inSceneObjects[i].inSceneObjectData;
-            inSceneObjectDatas[i] = objectData;
+            //inSceneObjectDatas[i] = objectData;
+            inSceneObjectDataHolder.inSceneObjectDatas.Add(objectData);
         }
 
-        string jsonData = JsonHelper.ToJson(inSceneObjectDatas, true);
+        string jsonData = JsonUtility.ToJson(inSceneObjectDataHolder, true);
 
         StreamWriter streamWriter = new StreamWriter(LoadedMapDataPath, false);
         streamWriter.WriteLine(jsonData);
         streamWriter.Close();
         AssetDatabase.Refresh();
+    }
+
+    public void BackToMenu()
+    {
+        cgPanelMenuScreen.alpha = 1f;
+        cgPanelMenuScreen.interactable = true;
+        cgPanelMenuScreen.blocksRaycasts = true;
+        cgPanelMapEditing.alpha = 0f;
+        cgPanelMapEditing.interactable = false;
+        cgPanelMapEditing.blocksRaycasts = false;
+        cgPanelMapEditingTopLayer.alpha = 0f;
+        cgPanelMapEditingTopLayer.interactable = false;
+        cgPanelMapEditingTopLayer.blocksRaycasts = false;
+
+        MapEditorInSceneObject[] inSceneObjects = FindObjectsOfType<MapEditorInSceneObject>();
+        foreach (var inSceneObject in inSceneObjects)
+            Destroy(inSceneObject.gameObject);
+
+        LoadedMapDataPath = "";
     }
 }
