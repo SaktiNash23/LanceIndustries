@@ -250,7 +250,7 @@ GameObject:
   - component: {fileID: 5022815105189056914}
   m_Layer: 8
   m_Name: TriangleReflector_ThreeWay
-  m_TagString: Untagged
+  m_TagString: ReflectorGM
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -361,3 +361,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb717f55205c69249866b8a6dec81246, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isHoldingDown: 0
+  rayLength: 0
+  timeUntilHold: 0
+  minTimeHold: 0
+  inGrid: 0
+  isOccupied: 0
+  gridReference: {fileID: 0}

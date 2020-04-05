@@ -11,6 +11,8 @@ TagManager:
   - ReflectorDoubleWay
   - ReflectorSplit
   - ReflectorThreeWay
+  - Grid
+  - ReflectorGM
   layers:
   - Default
   - TransparentFX
@@ -22,8 +24,7 @@ TagManager:
   - 
   - IgnoredByProjectile
   - MapEditorInSceneObject
-  - TestForConflict
-  - TestingOnly
+  - ReflectorPlacement
   - 
   - 
   - 
