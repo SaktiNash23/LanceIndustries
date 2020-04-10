@@ -6,6 +6,7 @@ using UnityEngine;
 public class Proto_Projectile : MonoBehaviour
 {
     public float projectileSpeed;
+    public float projectileRaycastLength;
     private Vector3 directionVector;
     private Rigidbody2D rb;
     private bool reflectorHit = false;
@@ -40,8 +41,8 @@ public class Proto_Projectile : MonoBehaviour
 
         if (reflectorHit == false)
         {
-            RaycastHit2D hitStore = Physics2D.Raycast(transform.position, directionVector, 0.2f, layerMask);
-            Debug.DrawRay(transform.position, directionVector * 0.2f);
+            RaycastHit2D hitStore = Physics2D.Raycast(transform.position, directionVector, projectileRaycastLength, layerMask);
+            Debug.DrawRay(transform.position, directionVector * projectileRaycastLength);
 
             if (hitStore)
             {
@@ -53,9 +54,7 @@ public class Proto_Projectile : MonoBehaviour
                     {
                         reflectorHit = true;
                         hitStore.collider.gameObject.GetComponent<Reflector>().calculateLaser_Basic(hitStore, gameObject);
-                        //hitStore.collider.gameObject.GetComponent<Reflector>().retrieveLaserProperties(hitStore, gameObject);
-                        //hitStore.collider.gameObject.GetComponent<Reflector>().calculateLaser_Base();
-                        //hitStore.collider.gameObject.GetComponent<Reflector>().setReflectorLaserColor();
+
                     }
                 }
 
@@ -100,6 +99,11 @@ public class Proto_Projectile : MonoBehaviour
                 }
 
                 if(hitStore.collider.gameObject.tag == "InvalidBounds")
+                {
+                    Destroy(gameObject);
+                }
+
+                if(hitStore.collider.gameObject.tag == "Border")
                 {
                     Destroy(gameObject);
                 }

@@ -71,7 +71,7 @@ using NaughtyAttributes;
         #region Naughty Attributes Test Functions
 
         [Button("Shoot Laser")]
-        private void shootLaser()
+        public void shootLaser()
         {
             Debug.Log(transform.rotation.eulerAngles);
             GameObject projectile = Instantiate(projectileSphere, transform.position, Quaternion.identity);

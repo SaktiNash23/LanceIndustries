@@ -1,45 +1,76 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 using NaughtyAttributes;
 
 
-    public class GameManager : MonoBehaviour
-    {
-        /*
-         Index References for allReflectorSO array 
+public class GameManager : MonoBehaviour
+{
+  /*
+  Index References for allReflectorSO array 
 
-         Index 0: Base Reflector
-         Index 1: Translucent Reflector
-         Index 2: Double Way Reflector
-         Index 3: Split Reflector
-         Index 4: Three-way Reflector
+  Index 0: Base Reflector
+  Index 1: Translucent Reflector
+  Index 2: Double Way Reflector
+  Index 3: Split Reflector
+  Index 4: Three-way Reflector
 
-         */
-        [InfoBox("Ensure the Reflector Scriptable Objects are placed in the right order in the array", EInfoBoxType.Normal)]
-        [ReorderableList]
-        public Reflector_SO[] allReflectorSO;
+  */
+   [InfoBox("Ensure the Reflector Scriptable Objects are placed in the right order in the array", EInfoBoxType.Normal)]
+   [ReorderableList]
+   public Reflector_SO[] allReflectorSO;
 
-        public static GameManager gameManagerInstance;
-        public List<GameObject> allReflectorsInScene = new List<GameObject>();
-        public List<GameObject> allGridInScene = new List<GameObject>();
+   [InfoBox("Ensure the Reflector Gameobjects are placed in the right order", EInfoBoxType.Normal)]
+   [ReorderableList]
+   public GameObject[] allReflectorGO;
+
+        public static GameManager gameManagerInstance; //Game Manager Instance
+
+        public List<GameObject> allReflectorsInScene = new List<GameObject>(); //Stores all the reflectors that are in the scene
+        public List<GameObject> allGridInScene = new List<GameObject>(); //
+
         public bool activationToggle_Grid = false;
         public bool activationToggle_Reflector = false;
 
-        void Awake()
+        [SerializeField]
+        private int reflectorStock_Basic;
+        [SerializeField]
+        private int reflectorStock_Translucent;
+        [SerializeField]
+        private int reflectorStock_DoubleWay;
+        [SerializeField]
+        private int reflectorStock_Split;
+        [SerializeField]
+        private int reflectorStock_ThreeWay;
+
+    GameObject instantiatedReflector = null;
+
+    public TextMeshProUGUI ReflectorStock_Basic_Text;
+    public TextMeshProUGUI ReflectorStock_Translucent_Text;
+    public TextMeshProUGUI ReflectorStock_DoubleWay_Text;
+    public TextMeshProUGUI ReflectorStock_Split_Text;
+    public TextMeshProUGUI ReflectorStock_ThreeWay_Text;
+
+    public Button ReflectorBasicButton;
+
+    void Awake()
         {
             if (gameManagerInstance == null)
             {
                 gameManagerInstance = this;
             }
 
-           GameObject[] foundReflectors = GameObject.FindGameObjectsWithTag("ReflectorGM");
+            /*
+            GameObject[] foundReflectors = GameObject.FindGameObjectsWithTag("ReflectorGM");
             
             for(int i = 0; i < foundReflectors.Length; ++i)
             {
                 allReflectorsInScene.Add(foundReflectors[i]);
                 Debug.Log("Reflector Added : " + allReflectorsInScene[i].name);
             }
+            */
 
             GameObject[] foundGrids = GameObject.FindGameObjectsWithTag("Grid");
 
@@ -49,7 +80,16 @@ using NaughtyAttributes;
             }
         }
 
-        public void toggleGridColliders()
+    void Start()
+    {
+        ReflectorStock_Basic_Text.text = reflectorStock_Basic.ToString();
+        ReflectorStock_Translucent_Text.text = reflectorStock_Translucent.ToString();
+        ReflectorStock_DoubleWay_Text.text = reflectorStock_DoubleWay.ToString();
+        ReflectorStock_Split_Text.text = reflectorStock_Split.ToString();
+        ReflectorStock_ThreeWay_Text.text = reflectorStock_ThreeWay.ToString();
+    }
+
+    public void toggleGridColliders()
         {
             for (int i = 0; i < GameManager.gameManagerInstance.allGridInScene.Count; ++i)
             {
@@ -60,8 +100,8 @@ using NaughtyAttributes;
             }
         }
         
-
-        public void toggleReflectorColliders()
+    //Turns off all reflector colliders except for the one the player is currently in control of
+    public void toggleReflectorColliders()
         {
             for (int i = 0; i < allReflectorsInScene.Count; ++i)
             {
@@ -81,14 +121,85 @@ using NaughtyAttributes;
             activationToggle_Reflector = true;
         }
 
-        public void resetReflectorColliders()
-        {
-            for (int i = 0; i < allReflectorsInScene.Count; ++i)
-            {
-                allReflectorsInScene[i].GetComponent<BoxCollider2D>().enabled = true;
-            }
+    //Resets all refelctor colliders to their original state
+    public void resetReflectorColliders()
+    {
+         for (int i = 0; i < allReflectorsInScene.Count; ++i)
+         {
+            allReflectorsInScene[i].GetComponent<BoxCollider2D>().enabled = true;
+         }
 
-            activationToggle_Reflector = false;
+        activationToggle_Reflector = false;
+    }
+
+    public GameObject checkReflectorStockAvailability(string reflectorButtonPressedName)
+    {
+        if(reflectorButtonPressedName == "ReflectorButton_Basic")
+        {
+            if(reflectorStock_Basic > 0)
+            {
+                instantiatedReflector = allReflectorGO[0];
+                reflectorStock_Basic--;
+                ReflectorStock_Basic_Text.text = reflectorStock_Basic.ToString();
+            }
+            else
+            {
+                Debug.Log("OUT OF STOCK: Basic Reflector");
+                instantiatedReflector = null; //No reflector is instantiated to be returned
+            }
         }
 
+        return instantiatedReflector;
     }
+
+    public void returnReflectorToStock(GameObject reflector)
+    {
+        if (reflector.name.Contains("Basic"))
+        {
+            reflectorStock_Basic++;
+            ReflectorStock_Basic_Text.text = reflectorStock_Basic.ToString();
+        }
+        if (reflector.name.Contains("Translucent"))
+        {
+            reflectorStock_Translucent++;
+            ReflectorStock_Translucent_Text.text = reflectorStock_Translucent.ToString();
+        }
+        if (reflector.name.Contains("DoubleWay"))
+        {
+            reflectorStock_DoubleWay++;
+            ReflectorStock_DoubleWay_Text.text = reflectorStock_DoubleWay.ToString();
+        }
+        if (reflector.name.Contains("Split"))
+        {
+            reflectorStock_Split++;
+            ReflectorStock_Split_Text.text = reflectorStock_Split.ToString();
+        }
+        if (reflector.name.Contains("ThreeWay"))
+        {
+            reflectorStock_ThreeWay++;
+            ReflectorStock_ThreeWay_Text.text = reflectorStock_ThreeWay.ToString();
+        }
+    }
+
+    public void removeReflector(GameObject reflectorToBeRemoved)
+    {
+        for(int j = 0; j < allReflectorsInScene.Count; ++j)
+        {
+            Debug.LogWarning(allReflectorsInScene[j].GetInstanceID());
+        }
+
+        for(int i = 0; i < allReflectorsInScene.Count; ++i)
+        {
+            if(reflectorToBeRemoved.GetInstanceID() == allReflectorsInScene[i].GetInstanceID())
+            {
+                Debug.Log("Reflector Removed");
+                allReflectorsInScene.RemoveAt(i);
+            }
+            else
+            {
+                Debug.Log("No such reflector");
+            }
+        }
+    }
+
+}

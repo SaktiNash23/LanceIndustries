@@ -362,9 +362,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isHoldingDown: 0
-  rayLength: 0
+  rayLength: 0.4
   timeUntilHold: 0
-  minTimeHold: 0
+  minTimeHold: 0.1
   inGrid: 0
   isOccupied: 0
   gridReference: {fileID: 0}

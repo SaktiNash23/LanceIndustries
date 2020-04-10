@@ -89,6 +89,7 @@ using NaughtyAttributes;
         public void calculateLaser_Basic(RaycastHit2D hitParam, GameObject projectile)
         {
             retrieveLaserProperties(hitParam, projectile);
+            referenceProjectile.transform.position = hitParam.point;
             calculateLaser_Base();
             setReflectorLaserColor();
             setReflectorHitFalseForProjectile();
