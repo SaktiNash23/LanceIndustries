@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using NaughtyAttributes;
-
 
 public class MoveGizmo : GizmoBase
 {
-    public Vector3 inSceneObjStartPos;
-    public Vector3 mouseStartPos;
+    private Vector3 inSceneObjStartPos;
+    private Vector3 mouseStartPos;
 
     //------------------------------ MONOBEHAVIOUR FUNCTIONS ------------------------------//
 

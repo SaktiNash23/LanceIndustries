@@ -75,21 +75,30 @@ public class MapEditorInputManager : MonoBehaviour
             }
         }
 
-        //if(CurrentInputMode == INPUT_MODE.SELECTING)
-        //{
-        //    //Vector3 cameraPos = cachedMainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, cachedMainCamera.farClipPlane));
-        //    //selectingObject.transform.position = cameraPos;
-        //    if(Input.GetMouseButtonDown(0))
-        //    {
-        //        //SwitchInputMode(INPUT_MODE.NONE);
-        //    }
-        //    else if(Input.GetMouseButtonDown(1))
-        //    {
-        //        Destroy(selectingObject.gameObject);
-        //        selectingObject = null;
-        //        SwitchInputMode(INPUT_MODE.NONE);
-        //    }
-        //}
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            if (CurrentGizmoMode == GIZMO_MODE.MOVE)
+                return;
+            CurrentGizmoMode = GIZMO_MODE.MOVE;
+            if(selectingObject)
+                SwitchGizmo();
+        }
+        else if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (CurrentGizmoMode == GIZMO_MODE.ROTATE)
+                return;
+            CurrentGizmoMode = GIZMO_MODE.ROTATE;
+            if (selectingObject)
+                SwitchGizmo();
+        }
+        else if (Input.GetKeyDown(KeyCode.R))
+        {
+            if (CurrentGizmoMode == GIZMO_MODE.SCALE)
+                return;
+            CurrentGizmoMode = GIZMO_MODE.SCALE;
+            if (selectingObject)
+                SwitchGizmo();
+        }
     }
 
     //------------------------------ INPUT MANAGER FUNCTIONS ------------------------------//
@@ -111,6 +120,12 @@ public class MapEditorInputManager : MonoBehaviour
                 selectingObject.CreateGizmo(CurrentGizmoMode);
                 break;
         }
+    }
+
+    private void SwitchGizmo()
+    {
+        selectingObject.RemoveGizmo();
+        selectingObject.CreateGizmo(CurrentGizmoMode);
     }
 
     public Vector3 GetMouseCursorPosWorldVector3()

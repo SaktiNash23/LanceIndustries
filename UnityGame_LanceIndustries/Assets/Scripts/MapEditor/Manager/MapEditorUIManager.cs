@@ -25,7 +25,8 @@ public class MapEditorUIManager : MonoBehaviour
     [BoxGroup("MAP EDITOR IN SCENE OBJECT PREFABS")] [SerializeField] MapEditorInSceneObject originPointPrefab;
     [BoxGroup("MAP EDITOR IN SCENE OBJECT PREFABS")] [SerializeField] MapEditorInSceneObject destinationPointPrefab;
 
-    [BoxGroup("GIZMOS REFERENCES")] public MoveGizmo moveGizmoPrefab;
+    [BoxGroup("GIZMO REFERENCES")] public MoveGizmo moveGizmoPrefab;
+    [BoxGroup("GIZMO REFERENCES")] public RotationGizmo rotationGizmoPrefab;
 
     private float contentMapListMinDeltaY;
 
@@ -104,6 +105,7 @@ public class MapEditorUIManager : MonoBehaviour
 
     public IEnumerator LoadInSceneObjects(float delay)
     {
+#if UNITY_EDITOR
         yield return new WaitForSeconds(delay);
         TextAsset mapData = AssetDatabase.LoadAssetAtPath<TextAsset>(LoadedMapDataPath);
         string jsonData = mapData.text;
@@ -131,6 +133,8 @@ public class MapEditorUIManager : MonoBehaviour
                 }
             }
         }
+#endif
+        yield return null;
     }
 
     //-------------------------- PANEL CREATE MAP FUNCTIONS --------------------------//
@@ -175,6 +179,7 @@ public class MapEditorUIManager : MonoBehaviour
 
     public void CreateMap()
     {
+#if UNITY_EDITOR
         MapData newMapData = new MapData();
         string mapDataJson = JsonUtility.ToJson(newMapData, true);
         string mapDataSavePath = "Assets/Data Library/Map Data/" + ifMapName.text + ".json";
@@ -200,12 +205,14 @@ public class MapEditorUIManager : MonoBehaviour
 
         LoadedMapDataPath = mapDataSavePath;
         InitializeMapSelectionButtons();
+#endif
     }
 
     //--------------------------- IN SCENE MAP EDITING FUNCTIONS ---------------------------//
 
     public void SaveMap()
     {
+#if UNITY_EDITOR
         MapEditorInSceneObject[] inSceneObjects = FindObjectsOfType<MapEditorInSceneObject>();
         InSceneObjectData[] inSceneObjectDatas = new InSceneObjectData[inSceneObjects.Length];
         InSceneObjectDataHolder inSceneObjectDataHolder = new InSceneObjectDataHolder();
@@ -223,6 +230,7 @@ public class MapEditorUIManager : MonoBehaviour
         streamWriter.WriteLine(jsonData);
         streamWriter.Close();
         AssetDatabase.Refresh();
+#endif
     }
 
     public void BackToMenu()

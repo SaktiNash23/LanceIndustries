@@ -27,8 +27,8 @@ public class GizmoBase : MonoBehaviour
 
     protected Camera cachedMainCamera;
 
-    public bool selectingAxis = false;
-    public SELECTED_AXIS currSelectedAxis = SELECTED_AXIS.NONE;
+    protected bool selectingAxis = false;
+    protected SELECTED_AXIS currSelectedAxis = SELECTED_AXIS.NONE;
 
     protected MapEditorInSceneObject attachedInSceneObj;
 
@@ -43,56 +43,85 @@ public class GizmoBase : MonoBehaviour
     {
         cachedMainCamera = Camera.main;
 
-        EventTrigger.Entry xAxisPointerEnterEntry = new EventTrigger.Entry();
-        xAxisPointerEnterEntry.eventID = EventTriggerType.PointerEnter;
-        xAxisPointerEnterEntry.callback.AddListener((BaseEventData eventData) => XAxisPointerEnterCallback((PointerEventData)eventData));
-        xAxisEventTrigger.triggers.Add(xAxisPointerEnterEntry);
-        EventTrigger.Entry xAxisPointerExitEntry = new EventTrigger.Entry();
-        xAxisPointerExitEntry.eventID = EventTriggerType.PointerExit;
-        xAxisPointerExitEntry.callback.AddListener((BaseEventData eventData) => XAxisPointerExitCallback((PointerEventData)eventData));
-        xAxisEventTrigger.triggers.Add(xAxisPointerExitEntry);
-        EventTrigger.Entry xAxisPointerDownEntry = new EventTrigger.Entry();
-        xAxisPointerDownEntry.eventID = EventTriggerType.PointerDown;
-        xAxisPointerDownEntry.callback.AddListener((BaseEventData eventData) => XAxisPointerDownCallback((PointerEventData)eventData));
-        xAxisEventTrigger.triggers.Add(xAxisPointerDownEntry);
-        EventTrigger.Entry xAxisPointerUpEntry = new EventTrigger.Entry();
-        xAxisPointerUpEntry.eventID = EventTriggerType.PointerUp;
-        xAxisPointerUpEntry.callback.AddListener((BaseEventData eventData) => XAxisPointerUpCallback((PointerEventData)eventData));
-        xAxisEventTrigger.triggers.Add(xAxisPointerUpEntry);
+        if (xAxisEventTrigger)
+        {
+            EventTrigger.Entry xAxisPointerEnterEntry = new EventTrigger.Entry();
+            xAxisPointerEnterEntry.eventID = EventTriggerType.PointerEnter;
+            xAxisPointerEnterEntry.callback.AddListener((BaseEventData eventData) => XAxisPointerEnterCallback((PointerEventData)eventData));
+            xAxisEventTrigger.triggers.Add(xAxisPointerEnterEntry);
+            EventTrigger.Entry xAxisPointerExitEntry = new EventTrigger.Entry();
+            xAxisPointerExitEntry.eventID = EventTriggerType.PointerExit;
+            xAxisPointerExitEntry.callback.AddListener((BaseEventData eventData) => XAxisPointerExitCallback((PointerEventData)eventData));
+            xAxisEventTrigger.triggers.Add(xAxisPointerExitEntry);
+            EventTrigger.Entry xAxisPointerDownEntry = new EventTrigger.Entry();
+            xAxisPointerDownEntry.eventID = EventTriggerType.PointerDown;
+            xAxisPointerDownEntry.callback.AddListener((BaseEventData eventData) => XAxisPointerDownCallback((PointerEventData)eventData));
+            xAxisEventTrigger.triggers.Add(xAxisPointerDownEntry);
+            EventTrigger.Entry xAxisPointerUpEntry = new EventTrigger.Entry();
+            xAxisPointerUpEntry.eventID = EventTriggerType.PointerUp;
+            xAxisPointerUpEntry.callback.AddListener((BaseEventData eventData) => XAxisPointerUpCallback((PointerEventData)eventData));
+            xAxisEventTrigger.triggers.Add(xAxisPointerUpEntry);
+        }
 
-        EventTrigger.Entry yAxisPointerEnterEntry = new EventTrigger.Entry();
-        yAxisPointerEnterEntry.eventID = EventTriggerType.PointerEnter;
-        yAxisPointerEnterEntry.callback.AddListener((BaseEventData eventData) => YAxisPointerEnterCallback((PointerEventData)eventData));
-        yAxisEventTrigger.triggers.Add(yAxisPointerEnterEntry);
-        EventTrigger.Entry yAxisPointerExitEntry = new EventTrigger.Entry();
-        yAxisPointerExitEntry.eventID = EventTriggerType.PointerExit;
-        yAxisPointerExitEntry.callback.AddListener((BaseEventData eventData) => YAxisPointerExitCallback((PointerEventData)eventData));
-        yAxisEventTrigger.triggers.Add(yAxisPointerExitEntry);
-        EventTrigger.Entry yAxisPointerDownEntry = new EventTrigger.Entry();
-        yAxisPointerDownEntry.eventID = EventTriggerType.PointerDown;
-        yAxisPointerDownEntry.callback.AddListener((BaseEventData eventData) => YAxisPointerDownCallback((PointerEventData)eventData));
-        yAxisEventTrigger.triggers.Add(yAxisPointerDownEntry);
-        EventTrigger.Entry yAxisPointerUpEntry = new EventTrigger.Entry();
-        yAxisPointerUpEntry.eventID = EventTriggerType.PointerUp;
-        yAxisPointerUpEntry.callback.AddListener((BaseEventData eventData) => YAxisPointerUpCallback((PointerEventData)eventData));
-        yAxisEventTrigger.triggers.Add(yAxisPointerUpEntry);
+        if (yAxisEventTrigger)
+        {
+            EventTrigger.Entry yAxisPointerEnterEntry = new EventTrigger.Entry();
+            yAxisPointerEnterEntry.eventID = EventTriggerType.PointerEnter;
+            yAxisPointerEnterEntry.callback.AddListener((BaseEventData eventData) => YAxisPointerEnterCallback((PointerEventData)eventData));
+            yAxisEventTrigger.triggers.Add(yAxisPointerEnterEntry);
+            EventTrigger.Entry yAxisPointerExitEntry = new EventTrigger.Entry();
+            yAxisPointerExitEntry.eventID = EventTriggerType.PointerExit;
+            yAxisPointerExitEntry.callback.AddListener((BaseEventData eventData) => YAxisPointerExitCallback((PointerEventData)eventData));
+            yAxisEventTrigger.triggers.Add(yAxisPointerExitEntry);
+            EventTrigger.Entry yAxisPointerDownEntry = new EventTrigger.Entry();
+            yAxisPointerDownEntry.eventID = EventTriggerType.PointerDown;
+            yAxisPointerDownEntry.callback.AddListener((BaseEventData eventData) => YAxisPointerDownCallback((PointerEventData)eventData));
+            yAxisEventTrigger.triggers.Add(yAxisPointerDownEntry);
+            EventTrigger.Entry yAxisPointerUpEntry = new EventTrigger.Entry();
+            yAxisPointerUpEntry.eventID = EventTriggerType.PointerUp;
+            yAxisPointerUpEntry.callback.AddListener((BaseEventData eventData) => YAxisPointerUpCallback((PointerEventData)eventData));
+            yAxisEventTrigger.triggers.Add(yAxisPointerUpEntry);
+        }
 
-        EventTrigger.Entry xyAxisPointerEnterEntry = new EventTrigger.Entry();
-        xyAxisPointerEnterEntry.eventID = EventTriggerType.PointerEnter;
-        xyAxisPointerEnterEntry.callback.AddListener((BaseEventData eventData) => XYAxisPointerEnterCallback((PointerEventData)eventData));
-        xyAxisEventTrigger.triggers.Add(xyAxisPointerEnterEntry);
-        EventTrigger.Entry xyAxisPointerExitEntry = new EventTrigger.Entry();
-        xyAxisPointerExitEntry.eventID = EventTriggerType.PointerExit;
-        xyAxisPointerExitEntry.callback.AddListener((BaseEventData eventData) => XYAxisPointerExitCallback((PointerEventData)eventData));
-        xyAxisEventTrigger.triggers.Add(xyAxisPointerExitEntry);
-        EventTrigger.Entry xyAxisPointerDownEntry = new EventTrigger.Entry();
-        xyAxisPointerDownEntry.eventID = EventTriggerType.PointerDown;
-        xyAxisPointerDownEntry.callback.AddListener((BaseEventData eventData) => XYAxisPointerDownCallback((PointerEventData)eventData));
-        xyAxisEventTrigger.triggers.Add(xyAxisPointerDownEntry);
-        EventTrigger.Entry xyAxisPointerUpEntry = new EventTrigger.Entry();
-        xyAxisPointerUpEntry.eventID = EventTriggerType.PointerUp;
-        xyAxisPointerUpEntry.callback.AddListener((BaseEventData eventData) => XYAxisPointerUpCallback((PointerEventData)eventData));
-        xyAxisEventTrigger.triggers.Add(xyAxisPointerUpEntry);
+        if(zAxisEventTrigger)
+        {
+            EventTrigger.Entry zAxisPointerEnterEntry = new EventTrigger.Entry();
+            zAxisPointerEnterEntry.eventID = EventTriggerType.PointerEnter;
+            zAxisPointerEnterEntry.callback.AddListener((BaseEventData eventData) => ZAxisPointerEnterCallback((PointerEventData)eventData));
+            zAxisEventTrigger.triggers.Add(zAxisPointerEnterEntry);
+            EventTrigger.Entry zAxisPointerExitEntry = new EventTrigger.Entry();
+            zAxisPointerExitEntry.eventID = EventTriggerType.PointerExit;
+            zAxisPointerExitEntry.callback.AddListener((BaseEventData eventData) => ZAxisPointerExitCallback((PointerEventData)eventData));
+            zAxisEventTrigger.triggers.Add(zAxisPointerExitEntry);
+            EventTrigger.Entry zAxisPointerDownEntry = new EventTrigger.Entry();
+            zAxisPointerDownEntry.eventID = EventTriggerType.PointerDown;
+            zAxisPointerDownEntry.callback.AddListener((BaseEventData eventData) => ZAxisPointerDownCallback((PointerEventData)eventData));
+            zAxisEventTrigger.triggers.Add(zAxisPointerDownEntry);
+            EventTrigger.Entry yAxisPointerUpEntry = new EventTrigger.Entry();
+            yAxisPointerUpEntry.eventID = EventTriggerType.PointerUp;
+            yAxisPointerUpEntry.callback.AddListener((BaseEventData eventData) => ZAxisPointerUpCallback((PointerEventData)eventData));
+            zAxisEventTrigger.triggers.Add(yAxisPointerUpEntry);
+        }
+
+        if (xyAxisEventTrigger)
+        {
+            EventTrigger.Entry xyAxisPointerEnterEntry = new EventTrigger.Entry();
+            xyAxisPointerEnterEntry.eventID = EventTriggerType.PointerEnter;
+            xyAxisPointerEnterEntry.callback.AddListener((BaseEventData eventData) => XYAxisPointerEnterCallback((PointerEventData)eventData));
+            xyAxisEventTrigger.triggers.Add(xyAxisPointerEnterEntry);
+            EventTrigger.Entry xyAxisPointerExitEntry = new EventTrigger.Entry();
+            xyAxisPointerExitEntry.eventID = EventTriggerType.PointerExit;
+            xyAxisPointerExitEntry.callback.AddListener((BaseEventData eventData) => XYAxisPointerExitCallback((PointerEventData)eventData));
+            xyAxisEventTrigger.triggers.Add(xyAxisPointerExitEntry);
+            EventTrigger.Entry xyAxisPointerDownEntry = new EventTrigger.Entry();
+            xyAxisPointerDownEntry.eventID = EventTriggerType.PointerDown;
+            xyAxisPointerDownEntry.callback.AddListener((BaseEventData eventData) => XYAxisPointerDownCallback((PointerEventData)eventData));
+            xyAxisEventTrigger.triggers.Add(xyAxisPointerDownEntry);
+            EventTrigger.Entry xyAxisPointerUpEntry = new EventTrigger.Entry();
+            xyAxisPointerUpEntry.eventID = EventTriggerType.PointerUp;
+            xyAxisPointerUpEntry.callback.AddListener((BaseEventData eventData) => XYAxisPointerUpCallback((PointerEventData)eventData));
+            xyAxisEventTrigger.triggers.Add(xyAxisPointerUpEntry);
+        }
     }
 
     protected virtual void Update()
@@ -212,13 +241,42 @@ public class GizmoBase : MonoBehaviour
         SaveInSceneObjectData();
     }
 
-    protected virtual void ZAxisPointerEnterCallback(PointerEventData pointerEventData) { }
+    protected virtual void ZAxisPointerEnterCallback(PointerEventData pointerEventData)
+    {
+        if (!selectingAxis)
+            zAxisSpriteRenderer.color = Color.white;
+    }
 
-    protected virtual void ZAxisPointerErxitCallback(PointerEventData pointerEventData) { }
+    protected virtual void ZAxisPointerExitCallback(PointerEventData pointerEventData)
+    {
+        if (!selectingAxis)
+            zAxisSpriteRenderer.color = Color.blue;
+    }
 
-    protected virtual void ZAxisPointerEDownCallback(PointerEventData pointerEventData) { }
+    protected virtual void ZAxisPointerDownCallback(PointerEventData pointerEventData)
+    {
+        selectingAxis = true;
+        currSelectedAxis = SELECTED_AXIS.Z_AXIS;
+        zAxisSpriteRenderer.color = Color.yellow;
+    }
 
-    protected virtual void ZAxisPointerUpCallback(PointerEventData pointerEventData) { }
+    protected virtual void ZAxisPointerUpCallback(PointerEventData pointerEventData)
+    {
+        selectingAxis = false;
+        currSelectedAxis = SELECTED_AXIS.NONE;
+        Ray mouseRay = cachedMainCamera.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        LayerMask layerMask = LayerMask.GetMask("MapEditorInSceneObject");
+        if (Physics.Raycast(mouseRay, out hit, cachedMainCamera.farClipPlane, layerMask))
+        {
+            if (hit.transform.name == "zAxisTrigger")
+                zAxisSpriteRenderer.color = Color.white;
+        }
+        else
+        {
+            zAxisSpriteRenderer.color = Color.blue;
+        }
+    }
 
     protected virtual void XYAxisPointerEnterCallback(PointerEventData pointerEventData)
     {

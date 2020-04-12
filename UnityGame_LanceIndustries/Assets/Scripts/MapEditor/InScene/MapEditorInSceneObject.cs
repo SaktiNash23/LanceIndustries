@@ -61,6 +61,10 @@ public class MapEditorInSceneObject : MonoBehaviour
                 attachedGizmo = Instantiate(MapEditorUIManager.Instance.moveGizmoPrefab, transform.position, Quaternion.identity, transform);
                 attachedGizmo.AssignInSceneObject(this);
                 break;
+            case GIZMO_MODE.ROTATE:
+                attachedGizmo = Instantiate(MapEditorUIManager.Instance.rotationGizmoPrefab, transform.position, Quaternion.identity, transform);
+                attachedGizmo.AssignInSceneObject(this);
+                break;
         }
     }
 

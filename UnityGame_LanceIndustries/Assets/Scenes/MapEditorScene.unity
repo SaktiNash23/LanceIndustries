@@ -457,7 +457,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   btnObjectCreator: {fileID: 237795999}
-  mapEditorInSceneObjectPrefab: {fileID: -6704469478347592509, guid: eb2985807d546584fb078e639c562184,
+  mapEditorInSceneObjectPrefab: {fileID: 2367679546286519377, guid: eb2985807d546584fb078e639c562184,
     type: 3}
 --- !u!1 &237942535
 GameObject:
@@ -4727,12 +4727,14 @@ MonoBehaviour:
   gameObjSameMapNameWarning: {fileID: 297798473}
   cgPanelMapEditing: {fileID: 284941033}
   cgPanelMapEditingTopLayer: {fileID: 1359137842}
-  verticalLinePrefab: {fileID: -6704469478347592509, guid: eb2985807d546584fb078e639c562184,
+  verticalLinePrefab: {fileID: 2367679546286519377, guid: eb2985807d546584fb078e639c562184,
     type: 3}
   horizontalLinePrefab: {fileID: 0}
   originPointPrefab: {fileID: 0}
   destinationPointPrefab: {fileID: 0}
   moveGizmoPrefab: {fileID: -7523131004468192402, guid: f1dd159c19e116a40bd466290dfa295e,
+    type: 3}
+  rotationGizmoPrefab: {fileID: 7807816171262524512, guid: 01c0d96c39e77b1499244c1e268c96af,
     type: 3}
   LoadedMapDataPath: 
 --- !u!4 &1707706887
