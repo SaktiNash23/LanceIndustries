@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 311571547280205827, guid: 208cb0cc0f9ef224fbb474534378835d,
         type: 3}
       propertyPath: m_Name
-      value: TriangleReflector_Translucent_5x9
+      value: TriangleReflector_Translucent_5x9 Variant
       objectReference: {fileID: 0}
     - target: {fileID: 2970533909294883578, guid: 208cb0cc0f9ef224fbb474534378835d,
         type: 3}
@@ -70,12 +70,12 @@ PrefabInstance:
     - target: {fileID: 2970533909294883578, guid: 208cb0cc0f9ef224fbb474534378835d,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.2114355
+      value: 0.21
       objectReference: {fileID: 0}
     - target: {fileID: 2970533909294883578, guid: 208cb0cc0f9ef224fbb474534378835d,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.1812312
+      value: 0.18
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 208cb0cc0f9ef224fbb474534378835d, type: 3}

@@ -15,12 +15,12 @@ PrefabInstance:
     - target: {fileID: 4096889186759365126, guid: 5a97d2b5e2f11714cbe25908e6ebf125,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.5918
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4096889186759365126, guid: 5a97d2b5e2f11714cbe25908e6ebf125,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.0222
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4096889186759365126, guid: 5a97d2b5e2f11714cbe25908e6ebf125,
         type: 3}
@@ -70,16 +70,20 @@ PrefabInstance:
     - target: {fileID: 4096889186759365126, guid: 5a97d2b5e2f11714cbe25908e6ebf125,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.2114355
+      value: 0.21
       objectReference: {fileID: 0}
     - target: {fileID: 4096889186759365126, guid: 5a97d2b5e2f11714cbe25908e6ebf125,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.18123119
+      value: 0.18
       objectReference: {fileID: 0}
-    - target: {fileID: 922849317, guid: 5a97d2b5e2f11714cbe25908e6ebf125, type: 3}
-      propertyPath: m_Enabled
-      value: 0
+    - target: {fileID: 922849318, guid: 5a97d2b5e2f11714cbe25908e6ebf125, type: 3}
+      propertyPath: isHoldingDown
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 922849318, guid: 5a97d2b5e2f11714cbe25908e6ebf125, type: 3}
+      propertyPath: timeUntilHold
+      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5a97d2b5e2f11714cbe25908e6ebf125, type: 3}

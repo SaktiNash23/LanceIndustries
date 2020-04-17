@@ -7,6 +7,7 @@ public class Proto_Projectile : MonoBehaviour
 {
     public float projectileSpeed;
     public float projectileRaycastLength;
+    public float projectile2ndRaycastLength;
     private Vector3 directionVector;
     private Rigidbody2D rb;
     private bool reflectorHit = false;
@@ -100,12 +101,14 @@ public class Proto_Projectile : MonoBehaviour
 
                 if(hitStore.collider.gameObject.tag == "InvalidBounds")
                 {
-                    Destroy(gameObject);
+                    projectileSpeed = 0.0f;
+                    Destroy(gameObject, 1.0f);
                 }
 
                 if(hitStore.collider.gameObject.tag == "Border")
                 {
-                    Destroy(gameObject);
+                    projectileSpeed = 0.0f;
+                    Destroy(gameObject, 1.0f);
                 }
             }
 

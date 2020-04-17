@@ -15,6 +15,8 @@ public class Raycast : MonoBehaviour
     private int layerMask;
     public bool isOccupied = false;
     public GameObject gridReference = null;
+    private GameObject highlightedGrid = null;
+    Color tempColor;
 
     void Awake()
     {
@@ -82,11 +84,69 @@ public class Raycast : MonoBehaviour
                 switch (touch.phase)
                 {
                     case TouchPhase.Began:
+                        transform.position = new Vector3(point.x, point.y);
                         break;
 
                     case TouchPhase.Moved:
                         point = Camera.main.ScreenToWorldPoint(touch.position);
                         transform.position = new Vector3(point.x, point.y);
+
+                        hit = Physics2D.Raycast(transform.position, -transform.up, rayLength, layerMask);
+
+                        if (hit)
+                        {
+                            if (hit.collider.tag == "Grid")
+                            {
+                                if(highlightedGrid != null)
+                                {
+                                   tempColor = highlightedGrid.GetComponent<SpriteRenderer>().color;
+                                   tempColor.a = 0.0f;
+                                   highlightedGrid.GetComponent<SpriteRenderer>().color = tempColor;
+                                }
+
+                                highlightedGrid = hit.transform.gameObject;
+                                tempColor = hit.transform.gameObject.GetComponent<SpriteRenderer>().color;
+                                tempColor.a = 1.0f;
+                                hit.transform.gameObject.GetComponent<SpriteRenderer>().color = tempColor;
+                            }
+                            else
+                            {
+                                GameManager.gameManagerInstance.resetGridAlpha();
+                            }
+                        }
+                        else
+                            GameManager.gameManagerInstance.resetGridAlpha();
+
+                        break;
+
+                    case TouchPhase.Stationary:
+                        hit = Physics2D.Raycast(transform.position, -transform.up, rayLength, layerMask);
+
+                        if (hit)
+                        {
+                            if (hit.collider.tag == "Grid")
+                            {
+                                if (highlightedGrid != null)
+                                {
+                                    tempColor = highlightedGrid.GetComponent<SpriteRenderer>().color;
+                                    tempColor.a = 0.0f;
+                                    highlightedGrid.GetComponent<SpriteRenderer>().color = tempColor;
+                                }
+
+                                highlightedGrid = hit.transform.gameObject;
+
+                                tempColor = hit.transform.gameObject.GetComponent<SpriteRenderer>().color;
+                                tempColor.a = 1.0f;
+                                hit.transform.gameObject.GetComponent<SpriteRenderer>().color = tempColor;
+                            }
+                            else
+                            {
+                                GameManager.gameManagerInstance.resetGridAlpha();
+                            }
+                        }
+                        else
+                            GameManager.gameManagerInstance.resetGridAlpha();
+
                         break;
 
                     case TouchPhase.Ended:
@@ -104,7 +164,9 @@ public class Raycast : MonoBehaviour
                                     hit.transform.gameObject.GetComponent<Proto_Grid>().isOccupied_Grid = true;
                                     hit.transform.gameObject.GetComponent<Proto_Grid>().reflectorStored_Grid = this.gameObject;
                                     hit.transform.gameObject.GetComponent<BoxCollider2D>().enabled = false;
-                                    hit.transform.gameObject.GetComponent<SpriteRenderer>().color = Color.green;
+                                    tempColor = hit.transform.gameObject.GetComponent<SpriteRenderer>().color;
+                                    tempColor.a = 0.0f;
+                                    hit.transform.gameObject.GetComponent<SpriteRenderer>().color = tempColor;
 
                                     isOccupied = true;
                                     gridReference = hit.transform.gameObject;
@@ -117,9 +179,13 @@ public class Raycast : MonoBehaviour
                                 inGrid = false;
                                 //Remove Reflector from allReflectorsInScene List from GameManager before destroying it
                                 GameManager.gameManagerInstance.removeReflector(gameObject);
-
                                 //Check which Reflector it is and return it to the stock
                                 GameManager.gameManagerInstance.returnReflectorToStock(gameObject);
+
+                                GameManager.gameManagerInstance.resetReflectorColliders(); //If the reflector hits an invalid spot, we need to reset the colliders
+                                                                                           //for any reflectors that are still in the scene before this object gets 
+                                                                                           //destroyed, else player cannot control the reflectors that are in the scene
+                                                                                           //since their Box Colliders have not been reenabled.
 
                                 Destroy(gameObject);
                                 Debug.Log(hit.transform.name);
@@ -130,9 +196,13 @@ public class Raycast : MonoBehaviour
                             inGrid = false;
                             //Remove Reflector from allReflectorsInScene List from GameManager before destroying it
                             GameManager.gameManagerInstance.removeReflector(gameObject);
-
                             //Check which Reflector it is and return it to the stock
                             GameManager.gameManagerInstance.returnReflectorToStock(gameObject);
+
+                            GameManager.gameManagerInstance.resetReflectorColliders(); //If the reflector hits an invalid spot, we need to reset the colliders
+                                                                                       //for any reflectors that are still in the scene before this object gets 
+                                                                                       //destroyed, else player cannot control the reflectors that are in the scene
+                                                                                       //since their Box Colliders have not been reenabled.
 
                             Destroy(gameObject);
                             Debug.Log("Hit nothing");
@@ -149,7 +219,10 @@ public class Raycast : MonoBehaviour
             {
                 timeUntilHold = 0.0f;
                 isHoldingDown = false;
-                GameManager.gameManagerInstance.resetReflectorColliders();
+
+                if (GameManager.gameManagerInstance.activationToggle_Reflector == true)
+                    GameManager.gameManagerInstance.resetReflectorColliders();
+
                 GameManager.gameManagerInstance.activationToggle_Grid = false;
 
             }

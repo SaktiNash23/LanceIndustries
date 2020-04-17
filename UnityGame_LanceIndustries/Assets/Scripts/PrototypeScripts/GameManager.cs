@@ -26,26 +26,24 @@ public class GameManager : MonoBehaviour
    [ReorderableList]
    public GameObject[] allReflectorGO;
 
-        public static GameManager gameManagerInstance; //Game Manager Instance
+   public static GameManager gameManagerInstance; //Game Manager Instance
 
-        public List<GameObject> allReflectorsInScene = new List<GameObject>(); //Stores all the reflectors that are in the scene
-        public List<GameObject> allGridInScene = new List<GameObject>(); //
+    public List<GameObject> allReflectorsInScene = new List<GameObject>();
+    public List<GameObject> allGridInScene = new List<GameObject>(); 
 
-        public bool activationToggle_Grid = false;
-        public bool activationToggle_Reflector = false;
+    public bool activationToggle_Grid = false;
+    public bool activationToggle_Reflector = false;
 
-        [SerializeField]
-        private int reflectorStock_Basic;
-        [SerializeField]
-        private int reflectorStock_Translucent;
-        [SerializeField]
-        private int reflectorStock_DoubleWay;
-        [SerializeField]
-        private int reflectorStock_Split;
-        [SerializeField]
-        private int reflectorStock_ThreeWay;
-
-    GameObject instantiatedReflector = null;
+    [SerializeField]
+    private int reflectorStock_Basic;
+    [SerializeField]
+    private int reflectorStock_Translucent;
+    [SerializeField]
+    private int reflectorStock_DoubleWay;
+    [SerializeField]
+    private int reflectorStock_Split;
+    [SerializeField]
+    private int reflectorStock_ThreeWay;
 
     public TextMeshProUGUI ReflectorStock_Basic_Text;
     public TextMeshProUGUI ReflectorStock_Translucent_Text;
@@ -53,32 +51,34 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI ReflectorStock_Split_Text;
     public TextMeshProUGUI ReflectorStock_ThreeWay_Text;
 
-    public Button ReflectorBasicButton;
+    public List<Button> allReflectorButtons = new List<Button>();
+
+    Color tempColor;
+
 
     void Awake()
+    {
+        
+        if (gameManagerInstance == null)
         {
-            if (gameManagerInstance == null)
-            {
-                gameManagerInstance = this;
-            }
-
-            /*
-            GameObject[] foundReflectors = GameObject.FindGameObjectsWithTag("ReflectorGM");
-            
-            for(int i = 0; i < foundReflectors.Length; ++i)
-            {
-                allReflectorsInScene.Add(foundReflectors[i]);
-                Debug.Log("Reflector Added : " + allReflectorsInScene[i].name);
-            }
-            */
-
-            GameObject[] foundGrids = GameObject.FindGameObjectsWithTag("Grid");
-
-            for(int j = 0; j < foundGrids.Length; ++j)
-            {
-                allGridInScene.Add(foundGrids[j]);
-            }
+             gameManagerInstance = this;
         }
+
+        GameObject[] foundGrids = GameObject.FindGameObjectsWithTag("Grid");
+
+        for(int j = 0; j < foundGrids.Length; ++j)
+        {
+            allGridInScene.Add(foundGrids[j]);
+        }
+
+        //Set all the alpha values of the grids to 0 (transparent)
+        for(int j = 0; j < allGridInScene.Count; ++j)
+        {
+            tempColor = allGridInScene[j].GetComponent<SpriteRenderer>().color;
+            tempColor.a = 0.0f;
+            allGridInScene[j].GetComponent<SpriteRenderer>().color = tempColor;
+        }
+    }
 
     void Start()
     {
@@ -100,26 +100,26 @@ public class GameManager : MonoBehaviour
             }
         }
         
-    //Turns off all reflector colliders except for the one the player is currently in control of
+    //Turns off all reflector colliders except for the one the player is currently in control of    
     public void toggleReflectorColliders()
-        {
-            for (int i = 0; i < allReflectorsInScene.Count; ++i)
-            {
-               allReflectorsInScene[i].GetComponent<BoxCollider2D>().enabled = false;
-            }
+    {
+         for (int i = 0; i < allReflectorsInScene.Count; ++i)
+         {
+            allReflectorsInScene[i].GetComponent<BoxCollider2D>().enabled = false;
+         }
 
 
-            for (int j = 0; j < allReflectorsInScene.Count; ++j)
-            {
-                if (allReflectorsInScene[j].GetComponent<Raycast>().isHoldingDownAccessor == true)
-                {            
-                    allReflectorsInScene[j].GetComponent<BoxCollider2D>().enabled = true;
-                    break;
-                }                   
-            }
+         for (int j = 0; j < allReflectorsInScene.Count; ++j)
+         {
+              if (allReflectorsInScene[j].GetComponent<Raycast>().isHoldingDownAccessor == true)
+              {            
+                  allReflectorsInScene[j].GetComponent<BoxCollider2D>().enabled = true;
+                  break;
+              }                   
+         }
 
-            activationToggle_Reflector = true;
-        }
+         activationToggle_Reflector = true;
+    }
 
     //Resets all refelctor colliders to their original state
     public void resetReflectorColliders()
@@ -129,27 +129,98 @@ public class GameManager : MonoBehaviour
             allReflectorsInScene[i].GetComponent<BoxCollider2D>().enabled = true;
          }
 
+        Debug.LogWarning("Reset Reflector Colliders");
+
         activationToggle_Reflector = false;
     }
-
-    public GameObject checkReflectorStockAvailability(string reflectorButtonPressedName)
+    
+    public bool checkReflectorStockAvailability(string reflectorButtonPressedName, out int reflectorToSpawnIndex)
     {
+        bool isReflectorInStock = false;
+        reflectorToSpawnIndex = 0;
+
         if(reflectorButtonPressedName == "ReflectorButton_Basic")
         {
             if(reflectorStock_Basic > 0)
             {
-                instantiatedReflector = allReflectorGO[0];
+                reflectorToSpawnIndex = 0;
                 reflectorStock_Basic--;
                 ReflectorStock_Basic_Text.text = reflectorStock_Basic.ToString();
+                isReflectorInStock = true;
             }
             else
             {
-                Debug.Log("OUT OF STOCK: Basic Reflector");
-                instantiatedReflector = null; //No reflector is instantiated to be returned
+                Debug.LogWarning("OUT OF STOCK: Basic Reflector");
+                isReflectorInStock = false;
             }
         }
 
-        return instantiatedReflector;
+        if(reflectorButtonPressedName == "ReflectorButton_Translucent")
+        {
+            if (reflectorStock_Translucent > 0)
+            {
+                reflectorToSpawnIndex = 1; 
+                reflectorStock_Translucent--;
+                ReflectorStock_Translucent_Text.text = reflectorStock_Translucent.ToString();
+                isReflectorInStock = true;
+            }
+            else
+            {
+                Debug.LogWarning("OUT OF STOCK: Translucent Reflector");
+                isReflectorInStock = false;
+            }
+        }
+
+        if(reflectorButtonPressedName == "ReflectorButton_DoubleWay")
+        {
+            if (reflectorStock_DoubleWay > 0)
+            {
+                reflectorToSpawnIndex = 2;
+                reflectorStock_DoubleWay--;
+                ReflectorStock_DoubleWay_Text.text = reflectorStock_DoubleWay.ToString();
+                isReflectorInStock = true;
+            }
+            else
+            {
+                Debug.LogWarning("OUT OF STOCK: Double Way Reflector");
+                isReflectorInStock = false;
+            }
+        }
+
+        if(reflectorButtonPressedName == "ReflectorButton_Split")
+        {
+            if (reflectorStock_Split > 0)
+            {
+                reflectorToSpawnIndex = 3;
+                reflectorStock_Split--;
+                ReflectorStock_Split_Text.text = reflectorStock_Split.ToString();
+                isReflectorInStock = true;
+            }
+            else
+            {
+                Debug.Log("OUT OF STOCK: Split Reflector");
+                isReflectorInStock = false;
+            }
+        }
+
+        if(reflectorButtonPressedName == "ReflectorButton_ThreeWay")
+        {
+            if (reflectorStock_ThreeWay > 0)
+            {
+                reflectorToSpawnIndex = 4;
+                reflectorStock_ThreeWay--;
+                ReflectorStock_ThreeWay_Text.text = reflectorStock_ThreeWay.ToString();
+                isReflectorInStock = true;
+                
+            }
+            else
+            {
+                Debug.Log("OUT OF STOCK: Three Way Reflector");
+                isReflectorInStock = false;
+            }
+        }
+
+        return isReflectorInStock;
     }
 
     public void returnReflectorToStock(GameObject reflector)
@@ -181,24 +252,43 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void removeReflector(GameObject reflectorToBeRemoved)
+    public void removeReflector(GameObject reflector)
     {
-        for(int j = 0; j < allReflectorsInScene.Count; ++j)
-        {
-            Debug.LogWarning(allReflectorsInScene[j].GetInstanceID());
-        }
 
         for(int i = 0; i < allReflectorsInScene.Count; ++i)
         {
-            if(reflectorToBeRemoved.GetInstanceID() == allReflectorsInScene[i].GetInstanceID())
+            if(allReflectorsInScene[i].GetInstanceID() == reflector.GetInstanceID())
             {
-                Debug.Log("Reflector Removed");
                 allReflectorsInScene.RemoveAt(i);
+                Debug.LogWarning("Removed Reflector");
             }
-            else
-            {
-                Debug.Log("No such reflector");
-            }
+        }
+    }
+
+    public void resetGridAlpha()
+    {
+        //Set all the alpha values of the grids to 0 (transparent)
+        for (int j = 0; j < allGridInScene.Count; ++j)
+        {
+            tempColor = allGridInScene[j].GetComponent<SpriteRenderer>().color;
+            tempColor.a = 0.0f;
+            allGridInScene[j].GetComponent<SpriteRenderer>().color = tempColor;
+        }
+    }
+
+    public void activateAllButtons()
+    {
+        for (int i = 0; i < allReflectorButtons.Count; ++i)
+        {
+            allReflectorButtons[i].interactable = true;
+        }
+    }
+
+    public void deactivateAllButtons()
+    {
+        for(int i = 0; i < allReflectorButtons.Count; ++i)
+        {
+            allReflectorButtons[i].interactable = false;
         }
     }
 

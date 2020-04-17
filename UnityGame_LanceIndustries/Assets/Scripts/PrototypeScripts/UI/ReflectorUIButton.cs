@@ -11,26 +11,55 @@ public class ReflectorUIButton : MonoBehaviour
     void Start()
     {
         EventTrigger eventTrigger = GetComponent<EventTrigger>();
-        EventTrigger.Entry entry = new EventTrigger.Entry();
 
-        entry.eventID = EventTriggerType.PointerDown;
-        entry.callback.AddListener((data) => { OnPointerDown((PointerEventData)data); });
-        eventTrigger.triggers.Add(entry);
+        EventTrigger.Entry entryOnPointerDown = new EventTrigger.Entry();
+        EventTrigger.Entry entryOnPointerUp = new EventTrigger.Entry();
+
+        entryOnPointerDown.eventID = EventTriggerType.PointerDown;
+        entryOnPointerDown.callback.AddListener((data) => { OnPointerDown((PointerEventData)data); });
+
+        entryOnPointerUp.eventID = EventTriggerType.PointerUp;
+        entryOnPointerUp.callback.AddListener((data) => { OnPointerUp((PointerEventData)data); });
+
+        eventTrigger.triggers.Add(entryOnPointerDown);
+        eventTrigger.triggers.Add(entryOnPointerUp);
+
+
     }
 
     public void OnPointerDown(PointerEventData pointerEventData)
     {
+        GameObject returnedReflector = null;
+        bool reflectorInStock = false;
+        int reflectorToSpawnIndex = 0;
+
         Touch touch = Input.GetTouch(0);
-        Vector3 point = Camera.main.ScreenToWorldPoint(touch.position);
 
-        GameObject returnedReflector = GameManager.gameManagerInstance.checkReflectorStockAvailability(gameObject.name);
+        if(Input.touchCount <= 1)
+        { 
 
-        if (returnedReflector != null)
-        {
-            Instantiate(returnedReflector, new Vector2(point.x, point.y), Quaternion.identity);
-            returnedReflector.GetComponent<BoxCollider2D>().enabled = true;
-            GameManager.gameManagerInstance.allReflectorsInScene.Add(returnedReflector);
-            Debug.LogWarning("Reflector Instance ID : " + returnedReflector.GetInstanceID());
+            Vector3 point = Camera.main.ScreenToWorldPoint(touch.position);
+
+            reflectorInStock = GameManager.gameManagerInstance.checkReflectorStockAvailability(gameObject.name, out reflectorToSpawnIndex);
+
+           //GameManager.gameManagerInstance.deactivateAllButtons();
+
+           if (reflectorInStock)
+           {
+             returnedReflector = Instantiate(GameManager.gameManagerInstance.allReflectorGO[reflectorToSpawnIndex], new Vector2(point.x, point.y), Quaternion.identity);
+
+              GameManager.gameManagerInstance.allReflectorsInScene.Add(returnedReflector);
+              Debug.Log("Newly added reflector : " + returnedReflector.GetInstanceID());
+
+              returnedReflector.GetComponent<BoxCollider2D>().enabled = true;
+              returnedReflector.GetComponent<Raycast>().timeUntilHold = 0.1f;
+              returnedReflector.GetComponent<Raycast>().isHoldingDownAccessor = true;
+           }
         }
+    }
+
+    public void OnPointerUp(PointerEventData pointerEventData)
+    {
+        //GameManager.gameManagerInstance.activateAllButtons();
     }
 }
