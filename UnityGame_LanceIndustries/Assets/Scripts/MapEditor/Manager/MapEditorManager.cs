@@ -7,7 +7,7 @@ using UnityEditor;
 using TMPro;
 using NaughtyAttributes;
 
-public class MapEditorUIManager : MonoBehaviour
+public class MapEditorManager : MonoBehaviour
 {
     [BoxGroup("PANEL MENU SCREEN REFERENCES")] [SerializeField] CanvasGroup cgPanelMenuScreen;
     [BoxGroup("PANEL MENU SCREEN REFERENCES")] [SerializeField] RectTransform rtContentMapList;
@@ -25,6 +25,8 @@ public class MapEditorUIManager : MonoBehaviour
     [BoxGroup("MAP EDITOR IN SCENE OBJECT PREFABS")] [SerializeField] MapEditorInSceneObject originPointPrefab;
     [BoxGroup("MAP EDITOR IN SCENE OBJECT PREFABS")] [SerializeField] MapEditorInSceneObject destinationPointPrefab;
 
+    [BoxGroup("MAP EDITOR IN SCENE REFERENCES")] [SerializeField] GameObject mapLayoutGameObj;
+
     [BoxGroup("GIZMO REFERENCES")] public MoveGizmo moveGizmoPrefab;
     [BoxGroup("GIZMO REFERENCES")] public RotationGizmo rotationGizmoPrefab;
 
@@ -34,8 +36,8 @@ public class MapEditorUIManager : MonoBehaviour
 
     [HideInInspector] public string LoadedMapDataPath;
 
-    private static MapEditorUIManager _instance;
-    public static MapEditorUIManager Instance
+    private static MapEditorManager _instance;
+    public static MapEditorManager Instance
     {
         get { return _instance; }
     }
@@ -101,6 +103,7 @@ public class MapEditorUIManager : MonoBehaviour
         cgPanelMapEditingTopLayer.interactable = true;
         cgPanelMapEditingTopLayer.blocksRaycasts = true;
         StartCoroutine(LoadInSceneObjects(0.25f));
+        mapLayoutGameObj.SetActive(true);
     }
 
     public IEnumerator LoadInSceneObjects(float delay)
@@ -244,6 +247,7 @@ public class MapEditorUIManager : MonoBehaviour
         cgPanelMapEditingTopLayer.alpha = 0f;
         cgPanelMapEditingTopLayer.interactable = false;
         cgPanelMapEditingTopLayer.blocksRaycasts = false;
+        mapLayoutGameObj.SetActive(false);
 
         MapEditorInSceneObject[] inSceneObjects = FindObjectsOfType<MapEditorInSceneObject>();
         foreach (var inSceneObject in inSceneObjects)

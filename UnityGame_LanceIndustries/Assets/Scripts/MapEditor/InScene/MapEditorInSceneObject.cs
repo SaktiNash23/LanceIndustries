@@ -22,6 +22,8 @@ public class MapEditorInSceneObject : MonoBehaviour
 
     public InSceneObjectData inSceneObjectData { get; set; } = new InSceneObjectData();
 
+    public MapLayoutBorder SnappedTarget { get; set; } = null;
+
     private GizmoBase attachedGizmo;
 
     //------------------------------ MONOBEHAVIOUR FUNCTIONS -----------------------------//
@@ -34,6 +36,14 @@ public class MapEditorInSceneObject : MonoBehaviour
         eventTrigger.triggers.Add(onMouseButtonDownEntry);
         inSceneObjectData.inSceneObjectType = inSceneObjectType;
         UpdateInSceneObjectData();
+    }
+
+    private void LateUpdate()
+    {
+        if(SnappedTarget)
+        {
+            transform.position = SnappedTarget.GetSnappingPosition();
+        }
     }
 
     //------------------------------ IN SCENE OBJECT FUNCTIONS -----------------------------//
@@ -58,11 +68,11 @@ public class MapEditorInSceneObject : MonoBehaviour
         switch (gizmoMode)
         {
             case GIZMO_MODE.MOVE:
-                attachedGizmo = Instantiate(MapEditorUIManager.Instance.moveGizmoPrefab, transform.position, Quaternion.identity, transform);
+                attachedGizmo = Instantiate(MapEditorManager.Instance.moveGizmoPrefab, transform.position, Quaternion.identity, transform);
                 attachedGizmo.AssignInSceneObject(this);
                 break;
             case GIZMO_MODE.ROTATE:
-                attachedGizmo = Instantiate(MapEditorUIManager.Instance.rotationGizmoPrefab, transform.position, Quaternion.identity, transform);
+                attachedGizmo = Instantiate(MapEditorManager.Instance.rotationGizmoPrefab, transform.position, Quaternion.identity, transform);
                 attachedGizmo.AssignInSceneObject(this);
                 break;
         }

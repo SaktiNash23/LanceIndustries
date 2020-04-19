@@ -50,7 +50,17 @@ public class MoveGizmo : GizmoBase
                     break;
             }
 
-            attachedInSceneObj.transform.position = targetPos;
+            if (attachedInSceneObj.SnappedTarget)
+            {
+                if ((targetPos - attachedInSceneObj.transform.position).magnitude > attachedInSceneObj.SnappedTarget.UnsnapDistance)
+                {
+                    attachedInSceneObj.SnappedTarget = null;
+                }
+            }
+            else
+            {
+                attachedInSceneObj.transform.position = targetPos;
+            }
         }
     }
 

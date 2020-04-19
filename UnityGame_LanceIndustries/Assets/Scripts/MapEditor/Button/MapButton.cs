@@ -37,8 +37,8 @@ public class MapButton : MonoBehaviour
 
     private void OnLoadAction()
     {
-        MapEditorUIManager.Instance.LoadedMapDataPath = MapDataPath;
-        MapEditorUIManager.Instance.LoadMap();
+        MapEditorManager.Instance.LoadedMapDataPath = MapDataPath;
+        MapEditorManager.Instance.LoadMap();
     }
 
     public void AddCallback(UnityAction action)

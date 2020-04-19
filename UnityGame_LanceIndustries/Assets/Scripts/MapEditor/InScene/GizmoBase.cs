@@ -157,14 +157,14 @@ public class GizmoBase : MonoBehaviour
         LayerMask layerMask = LayerMask.GetMask("MapEditorInSceneObject");
         if(Physics.Raycast(mouseRay, out hit, cachedMainCamera.farClipPlane, layerMask))
         {
-            if (hit.transform.name == "xAxisTrigger")
+            if (hit.collider.transform.name == "xAxisTrigger")
                 xAxisSpriteRenderer.color = Color.white;
-            else if (hit.transform.name == "yAxisTrigger")
+            else if (hit.collider.transform.name == "yAxisTrigger")
             {
                 yAxisSpriteRenderer.color = Color.white;
                 xAxisSpriteRenderer.color = Color.red;
             }
-            else if (hit.transform.name == "xyAxisTrigger")
+            else if (hit.collider.transform.name == "xyAxisTrigger")
             {
                 xyAxisSpriteRenderer.color = Color.white;
                 xAxisSpriteRenderer.color = Color.white;
@@ -213,14 +213,14 @@ public class GizmoBase : MonoBehaviour
         LayerMask layerMask = LayerMask.GetMask("MapEditorInSceneObject");
         if (Physics.Raycast(mouseRay, out hit, cachedMainCamera.farClipPlane, layerMask))
         {
-            if (hit.transform.name == "yAxisTrigger")
+            if (hit.collider.transform.name == "yAxisTrigger")
                 yAxisSpriteRenderer.color = Color.white;
-            else if (hit.transform.name == "xAxisTrigger")
+            else if (hit.collider.transform.name == "xAxisTrigger")
             {
                 xAxisSpriteRenderer.color = Color.white;
                 yAxisSpriteRenderer.color = Color.green;
             }
-            else if (hit.transform.name == "xyAxisTrigger")
+            else if (hit.collider.transform.name == "xyAxisTrigger")
             {
                 xyAxisSpriteRenderer.color = Color.white;
                 xAxisSpriteRenderer.color = Color.white;
@@ -269,7 +269,7 @@ public class GizmoBase : MonoBehaviour
         LayerMask layerMask = LayerMask.GetMask("MapEditorInSceneObject");
         if (Physics.Raycast(mouseRay, out hit, cachedMainCamera.farClipPlane, layerMask))
         {
-            if (hit.transform.name == "zAxisTrigger")
+            if (hit.collider.transform.name == "zAxisTrigger")
                 zAxisSpriteRenderer.color = Color.white;
         }
         else
@@ -316,19 +316,19 @@ public class GizmoBase : MonoBehaviour
         LayerMask layerMask = LayerMask.GetMask("MapEditorInSceneObject");
         if (Physics.Raycast(mouseRay, out hit, cachedMainCamera.farClipPlane, layerMask))
         {
-            if (hit.transform.name == "xyAxisTrigger")
+            if (hit.collider.transform.name == "xyAxisTrigger")
             {
                 xAxisSpriteRenderer.color = Color.white;
                 yAxisSpriteRenderer.color = Color.white;
                 xyAxisSpriteRenderer.color = Color.white;
             }
-            else if (hit.transform.name == "xAxisTrigger")
+            else if (hit.collider.transform.name == "xAxisTrigger")
             {
                 xAxisSpriteRenderer.color = Color.white;
                 yAxisSpriteRenderer.color = Color.green;
                 xyAxisSpriteRenderer.color = Color.blue;
             }
-            else if (hit.transform.name == "yAxisTrigger")
+            else if (hit.collider.transform.name == "yAxisTrigger")
             {
                 xAxisSpriteRenderer.color = Color.red;
                 yAxisSpriteRenderer.color = Color.white;

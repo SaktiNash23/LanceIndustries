@@ -99,6 +99,11 @@ public class MapEditorInputManager : MonoBehaviour
             if (selectingObject)
                 SwitchGizmo();
         }
+        else if(Input.GetKeyDown(KeyCode.Delete))
+        {
+            if (selectingObject)
+                DeleteObject();
+        }
     }
 
     //------------------------------ INPUT MANAGER FUNCTIONS ------------------------------//
@@ -138,5 +143,17 @@ public class MapEditorInputManager : MonoBehaviour
     {
         selectingObject = selectedObj;
         SwitchInputMode(INPUT_MODE.SELECTING);
+    }
+
+    public void DeleteObject()
+    {
+        Destroy(selectingObject.gameObject);
+        selectingObject = null;
+        SwitchInputMode(INPUT_MODE.NONE);
+    }
+
+    public MapEditorInSceneObject GetSelectingInSceneObject()
+    {
+        return selectingObject;
     }
 }
