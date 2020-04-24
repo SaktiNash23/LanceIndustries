@@ -179,7 +179,7 @@ public class Raycast : MonoBehaviour
                                 inGrid = false;
                                 //Remove Reflector from allReflectorsInScene List from GameManager before destroying it
                                 GameManager.gameManagerInstance.removeReflector(gameObject);
-                                //Check which Reflector it is and return it to the stock
+                                //Check which Reflector it is and return it to the stock / return back to the pool
                                 GameManager.gameManagerInstance.returnReflectorToStock(gameObject);
 
                                 GameManager.gameManagerInstance.resetReflectorColliders(); //If the reflector hits an invalid spot, we need to reset the colliders
@@ -187,7 +187,7 @@ public class Raycast : MonoBehaviour
                                                                                            //destroyed, else player cannot control the reflectors that are in the scene
                                                                                            //since their Box Colliders have not been reenabled.
 
-                                Destroy(gameObject);
+                                //Destroy(gameObject); //Uncomment if using traditional Instantiate & Destroy. Object Pooling technique does not require this
                                 Debug.Log(hit.transform.name);
                             }
                         }
@@ -196,7 +196,7 @@ public class Raycast : MonoBehaviour
                             inGrid = false;
                             //Remove Reflector from allReflectorsInScene List from GameManager before destroying it
                             GameManager.gameManagerInstance.removeReflector(gameObject);
-                            //Check which Reflector it is and return it to the stock
+                            //Check which Reflector it is and return it to the stock / return back to the pool
                             GameManager.gameManagerInstance.returnReflectorToStock(gameObject);
 
                             GameManager.gameManagerInstance.resetReflectorColliders(); //If the reflector hits an invalid spot, we need to reset the colliders
@@ -204,7 +204,7 @@ public class Raycast : MonoBehaviour
                                                                                        //destroyed, else player cannot control the reflectors that are in the scene
                                                                                        //since their Box Colliders have not been reenabled.
 
-                            Destroy(gameObject);
+                            //Destroy(gameObject); //Uncomment if using traditional Instantiate & Destroy. Object Pooling technique does not require this
                             Debug.Log("Hit nothing");
                         }
 

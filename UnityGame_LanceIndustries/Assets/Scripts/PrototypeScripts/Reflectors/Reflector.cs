@@ -5,7 +5,7 @@ using NaughtyAttributes;
 
     public class Reflector : MonoBehaviour
     {
-        private Reflector_SO reflectorBase_SO;
+        public Reflector_SO reflectorBase_SO;
 
         protected Vector2 referenceVector;
         protected RaycastHit2D referenceHitParam;
@@ -14,7 +14,13 @@ using NaughtyAttributes;
 
         void Start()
         {
-            reflectorBase_SO = GameManager.gameManagerInstance.allReflectorSO[0]; //Index 0: Base Reflector
+            //reflectorBase_SO = GameManager.gameManagerInstance.allReflectorSO[0]; //Index 0: Base Reflector
+            if(reflectorBase_SO == null)
+            {
+                Debug.LogWarning("No Scriptable Object has been assigned to this reflector. Please set the SO in the editor");
+            }
+
+            Debug.Log("Basic Reflector SO : " + reflectorBase_SO);
         }
 
         public void retrieveLaserProperties(RaycastHit2D hitParam, GameObject projectile)

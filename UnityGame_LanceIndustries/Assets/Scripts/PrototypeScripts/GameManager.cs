@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using NaughtyAttributes;
+using UnityEngine.EventSystems;
 
 
 public class GameManager : MonoBehaviour
@@ -22,9 +23,9 @@ public class GameManager : MonoBehaviour
    [ReorderableList]
    public Reflector_SO[] allReflectorSO;
 
-   [InfoBox("Ensure the Reflector Gameobjects are placed in the right order", EInfoBoxType.Normal)]
-   [ReorderableList]
-   public GameObject[] allReflectorGO;
+   //[InfoBox("Ensure the Reflector Gameobjects are placed in the right order", EInfoBoxType.Normal)]
+   //[ReorderableList]
+   //public GameObject[] allReflectorGO;
 
    public static GameManager gameManagerInstance; //Game Manager Instance
 
@@ -34,17 +35,12 @@ public class GameManager : MonoBehaviour
     public bool activationToggle_Grid = false;
     public bool activationToggle_Reflector = false;
 
-    [SerializeField]
-    private int reflectorStock_Basic;
-    [SerializeField]
-    private int reflectorStock_Translucent;
-    [SerializeField]
-    private int reflectorStock_DoubleWay;
-    [SerializeField]
-    private int reflectorStock_Split;
-    [SerializeField]
-    private int reflectorStock_ThreeWay;
-
+    public int ReflectorStock_Basic;
+    public int ReflectorStock_Translucent;
+    public int ReflectorStock_DoubleWay;
+    public int ReflectorStock_Split;
+    public int ReflectorStock_ThreeWay;
+    
     public TextMeshProUGUI ReflectorStock_Basic_Text;
     public TextMeshProUGUI ReflectorStock_Translucent_Text;
     public TextMeshProUGUI ReflectorStock_DoubleWay_Text;
@@ -52,9 +48,20 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI ReflectorStock_ThreeWay_Text;
 
     public List<Button> allReflectorButtons = new List<Button>();
+    public List<Button> allReflectorColorButtons = new List<Button>();
+
+    public Sprite reflectorSprite_Basic;
+    public Sprite reflectorSprite_Translucent;
+    public Sprite reflectorSprite_DoubleWay;
+    public Sprite reflectorSprite_Split;
+    public Sprite reflectorSprite_ThreeWay;
+
+    public GameObject reflectorColorsPanel; //Panel that contains the buttons for the different reflector color buttons
 
     Color tempColor;
 
+    public bool isReflectorColorPanelActive = false;
+    public LayerMask layerMask;
 
     void Awake()
     {
@@ -78,15 +85,62 @@ public class GameManager : MonoBehaviour
             tempColor.a = 0.0f;
             allGridInScene[j].GetComponent<SpriteRenderer>().color = tempColor;
         }
+
+        reflectorColorsPanel.SetActive(false);
+
+        layerMask = ~layerMask;
+
     }
 
     void Start()
     {
-        ReflectorStock_Basic_Text.text = reflectorStock_Basic.ToString();
-        ReflectorStock_Translucent_Text.text = reflectorStock_Translucent.ToString();
-        ReflectorStock_DoubleWay_Text.text = reflectorStock_DoubleWay.ToString();
-        ReflectorStock_Split_Text.text = reflectorStock_Split.ToString();
-        ReflectorStock_ThreeWay_Text.text = reflectorStock_ThreeWay.ToString();
+        ReflectorStock_Basic_Text.text = ReflectorStock_Basic.ToString();
+    }
+
+    void Update()
+    {
+        Debug.Log("IsReflectorColorPanelActive " + isReflectorColorPanelActive);
+
+        if(Input.touchCount == 1)
+        {
+            Touch touch = Input.GetTouch(0);
+
+            if (!EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
+            {
+                if (isReflectorColorPanelActive == true)
+                {      
+                    Debug.DrawRay(touch.position, -transform.up, Color.red, 3.0f);
+
+                    switch (touch.phase)
+                    {
+                        case TouchPhase.Began:
+                            RaycastHit2D hit = Physics2D.Raycast(touch.position, -transform.up, 0.4f);
+
+                            if (hit)
+                            {
+                                if (hit.collider.tag == "Grid")
+                                {
+                                    Debug.LogWarning("Hit Grid while Reflector Color panel is active");
+                                    reflectorColorsPanel.SetActive(false);
+                                    isReflectorColorPanelActive = false;
+                                }
+                                else if (hit.collider.tag == "UI")
+                                {
+                                    Debug.LogWarning("Hit something, but don't know what it is");
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogWarning("Hit nothing. So still close Reflectors Color Panel");
+                                reflectorColorsPanel.SetActive(false);
+                                isReflectorColorPanelActive = false;
+                            }
+
+                            break;
+                    }
+                }
+            }
+        }    
     }
 
     public void toggleGridColliders()
@@ -134,18 +188,14 @@ public class GameManager : MonoBehaviour
         activationToggle_Reflector = false;
     }
     
-    public bool checkReflectorStockAvailability(string reflectorButtonPressedName, out int reflectorToSpawnIndex)
+    public bool checkReflectorStockAvailability(string pressedReflectorTypeButtonTag)
     {
         bool isReflectorInStock = false;
-        reflectorToSpawnIndex = 0;
 
-        if(reflectorButtonPressedName == "ReflectorButton_Basic")
+        if(pressedReflectorTypeButtonTag == "ReflectorButton_Basic")
         {
-            if(reflectorStock_Basic > 0)
+            if(GameManager.gameManagerInstance.ReflectorStock_Basic > 0)
             {
-                reflectorToSpawnIndex = 0;
-                reflectorStock_Basic--;
-                ReflectorStock_Basic_Text.text = reflectorStock_Basic.ToString();
                 isReflectorInStock = true;
             }
             else
@@ -155,101 +205,80 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if(reflectorButtonPressedName == "ReflectorButton_Translucent")
-        {
-            if (reflectorStock_Translucent > 0)
-            {
-                reflectorToSpawnIndex = 1; 
-                reflectorStock_Translucent--;
-                ReflectorStock_Translucent_Text.text = reflectorStock_Translucent.ToString();
-                isReflectorInStock = true;
-            }
-            else
-            {
-                Debug.LogWarning("OUT OF STOCK: Translucent Reflector");
-                isReflectorInStock = false;
-            }
-        }
-
-        if(reflectorButtonPressedName == "ReflectorButton_DoubleWay")
-        {
-            if (reflectorStock_DoubleWay > 0)
-            {
-                reflectorToSpawnIndex = 2;
-                reflectorStock_DoubleWay--;
-                ReflectorStock_DoubleWay_Text.text = reflectorStock_DoubleWay.ToString();
-                isReflectorInStock = true;
-            }
-            else
-            {
-                Debug.LogWarning("OUT OF STOCK: Double Way Reflector");
-                isReflectorInStock = false;
-            }
-        }
-
-        if(reflectorButtonPressedName == "ReflectorButton_Split")
-        {
-            if (reflectorStock_Split > 0)
-            {
-                reflectorToSpawnIndex = 3;
-                reflectorStock_Split--;
-                ReflectorStock_Split_Text.text = reflectorStock_Split.ToString();
-                isReflectorInStock = true;
-            }
-            else
-            {
-                Debug.Log("OUT OF STOCK: Split Reflector");
-                isReflectorInStock = false;
-            }
-        }
-
-        if(reflectorButtonPressedName == "ReflectorButton_ThreeWay")
-        {
-            if (reflectorStock_ThreeWay > 0)
-            {
-                reflectorToSpawnIndex = 4;
-                reflectorStock_ThreeWay--;
-                ReflectorStock_ThreeWay_Text.text = reflectorStock_ThreeWay.ToString();
-                isReflectorInStock = true;
-                
-            }
-            else
-            {
-                Debug.Log("OUT OF STOCK: Three Way Reflector");
-                isReflectorInStock = false;
-            }
-        }
-
         return isReflectorInStock;
+    }
+
+    public string setSelectedColorReflector(string reflectorType, string reflectorColor)
+    {
+        string reflectorPoolTag = System.String.Empty;
+
+        if (reflectorType == "Basic")
+        {
+            if(reflectorColor == "White")
+            {
+                reflectorPoolTag = "ReflectorPool_Basic_White";
+            }
+            else if(reflectorColor == "Red")
+            {
+                reflectorPoolTag = "ReflectorPool_Basic_Red";
+            }
+            else if(reflectorColor == "Blue")
+            {
+                reflectorPoolTag = "ReflectorPool_Basic_Blue";
+            }
+            else if(reflectorColor == "Yellow")
+            {
+                reflectorPoolTag = "ReflectorPool_Basic_Yellow";
+            }
+            else
+            {
+                Debug.LogWarning("No such reflector color exist. Check if the reflectorColorTag is set properly in editor and if " +
+                    "it matches the ones in the conditional statements");
+            }
+           
+        }
+        else
+        {
+            Debug.LogWarning("No such reflectorType exists. Check if the ReflectorTypeTag is set correctly in editor and if it matches in the" +
+                "conditional statement");
+        }
+
+        return reflectorPoolTag;
     }
 
     public void returnReflectorToStock(GameObject reflector)
     {
-        if (reflector.name.Contains("Basic"))
+
+        if (reflector.transform.GetChild(0).GetComponent<Reflector>() != null)
         {
-            reflectorStock_Basic++;
-            ReflectorStock_Basic_Text.text = reflectorStock_Basic.ToString();
+            if (reflector.name.Contains("White"))
+            {
+                ReflectorPooler.instance_reflectorPooler.reflectorPoolDictionary["ReflectorPool_Basic_White"].Enqueue(reflector);
+            }
+            else if (reflector.name.Contains("Red"))
+            {
+                ReflectorPooler.instance_reflectorPooler.reflectorPoolDictionary["ReflectorPool_Basic_Red"].Enqueue(reflector);
+            }
+            else if (reflector.name.Contains("Blue"))
+            {
+                ReflectorPooler.instance_reflectorPooler.reflectorPoolDictionary["ReflectorPool_Basic_Blue"].Enqueue(reflector);
+            }
+            else if (reflector.name.Contains("Yellow"))
+            {
+                ReflectorPooler.instance_reflectorPooler.reflectorPoolDictionary["ReflectorPool_Basic_Yellow"].Enqueue(reflector);
+            }
+            else
+            {
+                Debug.LogWarning("No such reflector exists. Check to ensure the reflector contains the string you are checking for in the editor. Ensure it is case sensitive.");
+            }
+
+            ReflectorStock_Basic++;
+            ReflectorStock_Basic_Text.text = ReflectorStock_Basic.ToString();
         }
-        if (reflector.name.Contains("Translucent"))
-        {
-            reflectorStock_Translucent++;
-            ReflectorStock_Translucent_Text.text = reflectorStock_Translucent.ToString();
-        }
-        if (reflector.name.Contains("DoubleWay"))
-        {
-            reflectorStock_DoubleWay++;
-            ReflectorStock_DoubleWay_Text.text = reflectorStock_DoubleWay.ToString();
-        }
-        if (reflector.name.Contains("Split"))
-        {
-            reflectorStock_Split++;
-            ReflectorStock_Split_Text.text = reflectorStock_Split.ToString();
-        }
-        if (reflector.name.Contains("ThreeWay"))
-        {
-            reflectorStock_ThreeWay++;
-            ReflectorStock_ThreeWay_Text.text = reflectorStock_ThreeWay.ToString();
-        }
+
+        reflector.transform.position = GameObject.FindGameObjectWithTag("InactivePooledReflectors").transform.position;
+        reflector.transform.rotation = Quaternion.identity;
+        reflector.SetActive(false);
     }
 
     public void removeReflector(GameObject reflector)
