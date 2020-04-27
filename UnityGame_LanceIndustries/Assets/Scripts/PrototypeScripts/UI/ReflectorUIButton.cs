@@ -31,7 +31,6 @@ public class ReflectorUIButton : MonoBehaviour
 
     public void OnPointerDown(PointerEventData pointerEventData)
     {
-        
     }
 
     public void OnPointerUp(PointerEventData pointerEventData)
@@ -46,7 +45,8 @@ public class ReflectorUIButton : MonoBehaviour
         }
         else if (!isReflectorInStock)
         {
-            GameManager.gameManagerInstance.isReflectorColorPanelActive = false;
+            //GameManager.gameManagerInstance.isReflectorColorPanelActive = false;
+            Debug.Log("No reflector in stock");
         }
     }
 
@@ -57,8 +57,40 @@ public class ReflectorUIButton : MonoBehaviour
             case "ReflectorButton_Basic":
                 for(int i = 0; i < GameManager.gameManagerInstance.allReflectorColorButtons.Count; ++i)
                 {
-                    GameManager.gameManagerInstance.allReflectorColorButtons[i].GetComponent<SpriteRenderer>().sprite = GameManager.gameManagerInstance.reflectorSprite_Basic;
+                    GameManager.gameManagerInstance.allReflectorColorButtons[i].GetComponent<Image>().sprite = GameManager.gameManagerInstance.reflectorSprite_Basic;
                     GameManager.gameManagerInstance.allReflectorColorButtons[i].GetComponent<ReflectorColor_UIButton>().reflectorTypeTag = "Basic";
+                }
+                break;
+
+            case "ReflectorButton_Translucent":
+                for (int i = 0; i < GameManager.gameManagerInstance.allReflectorColorButtons.Count; ++i)
+                {
+                    GameManager.gameManagerInstance.allReflectorColorButtons[i].GetComponent<Image>().sprite = GameManager.gameManagerInstance.reflectorSprite_Translucent;
+                    GameManager.gameManagerInstance.allReflectorColorButtons[i].GetComponent<ReflectorColor_UIButton>().reflectorTypeTag = "Translucent";
+                }
+                break;
+
+            case "ReflectorButton_DoubleWay":
+                for (int i = 0; i < GameManager.gameManagerInstance.allReflectorColorButtons.Count; ++i)
+                {
+                    GameManager.gameManagerInstance.allReflectorColorButtons[i].GetComponent<Image>().sprite = GameManager.gameManagerInstance.reflectorSprite_DoubleWay;
+                    GameManager.gameManagerInstance.allReflectorColorButtons[i].GetComponent<ReflectorColor_UIButton>().reflectorTypeTag = "DoubleWay";
+                }
+                break;
+
+            case "ReflectorButton_Split":
+                for (int i = 0; i < GameManager.gameManagerInstance.allReflectorColorButtons.Count; ++i)
+                {
+                    GameManager.gameManagerInstance.allReflectorColorButtons[i].GetComponent<Image>().sprite = GameManager.gameManagerInstance.reflectorSprite_Split;
+                    GameManager.gameManagerInstance.allReflectorColorButtons[i].GetComponent<ReflectorColor_UIButton>().reflectorTypeTag = "Split";
+                }
+                break;
+
+            case "ReflectorButton_ThreeWay":
+                for (int i = 0; i < GameManager.gameManagerInstance.allReflectorColorButtons.Count; ++i)
+                {
+                    GameManager.gameManagerInstance.allReflectorColorButtons[i].GetComponent<Image>().sprite = GameManager.gameManagerInstance.reflectorSprite_ThreeWay;
+                    GameManager.gameManagerInstance.allReflectorColorButtons[i].GetComponent<ReflectorColor_UIButton>().reflectorTypeTag = "ThreeWay";
                 }
                 break;
         }        

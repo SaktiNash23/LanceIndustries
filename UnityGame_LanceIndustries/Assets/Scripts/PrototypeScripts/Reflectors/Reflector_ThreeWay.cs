@@ -11,7 +11,7 @@ public class Reflector_ThreeWay : Reflector
     // Start is called before the first frame update
     void Start()
     {
-        reflectorThreeWay_SO = GameManager.gameManagerInstance.allReflectorSO[4]; //Index 4: Three way Reflector
+        reflectorThreeWay_SO = base.reflectorBase_SO;
     }
 
     public void calculateLaser_ThreeWay(RaycastHit2D hitParam, GameObject projectile)

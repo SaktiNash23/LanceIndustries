@@ -10,8 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d66708e16e8fb354ab9dd2d9d6cc2648, type: 3}
-  m_Name: Reflector_ThreeWay_SO
+  m_Name: Reflector_ThreeWay_White
   m_EditorClassIdentifier: 
-  reflectorSprite: {fileID: 21300000, guid: 812c54f47afee0049846b5e9e1fbe1c3, type: 3}
-  laserMaterialToChange: {fileID: 2100000, guid: 30d8d949796c7e243915cc700e388be1,
+  laserMaterialToChange: {fileID: 2100000, guid: 77904cd10f47db14281bce409f12f82a,
     type: 2}

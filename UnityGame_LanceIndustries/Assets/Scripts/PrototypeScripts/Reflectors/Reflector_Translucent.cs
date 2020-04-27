@@ -9,7 +9,7 @@ public class Reflector_Translucent : Reflector
 
     void Start()
     {
-        reflectorTranslucent_SO = GameManager.gameManagerInstance.allReflectorSO[1]; //Index 1: Transulucent Reflector
+        reflectorTranslucent_SO = base.reflectorBase_SO;
     }
 
     public void calculateLaser_Translucent(RaycastHit2D hitParam, GameObject projectile)

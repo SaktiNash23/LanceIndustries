@@ -52,7 +52,31 @@ public class ReflectorColor_UIButton : MonoBehaviour
                 case "Basic":
                      GameManager.gameManagerInstance.ReflectorStock_Basic--;
                      GameManager.gameManagerInstance.ReflectorStock_Basic_Text.text = GameManager.gameManagerInstance.ReflectorStock_Basic.ToString();
-                     break; 
+                     break;
+
+                case "Translucent":
+                    GameManager.gameManagerInstance.ReflectorStock_Translucent--;
+                    GameManager.gameManagerInstance.ReflectorStock_Translucent_Text.text = GameManager.gameManagerInstance.ReflectorStock_Translucent.ToString();
+                    break;
+
+                case "DoubleWay":
+                    GameManager.gameManagerInstance.ReflectorStock_DoubleWay--;
+                    GameManager.gameManagerInstance.ReflectorStock_DoubleWay_Text.text = GameManager.gameManagerInstance.ReflectorStock_DoubleWay.ToString();
+                    break;
+
+                case "Split":
+                    GameManager.gameManagerInstance.ReflectorStock_Split--;
+                    GameManager.gameManagerInstance.ReflectorStock_Split_Text.text = GameManager.gameManagerInstance.ReflectorStock_Split.ToString();
+                    break;
+
+                case "ThreeWay":
+                    GameManager.gameManagerInstance.ReflectorStock_ThreeWay--;
+                    GameManager.gameManagerInstance.ReflectorStock_ThreeWay_Text.text = GameManager.gameManagerInstance.ReflectorStock_ThreeWay.ToString();
+                    break;
+
+                default:
+                    Debug.LogWarning("No such reflectorTypeTag exists. Check whether the ReflectorTypeTag is spelled properly in editor");
+                    break;
             }
             
          }

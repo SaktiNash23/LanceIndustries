@@ -11,7 +11,7 @@ public class Reflector_Split : Reflector
     // Start is called before the first frame update
     void Start()
     {
-        reflectorSplit_SO = GameManager.gameManagerInstance.allReflectorSO[3]; //Index 3: Split Reflector
+        reflectorSplit_SO = base.reflectorBase_SO;
     }
 
     public void calculateLaser_Split(RaycastHit2D hitParam, GameObject projectile)

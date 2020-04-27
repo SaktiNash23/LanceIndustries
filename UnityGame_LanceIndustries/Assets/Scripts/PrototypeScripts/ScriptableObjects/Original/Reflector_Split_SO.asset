@@ -10,8 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d66708e16e8fb354ab9dd2d9d6cc2648, type: 3}
-  m_Name: Reflector_Base_SO
+  m_Name: Reflector_Split_SO
   m_EditorClassIdentifier: 
-  reflectorSprite: {fileID: 21300000, guid: 1f2f0f8525b71194db5da4df859a7db7, type: 3}
-  laserMaterialToChange: {fileID: 2100000, guid: 6fa9f7f73c2753243bf12fb9cbb94652,
+  laserMaterialToChange: {fileID: 2100000, guid: 2c9adb8cffa488b41bc21239905d0270,
     type: 2}

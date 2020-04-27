@@ -2275,18 +2275,23 @@ MonoBehaviour:
   - {fileID: 1482078258}
   - {fileID: 2114868088}
   - {fileID: 507172789}
-  allReflectorColorButtons: []
+  allReflectorColorButtons:
+  - {fileID: 1484710754}
+  - {fileID: 1089048971}
+  - {fileID: 1563389120}
+  - {fileID: 1889050868}
   reflectorSprite_Basic: {fileID: 21300000, guid: 29cf2f06fb2e2534b948daca3e8ae4e0,
     type: 3}
-  reflectorSprite_Translucent: {fileID: 0}
-  reflectorSprite_DoubleWay: {fileID: 0}
-  reflectorSprite_Split: {fileID: 0}
-  reflectorSprite_ThreeWay: {fileID: 0}
+  reflectorSprite_Translucent: {fileID: 21300000, guid: 48294ebfc2add9644a2eec239d266f2e,
+    type: 3}
+  reflectorSprite_DoubleWay: {fileID: 21300000, guid: 9fd77e80bd81b094d96e37abc7114e38,
+    type: 3}
+  reflectorSprite_Split: {fileID: 21300000, guid: 2e3914b7c72a2564e965fb2cc2caf931,
+    type: 3}
+  reflectorSprite_ThreeWay: {fileID: 21300000, guid: 8e0bf639546f38e4495132f949afab8e,
+    type: 3}
   reflectorColorsPanel: {fileID: 952090222}
   isReflectorColorPanelActive: 0
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 32
 --- !u!4 &401026883
 Transform:
   m_ObjectHideFlags: 0
@@ -2717,7 +2722,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 281.49982, y: 28.000366}
+  m_AnchoredPosition: {x: 284, y: 28.000366}
   m_SizeDelta: {x: 103.599976, y: 101.3}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &507172789
@@ -2778,14 +2783,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.70028734, g: 0, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, Unity.ugui,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 812c54f47afee0049846b5e9e1fbe1c3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8e0bf639546f38e4495132f949afab8e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3116,7 +3121,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 141.79997, y: 28.000122}
+  m_AnchoredPosition: {x: -145, y: 28.000122}
   m_SizeDelta: {x: 103.600006, y: 101.3}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &638089091
@@ -3177,14 +3182,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.088287644, g: 0.5937806, b: 0.6037736, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, Unity.ugui,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 812c54f47afee0049846b5e9e1fbe1c3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 48294ebfc2add9644a2eec239d266f2e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5636,6 +5641,54 @@ MonoBehaviour:
   - reflectorPoolTag: ReflectorPool_Basic_Yellow
     reflectorPrefab: {fileID: 6617890338066414701, guid: 47368f3383f42a241afc57617142da19,
       type: 3}
+  - reflectorPoolTag: ReflectorPool_Translucent_White
+    reflectorPrefab: {fileID: 3145454976891214324, guid: 6e57078ec7c9be345824eb1da4d23508,
+      type: 3}
+  - reflectorPoolTag: ReflectorPool_Translucent_Red
+    reflectorPrefab: {fileID: 465517422991923869, guid: b050b756b75356f4a85651b0e039c301,
+      type: 3}
+  - reflectorPoolTag: ReflectorPool_Translucent_Blue
+    reflectorPrefab: {fileID: 6253892252043033529, guid: 347d8acf855c0a2408ab1b4491f03232,
+      type: 3}
+  - reflectorPoolTag: ReflectorPool_Translucent_Yellow
+    reflectorPrefab: {fileID: 4895965421025746198, guid: a25a4703f6c31c643b7762848473e93a,
+      type: 3}
+  - reflectorPoolTag: ReflectorPool_DoubleWay_White
+    reflectorPrefab: {fileID: 8580116951215321725, guid: d46cf61ac3f8c81478bcadca04e6eb4e,
+      type: 3}
+  - reflectorPoolTag: ReflectorPool_DoubleWay_Red
+    reflectorPrefab: {fileID: 6108865440222096622, guid: 8f1a6341c06e0e64e9b4d02a654942be,
+      type: 3}
+  - reflectorPoolTag: ReflectorPool_DoubleWay_Blue
+    reflectorPrefab: {fileID: 7954559386632437698, guid: 006176623c791ce4b95e465ae26da621,
+      type: 3}
+  - reflectorPoolTag: ReflectorPool_DoubleWay_Yellow
+    reflectorPrefab: {fileID: 3780756760420695602, guid: c29351637c17aae4ab2dbfc65211716a,
+      type: 3}
+  - reflectorPoolTag: ReflectorPool_Split_White
+    reflectorPrefab: {fileID: 5354538681689774673, guid: 529bac2ed8c38524f9381fb082a6219e,
+      type: 3}
+  - reflectorPoolTag: ReflectorPool_Split_Red
+    reflectorPrefab: {fileID: 244204954240806539, guid: c8251a0b52018e645a06c1ffb6fc330d,
+      type: 3}
+  - reflectorPoolTag: ReflectorPool_Split_Blue
+    reflectorPrefab: {fileID: 8165447828395439634, guid: e7d703b177a0c6b43b41611ace24d394,
+      type: 3}
+  - reflectorPoolTag: ReflectorPool_Split_Yellow
+    reflectorPrefab: {fileID: 3078649505363111714, guid: abc896d7a7ea8524db8ed491099065dd,
+      type: 3}
+  - reflectorPoolTag: ReflectorPool_ThreeWay_White
+    reflectorPrefab: {fileID: 1320206097354670941, guid: a0dc2aad6eeba6143b92f7b1b8bf63f6,
+      type: 3}
+  - reflectorPoolTag: ReflectorPool_ThreeWay_Red
+    reflectorPrefab: {fileID: 4737829226488169424, guid: 6239dbd836af1374ea7c1b0bb420eb0c,
+      type: 3}
+  - reflectorPoolTag: ReflectorPool_ThreeWay_Blue
+    reflectorPrefab: {fileID: 1474193101526737614, guid: 25b3bb135526cef4286500fe27ea91e1,
+      type: 3}
+  - reflectorPoolTag: ReflectorPool_ThreeWay_Yellow
+    reflectorPrefab: {fileID: 6271429073131205663, guid: b046a3fa36159cf48ab5bcd786b1a1e6,
+      type: 3}
 --- !u!4 &1187894107
 Transform:
   m_ObjectHideFlags: 0
@@ -7469,7 +7522,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -144.6999, y: 28.000366}
+  m_AnchoredPosition: {x: 4, y: 28.000366}
   m_SizeDelta: {x: 103.600006, y: 101.3}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1482078258
@@ -7530,14 +7583,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.9235792, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, Unity.ugui,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 812c54f47afee0049846b5e9e1fbe1c3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9fd77e80bd81b094d96e37abc7114e38, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -11172,7 +11225,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 2.6000364, y: 28.000122}
+  m_AnchoredPosition: {x: 143, y: 28.000122}
   m_SizeDelta: {x: 103.600006, y: 101.3}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &2114868088
@@ -11233,14 +11286,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.55672055, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, Unity.ugui,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 812c54f47afee0049846b5e9e1fbe1c3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2e3914b7c72a2564e965fb2cc2caf931, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
