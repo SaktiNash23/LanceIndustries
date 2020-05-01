@@ -48,7 +48,7 @@ public class ReflectorPooler : MonoBehaviour
                 case "ReflectorPool_Basic_Blue":
                 case "ReflectorPool_Basic_Yellow":
 
-                    for (int i = 0; i < GameManager.gameManagerInstance.ReflectorStock_Basic; ++i)
+                    for (int i = 0; i < GameManager.gameManagerInstance.ReflectorStockBasic_Accessor; ++i)
                     {
                         GameObject reflectorToAddToQueue = Instantiate(reflectorList.reflectorPrefab, Vector2.zero, Quaternion.identity);
                         reflectorToAddToQueue.transform.position = GameObject.FindGameObjectWithTag("InactivePooledReflectors").transform.position;
@@ -85,7 +85,7 @@ public class ReflectorPooler : MonoBehaviour
                 case "ReflectorPool_Translucent_Blue":
                 case "ReflectorPool_Translucent_Yellow":
 
-                    for (int i = 0; i < GameManager.gameManagerInstance.ReflectorStock_Translucent; ++i)
+                    for (int i = 0; i < GameManager.gameManagerInstance.ReflectorStockTranslucent_Accessor; ++i)
                     {
                         GameObject reflectorToAddToQueue = Instantiate(reflectorList.reflectorPrefab, Vector2.zero, Quaternion.identity);
                         reflectorToAddToQueue.transform.position = GameObject.FindGameObjectWithTag("InactivePooledReflectors").transform.position;
@@ -122,7 +122,7 @@ public class ReflectorPooler : MonoBehaviour
                 case "ReflectorPool_DoubleWay_Blue":
                 case "ReflectorPool_DoubleWay_Yellow":
 
-                    for (int i = 0; i < GameManager.gameManagerInstance.ReflectorStock_DoubleWay; ++i)
+                    for (int i = 0; i < GameManager.gameManagerInstance.ReflectorStockDoubleWay_Accessor; ++i)
                     {
                         GameObject reflectorToAddToQueue = Instantiate(reflectorList.reflectorPrefab, Vector2.zero, Quaternion.identity);
                         reflectorToAddToQueue.transform.position = GameObject.FindGameObjectWithTag("InactivePooledReflectors").transform.position;
@@ -159,7 +159,7 @@ public class ReflectorPooler : MonoBehaviour
                 case "ReflectorPool_Split_Blue":
                 case "ReflectorPool_Split_Yellow":
 
-                    for (int i = 0; i < GameManager.gameManagerInstance.ReflectorStock_Split; ++i)
+                    for (int i = 0; i < GameManager.gameManagerInstance.ReflectorStockSplit_Accessor; ++i)
                     {
                         GameObject reflectorToAddToQueue = Instantiate(reflectorList.reflectorPrefab, Vector2.zero, Quaternion.identity);
                         reflectorToAddToQueue.transform.position = GameObject.FindGameObjectWithTag("InactivePooledReflectors").transform.position;
@@ -196,7 +196,7 @@ public class ReflectorPooler : MonoBehaviour
                 case "ReflectorPool_ThreeWay_Blue":
                 case "ReflectorPool_ThreeWay_Yellow":
 
-                    for (int i = 0; i < GameManager.gameManagerInstance.ReflectorStock_ThreeWay; ++i)
+                    for (int i = 0; i < GameManager.gameManagerInstance.ReflectorStockThreeWay_Accessor; ++i)
                     {
                         GameObject reflectorToAddToQueue = Instantiate(reflectorList.reflectorPrefab, Vector2.zero, Quaternion.identity);
                         reflectorToAddToQueue.transform.position = GameObject.FindGameObjectWithTag("InactivePooledReflectors").transform.position;

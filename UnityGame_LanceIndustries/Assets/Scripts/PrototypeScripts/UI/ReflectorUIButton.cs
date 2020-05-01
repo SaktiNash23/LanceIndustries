@@ -45,11 +45,14 @@ public class ReflectorUIButton : MonoBehaviour
         }
         else if (!isReflectorInStock)
         {
-            //GameManager.gameManagerInstance.isReflectorColorPanelActive = false;
             Debug.Log("No reflector in stock");
         }
     }
 
+    //This function updates the buttons in Reflector Color Panel UI with the appropriate images and changes the tag of the buttons as well
+    //
+    //Ex: If the button for Reflector type Basic is pressed, the string tag from that button is passed to this function as an argument. Based
+    // on the argument passed, the Reflector Color Buttons are updated with the appropriate sprites and tags
     public void activateReflectorColorUIPanel(string buttonTag)
     {
         switch (buttonTag)
@@ -95,69 +98,4 @@ public class ReflectorUIButton : MonoBehaviour
                 break;
         }        
     }
-
-    #region Code Storage 0
-    /*
-        GameObject returnedReflector = null;
-        bool reflectorInStock = false;
-        string reflectorPoolTag = System.String.Empty;
-
-        Touch touch = Input.GetTouch(0);
-
-            if(Input.touchCount <= 1)
-            { 
-
-                Vector3 point = Camera.main.ScreenToWorldPoint(touch.position);
-
-                reflectorInStock = GameManager.gameManagerInstance.checkReflectorStockAvailability(buttonTypeTag, out reflectorPoolTag);
-
-            if (reflectorInStock)
-            { 
-                #region Test code for Reflector Pooler
-
-
-
-                
-                returnedReflector = ReflectorPooler.instance_reflectorPooler.reflectorPoolDictionary[reflectorPoolTag].Dequeue();
-
-                GameManager.gameManagerInstance.allReflectorsInScene.Add(returnedReflector);
-
-                returnedReflector.SetActive(true);
-                returnedReflector.GetComponent<BoxCollider2D>().enabled = true;
-                returnedReflector.GetComponent<Raycast>().timeUntilHold = 0.1f;
-                returnedReflector.GetComponent<Raycast>().isHoldingDownAccessor = true;
-                
-
-                //switch(buttonTypeTag)
-                //{
-                    //case "Button_BasicReflector":
-                        
-                        //GameManager.gameManagerInstance.ReflectorStock_Basic_Text.text = ReflectorPooler.instance_reflectorPooler.reflectorPoolDictionary[reflectorPoolTag].Count.ToString();
-                        //break;
-                    
-                    case "Button_TranslucentReflector":
-                        GameManager.gameManagerInstance.ReflectorStock_Translucent_Text.text = ReflectorPooler.instance_reflectorPooler.reflectorPoolDictionary[reflectorPoolTag].Count.ToString();
-                        break;
-
-                    case "Button_DoubleWayReflector":
-                        GameManager.gameManagerInstance.ReflectorStock_DoubleWay_Text.text = ReflectorPooler.instance_reflectorPooler.reflectorPoolDictionary[reflectorPoolTag].Count.ToString();
-                        break;
-
-                    case "Button_SplitReflector":
-                        GameManager.gameManagerInstance.ReflectorStock_Split_Text.text = ReflectorPooler.instance_reflectorPooler.reflectorPoolDictionary[reflectorPoolTag].Count.ToString();
-                        break;
-
-                    case "Button_ThreeWayReflector":
-                        GameManager.gameManagerInstance.ReflectorStock_ThreeWay_Text.text = ReflectorPooler.instance_reflectorPooler.reflectorPoolDictionary[reflectorPoolTag].Count.ToString();
-                        break;
-
-                    
-                }
-
-                #endregion
-
-           }
-        }
-     */
-    #endregion
 }

@@ -15,6 +15,7 @@ TagManager:
   - ReflectorGM
   - Border
   - InactivePooledReflectors
+  - EndPoint
   layers:
   - Default
   - TransparentFX
