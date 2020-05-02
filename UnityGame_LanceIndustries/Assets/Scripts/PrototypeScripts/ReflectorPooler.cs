@@ -41,12 +41,14 @@ public class ReflectorPooler : MonoBehaviour
 
             switch(reflectorList.reflectorPoolTag)
             {
+                #region Basic Reflector Pooling
+
                 case "ReflectorPool_Basic_White":
                 case "ReflectorPool_Basic_Red":
                 case "ReflectorPool_Basic_Blue":
                 case "ReflectorPool_Basic_Yellow":
 
-                    for (int i = 0; i < GameManager.gameManagerInstance.ReflectorStock_Basic; ++i)
+                    for (int i = 0; i < GameManager.gameManagerInstance.ReflectorStockBasic_Accessor; ++i)
                     {
                         GameObject reflectorToAddToQueue = Instantiate(reflectorList.reflectorPrefab, Vector2.zero, Quaternion.identity);
                         reflectorToAddToQueue.transform.position = GameObject.FindGameObjectWithTag("InactivePooledReflectors").transform.position;
@@ -74,6 +76,155 @@ public class ReflectorPooler : MonoBehaviour
 
                     break;
 
+                #endregion
+
+                #region Translucent Reflector Pooling
+
+                case "ReflectorPool_Translucent_White":
+                case "ReflectorPool_Translucent_Red":
+                case "ReflectorPool_Translucent_Blue":
+                case "ReflectorPool_Translucent_Yellow":
+
+                    for (int i = 0; i < GameManager.gameManagerInstance.ReflectorStockTranslucent_Accessor; ++i)
+                    {
+                        GameObject reflectorToAddToQueue = Instantiate(reflectorList.reflectorPrefab, Vector2.zero, Quaternion.identity);
+                        reflectorToAddToQueue.transform.position = GameObject.FindGameObjectWithTag("InactivePooledReflectors").transform.position;
+                        reflectorToAddToQueue.SetActive(false);
+                        reflectorQueue.Enqueue(reflectorToAddToQueue);
+                    }
+
+
+                    if (reflectorList.reflectorPoolTag == "ReflectorPool_Translucent_White")
+                    {
+                        reflectorPoolDictionary.Add("ReflectorPool_Translucent_White", reflectorQueue);
+                    }
+                    if (reflectorList.reflectorPoolTag == "ReflectorPool_Translucent_Red")
+                    {
+                        reflectorPoolDictionary.Add("ReflectorPool_Translucent_Red", reflectorQueue);
+                    }
+                    if (reflectorList.reflectorPoolTag == "ReflectorPool_Translucent_Blue")
+                    {
+                        reflectorPoolDictionary.Add("ReflectorPool_Translucent_Blue", reflectorQueue);
+                    }
+                    if (reflectorList.reflectorPoolTag == "ReflectorPool_Translucent_Yellow")
+                    {
+                        reflectorPoolDictionary.Add("ReflectorPool_Translucent_Yellow", reflectorQueue);
+                    }
+
+                    break;
+
+                #endregion
+
+                #region Double Way Reflector Pooling
+
+                case "ReflectorPool_DoubleWay_White":
+                case "ReflectorPool_DoubleWay_Red":
+                case "ReflectorPool_DoubleWay_Blue":
+                case "ReflectorPool_DoubleWay_Yellow":
+
+                    for (int i = 0; i < GameManager.gameManagerInstance.ReflectorStockDoubleWay_Accessor; ++i)
+                    {
+                        GameObject reflectorToAddToQueue = Instantiate(reflectorList.reflectorPrefab, Vector2.zero, Quaternion.identity);
+                        reflectorToAddToQueue.transform.position = GameObject.FindGameObjectWithTag("InactivePooledReflectors").transform.position;
+                        reflectorToAddToQueue.SetActive(false);
+                        reflectorQueue.Enqueue(reflectorToAddToQueue);
+                    }
+
+
+                    if (reflectorList.reflectorPoolTag == "ReflectorPool_DoubleWay_White")
+                    {
+                        reflectorPoolDictionary.Add("ReflectorPool_DoubleWay_White", reflectorQueue);
+                    }
+                    if (reflectorList.reflectorPoolTag == "ReflectorPool_DoubleWay_Red")
+                    {
+                        reflectorPoolDictionary.Add("ReflectorPool_DoubleWay_Red", reflectorQueue);
+                    }
+                    if (reflectorList.reflectorPoolTag == "ReflectorPool_DoubleWay_Blue")
+                    {
+                        reflectorPoolDictionary.Add("ReflectorPool_DoubleWay_Blue", reflectorQueue);
+                    }
+                    if (reflectorList.reflectorPoolTag == "ReflectorPool_DoubleWay_Yellow")
+                    {
+                        reflectorPoolDictionary.Add("ReflectorPool_DoubleWay_Yellow", reflectorQueue);
+                    }
+
+                    break;
+
+                #endregion
+
+                #region Split Reflector Pooling
+
+                case "ReflectorPool_Split_White":
+                case "ReflectorPool_Split_Red":
+                case "ReflectorPool_Split_Blue":
+                case "ReflectorPool_Split_Yellow":
+
+                    for (int i = 0; i < GameManager.gameManagerInstance.ReflectorStockSplit_Accessor; ++i)
+                    {
+                        GameObject reflectorToAddToQueue = Instantiate(reflectorList.reflectorPrefab, Vector2.zero, Quaternion.identity);
+                        reflectorToAddToQueue.transform.position = GameObject.FindGameObjectWithTag("InactivePooledReflectors").transform.position;
+                        reflectorToAddToQueue.SetActive(false);
+                        reflectorQueue.Enqueue(reflectorToAddToQueue);
+                    }
+
+
+                    if (reflectorList.reflectorPoolTag == "ReflectorPool_Split_White")
+                    {
+                        reflectorPoolDictionary.Add("ReflectorPool_Split_White", reflectorQueue);
+                    }
+                    if (reflectorList.reflectorPoolTag == "ReflectorPool_Split_Red")
+                    {
+                        reflectorPoolDictionary.Add("ReflectorPool_Split_Red", reflectorQueue);
+                    }
+                    if (reflectorList.reflectorPoolTag == "ReflectorPool_Split_Blue")
+                    {
+                        reflectorPoolDictionary.Add("ReflectorPool_Split_Blue", reflectorQueue);
+                    }
+                    if (reflectorList.reflectorPoolTag == "ReflectorPool_Split_Yellow")
+                    {
+                        reflectorPoolDictionary.Add("ReflectorPool_Split_Yellow", reflectorQueue);
+                    }
+
+                    break;
+
+                #endregion
+
+                #region Three Way Reflector Pooling
+
+                case "ReflectorPool_ThreeWay_White":
+                case "ReflectorPool_ThreeWay_Red":
+                case "ReflectorPool_ThreeWay_Blue":
+                case "ReflectorPool_ThreeWay_Yellow":
+
+                    for (int i = 0; i < GameManager.gameManagerInstance.ReflectorStockThreeWay_Accessor; ++i)
+                    {
+                        GameObject reflectorToAddToQueue = Instantiate(reflectorList.reflectorPrefab, Vector2.zero, Quaternion.identity);
+                        reflectorToAddToQueue.transform.position = GameObject.FindGameObjectWithTag("InactivePooledReflectors").transform.position;
+                        reflectorToAddToQueue.SetActive(false);
+                        reflectorQueue.Enqueue(reflectorToAddToQueue);
+                    }
+
+
+                    if (reflectorList.reflectorPoolTag == "ReflectorPool_ThreeWay_White")
+                    {
+                        reflectorPoolDictionary.Add("ReflectorPool_ThreeWay_White", reflectorQueue);
+                    }
+                    if (reflectorList.reflectorPoolTag == "ReflectorPool_ThreeWay_Red")
+                    {
+                        reflectorPoolDictionary.Add("ReflectorPool_ThreeWay_Red", reflectorQueue);
+                    }
+                    if (reflectorList.reflectorPoolTag == "ReflectorPool_ThreeWay_Blue")
+                    {
+                        reflectorPoolDictionary.Add("ReflectorPool_ThreeWay_Blue", reflectorQueue);
+                    }
+                    if (reflectorList.reflectorPoolTag == "ReflectorPool_ThreeWay_Yellow")
+                    {
+                        reflectorPoolDictionary.Add("ReflectorPool_ThreeWay_Yellow", reflectorQueue);
+                    }
+
+                    break;
+
+                    #endregion
             }
         }
     }

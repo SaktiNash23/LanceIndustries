@@ -12,6 +12,8 @@ public class ReflectorColor_UIButton : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        #region Initializing Event Triggers
+
         EventTrigger eventTrigger = GetComponent<EventTrigger>();
 
         EventTrigger.Entry entryOnPointerDown = new EventTrigger.Entry();
@@ -25,8 +27,13 @@ public class ReflectorColor_UIButton : MonoBehaviour
 
         eventTrigger.triggers.Add(entryOnPointerDown);
         eventTrigger.triggers.Add(entryOnPointerUp);
+
+        #endregion
     }
 
+    //This function 'pulls' the appropriate reflector from its object pool and positions it at the player's finger, where it is ready for the player
+    //to drag & drop the reflector. Also, once the reflector is 'pulled' from its object pool, this function will also update the 
+    //appropriate reflector stock
     public void OnPointerDown(PointerEventData pointerEventData)
     {       
         GameObject returnedReflector = null;
@@ -50,9 +57,33 @@ public class ReflectorColor_UIButton : MonoBehaviour
             switch (reflectorTypeTag)
             {
                 case "Basic":
-                     GameManager.gameManagerInstance.ReflectorStock_Basic--;
-                     GameManager.gameManagerInstance.ReflectorStock_Basic_Text.text = GameManager.gameManagerInstance.ReflectorStock_Basic.ToString();
-                     break; 
+                     GameManager.gameManagerInstance.ReflectorStockBasic_Accessor--;
+                     GameManager.gameManagerInstance.ReflectorStock_Basic_Text.text = GameManager.gameManagerInstance.ReflectorStockBasic_Accessor.ToString();
+                     break;
+
+                case "Translucent":
+                    GameManager.gameManagerInstance.ReflectorStockTranslucent_Accessor--;
+                    GameManager.gameManagerInstance.ReflectorStock_Translucent_Text.text = GameManager.gameManagerInstance.ReflectorStockTranslucent_Accessor.ToString();
+                    break;
+
+                case "DoubleWay":
+                    GameManager.gameManagerInstance.ReflectorStockDoubleWay_Accessor--;
+                    GameManager.gameManagerInstance.ReflectorStock_DoubleWay_Text.text = GameManager.gameManagerInstance.ReflectorStockDoubleWay_Accessor.ToString();
+                    break;
+
+                case "Split":
+                    GameManager.gameManagerInstance.ReflectorStockSplit_Accessor--;
+                    GameManager.gameManagerInstance.ReflectorStock_Split_Text.text = GameManager.gameManagerInstance.ReflectorStockSplit_Accessor.ToString();
+                    break;
+
+                case "ThreeWay":
+                    GameManager.gameManagerInstance.ReflectorStockThreeWay_Accessor--;
+                    GameManager.gameManagerInstance.ReflectorStock_ThreeWay_Text.text = GameManager.gameManagerInstance.ReflectorStockThreeWay_Accessor.ToString();
+                    break;
+
+                default:
+                    Debug.LogWarning("No such reflectorTypeTag exists. Check whether the ReflectorTypeTag is spelled properly in editor");
+                    break;
             }
             
          }

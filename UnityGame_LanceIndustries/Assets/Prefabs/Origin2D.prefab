@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4185421489143442204}
   - component: {fileID: 4185421489143442179}
   - component: {fileID: 4185421489143442178}
+  - component: {fileID: 3449685703640890184}
   m_Layer: 0
   m_Name: Origin2D
   m_TagString: Untagged
@@ -27,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 4185421489143442177}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.5, y: -3.517, z: 0}
-  m_LocalScale: {x: 4.164149, y: 4.7437, z: 1}
+  m_LocalScale: {x: 4.287919, y: 4.0878797, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -95,3 +96,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectileSphere: {fileID: 2678824850490087700, guid: 8664a907fd392e04b9aaaf0aa805a424,
     type: 3}
+  dir: 1
+--- !u!61 &3449685703640890184
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4185421489143442177}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0.049999997, y: 0.049999997, z: 0.049999997, w: 0.049999997}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.16, y: 0.16}
+    newSize: {x: 5.12, y: 5.12}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.16, y: 0.16}
+  m_EdgeRadius: 0

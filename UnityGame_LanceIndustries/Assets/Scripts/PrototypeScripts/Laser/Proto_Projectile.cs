@@ -7,7 +7,6 @@ public class Proto_Projectile : MonoBehaviour
 {
     public float projectileSpeed;
     public float projectileRaycastLength;
-    public float projectile2ndRaycastLength;
     private Vector3 directionVector;
     private Rigidbody2D rb;
     private bool reflectorHit = false;
@@ -47,6 +46,8 @@ public class Proto_Projectile : MonoBehaviour
 
             if (hitStore)
             {
+
+                #region HIT: Basic Reflector
                 if (hitStore.collider.gameObject.tag == "Reflector")
                 {
                     Debug.Log("Reflector HIT");
@@ -58,8 +59,10 @@ public class Proto_Projectile : MonoBehaviour
 
                     }
                 }
+                #endregion
 
-                if(hitStore.collider.gameObject.tag == "ReflectorTranslucent")
+                #region HIT: Translucent Reflector
+                if (hitStore.collider.gameObject.tag == "ReflectorTranslucent")
                 {
                     Debug.Log("Reflector Translucent HIT");
 
@@ -69,8 +72,10 @@ public class Proto_Projectile : MonoBehaviour
                         hitStore.collider.gameObject.GetComponent<Reflector_Translucent>().calculateLaser_Translucent(hitStore, gameObject);
                     }
                 }
+                #endregion
 
-                if(hitStore.collider.gameObject.tag == "ReflectorDoubleWay")
+                #region HIT: Double Way Reflector
+                if (hitStore.collider.gameObject.tag == "ReflectorDoubleWay")
                 {
                     Debug.Log("Reflector Translucent HIT");
 
@@ -80,8 +85,10 @@ public class Proto_Projectile : MonoBehaviour
                         hitStore.collider.gameObject.GetComponent<Reflector_DoubleWay>().calculateLaser_DoubleWay(hitStore, gameObject);
                     }
                 }
+                #endregion
 
-                if(hitStore.collider.gameObject.tag == "ReflectorSplit")
+                #region HIT: Split Reflector
+                if (hitStore.collider.gameObject.tag == "ReflectorSplit")
                 {
                     if (reflectorHit == false)
                     {
@@ -89,8 +96,10 @@ public class Proto_Projectile : MonoBehaviour
                         hitStore.collider.gameObject.GetComponent<Reflector_Split>().calculateLaser_Split(hitStore, gameObject);
                     }
                 }
+                #endregion
 
-                if(hitStore.collider.gameObject.tag == "ReflectorThreeWay")
+                #region HIT: Three Way Reflector
+                if (hitStore.collider.gameObject.tag == "ReflectorThreeWay")
                 {
                     if (reflectorHit == false)
                     {
@@ -98,15 +107,27 @@ public class Proto_Projectile : MonoBehaviour
                         hitStore.collider.gameObject.GetComponent<Reflector_ThreeWay>().calculateLaser_ThreeWay(hitStore, gameObject);
                     }
                 }
+                #endregion
 
-                if(hitStore.collider.gameObject.tag == "InvalidBounds")
+                #region HIT: Invalid Bounds
+                if (hitStore.collider.gameObject.tag == "InvalidBounds")
                 {
                     projectileSpeed = 0.0f;
                     Destroy(gameObject, 1.0f);
                 }
+                #endregion
 
-                if(hitStore.collider.gameObject.tag == "Border")
+                #region HIT: Border
+                if (hitStore.collider.gameObject.tag == "Border")
                 {
+                    projectileSpeed = 0.0f;
+                    Destroy(gameObject);
+                }
+                #endregion
+
+                if(hitStore.collider.gameObject.tag == "EndPoint")
+                {                 
+                    hitStore.collider.gameObject.GetComponent<EndPoint>().checkIfCorrectLaserHit(gameObject);
                     projectileSpeed = 0.0f;
                     Destroy(gameObject, 1.0f);
                 }
@@ -114,6 +135,8 @@ public class Proto_Projectile : MonoBehaviour
 
         }     
     }
+
+    #region Accessor Functions
 
     public Vector3 DirectionVector
     {
@@ -141,6 +164,8 @@ public class Proto_Projectile : MonoBehaviour
         }
 
     }
+
+    #endregion
 
     public void reflectorHitFalse()
     {

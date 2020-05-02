@@ -9,7 +9,7 @@ public class Reflector_DoubleWay : Reflector
 
     private void Start()
     {
-        reflectorDoubleWay_SO = GameManager.gameManagerInstance.allReflectorSO[2]; //Index 2: Double Way Reflector
+        reflectorDoubleWay_SO = base.reflectorBase_SO;
     }
 
     public void calculateLaser_DoubleWay(RaycastHit2D hitParam, GameObject projectile)

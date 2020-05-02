@@ -31,7 +31,6 @@ public class ReflectorUIButton : MonoBehaviour
 
     public void OnPointerDown(PointerEventData pointerEventData)
     {
-        
     }
 
     public void OnPointerUp(PointerEventData pointerEventData)
@@ -46,10 +45,14 @@ public class ReflectorUIButton : MonoBehaviour
         }
         else if (!isReflectorInStock)
         {
-            GameManager.gameManagerInstance.isReflectorColorPanelActive = false;
+            Debug.Log("No reflector in stock");
         }
     }
 
+    //This function updates the buttons in Reflector Color Panel UI with the appropriate images and changes the tag of the buttons as well
+    //
+    //Ex: If the button for Reflector type Basic is pressed, the string tag from that button is passed to this function as an argument. Based
+    // on the argument passed, the Reflector Color Buttons are updated with the appropriate sprites and tags
     public void activateReflectorColorUIPanel(string buttonTag)
     {
         switch (buttonTag)
@@ -57,75 +60,42 @@ public class ReflectorUIButton : MonoBehaviour
             case "ReflectorButton_Basic":
                 for(int i = 0; i < GameManager.gameManagerInstance.allReflectorColorButtons.Count; ++i)
                 {
-                    GameManager.gameManagerInstance.allReflectorColorButtons[i].GetComponent<SpriteRenderer>().sprite = GameManager.gameManagerInstance.reflectorSprite_Basic;
+                    GameManager.gameManagerInstance.allReflectorColorButtons[i].GetComponent<Image>().sprite = GameManager.gameManagerInstance.reflectorSprite_Basic;
                     GameManager.gameManagerInstance.allReflectorColorButtons[i].GetComponent<ReflectorColor_UIButton>().reflectorTypeTag = "Basic";
+                }
+                break;
+
+            case "ReflectorButton_Translucent":
+                for (int i = 0; i < GameManager.gameManagerInstance.allReflectorColorButtons.Count; ++i)
+                {
+                    GameManager.gameManagerInstance.allReflectorColorButtons[i].GetComponent<Image>().sprite = GameManager.gameManagerInstance.reflectorSprite_Translucent;
+                    GameManager.gameManagerInstance.allReflectorColorButtons[i].GetComponent<ReflectorColor_UIButton>().reflectorTypeTag = "Translucent";
+                }
+                break;
+
+            case "ReflectorButton_DoubleWay":
+                for (int i = 0; i < GameManager.gameManagerInstance.allReflectorColorButtons.Count; ++i)
+                {
+                    GameManager.gameManagerInstance.allReflectorColorButtons[i].GetComponent<Image>().sprite = GameManager.gameManagerInstance.reflectorSprite_DoubleWay;
+                    GameManager.gameManagerInstance.allReflectorColorButtons[i].GetComponent<ReflectorColor_UIButton>().reflectorTypeTag = "DoubleWay";
+                }
+                break;
+
+            case "ReflectorButton_Split":
+                for (int i = 0; i < GameManager.gameManagerInstance.allReflectorColorButtons.Count; ++i)
+                {
+                    GameManager.gameManagerInstance.allReflectorColorButtons[i].GetComponent<Image>().sprite = GameManager.gameManagerInstance.reflectorSprite_Split;
+                    GameManager.gameManagerInstance.allReflectorColorButtons[i].GetComponent<ReflectorColor_UIButton>().reflectorTypeTag = "Split";
+                }
+                break;
+
+            case "ReflectorButton_ThreeWay":
+                for (int i = 0; i < GameManager.gameManagerInstance.allReflectorColorButtons.Count; ++i)
+                {
+                    GameManager.gameManagerInstance.allReflectorColorButtons[i].GetComponent<Image>().sprite = GameManager.gameManagerInstance.reflectorSprite_ThreeWay;
+                    GameManager.gameManagerInstance.allReflectorColorButtons[i].GetComponent<ReflectorColor_UIButton>().reflectorTypeTag = "ThreeWay";
                 }
                 break;
         }        
     }
-
-    #region Code Storage 0
-    /*
-        GameObject returnedReflector = null;
-        bool reflectorInStock = false;
-        string reflectorPoolTag = System.String.Empty;
-
-        Touch touch = Input.GetTouch(0);
-
-            if(Input.touchCount <= 1)
-            { 
-
-                Vector3 point = Camera.main.ScreenToWorldPoint(touch.position);
-
-                reflectorInStock = GameManager.gameManagerInstance.checkReflectorStockAvailability(buttonTypeTag, out reflectorPoolTag);
-
-            if (reflectorInStock)
-            { 
-                #region Test code for Reflector Pooler
-
-
-
-                
-                returnedReflector = ReflectorPooler.instance_reflectorPooler.reflectorPoolDictionary[reflectorPoolTag].Dequeue();
-
-                GameManager.gameManagerInstance.allReflectorsInScene.Add(returnedReflector);
-
-                returnedReflector.SetActive(true);
-                returnedReflector.GetComponent<BoxCollider2D>().enabled = true;
-                returnedReflector.GetComponent<Raycast>().timeUntilHold = 0.1f;
-                returnedReflector.GetComponent<Raycast>().isHoldingDownAccessor = true;
-                
-
-                //switch(buttonTypeTag)
-                //{
-                    //case "Button_BasicReflector":
-                        
-                        //GameManager.gameManagerInstance.ReflectorStock_Basic_Text.text = ReflectorPooler.instance_reflectorPooler.reflectorPoolDictionary[reflectorPoolTag].Count.ToString();
-                        //break;
-                    
-                    case "Button_TranslucentReflector":
-                        GameManager.gameManagerInstance.ReflectorStock_Translucent_Text.text = ReflectorPooler.instance_reflectorPooler.reflectorPoolDictionary[reflectorPoolTag].Count.ToString();
-                        break;
-
-                    case "Button_DoubleWayReflector":
-                        GameManager.gameManagerInstance.ReflectorStock_DoubleWay_Text.text = ReflectorPooler.instance_reflectorPooler.reflectorPoolDictionary[reflectorPoolTag].Count.ToString();
-                        break;
-
-                    case "Button_SplitReflector":
-                        GameManager.gameManagerInstance.ReflectorStock_Split_Text.text = ReflectorPooler.instance_reflectorPooler.reflectorPoolDictionary[reflectorPoolTag].Count.ToString();
-                        break;
-
-                    case "Button_ThreeWayReflector":
-                        GameManager.gameManagerInstance.ReflectorStock_ThreeWay_Text.text = ReflectorPooler.instance_reflectorPooler.reflectorPoolDictionary[reflectorPoolTag].Count.ToString();
-                        break;
-
-                    
-                }
-
-                #endregion
-
-           }
-        }
-     */
-    #endregion
 }

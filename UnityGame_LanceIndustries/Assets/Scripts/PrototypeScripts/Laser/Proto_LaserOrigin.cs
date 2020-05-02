@@ -61,9 +61,15 @@ using NaughtyAttributes;
         {
             if (Input.GetMouseButtonDown(1))
             {
-                Debug.Log(transform.rotation.eulerAngles);
-                GameObject projectile = Instantiate(projectileSphere, transform.position, Quaternion.identity);
-                projectile.GetComponent<Proto_Projectile>().DirectionVector = laserStartDir;
+                shootLaser();
+            }
+        }
+
+        void OnMouseUp()
+        {
+            if (GameManager.gameManagerInstance.beginCountDown == false)
+            {
+                shootLaser();
             }
         }
 
@@ -73,7 +79,8 @@ using NaughtyAttributes;
         [Button("Shoot Laser")]
         public void shootLaser()
         {
-            Debug.Log(transform.rotation.eulerAngles);
+            GameManager.gameManagerInstance.Reset();
+            GameManager.gameManagerInstance.beginCountDown = true;
             GameObject projectile = Instantiate(projectileSphere, transform.position, Quaternion.identity);
             projectile.GetComponent<Proto_Projectile>().DirectionVector = laserStartDir;
         }
