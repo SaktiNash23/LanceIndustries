@@ -27,7 +27,7 @@ TagManager:
   - IgnoredByProjectile
   - MapEditorInSceneObject
   - ReflectorPlacement
-  - 
+  - MapEditorSnapper
   - 
   - 
   - 
