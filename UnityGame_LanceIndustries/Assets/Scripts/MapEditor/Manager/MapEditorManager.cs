@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using UnityEditor;
 using TMPro;
 using NaughtyAttributes;
+using System;
 
 public class MapEditorManager : MonoBehaviour
 {
@@ -20,10 +21,19 @@ public class MapEditorManager : MonoBehaviour
 
     [BoxGroup("PANEL MAP EDITING REFERENCES")] [SerializeField] CanvasGroup cgPanelMapEditing;
     [BoxGroup("PANEL MAP EDITING REFERENCES")] [SerializeField] CanvasGroup cgPanelMapEditingTopLayer;
+    [BoxGroup("PANEL MAP EDITING REFERENCES")] [SerializeField] RectTransform rtPanelEndPoints;
+    [BoxGroup("PANEL MAP EDITING REFERENCES")] [SerializeField] TMP_InputField ifBasicReflectorAmount;
+    [BoxGroup("PANEL MAP EDITING REFERENCES")] [SerializeField] TMP_InputField ifTranslucentReflectorAmount;
+    [BoxGroup("PANEL MAP EDITING REFERENCES")] [SerializeField] TMP_InputField ifDoubleWayReflectorAmount;
+    [BoxGroup("PANEL MAP EDITING REFERENCES")] [SerializeField] TMP_InputField ifSplitReflectorAmount;
+    [BoxGroup("PANEL MAP EDITING REFERENCES")] [SerializeField] TMP_InputField ifThreeWayReflectorAmount;
     [BoxGroup("MAP EDITOR IN SCENE OBJECT PREFABS")] [SerializeField] MapEditorInSceneObject verticalLinePrefab;
     [BoxGroup("MAP EDITOR IN SCENE OBJECT PREFABS")] [SerializeField] MapEditorInSceneObject horizontalLinePrefab;
     [BoxGroup("MAP EDITOR IN SCENE OBJECT PREFABS")] [SerializeField] MapEditorInSceneObject originPointPrefab;
-    [BoxGroup("MAP EDITOR IN SCENE OBJECT PREFABS")] [SerializeField] MapEditorInSceneObject destinationPointPrefab;
+    [BoxGroup("MAP EDITOR IN SCENE OBJECT PREFABS")] [SerializeField] MapEditorInSceneObject destinationPointWhitePrefab;
+    [BoxGroup("MAP EDITOR IN SCENE OBJECT PREFABS")] [SerializeField] MapEditorInSceneObject destinationPointRedPrefab;
+    [BoxGroup("MAP EDITOR IN SCENE OBJECT PREFABS")] [SerializeField] MapEditorInSceneObject destinationPointYellowPrefab;
+    [BoxGroup("MAP EDITOR IN SCENE OBJECT PREFABS")] [SerializeField] MapEditorInSceneObject destinationPointBluePrefab;
 
     [BoxGroup("MAP EDITOR IN SCENE REFERENCES")] [SerializeField] GameObject mapLayoutGameObj;
 
@@ -41,6 +51,12 @@ public class MapEditorManager : MonoBehaviour
     {
         get { return _instance; }
     }
+
+    private int basicReflectorAmount;
+    private int translucentReflectorAmount;
+    private int doubleWayReflectorAmount;
+    private int splitReflectorAmount;
+    private int threeWayReflectorAmount;
 
     //-------------------------- MONOBEHAVIOUR FUNCTIONS --------------------------//
 
@@ -93,6 +109,14 @@ public class MapEditorManager : MonoBehaviour
 
     public void LoadMap()
     {
+        StartCoroutine(LoadMapCoroutine(0.25f));
+    }
+
+    public IEnumerator LoadMapCoroutine(float delay)
+    {
+#if UNITY_EDITOR
+        yield return new WaitForSeconds(delay);
+
         cgPanelMenuScreen.alpha = 0f;
         cgPanelMenuScreen.interactable = false;
         cgPanelMenuScreen.blocksRaycasts = false;
@@ -102,20 +126,15 @@ public class MapEditorManager : MonoBehaviour
         cgPanelMapEditingTopLayer.alpha = 1f;
         cgPanelMapEditingTopLayer.interactable = true;
         cgPanelMapEditingTopLayer.blocksRaycasts = true;
-        StartCoroutine(LoadInSceneObjects(0.25f));
-        mapLayoutGameObj.SetActive(true);
-    }
 
-    public IEnumerator LoadInSceneObjects(float delay)
-    {
-#if UNITY_EDITOR
-        yield return new WaitForSeconds(delay);
+        mapLayoutGameObj.SetActive(true);
+
         TextAsset mapData = AssetDatabase.LoadAssetAtPath<TextAsset>(LoadedMapDataPath);
         string jsonData = mapData.text;
-        InSceneObjectDataHolder inSceneObjectDataHolder = JsonUtility.FromJson<InSceneObjectDataHolder>(jsonData);
-        if(inSceneObjectDataHolder != null)
+        MapDataHolder mapDataHolder = JsonUtility.FromJson<MapDataHolder>(jsonData);
+        if(mapDataHolder != null)
         {
-            foreach(var inSceneObjectData in inSceneObjectDataHolder.inSceneObjectDatas)
+            foreach(var inSceneObjectData in mapDataHolder.inSceneObjectDatas)
             {
                 MapEditorInSceneObject inSceneObject = null;
 
@@ -130,12 +149,29 @@ public class MapEditorManager : MonoBehaviour
                     case IN_SCENE_OBJECT_TYPES.ORIGIN_POINT:
                         inSceneObject = Instantiate<MapEditorInSceneObject>(originPointPrefab, inSceneObjectData.position, inSceneObjectData.rotation);
                         break;
-                    case IN_SCENE_OBJECT_TYPES.DESTINATION_POINT:
-                        inSceneObject = Instantiate<MapEditorInSceneObject>(destinationPointPrefab, inSceneObjectData.position, inSceneObjectData.rotation);
+                    case IN_SCENE_OBJECT_TYPES.DESTINATION_POINT_WHITE:
+                        inSceneObject = Instantiate<MapEditorInSceneObject>(destinationPointWhitePrefab, inSceneObjectData.position, inSceneObjectData.rotation);
+                        break;
+                    case IN_SCENE_OBJECT_TYPES.DESTINATION_POINT_RED:
+                        inSceneObject = Instantiate<MapEditorInSceneObject>(destinationPointRedPrefab, inSceneObjectData.position, inSceneObjectData.rotation);
+                        break;
+                    case IN_SCENE_OBJECT_TYPES.DESTINATION_POINT_YELLOW:
+                        inSceneObject = Instantiate<MapEditorInSceneObject>(destinationPointYellowPrefab, inSceneObjectData.position, inSceneObjectData.rotation);
+                        break;
+                    case IN_SCENE_OBJECT_TYPES.DESTINATION_POINT_BLUE:
+                        inSceneObject = Instantiate<MapEditorInSceneObject>(destinationPointBluePrefab, inSceneObjectData.position, inSceneObjectData.rotation);
                         break;
                 }
             }
         }
+
+        basicReflectorAmount = mapDataHolder.basicReflectorAmount;
+        translucentReflectorAmount = mapDataHolder.translucentReflectorAmount;
+        doubleWayReflectorAmount = mapDataHolder.doubleWayReflectorAmount;
+        splitReflectorAmount = mapDataHolder.splitReflectorAmount;
+        threeWayReflectorAmount = mapDataHolder.threeWayReflectorAmount;
+
+        UpdateIFReflectorAmount();
 #endif
         yield return null;
     }
@@ -218,16 +254,21 @@ public class MapEditorManager : MonoBehaviour
 #if UNITY_EDITOR
         MapEditorInSceneObject[] inSceneObjects = FindObjectsOfType<MapEditorInSceneObject>();
         InSceneObjectData[] inSceneObjectDatas = new InSceneObjectData[inSceneObjects.Length];
-        InSceneObjectDataHolder inSceneObjectDataHolder = new InSceneObjectDataHolder();
-        inSceneObjectDataHolder.inSceneObjectDatas = new List<InSceneObjectData>();
+        MapDataHolder mapDataHolder = new MapDataHolder();
+        mapDataHolder.inSceneObjectDatas = new List<InSceneObjectData>();
         for(int i = 0; i < inSceneObjects.Length; i++)
         {
-            InSceneObjectData objectData = inSceneObjects[i].inSceneObjectData;
-            //inSceneObjectDatas[i] = objectData;
-            inSceneObjectDataHolder.inSceneObjectDatas.Add(objectData);
+            InSceneObjectData objectData = inSceneObjects[i].InSceneObjData;
+            mapDataHolder.inSceneObjectDatas.Add(objectData);
         }
 
-        string jsonData = JsonUtility.ToJson(inSceneObjectDataHolder, true);
+        mapDataHolder.basicReflectorAmount = int.Parse(ifBasicReflectorAmount.text);
+        mapDataHolder.translucentReflectorAmount = int.Parse(ifTranslucentReflectorAmount.text);
+        mapDataHolder.doubleWayReflectorAmount = int.Parse(ifDoubleWayReflectorAmount.text);
+        mapDataHolder.splitReflectorAmount = int.Parse(ifSplitReflectorAmount.text);
+        mapDataHolder.threeWayReflectorAmount = int.Parse(ifThreeWayReflectorAmount.text);
+
+        string jsonData = JsonUtility.ToJson(mapDataHolder, true);
 
         StreamWriter streamWriter = new StreamWriter(LoadedMapDataPath, false);
         streamWriter.WriteLine(jsonData);
@@ -247,12 +288,28 @@ public class MapEditorManager : MonoBehaviour
         cgPanelMapEditingTopLayer.alpha = 0f;
         cgPanelMapEditingTopLayer.interactable = false;
         cgPanelMapEditingTopLayer.blocksRaycasts = false;
+
         mapLayoutGameObj.SetActive(false);
+        rtPanelEndPoints.gameObject.SetActive(false);
 
         MapEditorInSceneObject[] inSceneObjects = FindObjectsOfType<MapEditorInSceneObject>();
         foreach (var inSceneObject in inSceneObjects)
             Destroy(inSceneObject.gameObject);
 
         LoadedMapDataPath = "";
+    }
+
+    public void TogglePanelEndPoints()
+    {
+        rtPanelEndPoints.gameObject.SetActive(!rtPanelEndPoints.gameObject.activeSelf);
+    }
+
+    private void UpdateIFReflectorAmount()
+    {
+        ifBasicReflectorAmount.text = basicReflectorAmount.ToString();
+        ifTranslucentReflectorAmount.text = translucentReflectorAmount.ToString();
+        ifDoubleWayReflectorAmount.text = doubleWayReflectorAmount.ToString();
+        ifSplitReflectorAmount.text = splitReflectorAmount.ToString();
+        ifThreeWayReflectorAmount.text = threeWayReflectorAmount.ToString();
     }
 }

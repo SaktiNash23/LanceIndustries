@@ -6,7 +6,9 @@ using NaughtyAttributes;
 
 public class RotationGizmo : GizmoBase
 {
-    [BoxGroup("ROTATION GIZMO SETTINGS")] [SerializeField] float rotationSpeed = 1.0f;
+    //[BoxGroup("ROTATION GIZMO SETTINGS")] [SerializeField] float rotationSpeed = 1.0f;
+    [BoxGroup("ROTATION GIZMO SETTINGS")] [SerializeField] float offsetToStartRotate = 5.0f;
+    [BoxGroup("ROTATION GIZMO SETTINGS")] [SerializeField] float rotationDegree = 90.0f;
 
     private Vector3 inSceneObjStartRotEuler;
     private Vector3 mouseStartPos;
@@ -36,7 +38,9 @@ public class RotationGizmo : GizmoBase
                 xOffset = (currMousePos.x - mouseStartPos.x) * -1f;     // -1f is used to invert the as -ve value of xOffset as it will increase the rot in +ve
                 yOffset = currMousePos.y - mouseStartPos.y;
                 float totalOffset = xOffset + yOffset;
-                newRotEuler = new Vector3(0f, 0f, inSceneObjStartRotEuler.z + totalOffset * rotationSpeed);
+                int rotMultiplier = (int)(totalOffset / offsetToStartRotate);
+                //newRotEuler = new Vector3(0f, 0f, inSceneObjStartRotEuler.z + totalOffset * rotationSpeed);
+                newRotEuler = new Vector3(0f, 0f, inSceneObjStartRotEuler.z + rotMultiplier * rotationDegree);
             }
 
             attachedInSceneObj.transform.rotation = Quaternion.Euler(newRotEuler);

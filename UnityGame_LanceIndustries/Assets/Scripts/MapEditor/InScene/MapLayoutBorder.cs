@@ -8,7 +8,7 @@ public enum MAP_LAYOUT_BORDER_TYPE
     VERTICAL_BORDER = 2
 }
 
-public enum SNAPPING_DIRECTION
+public enum BORDER_DIRECTION
 {
     NONE = 0,
     LEFT = 1,
@@ -20,9 +20,11 @@ public enum SNAPPING_DIRECTION
 public class MapLayoutBorder : MonoBehaviour
 {
     [BoxGroup("MAP LAYOUT BORDER SETTINGS")] [SerializeField] MAP_LAYOUT_BORDER_TYPE borderType;
-    [BoxGroup("MAP LAYOUT BORDER SETTINGS")] [SerializeField] SNAPPING_DIRECTION snappingDir;
+    [BoxGroup("MAP LAYOUT BORDER SETTINGS")] [SerializeField] BORDER_DIRECTION snappingDir;
     [BoxGroup("MAP LAYOUT BORDER SETTINGS")] [SerializeField] float snappingDistance;
     [BoxGroup("MAP LAYOUT BORDER SETTINGS")] [SerializeField] float unsnapDistance;
+
+    public bool GotSnappedObject { get; set; } = false;
 
     public float UnsnapDistance
     {
@@ -38,16 +40,16 @@ public class MapLayoutBorder : MonoBehaviour
         Vector3 offset = Vector3.zero;
         if(borderType == MAP_LAYOUT_BORDER_TYPE.HORIZONTAL_BORDER)
         {
-            if (snappingDir == SNAPPING_DIRECTION.UP)
+            if (snappingDir == BORDER_DIRECTION.UP)
                 offset = new Vector3(0f, snappingDistance, 0f);
-            else if(snappingDir == SNAPPING_DIRECTION.DOWN)
+            else if(snappingDir == BORDER_DIRECTION.DOWN)
                 offset = new Vector3(0f, -snappingDistance, 0f);
         }
         else if(borderType == MAP_LAYOUT_BORDER_TYPE.VERTICAL_BORDER)
         {
-            if (snappingDir == SNAPPING_DIRECTION.LEFT)
+            if (snappingDir == BORDER_DIRECTION.LEFT)
                 offset = new Vector3(-snappingDistance, 0f, 0f);
-            else if (snappingDir == SNAPPING_DIRECTION.RIGHT)
+            else if (snappingDir == BORDER_DIRECTION.RIGHT)
                 offset = new Vector3(snappingDistance, 0f, 0f);
         }
 
@@ -57,22 +59,30 @@ public class MapLayoutBorder : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         MapEditorInSceneObject inSceneObj = null;
-        if (other.TryGetComponent<MapEditorInSceneObject>(out inSceneObj))
+        if (!GotSnappedObject)
         {
-            if (MapEditorInputManager.Instance.GetSelectingInSceneObject() == inSceneObj)
+            if (other.TryGetComponent<MapEditorInSceneObject>(out inSceneObj))
             {
                 if (borderType == MAP_LAYOUT_BORDER_TYPE.VERTICAL_BORDER && inSceneObj.inSceneObjectType == IN_SCENE_OBJECT_TYPES.VERTICAL_LINE)
                 {
-                    if (!inSceneObj.SnappedTarget)
+                    if (!inSceneObj.SnappedTargetBorder)
                     {
-                        inSceneObj.SnappedTarget = this;
+                        GotSnappedObject = true;
+
+                        inSceneObj.SnappedTargetBorder = this;
+                        inSceneObj.InSceneObjData.mapGridIndex = transform.GetComponentInParent<MapGridMapEditor>().MapGridIndex;
+                        inSceneObj.InSceneObjData.borderDir = snappingDir;
                     }
                 }
                 else if (borderType == MAP_LAYOUT_BORDER_TYPE.HORIZONTAL_BORDER && inSceneObj.inSceneObjectType == IN_SCENE_OBJECT_TYPES.HORIZONTAL_LINE)
                 {
-                    if (!inSceneObj.SnappedTarget)
+                    if (!inSceneObj.SnappedTargetBorder)
                     {
-                        inSceneObj.SnappedTarget = this;
+                        GotSnappedObject = true;
+
+                        inSceneObj.SnappedTargetBorder = this;
+                        inSceneObj.InSceneObjData.mapGridIndex = transform.GetComponentInParent<MapGridMapEditor>().MapGridIndex;
+                        inSceneObj.InSceneObjData.borderDir = snappingDir;
                     }
                 }
             }

@@ -12,7 +12,10 @@ public enum IN_SCENE_OBJECT_TYPES
     VERTICAL_LINE = 1,
     HORIZONTAL_LINE = 2,
     ORIGIN_POINT = 3,
-    DESTINATION_POINT = 4
+    DESTINATION_POINT_WHITE = 4,
+    DESTINATION_POINT_RED = 5,
+    DESTINATION_POINT_YELLOW = 6,
+    DESTINATION_POINT_BLUE = 7
 }
 
 public class MapEditorInSceneObject : MonoBehaviour
@@ -20,9 +23,10 @@ public class MapEditorInSceneObject : MonoBehaviour
     [BoxGroup("MAP EDITOR IN SCENE OBJECT SETTINGS")] public IN_SCENE_OBJECT_TYPES inSceneObjectType;
     [BoxGroup("MAP EDITOR IN SCENE OBJECT REFERENCES")] public EventTrigger eventTrigger;
 
-    public InSceneObjectData inSceneObjectData { get; set; } = new InSceneObjectData();
+    public InSceneObjectData InSceneObjData { get; set; } = new InSceneObjectData();
 
-    public MapLayoutBorder SnappedTarget { get; set; } = null;
+    public MapLayoutBorder SnappedTargetBorder { get; set; } = null;
+    public MapLayoutBoxSnapper SnappedTargetBox { get; set; } = null;
 
     private GizmoBase attachedGizmo;
 
@@ -34,15 +38,19 @@ public class MapEditorInSceneObject : MonoBehaviour
         onMouseButtonDownEntry.eventID = EventTriggerType.PointerClick;
         onMouseButtonDownEntry.callback.AddListener((BaseEventData data) => PointerClickAction((PointerEventData)data));
         eventTrigger.triggers.Add(onMouseButtonDownEntry);
-        inSceneObjectData.inSceneObjectType = inSceneObjectType;
+        InSceneObjData.inSceneObjectType = inSceneObjectType;
         UpdateInSceneObjectData();
     }
 
     private void LateUpdate()
     {
-        if(SnappedTarget)
+        if (SnappedTargetBorder)
         {
-            transform.position = SnappedTarget.GetSnappingPosition();
+            transform.position = SnappedTargetBorder.GetSnappingPosition();
+        }
+        else if (SnappedTargetBox)
+        {
+            transform.position = SnappedTargetBox.GetSnappingPosition();
         }
     }
 
@@ -58,9 +66,9 @@ public class MapEditorInSceneObject : MonoBehaviour
 
     public void UpdateInSceneObjectData()
     {
-        inSceneObjectData.position = transform.position;
-        inSceneObjectData.rotation = transform.rotation;
-        inSceneObjectData.scale = transform.localScale;
+        InSceneObjData.position = transform.position;
+        InSceneObjData.rotation = transform.rotation;
+        InSceneObjData.scale = transform.localScale;
     }
 
     public void CreateGizmo(GIZMO_MODE gizmoMode)
@@ -86,15 +94,11 @@ public class MapEditorInSceneObject : MonoBehaviour
 }
 
 [Serializable]
-public class InSceneObjectDataHolder
-{
-    public List<InSceneObjectData> inSceneObjectDatas;
-}
-
-[Serializable]
 public class InSceneObjectData
 {
+    public int mapGridIndex;
     public IN_SCENE_OBJECT_TYPES inSceneObjectType;
+    public BORDER_DIRECTION borderDir;
     public Vector3 position;
     public Quaternion rotation;
     public Vector3 scale;

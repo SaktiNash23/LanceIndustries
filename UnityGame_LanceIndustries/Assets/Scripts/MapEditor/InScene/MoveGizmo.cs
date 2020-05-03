@@ -50,11 +50,20 @@ public class MoveGizmo : GizmoBase
                     break;
             }
 
-            if (attachedInSceneObj.SnappedTarget)
+            if (attachedInSceneObj.SnappedTargetBorder)
             {
-                if ((targetPos - attachedInSceneObj.transform.position).magnitude > attachedInSceneObj.SnappedTarget.UnsnapDistance)
+                if ((targetPos - attachedInSceneObj.transform.position).magnitude > attachedInSceneObj.SnappedTargetBorder.UnsnapDistance)
                 {
-                    attachedInSceneObj.SnappedTarget = null;
+                    attachedInSceneObj.SnappedTargetBorder.GotSnappedObject = false;
+                    attachedInSceneObj.SnappedTargetBorder = null;
+                }
+            }
+            else if (attachedInSceneObj.SnappedTargetBox)
+            {
+                if ((targetPos - attachedInSceneObj.transform.position).magnitude > attachedInSceneObj.SnappedTargetBox.UnsnapDistance)
+                {
+                    attachedInSceneObj.SnappedTargetBox.GotSnappedObject = false;
+                    attachedInSceneObj.SnappedTargetBox = null;
                 }
             }
             else

@@ -9,3 +9,14 @@ public class MapInfo : LibraryItemBase
     [BoxGroup("MAP INFO")] public TextAsset mapData;
 }
 
+[System.Serializable]
+public class MapDataHolder
+{
+    public List<InSceneObjectData> inSceneObjectDatas;
+    public int basicReflectorAmount;
+    public int translucentReflectorAmount;
+    public int doubleWayReflectorAmount;
+    public int splitReflectorAmount;
+    public int threeWayReflectorAmount;
+}
+

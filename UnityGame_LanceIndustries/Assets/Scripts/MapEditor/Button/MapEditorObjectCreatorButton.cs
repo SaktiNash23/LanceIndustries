@@ -20,7 +20,8 @@ public class MapEditorObjectCreatorButton : MonoBehaviour
 
     private void ObjectCreatorButtonAction()
     {
-        MapEditorInSceneObject sceneObject = Instantiate(mapEditorInSceneObjectPrefab, Vector3.zero, Quaternion.identity);
+        MapEditorInSceneObject sceneObject = Instantiate(mapEditorInSceneObjectPrefab, Vector3.zero, mapEditorInSceneObjectPrefab.transform.rotation);
+        MapEditorInputManager.Instance.SelectObject(sceneObject);
         //MapEditorInputManager.Instance.SelectObject(sceneObject);
     }
 }
