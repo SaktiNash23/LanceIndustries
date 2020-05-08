@@ -5,22 +5,26 @@ using NaughtyAttributes;
 
     public class Reflector : MonoBehaviour
     {
-        public Reflector_SO reflectorBase_SO;
-
+        public Reflector_SO reflectorBase_SO;//ATTN: Assign the correct ScriptableObject in the inspector according to the type of reflector
+        public SparkAnimation sparkAnimationScript;//ATTN: Assign the correct sparkAnimator gameobject in the inspector according to the type of reflector / spark
+    
         protected Vector2 referenceVector;
         protected RaycastHit2D referenceHitParam;
-
         protected GameObject referenceProjectile;
 
         void Start()
         {
-            //reflectorBase_SO = GameManager.gameManagerInstance.allReflectorSO[0]; //Index 0: Base Reflector
             if(reflectorBase_SO == null)
             {
                 Debug.LogWarning("No Scriptable Object has been assigned to this reflector. Please set the SO in the editor");
             }
 
-            Debug.Log("Basic Reflector SO : " + reflectorBase_SO);
+            if(sparkAnimationScript == null)
+            {
+                Debug.LogWarning("Spark Animation script is not inserted. Please insert Spark Animation script in the editor");
+            }
+
+            Debug.Log("Basic Reflector SO : " + reflectorBase_SO);     
         }
 
         public void retrieveLaserProperties(RaycastHit2D hitParam, GameObject projectile)
@@ -42,25 +46,30 @@ using NaughtyAttributes;
                 if (referenceVector == Vector2.down)
                 {
                     referenceProjectile.gameObject.GetComponent<Proto_Projectile>().DirectionVector = Vector2.right;
+                    referenceProjectile.transform.rotation = Quaternion.AngleAxis(90.0f, Vector3.forward);
                 }
 
                 if (referenceVector == Vector2.left)
                 {
                     referenceProjectile.gameObject.GetComponent<Proto_Projectile>().DirectionVector = Vector2.up;
+                    referenceProjectile.transform.rotation = Quaternion.AngleAxis(0.0f, Vector3.forward); 
                 }
-            }
+            }   
 
             if (transform.rotation.eulerAngles.z == 90.0f)
             {
                 if (referenceVector == Vector2.right)
                 {
                     referenceProjectile.GetComponent<Proto_Projectile>().DirectionVector = Vector3.up;
+                    referenceProjectile.transform.rotation = Quaternion.AngleAxis(0.0f, Vector3.forward);
                 }
 
                 if (referenceVector == Vector2.down)
                 {
                     referenceProjectile.GetComponent<Proto_Projectile>().DirectionVector = Vector2.left;
+                    referenceProjectile.transform.rotation = Quaternion.AngleAxis(-90.0f, Vector3.forward);
                 }
+            
             }
 
             if (transform.rotation.eulerAngles.z == 180.0f)
@@ -68,11 +77,13 @@ using NaughtyAttributes;
                 if (referenceVector == Vector2.up)
                 {
                     referenceProjectile.gameObject.GetComponent<Proto_Projectile>().DirectionVector = Vector2.left;
+                    referenceProjectile.transform.rotation = Quaternion.AngleAxis(-90.0f, Vector3.forward);
                 }
 
                 if (referenceVector == Vector2.right)
                 {
                     referenceProjectile.GetComponent<Proto_Projectile>().DirectionVector = Vector2.down;
+                    referenceProjectile.transform.rotation = Quaternion.AngleAxis(180.0f, Vector3.forward);
                 }
             }
 
@@ -81,10 +92,12 @@ using NaughtyAttributes;
                 if (referenceVector == Vector2.up)
                 {
                     referenceProjectile.GetComponent<Proto_Projectile>().DirectionVector = Vector2.right;
+                    referenceProjectile.transform.rotation = Quaternion.AngleAxis(90.0f, Vector3.forward);
                 }
                 else if (referenceVector == Vector2.left)
                 {
                     referenceProjectile.GetComponent<Proto_Projectile>().DirectionVector = Vector2.down;
+                    referenceProjectile.transform.rotation = Quaternion.AngleAxis(180.0f, Vector3.forward);
                 }
             }
 
@@ -98,16 +111,19 @@ using NaughtyAttributes;
             referenceProjectile.transform.position = hitParam.point;
             calculateLaser_Base();
             setReflectorLaserColor();
+            sparkAnimationScript.playDeflectAnimation();
             setReflectorHitFalseForProjectile();
         }
 
         public virtual void setReflectorLaserColor()
         {
             referenceProjectile.GetComponent<TrailRenderer>().material = reflectorBase_SO.laserMaterialToChange;
+            referenceProjectile.GetComponent<SpriteRenderer>().color = reflectorBase_SO.laserColorToChange;
         }
 
         public virtual void setReflectorHitFalseForProjectile()
         {
             referenceProjectile.GetComponent<Proto_Projectile>().Invoke("reflectorHitFalse", 0.02f);
         }
+
     }

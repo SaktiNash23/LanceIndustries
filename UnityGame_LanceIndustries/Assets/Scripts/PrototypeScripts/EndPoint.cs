@@ -49,7 +49,7 @@ public class EndPoint : MonoBehaviour
     {
         if (isHitByLaser == false)
         {
-            if (projectile.GetComponent<TrailRenderer>().material.color == gameObject.GetComponent<SpriteRenderer>().color)
+            if (projectile.GetComponent<SpriteRenderer>().color == gameObject.GetComponent<SpriteRenderer>().color)
             {
                 Debug.Log("Correct Laser Color Hit");
                 isHitByLaser = true;
@@ -59,6 +59,8 @@ public class EndPoint : MonoBehaviour
             else
             {
                 Debug.Log("Wrong Laser Color Hit");
+                Debug.LogWarning("Projectile Color : " + projectile.GetComponent<SpriteRenderer>().color.ToString());
+                Debug.LogWarning("End Point Color : " + gameObject.GetComponent<SpriteRenderer>().color.ToString());
                 isHitByLaser = true;
                 GameManager.gameManagerInstance.updateEndPointStatus(false);
             }

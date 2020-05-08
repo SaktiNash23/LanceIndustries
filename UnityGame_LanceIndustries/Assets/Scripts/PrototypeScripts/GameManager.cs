@@ -98,8 +98,6 @@ public class GameManager : MonoBehaviour
         allEndPoints = GameObject.FindGameObjectsWithTag("EndPoint");
         numOfEndPoints = allEndPoints.Length;
 
-
-
         #endregion
 
         currentWindowTime = maxWindowTime;
@@ -122,7 +120,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         //Debug.Log("IsReflectorColorPanelActive " + isReflectorColorPanelActive);
-        Debug.Log("Begin Countdown : " + beginCountDown);
+        //Debug.Log("Begin Countdown : " + beginCountDown);
 
         if(beginCountDown == true)
         {
@@ -698,26 +696,26 @@ public class GameManager : MonoBehaviour
          {
              if (allCorrectLasersHaveReached == true)
              {
-                 Debug.Log("All Correct Laser Have Reached earlier than time limit!!");
-                 TimerSuccessText.text = "SUCCESS";
+                 //Debug.Log("All Correct Laser Have Reached earlier than time limit!!");
+                 TimerSuccessText.text = "WIN";
                  Reset();
              }
              else if(allLasersHaveReached == true)
              {
-                Debug.LogWarning("All Lasers Reached, but not all correct");
+                //Debug.LogWarning("All Lasers Reached, but not all correct");
                 TimerSuccessText.text = "FAIL";
                 Reset();
              }
              else
              {
-                Debug.Log("COUNT");
+                //Debug.Log("COUNT");
                 currentWindowTime -= Time.smoothDeltaTime;
                 TimerSuccessText.text = currentWindowTime.ToString("F2");
              }
          }
          else if (currentWindowTime <= 0.0f)
          {
-             Debug.LogWarning("Timing Window is closed!!!");
+             //Debug.LogWarning("Timing Window is closed!!!");
              TimerSuccessText.text = "FAIL";
              Reset();
          }
@@ -739,13 +737,14 @@ public class GameManager : MonoBehaviour
         allLasersHaveReached = false;
         beginCountDown = false;
 
+        /*
         Debug.Log("Current Window Time : " + currentWindowTime);
         Debug.Log("Num of Hit End Points : " + numOfHitEndPoints);
         Debug.Log("Num of Success End Points : " + numOfSuccessEndPoints);
         Debug.Log("All Correct Lasers have reached : " + allCorrectLasersHaveReached);
         Debug.Log("All Lasers Have Reached : " + allLasersHaveReached);
         Debug.Log("Begin Countdown : " + beginCountDown);
-
+        */
     }
 
     #region Accessor Functions

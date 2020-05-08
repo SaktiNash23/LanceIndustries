@@ -23,11 +23,13 @@ public class Reflector_Translucent : Reflector
             {
                 newProjectile = Instantiate(projectile, transform.parent.GetChild(4).transform.position, Quaternion.identity);
                 newProjectile.GetComponent<Proto_Projectile>().DirectionVector = Vector2.down;
+                newProjectile.transform.rotation = Quaternion.AngleAxis(180.0f, Vector3.forward);
             }
             else if (base.referenceVector == Vector2.left)
             {
                 newProjectile = Instantiate(projectile, transform.parent.GetChild(3).transform.position, Quaternion.identity);
                 newProjectile.GetComponent<Proto_Projectile>().DirectionVector = Vector2.left;
+                newProjectile.transform.rotation = Quaternion.AngleAxis(-90.0f, Vector3.forward);
             }
         }
 
@@ -37,12 +39,14 @@ public class Reflector_Translucent : Reflector
             {
                 newProjectile = Instantiate(projectile, transform.parent.GetChild(4).transform.position, Quaternion.identity);
                 newProjectile.GetComponent<Proto_Projectile>().DirectionVector = Vector2.right;
+                newProjectile.transform.rotation = Quaternion.AngleAxis(90.0f, Vector3.forward);
             }
 
             if (base.referenceVector == Vector2.down)
             {
                 newProjectile = Instantiate(projectile, transform.parent.GetChild(3).transform.position, Quaternion.identity);
                 newProjectile.GetComponent<Proto_Projectile>().DirectionVector = Vector2.down;
+                newProjectile.transform.rotation = Quaternion.AngleAxis(180.0f, Vector3.forward);
             }
         }
 
@@ -52,12 +56,14 @@ public class Reflector_Translucent : Reflector
             {
                 newProjectile = Instantiate(projectile, transform.parent.GetChild(4).transform.position, Quaternion.identity);
                 newProjectile.GetComponent<Proto_Projectile>().DirectionVector = Vector2.up;
+                newProjectile.transform.rotation = Quaternion.AngleAxis(0.0f, Vector3.forward);
             }
 
             if (base.referenceVector == Vector2.right)
             {
                 newProjectile = Instantiate(projectile, transform.parent.GetChild(3).transform.position, Quaternion.identity);
                 newProjectile.GetComponent<Proto_Projectile>().DirectionVector = Vector2.right;
+                newProjectile.transform.rotation = Quaternion.AngleAxis(90.0f, Vector3.forward);
             }
         }
 
@@ -67,11 +73,13 @@ public class Reflector_Translucent : Reflector
             {
                 newProjectile = Instantiate(projectile, transform.parent.GetChild(3).transform.position, Quaternion.identity);
                 newProjectile.GetComponent<Proto_Projectile>().DirectionVector = Vector2.up;
+                newProjectile.transform.rotation = Quaternion.AngleAxis(0.0f, Vector3.forward);
             }
             else if (base.referenceVector == Vector2.left)
             {
                 newProjectile = Instantiate(projectile, transform.parent.GetChild(4).transform.position, Quaternion.identity);
                 newProjectile.GetComponent<Proto_Projectile>().DirectionVector = Vector2.left;
+                newProjectile.transform.rotation = Quaternion.AngleAxis(-90.0f, Vector3.forward);
             }
         }
   
@@ -84,6 +92,9 @@ public class Reflector_Translucent : Reflector
     {
         referenceProjectile.GetComponent<TrailRenderer>().material = reflectorTranslucent_SO.laserMaterialToChange;
         newProjectile.GetComponent<TrailRenderer>().material = reflectorTranslucent_SO.laserMaterialToChange;
+
+        referenceProjectile.GetComponent<SpriteRenderer>().color = reflectorTranslucent_SO.laserColorToChange;
+        newProjectile.GetComponent<SpriteRenderer>().color = reflectorTranslucent_SO.laserColorToChange;
     }
 
     public override void setReflectorHitFalseForProjectile()

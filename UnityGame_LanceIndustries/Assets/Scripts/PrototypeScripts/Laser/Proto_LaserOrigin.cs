@@ -83,6 +83,7 @@ using NaughtyAttributes;
             GameManager.gameManagerInstance.beginCountDown = true;
             GameObject projectile = Instantiate(projectileSphere, transform.position, Quaternion.identity);
             projectile.GetComponent<Proto_Projectile>().DirectionVector = laserStartDir;
+            projectile.transform.rotation = Quaternion.AngleAxis(transform.rotation.eulerAngles.z, Vector3.forward);
         }
 
         [Button("Change Direction of Origin Laser")]
@@ -93,21 +94,25 @@ using NaughtyAttributes;
                 case DIRECTION.UP:
                     laserStartDir = Vector2.right;
                     dir = DIRECTION.RIGHT;
+                    //transform.rotation = Quaternion.AngleAxis(90.0f, Vector3.forward);
                     break;
 
                 case DIRECTION.RIGHT:
                     laserStartDir = Vector2.down;
                     dir = DIRECTION.DOWN;
+                    //transform.rotation = Quaternion.AngleAxis(180.0f, Vector3.forward);
                     break;
 
                 case DIRECTION.DOWN:
                     laserStartDir = Vector2.left;
                     dir = DIRECTION.LEFT;
+                    //transform.rotation = Quaternion.AngleAxis(-90.0f, Vector3.forward);
                     break;
 
                 case DIRECTION.LEFT:
                     laserStartDir = Vector2.up;
                     dir = DIRECTION.UP;
+                    //transform.rotation = Quaternion.AngleAxis(0.0f, Vector3.forward);
                     break;
 
                 default:

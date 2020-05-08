@@ -84,14 +84,26 @@ public class Raycast : MonoBehaviour
                 switch (touch.phase)
                 {
                     case TouchPhase.Began:
+                        //Orthographic Cam Code
                         transform.position = new Vector3(point.x, point.y);
+
+                        //Perspective Cam Test Code
+                        //transform.position = new Vector3(point.x, point.y, 9.0f);
                         break;
 
                     case TouchPhase.Moved:
+                        //Orthographic Cam Test Code
                         point = Camera.main.ScreenToWorldPoint(touch.position);
                         transform.position = new Vector3(point.x, point.y);
-
                         hit = Physics2D.Raycast(transform.position, -transform.up, rayLength, layerMask);
+
+                        //Perspective Cam Test Code
+                        /* 
+                        point = Camera.main.ScreenToWorldPoint(touch.position);
+                        transform.position = new Vector3(point.x, point.y, 9.0f);
+                        hit = Physics2D.Raycast(transform.position, -transform.up, rayLength, layerMask);
+                        Debug.Log("Raycast Began : " + transform.position);
+                        */
 
                         if (hit)
                         {
@@ -279,6 +291,16 @@ public class Raycast : MonoBehaviour
         {
             isHoldingDown = value;
         }
+    }
+
+    private Vector3 perspectiveCamRaycastCalc(Vector3 point)
+    {
+        float zPlaneOfGameObjects = 9.0f;
+
+        //Vector3 actualPos = ray.origin + ray.direction * (zPlaneOfGameObjects - ray.origin.z) / ray.direction.z;
+        Vector3 actualPos = new Vector3(point.x, point.y, zPlaneOfGameObjects); 
+
+        return actualPos;
     }
 
 }

@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   laserMaterialToChange: {fileID: 2100000, guid: c1634d554d4eff24c9715f1bc2eeb412,
     type: 2}
+  laserColorToChange: {r: 0, g: 0, b: 1, a: 1}

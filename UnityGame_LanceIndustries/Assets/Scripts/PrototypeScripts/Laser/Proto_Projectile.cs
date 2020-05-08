@@ -9,10 +9,11 @@ public class Proto_Projectile : MonoBehaviour
     public float projectileRaycastLength;
     private Vector3 directionVector;
     private Rigidbody2D rb;
+    [SerializeField]
     private bool reflectorHit = false;
     public RaycastHit2D hitStore;
     private int layerMask;
-    private float lifeTime = 3.0f;
+    private float lifeTime = 5.0f;
 
 
     void Awake()
@@ -22,8 +23,9 @@ public class Proto_Projectile : MonoBehaviour
 
         layerMask = 1 << 8;
         layerMask = ~layerMask; //Ask raycast to ignore only Layer 8 which is the IgnoredByProjectile layer
+
     }
-    
+
     void Update()
     {
         if (lifeTime > 0.0f)
@@ -45,18 +47,17 @@ public class Proto_Projectile : MonoBehaviour
             Debug.DrawRay(transform.position, directionVector * projectileRaycastLength);
 
             if (hitStore)
-            {
-
+            {              
+                //REMINDER: Refactor these if statements into a switch statement in the future
                 #region HIT: Basic Reflector
-                if (hitStore.collider.gameObject.tag == "Reflector")
+                if(hitStore.collider.gameObject.tag == "Reflector")
                 {
                     Debug.Log("Reflector HIT");
-
-                    if (reflectorHit == false)
+                    
+                    if(reflectorHit == false)
                     {
                         reflectorHit = true;
                         hitStore.collider.gameObject.GetComponent<Reflector>().calculateLaser_Basic(hitStore, gameObject);
-
                     }
                 }
                 #endregion
@@ -77,7 +78,7 @@ public class Proto_Projectile : MonoBehaviour
                 #region HIT: Double Way Reflector
                 if (hitStore.collider.gameObject.tag == "ReflectorDoubleWay")
                 {
-                    Debug.Log("Reflector Translucent HIT");
+                    Debug.Log("Reflector DoubleWay HIT");
 
                     if (reflectorHit == false)
                     {
@@ -113,7 +114,7 @@ public class Proto_Projectile : MonoBehaviour
                 if (hitStore.collider.gameObject.tag == "InvalidBounds")
                 {
                     projectileSpeed = 0.0f;
-                    Destroy(gameObject, 1.0f);
+                    Destroy(gameObject, 0.1f);
                 }
                 #endregion
 
@@ -121,16 +122,18 @@ public class Proto_Projectile : MonoBehaviour
                 if (hitStore.collider.gameObject.tag == "Border")
                 {
                     projectileSpeed = 0.0f;
-                    Destroy(gameObject);
+                    Destroy(gameObject, 0.1f);
                 }
                 #endregion
 
-                if(hitStore.collider.gameObject.tag == "EndPoint")
+                #region HIT: End Point
+                if (hitStore.collider.gameObject.tag == "EndPoint")
                 {                 
                     hitStore.collider.gameObject.GetComponent<EndPoint>().checkIfCorrectLaserHit(gameObject);
                     projectileSpeed = 0.0f;
-                    Destroy(gameObject, 1.0f);
+                    Destroy(gameObject, 0.1f);
                 }
+                #endregion
             }
 
         }     

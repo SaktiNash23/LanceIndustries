@@ -6,4 +6,5 @@ using UnityEngine;
 public class Reflector_SO : ScriptableObject
 {
     public Material laserMaterialToChange;
+    public Color laserColorToChange;
 }
