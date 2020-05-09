@@ -56,12 +56,44 @@ public class MapLayoutBorder : MonoBehaviour
         return borderPos + offset;
     }
 
-    private void OnTriggerEnter(Collider other)
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    MapEditorInSceneObject inSceneObj = null;
+    //    if (!GotSnappedObject)
+    //    {
+    //        if (other.TryGetComponent(out inSceneObj))
+    //        {
+    //            if (borderType == MAP_LAYOUT_BORDER_TYPE.VERTICAL_BORDER && inSceneObj.inSceneObjectType == IN_SCENE_OBJECT_TYPES.VERTICAL_LINE)
+    //            {
+    //                if (!inSceneObj.SnappedTargetBorder)
+    //                {
+    //                    GotSnappedObject = true;
+
+    //                    inSceneObj.InSceneObjData.mapGridIndex = transform.GetComponentInParent<MapGridMapEditor>().MapGridIndex;
+    //                    inSceneObj.InSceneObjData.borderDir = snappingDir;
+    //                }
+    //            }
+    //            else if (borderType == MAP_LAYOUT_BORDER_TYPE.HORIZONTAL_BORDER && inSceneObj.inSceneObjectType == IN_SCENE_OBJECT_TYPES.HORIZONTAL_LINE)
+    //            {
+    //                if (!inSceneObj.SnappedTargetBorder)
+    //                {
+    //                    GotSnappedObject = true;
+
+    //                    inSceneObj.InSceneObjData.mapGridIndex = transform.GetComponentInParent<MapGridMapEditor>().MapGridIndex;
+    //                    inSceneObj.InSceneObjData.borderDir = snappingDir;
+    //                }
+    //            }
+    //        }
+    //    }
+    //}
+
+    public void Initialization()
     {
-        MapEditorInSceneObject inSceneObj = null;
-        if (!GotSnappedObject)
+        BoxCollider boxCol = GetComponent<BoxCollider>();
+        Collider[] overlappedCols = Physics.OverlapBox(transform.position + boxCol.center, boxCol.size / 2f, transform.rotation, LayerMask.GetMask("MapEditorInSceneObject"));
+        if(overlappedCols.Length > 0)
         {
-            if (other.TryGetComponent<MapEditorInSceneObject>(out inSceneObj))
+            if (overlappedCols[0].TryGetComponent(out MapEditorInSceneObject inSceneObj))
             {
                 if (borderType == MAP_LAYOUT_BORDER_TYPE.VERTICAL_BORDER && inSceneObj.inSceneObjectType == IN_SCENE_OBJECT_TYPES.VERTICAL_LINE)
                 {
@@ -84,6 +116,57 @@ public class MapLayoutBorder : MonoBehaviour
                         inSceneObj.InSceneObjData.mapGridIndex = transform.GetComponentInParent<MapGridMapEditor>().MapGridIndex;
                         inSceneObj.InSceneObjData.borderDir = snappingDir;
                     }
+                }
+            }
+        }
+        else
+        {
+            GotSnappedObject = false;
+        }
+    }
+
+    public void CheckSnapping(MapEditorInSceneObject inSceneObj)
+    {
+        if (!GotSnappedObject)
+        {
+            if (borderType == MAP_LAYOUT_BORDER_TYPE.VERTICAL_BORDER && inSceneObj.inSceneObjectType == IN_SCENE_OBJECT_TYPES.VERTICAL_LINE)
+            {
+                if (!inSceneObj.SnappedTargetBorder)
+                {
+                    GotSnappedObject = true;
+
+                    inSceneObj.SnappedTargetBorder = this;
+                    inSceneObj.InSceneObjData.mapGridIndex = transform.GetComponentInParent<MapGridMapEditor>().MapGridIndex;
+                    inSceneObj.InSceneObjData.borderDir = snappingDir;
+                }
+                else
+                {
+                    inSceneObj.SnappedTargetBorder.GotSnappedObject = false;
+                    GotSnappedObject = true;
+
+                    inSceneObj.SnappedTargetBorder = this;
+                    inSceneObj.InSceneObjData.mapGridIndex = transform.GetComponentInParent<MapGridMapEditor>().MapGridIndex;
+                    inSceneObj.InSceneObjData.borderDir = snappingDir;
+                }
+            }
+            else if (borderType == MAP_LAYOUT_BORDER_TYPE.HORIZONTAL_BORDER && inSceneObj.inSceneObjectType == IN_SCENE_OBJECT_TYPES.HORIZONTAL_LINE)
+            {
+                if (!inSceneObj.SnappedTargetBorder)
+                {
+                    GotSnappedObject = true;
+
+                    inSceneObj.SnappedTargetBorder = this;
+                    inSceneObj.InSceneObjData.mapGridIndex = transform.GetComponentInParent<MapGridMapEditor>().MapGridIndex;
+                    inSceneObj.InSceneObjData.borderDir = snappingDir;
+                }
+                else
+                {
+                    inSceneObj.SnappedTargetBorder.GotSnappedObject = false;
+                    GotSnappedObject = true;
+
+                    inSceneObj.SnappedTargetBorder = this;
+                    inSceneObj.InSceneObjData.mapGridIndex = transform.GetComponentInParent<MapGridMapEditor>().MapGridIndex;
+                    inSceneObj.InSceneObjData.borderDir = snappingDir;
                 }
             }
         }

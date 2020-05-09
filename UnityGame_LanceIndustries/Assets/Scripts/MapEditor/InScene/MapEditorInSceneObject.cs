@@ -21,6 +21,9 @@ public enum IN_SCENE_OBJECT_TYPES
 public class MapEditorInSceneObject : MonoBehaviour
 {
     [BoxGroup("MAP EDITOR IN SCENE OBJECT SETTINGS")] public IN_SCENE_OBJECT_TYPES inSceneObjectType;
+    [BoxGroup("MAP EDITOR IN SCENE OBJECT SETTINGS")] public SpriteRenderer spriteRend;
+    [BoxGroup("MAP EDITOR IN SCENE OBJECT SETTINGS")] public Color defaultColor;
+    [BoxGroup("MAP EDITOR IN SCENE OBJECT SETTINGS")] public Color selectedColor;
     [BoxGroup("MAP EDITOR IN SCENE OBJECT REFERENCES")] public EventTrigger eventTrigger;
 
     public InSceneObjectData InSceneObjData { get; set; } = new InSceneObjectData();
@@ -90,6 +93,11 @@ public class MapEditorInSceneObject : MonoBehaviour
     {
         Destroy(attachedGizmo.gameObject);
         attachedGizmo = null;
+    }
+
+    public void ChangeColor(Color targetColor)
+    {
+        spriteRend.color = targetColor;
     }
 }
 

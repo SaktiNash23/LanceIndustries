@@ -75,6 +75,11 @@ public class MapEditorInputManager : MonoBehaviour
             }
         }
 
+        if(Input.GetMouseButtonDown(1))
+        {
+            SwitchInputMode(INPUT_MODE.NONE);
+        }
+
         if (Input.GetKeyDown(KeyCode.W))
         {
             if (CurrentGizmoMode == GIZMO_MODE.MOVE)
@@ -104,6 +109,23 @@ public class MapEditorInputManager : MonoBehaviour
             if (selectingObject)
                 DeleteObject();
         }
+
+        if(CurrentInputMode == INPUT_MODE.SELECTING && CurrentGizmoMode == GIZMO_MODE.MOVE)
+        {
+            Ray ray = cachedMainCamera.ScreenPointToRay(Input.mousePosition);
+            RaycastHit raycastHit;
+            if (Physics.Raycast(ray, out raycastHit, 100.0f, LayerMask.GetMask("MapEditorSnapper")))
+            {
+                if (raycastHit.transform.TryGetComponent(out MapLayoutBorder mapLayoutBorder))
+                {
+                    mapLayoutBorder.CheckSnapping(selectingObject);
+                }
+                else if(raycastHit.transform.TryGetComponent(out MapLayoutBoxSnapper mapLayoutBoxSnapper))
+                {
+                    mapLayoutBoxSnapper.CheckSnapping(selectingObject);
+                }
+            }
+        }
     }
 
     //------------------------------ INPUT MANAGER FUNCTIONS ------------------------------//
@@ -116,6 +138,7 @@ public class MapEditorInputManager : MonoBehaviour
             case INPUT_MODE.NONE:
                 if (selectingObject)
                 {
+                    selectingObject.ChangeColor(selectingObject.defaultColor);
                     selectingObject.UpdateInSceneObjectData();
                     selectingObject.RemoveGizmo();
                 }
@@ -141,12 +164,21 @@ public class MapEditorInputManager : MonoBehaviour
 
     public void SelectObject(MapEditorInSceneObject selectedObj)
     {
+        selectedObj.ChangeColor(selectedObj.selectedColor);
         selectingObject = selectedObj;
         SwitchInputMode(INPUT_MODE.SELECTING);
     }
 
     public void DeleteObject()
     {
+        if(selectingObject.SnappedTargetBorder)
+        {
+            selectingObject.SnappedTargetBorder.GotSnappedObject = false;
+        }
+        if(selectingObject.SnappedTargetBox)
+        {
+            selectingObject.SnappedTargetBox.GotSnappedObject = false;
+        }
         Destroy(selectingObject.gameObject);
         selectingObject = null;
         SwitchInputMode(INPUT_MODE.NONE);

@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 5111331505042153364}
   - component: {fileID: 5111331505042153365}
   m_Layer: 9
-  m_Name: EndPoint
+  m_Name: EndPointWhite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -128,6 +128,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inSceneObjectType: 4
+  spriteRend: {fileID: 5111331504699231102}
+  defaultColor: {r: 1, g: 1, b: 1, a: 1}
+  selectedColor: {r: 0, g: 1, b: 0, a: 1}
   eventTrigger: {fileID: 5111331505042153367}
 --- !u!114 &5111331505042153367
 MonoBehaviour:

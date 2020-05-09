@@ -165,6 +165,14 @@ public class MapEditorManager : MonoBehaviour
             }
         }
 
+        MapLayoutBorder[] mapLayoutBorders = FindObjectsOfType<MapLayoutBorder>();
+        foreach(var mapLayoutBorder in mapLayoutBorders)
+            mapLayoutBorder.Initialization();
+
+        MapLayoutBoxSnapper[] mapLayoutBoxSnappers = FindObjectsOfType<MapLayoutBoxSnapper>();
+        foreach (var mapLayoutBoxSnapper in mapLayoutBoxSnappers)
+            mapLayoutBoxSnapper.Initialization();
+
         basicReflectorAmount = mapDataHolder.basicReflectorAmount;
         translucentReflectorAmount = mapDataHolder.translucentReflectorAmount;
         doubleWayReflectorAmount = mapDataHolder.doubleWayReflectorAmount;
@@ -221,7 +229,7 @@ public class MapEditorManager : MonoBehaviour
 #if UNITY_EDITOR
         MapData newMapData = new MapData();
         string mapDataJson = JsonUtility.ToJson(newMapData, true);
-        string mapDataSavePath = "Assets/Data Library/Map Data/" + ifMapName.text + ".json";
+        string mapDataSavePath = "Assets/Data Library/Map Datas/" + ifMapName.text + ".json";
         FileStream file = new FileStream(mapDataSavePath, FileMode.Create);
         StreamWriter writer = new StreamWriter(file);
         writer.Write(mapDataJson);
@@ -229,7 +237,7 @@ public class MapEditorManager : MonoBehaviour
         file.Close();
         AssetDatabase.Refresh();
 
-        string mapInfoSavePath = "Assets/Data Library/Map Info/" + ifMapName.text + " Map Info.asset";
+        string mapInfoSavePath = "Assets/Data Library/Map Infos/" + ifMapName.text + " Map Info.asset";
         TextAsset targetTextAsset = (TextAsset)AssetDatabase.LoadAssetAtPath(mapDataSavePath, typeof(TextAsset));
         MapInfo mapInfo = ScriptableObject.CreateInstance<MapInfo>();
         mapInfo.mapData = targetTextAsset;

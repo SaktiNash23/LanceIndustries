@@ -30,7 +30,7 @@ public class MapButton : MonoBehaviour
 
     public void InitializeMapDataPath()
     {
-        string mapDataDirectory = "Assets/Data Library/Map Data/";
+        string mapDataDirectory = "Assets/Data Library/Map Datas/";
         string targetPath = mapDataDirectory + txtMapName.text + ".json";
         MapDataPath = targetPath;
     }
