@@ -180,6 +180,8 @@ public class MapEditorManager : MonoBehaviour
         threeWayReflectorAmount = mapDataHolder.threeWayReflectorAmount;
 
         UpdateIFReflectorAmount();
+
+        MapEditorInputManager.Instance.MapEditing = true;
 #endif
         yield return null;
     }
@@ -305,6 +307,7 @@ public class MapEditorManager : MonoBehaviour
             Destroy(inSceneObject.gameObject);
 
         LoadedMapDataPath = "";
+        MapEditorInputManager.Instance.MapEditing = false;
     }
 
     public void TogglePanelEndPoints()
@@ -319,5 +322,21 @@ public class MapEditorManager : MonoBehaviour
         ifDoubleWayReflectorAmount.text = doubleWayReflectorAmount.ToString();
         ifSplitReflectorAmount.text = splitReflectorAmount.ToString();
         ifThreeWayReflectorAmount.text = threeWayReflectorAmount.ToString();
+    }
+
+    public MapEditorInSceneObject CreateInSceneObj(IN_SCENE_OBJECT_TYPES inSceneObjType)
+    {
+        MapEditorInSceneObject inSceneObj = null;
+        switch (inSceneObjType)
+        {
+            case IN_SCENE_OBJECT_TYPES.HORIZONTAL_LINE:
+                inSceneObj = Instantiate<MapEditorInSceneObject>(horizontalLinePrefab, new Vector3(-0.5f, -3.7f, 0.0f), horizontalLinePrefab.transform.rotation);
+                break;
+            case IN_SCENE_OBJECT_TYPES.VERTICAL_LINE:
+                inSceneObj = Instantiate<MapEditorInSceneObject>(verticalLinePrefab, new Vector3(-0.5f, -3.7f, 0.0f), verticalLinePrefab.transform.rotation);
+                break;
+        }
+
+        return inSceneObj;
     }
 }

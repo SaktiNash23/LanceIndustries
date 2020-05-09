@@ -34,6 +34,8 @@ public class MapEditorInputManager : MonoBehaviour
 
     [BoxGroup("INPUT MANAGER SETTINGS")] [SerializeField] float mapEditorScenePosZ;
 
+    public bool MapEditing { get; set; } = false;
+
     private void Awake()
     {
         if(_instance != null && _instance != this)
@@ -75,42 +77,57 @@ public class MapEditorInputManager : MonoBehaviour
             }
         }
 
-        if(Input.GetMouseButtonDown(1))
+        if (MapEditing)
         {
-            SwitchInputMode(INPUT_MODE.NONE);
+            if (Input.GetMouseButtonDown(1))
+            {
+                SwitchInputMode(INPUT_MODE.NONE);
+            }
+
+            if (Input.GetKeyDown(KeyCode.W))
+            {
+                if (CurrentGizmoMode == GIZMO_MODE.MOVE)
+                    return;
+                CurrentGizmoMode = GIZMO_MODE.MOVE;
+                if (selectingObject)
+                    SwitchGizmo();
+            }
+            else if (Input.GetKeyDown(KeyCode.E))
+            {
+                if (CurrentGizmoMode == GIZMO_MODE.ROTATE)
+                    return;
+                CurrentGizmoMode = GIZMO_MODE.ROTATE;
+                if (selectingObject)
+                    SwitchGizmo();
+            }
+            else if (Input.GetKeyDown(KeyCode.R))
+            {
+                if (CurrentGizmoMode == GIZMO_MODE.SCALE)
+                    return;
+                CurrentGizmoMode = GIZMO_MODE.SCALE;
+                if (selectingObject)
+                    SwitchGizmo();
+            }
+            else if (Input.GetKeyDown(KeyCode.Delete))
+            {
+                if (selectingObject)
+                    DeleteObject();
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                if (selectingObject)
+                    SwitchInputMode(INPUT_MODE.NONE);
+                SelectObject(MapEditorManager.Instance.CreateInSceneObj(IN_SCENE_OBJECT_TYPES.HORIZONTAL_LINE));
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                if (selectingObject)
+                    SwitchInputMode(INPUT_MODE.NONE);
+                SelectObject(MapEditorManager.Instance.CreateInSceneObj(IN_SCENE_OBJECT_TYPES.VERTICAL_LINE));
+            }
         }
 
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            if (CurrentGizmoMode == GIZMO_MODE.MOVE)
-                return;
-            CurrentGizmoMode = GIZMO_MODE.MOVE;
-            if(selectingObject)
-                SwitchGizmo();
-        }
-        else if (Input.GetKeyDown(KeyCode.E))
-        {
-            if (CurrentGizmoMode == GIZMO_MODE.ROTATE)
-                return;
-            CurrentGizmoMode = GIZMO_MODE.ROTATE;
-            if (selectingObject)
-                SwitchGizmo();
-        }
-        else if (Input.GetKeyDown(KeyCode.R))
-        {
-            if (CurrentGizmoMode == GIZMO_MODE.SCALE)
-                return;
-            CurrentGizmoMode = GIZMO_MODE.SCALE;
-            if (selectingObject)
-                SwitchGizmo();
-        }
-        else if(Input.GetKeyDown(KeyCode.Delete))
-        {
-            if (selectingObject)
-                DeleteObject();
-        }
-
-        if(CurrentInputMode == INPUT_MODE.SELECTING && CurrentGizmoMode == GIZMO_MODE.MOVE)
+        if(MapEditing && CurrentInputMode == INPUT_MODE.SELECTING && CurrentGizmoMode == GIZMO_MODE.MOVE)
         {
             Ray ray = cachedMainCamera.ScreenPointToRay(Input.mousePosition);
             RaycastHit raycastHit;
