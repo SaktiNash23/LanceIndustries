@@ -165,6 +165,8 @@ public class MapEditorManager : MonoBehaviour
             }
         }
 
+        yield return new WaitForSeconds(0.25f);
+
         MapLayoutBorder[] mapLayoutBorders = FindObjectsOfType<MapLayoutBorder>();
         foreach(var mapLayoutBorder in mapLayoutBorders)
             mapLayoutBorder.Initialization();
@@ -250,6 +252,8 @@ public class MapEditorManager : MonoBehaviour
         AssetDatabase.Refresh();
 
         LibraryLinker.Instance.MapInfoLib.mapInfos.Add(mapInfo);
+        EditorUtility.SetDirty(LibraryLinker.Instance.MapInfoLib);
+        AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
 
         LoadedMapDataPath = mapDataSavePath;

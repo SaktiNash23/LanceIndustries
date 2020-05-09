@@ -24,7 +24,7 @@ public class MapLayoutBorder : MonoBehaviour
     [BoxGroup("MAP LAYOUT BORDER SETTINGS")] [SerializeField] float snappingDistance;
     [BoxGroup("MAP LAYOUT BORDER SETTINGS")] [SerializeField] float unsnapDistance;
 
-    public bool GotSnappedObject { get; set; } = false;
+    public bool GotSnappedObject = false;
 
     public float UnsnapDistance
     {

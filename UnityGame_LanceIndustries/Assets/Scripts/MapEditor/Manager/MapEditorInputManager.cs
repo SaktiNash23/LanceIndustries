@@ -55,30 +55,30 @@ public class MapEditorInputManager : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetMouseButtonDown(0))
-        {
-            Ray mouseRay = cachedMainCamera.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            LayerMask layerMask = LayerMask.GetMask("MapEditorInSceneObject");
-
-            if (selectingObject == null)
-            {
-                if (Physics.Raycast(mouseRay, out hit, cachedMainCamera.farClipPlane + 5.0f, layerMask))
-                {
-                    SelectObject(hit.collider.GetComponent<MapEditorInSceneObject>());
-                }
-            }
-            else
-            {
-                if (!Physics.Raycast(mouseRay, out hit, cachedMainCamera.farClipPlane + 5.0f, layerMask))
-                {
-                    SwitchInputMode(INPUT_MODE.NONE);
-                }
-            }
-        }
-
         if (MapEditing)
         {
+            if (Input.GetMouseButtonDown(0))
+            {
+                Ray mouseRay = cachedMainCamera.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+                LayerMask layerMask = LayerMask.GetMask("MapEditorInSceneObject");
+
+                if (selectingObject == null)
+                {
+                    if (Physics.Raycast(mouseRay, out hit, cachedMainCamera.farClipPlane + 5.0f, layerMask))
+                    {
+                        SelectObject(hit.collider.GetComponent<MapEditorInSceneObject>());
+                    }
+                }
+                else
+                {
+                    if (!Physics.Raycast(mouseRay, out hit, cachedMainCamera.farClipPlane + 5.0f, layerMask))
+                    {
+                        SwitchInputMode(INPUT_MODE.NONE);
+                    }
+                }
+            }
+
             if (Input.GetMouseButtonDown(1))
             {
                 SwitchInputMode(INPUT_MODE.NONE);
