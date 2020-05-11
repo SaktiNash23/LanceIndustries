@@ -13,6 +13,7 @@ public class MapInfo : LibraryItemBase
 public class MapDataHolder
 {
     public List<InSceneObjectData> inSceneObjectDatas;
+    public float timeLimit;
     public int basicReflectorAmount;
     public int translucentReflectorAmount;
     public int doubleWayReflectorAmount;

@@ -24,6 +24,7 @@ public class MapEditorManager : MonoBehaviour
     [BoxGroup("PANEL MAP EDITING REFERENCES")] [SerializeField] CanvasGroup cgPanelMapEditing;
     [BoxGroup("PANEL MAP EDITING REFERENCES")] [SerializeField] CanvasGroup cgPanelMapEditingTopLayer;
     [BoxGroup("PANEL MAP EDITING REFERENCES")] [SerializeField] RectTransform rtPanelEndPoints;
+    [BoxGroup("PANEL MAP EDITING REFERENCES")] [SerializeField] TMP_InputField ifTimeLimit;
     [BoxGroup("PANEL MAP EDITING REFERENCES")] [SerializeField] TMP_InputField ifBasicReflectorAmount;
     [BoxGroup("PANEL MAP EDITING REFERENCES")] [SerializeField] TMP_InputField ifTranslucentReflectorAmount;
     [BoxGroup("PANEL MAP EDITING REFERENCES")] [SerializeField] TMP_InputField ifDoubleWayReflectorAmount;
@@ -54,11 +55,14 @@ public class MapEditorManager : MonoBehaviour
         get { return _instance; }
     }
 
+    private float timeLimit;
     private int basicReflectorAmount;
     private int translucentReflectorAmount;
     private int doubleWayReflectorAmount;
     private int splitReflectorAmount;
     private int threeWayReflectorAmount;
+
+    public bool EditingIF { get; set; } = false;
 
     //-------------------------- MONOBEHAVIOUR FUNCTIONS --------------------------//
 
@@ -180,13 +184,14 @@ public class MapEditorManager : MonoBehaviour
         foreach (var mapLayoutBoxSnapper in mapLayoutBoxSnappers)
             mapLayoutBoxSnapper.Initialization();
 
+        timeLimit = mapDataHolder.timeLimit;
         basicReflectorAmount = mapDataHolder.basicReflectorAmount;
         translucentReflectorAmount = mapDataHolder.translucentReflectorAmount;
         doubleWayReflectorAmount = mapDataHolder.doubleWayReflectorAmount;
         splitReflectorAmount = mapDataHolder.splitReflectorAmount;
         threeWayReflectorAmount = mapDataHolder.threeWayReflectorAmount;
 
-        UpdateIFReflectorAmount();
+        UpdateIFLevelSettings();
 
         MapEditorInputManager.Instance.MapEditing = true;
 #endif
@@ -281,6 +286,7 @@ public class MapEditorManager : MonoBehaviour
             mapDataHolder.inSceneObjectDatas.Add(objectData);
         }
 
+        mapDataHolder.timeLimit = float.Parse(ifTimeLimit.text);
         mapDataHolder.basicReflectorAmount = int.Parse(ifBasicReflectorAmount.text);
         mapDataHolder.translucentReflectorAmount = int.Parse(ifTranslucentReflectorAmount.text);
         mapDataHolder.doubleWayReflectorAmount = int.Parse(ifDoubleWayReflectorAmount.text);
@@ -324,13 +330,29 @@ public class MapEditorManager : MonoBehaviour
         rtPanelEndPoints.gameObject.SetActive(!rtPanelEndPoints.gameObject.activeSelf);
     }
 
-    private void UpdateIFReflectorAmount()
+    private void UpdateIFLevelSettings()
     {
+        ifTimeLimit.text = timeLimit.ToString();
         ifBasicReflectorAmount.text = basicReflectorAmount.ToString();
         ifTranslucentReflectorAmount.text = translucentReflectorAmount.ToString();
         ifDoubleWayReflectorAmount.text = doubleWayReflectorAmount.ToString();
         ifSplitReflectorAmount.text = splitReflectorAmount.ToString();
         ifThreeWayReflectorAmount.text = threeWayReflectorAmount.ToString();
+    }
+
+    public void OnIFSelect()
+    {
+        EditingIF = true;
+    }
+
+    public void OnIFDeselect()
+    {
+        EditingIF = false;
+    }
+
+    public void OnIFEndEdit()
+    {
+        EditingIF = false;
     }
 
     public MapEditorInSceneObject CreateInSceneObj(IN_SCENE_OBJECT_TYPES inSceneObjType)

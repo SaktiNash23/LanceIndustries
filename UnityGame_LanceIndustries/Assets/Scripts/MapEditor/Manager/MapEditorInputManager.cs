@@ -59,7 +59,7 @@ public class MapEditorInputManager : MonoBehaviour
 
     private void Update()
     {
-        if (MapEditing)
+        if (MapEditing && !MapEditorManager.Instance.EditingIF)
         {
             if (Input.GetMouseButtonDown(0))
             {
