@@ -12,6 +12,8 @@ public class LibraryLinker : MonoBehaviour
         get { return _instance; }
     }
 
+    [BoxGroup("SINGLETON SETTINGS")] [SerializeField] bool dontDestroyOnLoad;
+
     [BoxGroup("DROP ALL LIBRARY HERE")] [SerializeField] List<LibraryBase> dataLibraries;
 
     private MapInfoLibrary _mapInfoLib;
@@ -30,13 +32,16 @@ public class LibraryLinker : MonoBehaviour
 
     private void Awake()
     {
-        if(_instance != null && _instance != this)
+        if (_instance != null)
         {
-            Destroy(this.gameObject);
+            if (_instance != this)
+                Destroy(gameObject);
         }
         else
         {
             _instance = this;
+            if (dontDestroyOnLoad)
+                DontDestroyOnLoad(gameObject);
         }
     }
 

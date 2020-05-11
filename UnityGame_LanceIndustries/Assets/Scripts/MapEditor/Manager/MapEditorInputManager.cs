@@ -32,6 +32,8 @@ public class MapEditorInputManager : MonoBehaviour
 
     private MapEditorInSceneObject selectingObject = null;
 
+    [BoxGroup("SINGLETON SETTINGS")] [SerializeField] bool dontDestroyOnLoad;
+
     [BoxGroup("INPUT MANAGER SETTINGS")] [SerializeField] float mapEditorScenePosZ;
 
     public bool MapEditing { get; set; } = false;
@@ -45,6 +47,8 @@ public class MapEditorInputManager : MonoBehaviour
         else
         {
             _instance = this;
+            if (dontDestroyOnLoad)
+                DontDestroyOnLoad(gameObject);
         }
     }
 

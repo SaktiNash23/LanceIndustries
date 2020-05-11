@@ -10,6 +10,8 @@ using System;
 
 public class MapEditorManager : MonoBehaviour
 {
+    [BoxGroup("SINGLETON SETTINGS")] [SerializeField] bool dontDestroyOnLoad;
+
     [BoxGroup("PANEL MENU SCREEN REFERENCES")] [SerializeField] CanvasGroup cgPanelMenuScreen;
     [BoxGroup("PANEL MENU SCREEN REFERENCES")] [SerializeField] RectTransform rtContentMapList;
     [BoxGroup("PANEL MENU SCREEN REFERENCES")] [SerializeField] RectTransform rtPanelMapList;
@@ -64,13 +66,16 @@ public class MapEditorManager : MonoBehaviour
     {
         contentMapListMinDeltaY = rtContentMapList.sizeDelta.y;
 
-        if(_instance != null && _instance != this)
+        if (_instance != null)
         {
-            Destroy(this.gameObject);
+            if (_instance != this)
+                Destroy(gameObject);
         }
         else
         {
             _instance = this;
+            if (dontDestroyOnLoad)
+                DontDestroyOnLoad(gameObject);
         }
     }
 

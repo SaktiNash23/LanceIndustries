@@ -85,4 +85,25 @@ public class EndPoint : MonoBehaviour
         { isHitByCorrectLaser = value; }
     }
 
+    public void Initialization()
+    {
+        switch (targetLaser)
+        {
+            case targetLaserColor.RED:
+                gameObject.GetComponent<SpriteRenderer>().color = redMaterial.color;
+                break;
+
+            case targetLaserColor.BLUE:
+                gameObject.GetComponent<SpriteRenderer>().color = blueMaterial.color;
+                break;
+
+            case targetLaserColor.YELLOW:
+                gameObject.GetComponent<SpriteRenderer>().color = yellowMaterial.color;
+                break;
+
+            case targetLaserColor.WHITE:
+                gameObject.GetComponent<SpriteRenderer>().color = whiteMaterial.color;
+                break;
+        }
+    }
 }
