@@ -6,33 +6,28 @@ using UnityEngine.EventSystems;
 
 public class ReflectorUIButton : MonoBehaviour
 {
-    public string buttonTypeTag;
-    bool isReflectorInStock;
+    public string buttonTypeTag; //Stores a string that identifies the type of button that is pressed. This variable is used to determine the type of reflectors to display for the player to choose from
+    private bool isReflectorInStock; //To check whether reflectors of a specific type are in stock or not
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
+        #region Initializing Event Triggers
+
         EventTrigger eventTrigger = GetComponent<EventTrigger>();
 
-        EventTrigger.Entry entryOnPointerDown = new EventTrigger.Entry();
         EventTrigger.Entry entryOnPointerUp = new EventTrigger.Entry();
-
-        entryOnPointerDown.eventID = EventTriggerType.PointerDown;
-        entryOnPointerDown.callback.AddListener((data) => { OnPointerDown((PointerEventData)data); });
 
         entryOnPointerUp.eventID = EventTriggerType.PointerUp;
         entryOnPointerUp.callback.AddListener((data) => { OnPointerUp((PointerEventData)data); });
 
-        eventTrigger.triggers.Add(entryOnPointerDown);
         eventTrigger.triggers.Add(entryOnPointerUp);
 
-
+        #endregion
     }
 
-    public void OnPointerDown(PointerEventData pointerEventData)
-    {
-    }
-
+    //When the button is pressed / clicked on, the game check if the reflector of the specific type is in stock. Then it activates or deactivates
+    //the reflector color panel based on the result
     public void OnPointerUp(PointerEventData pointerEventData)
     {
         isReflectorInStock = GameManager.gameManagerInstance.checkReflectorStockAvailability(buttonTypeTag);
@@ -42,6 +37,9 @@ public class ReflectorUIButton : MonoBehaviour
             activateReflectorColorUIPanel(buttonTypeTag);
             GameManager.gameManagerInstance.reflectorColorsPanel.SetActive(true);
             GameManager.gameManagerInstance.isReflectorColorPanelActive = true;
+
+            //Test Code
+            //GameManager.gameManagerInstance.toggleReflectorColliders();
         }
         else if (!isReflectorInStock)
         {

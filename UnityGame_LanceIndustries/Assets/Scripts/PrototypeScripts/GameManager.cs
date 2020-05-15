@@ -10,6 +10,8 @@ using UnityEngine.EventSystems;
 public class GameManager : MonoBehaviour
 {
 
+    public bool DebugMode_PC; //True: Activates PC controls for debugging. False: Activates touch controls
+
     [InfoBox("Ensure the Reflector Scriptable Objects are placed in the right order in the array", EInfoBoxType.Normal)]
     [ReorderableList]
     public Reflector_SO[] allReflectorSO;
@@ -69,7 +71,6 @@ public class GameManager : MonoBehaviour
     public float maxWindowTime;
     public bool beginCountDown = false;
 
-    //Function to do something once the window closes, such as saying time expired, reset the currentWindowTime, set ifWindowIsOpen = false
 
     void Awake()
     {
@@ -131,6 +132,13 @@ public class GameManager : MonoBehaviour
         {
             checkForTouchToCloseReflectorPanel();
         }
+
+        #if UNITY_EDITOR
+        if(Input.GetMouseButtonDown(0))
+        {
+            checkForClickToCloseReflectorPanel();
+        }
+        #endif
     }
 
     //This function checks for a touch when the reflector color panel is active. If a touch is detected on the grid or empty space in the level
@@ -175,6 +183,39 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
+    #if UNITY_EDITOR
+    private void checkForClickToCloseReflectorPanel()
+    {
+        if (!EventSystem.current.IsPointerOverGameObject())
+        {
+            if(isReflectorColorPanelActive == true)
+            {
+                RaycastHit2D hit = Physics2D.Raycast(Input.mousePosition, -transform.up, 0.4f);
+
+                if (hit)
+                {
+                    if (hit.collider.tag == "Grid")
+                    {
+                        Debug.LogWarning("Hit Grid while Reflector Color panel is active");
+                        reflectorColorsPanel.SetActive(false);
+                        isReflectorColorPanelActive = false;
+                    }
+                    else if (hit.collider.tag == "UI")
+                    {
+                        Debug.LogWarning("Hit something, but don't know what it is");
+                    }
+                }
+                else
+                {
+                    Debug.LogWarning("Hit nothing. So still close Reflectors Color Panel");
+                    reflectorColorsPanel.SetActive(false);
+                    isReflectorColorPanelActive = false;
+                }
+            }
+        }
+    }
+    #endif
 
     //Toggles the active state of the grid's 2D Colliders. If a grid is currently occupied by a reflector, the 2D Collider is deactivated.
     //If the grid is currently unoccupied, the 2D Collider is activated

@@ -9,12 +9,10 @@ public class Proto_Projectile : MonoBehaviour
     public float projectileRaycastLength;
     private Vector3 directionVector;
     private Rigidbody2D rb;
-    [SerializeField]
     private bool reflectorHit = false;
     public RaycastHit2D hitStore;
     private int layerMask;
     private float lifeTime = 5.0f;
-
 
     void Awake()
     {
@@ -22,7 +20,7 @@ public class Proto_Projectile : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
 
         layerMask = 1 << 8;
-        layerMask = ~layerMask; //Ask raycast to ignore only Layer 8 which is the IgnoredByProjectile layer
+        layerMask = ~layerMask; //Make raycast to ignore only Layer 8 which is the IgnoredByProjectile layer
 
     }
 
@@ -48,94 +46,73 @@ public class Proto_Projectile : MonoBehaviour
 
             if (hitStore)
             {              
-                //REMINDER: Refactor these if statements into a switch statement in the future
-                #region HIT: Basic Reflector
-                if(hitStore.collider.gameObject.tag == "Reflector")
+                switch(hitStore.collider.gameObject.tag)
                 {
-                    Debug.Log("Reflector HIT");
-                    
-                    if(reflectorHit == false)
-                    {
+                    #region HIT: Basic Reflector
+
+                    case "Reflector":
+                        Debug.Log("Reflector HIT");
                         reflectorHit = true;
                         hitStore.collider.gameObject.GetComponent<Reflector>().calculateLaser_Basic(hitStore, gameObject);
-                    }
-                }
-                #endregion
+                        break;
 
-                #region HIT: Translucent Reflector
-                if (hitStore.collider.gameObject.tag == "ReflectorTranslucent")
-                {
-                    Debug.Log("Reflector Translucent HIT");
+                    #endregion
 
-                    if (reflectorHit == false)
-                    {
+                    #region HIT: Translucent Reflector
+                    case "ReflectorTranslucent":
+                        Debug.Log("Reflector Translucent HIT");
                         reflectorHit = true;
                         hitStore.collider.gameObject.GetComponent<Reflector_Translucent>().calculateLaser_Translucent(hitStore, gameObject);
-                    }
-                }
-                #endregion
+                        break;
+                    #endregion
 
-                #region HIT: Double Way Reflector
-                if (hitStore.collider.gameObject.tag == "ReflectorDoubleWay")
-                {
-                    Debug.Log("Reflector DoubleWay HIT");
-
-                    if (reflectorHit == false)
-                    {
+                    #region HIT: Double Way Reflector
+                    case "ReflectorDoubleWay":
+                        Debug.Log("Reflector DoubleWay HIT");
                         reflectorHit = true;
                         hitStore.collider.gameObject.GetComponent<Reflector_DoubleWay>().calculateLaser_DoubleWay(hitStore, gameObject);
-                    }
-                }
-                #endregion
+                        break;
+                    #endregion
 
-                #region HIT: Split Reflector
-                if (hitStore.collider.gameObject.tag == "ReflectorSplit")
-                {
-                    if (reflectorHit == false)
-                    {
+                    #region HIT: Split Reflector
+                    case "ReflectorSplit":
+                        Debug.Log("Reflector Split HIT");
                         reflectorHit = true;
                         hitStore.collider.gameObject.GetComponent<Reflector_Split>().calculateLaser_Split(hitStore, gameObject);
-                    }
-                }
-                #endregion
+                        break;
+                    #endregion
 
-                #region HIT: Three Way Reflector
-                if (hitStore.collider.gameObject.tag == "ReflectorThreeWay")
-                {
-                    if (reflectorHit == false)
-                    {
+                    #region HIT: Three Way Reflector
+                    case "ReflectorThreeWay":
+                        Debug.Log("Reflector Three Way HIT");
                         reflectorHit = true;
                         hitStore.collider.gameObject.GetComponent<Reflector_ThreeWay>().calculateLaser_ThreeWay(hitStore, gameObject);
-                    }
-                }
-                #endregion
+                        break;
+                    #endregion
 
-                #region HIT: Invalid Bounds
-                if (hitStore.collider.gameObject.tag == "InvalidBounds")
-                {
-                    projectileSpeed = 0.0f;
-                    Destroy(gameObject, 0.1f);
-                }
-                #endregion
+                    #region HIT: Invalid Bounds
+                    case "InvalidBounds":
+                        projectileSpeed = 0.0f;
+                        Destroy(gameObject, 0.0f);
+                        break;
+                    #endregion
 
-                #region HIT: Border
-                if (hitStore.collider.gameObject.tag == "Border")
-                {
-                    projectileSpeed = 0.0f;
-                    Destroy(gameObject, 0.1f);
-                }
-                #endregion
+                    #region HIT: Border
+                    case "Border":
+                        projectileSpeed = 0.0f;
+                        Destroy(gameObject, 0.0f);
+                        break;
+                    #endregion
 
-                #region HIT: End Point
-                if (hitStore.collider.gameObject.tag == "EndPoint")
-                {                 
-                    hitStore.collider.gameObject.GetComponent<EndPoint>().checkIfCorrectLaserHit(gameObject);
-                    projectileSpeed = 0.0f;
-                    Destroy(gameObject, 0.1f);
+                    #region HIT: End Point
+                    case "EndPoint":
+                        hitStore.collider.gameObject.GetComponent<EndPoint>().checkIfCorrectLaserHit(gameObject);
+                        projectileSpeed = 0.0f;
+                        Destroy(gameObject, 0.1f);
+                        break;
+                    #endregion
                 }
-                #endregion
             }
-
         }     
     }
 

@@ -9,7 +9,6 @@ public class EndPoint : MonoBehaviour
     public Material yellowMaterial;
     public Material whiteMaterial;
 
-
     public enum targetLaserColor
     {
         RED,
@@ -44,7 +43,6 @@ public class EndPoint : MonoBehaviour
         }
     }
 
-
     public void checkIfCorrectLaserHit(GameObject projectile)
     {
         if (isHitByLaser == false)
@@ -66,7 +64,6 @@ public class EndPoint : MonoBehaviour
             }
         }
     }
-
 
     public bool isHitByLaser_Accessor
     {

@@ -56,15 +56,6 @@ using NaughtyAttributes;
             }
         }
 
-        // Update is called once per frame
-        void Update()
-        {
-            if (Input.GetMouseButtonDown(1))
-            {
-                shootLaser();
-            }
-        }
-
         void OnMouseUp()
         {
             if (GameManager.gameManagerInstance.beginCountDown == false)
@@ -73,6 +64,13 @@ using NaughtyAttributes;
             }
         }
 
+        void OnMouseOver()
+        {
+            if (Input.GetMouseButtonDown(1))
+            {
+                shootLaser();
+            }
+        }
 
         #region Naughty Attributes Test Functions
 

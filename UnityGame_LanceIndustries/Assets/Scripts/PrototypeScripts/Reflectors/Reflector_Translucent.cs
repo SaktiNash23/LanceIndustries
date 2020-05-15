@@ -17,6 +17,63 @@ public class Reflector_Translucent : Reflector
         base.retrieveLaserProperties(hitParam, projectile);
         base.calculateLaser_Base();
 
+        switch(transform.rotation.eulerAngles.z)
+        {
+            case 0.0f:
+                if (base.referenceVector == Vector2.down)
+                {
+                    newProjectile = Instantiate(projectile, transform.parent.GetChild(4).transform.position, Quaternion.AngleAxis(180.0f, Vector3.forward));
+                    newProjectile.GetComponent<Proto_Projectile>().DirectionVector = Vector2.down;
+                }
+                else if (base.referenceVector == Vector2.left)
+                {
+                    newProjectile = Instantiate(projectile, transform.parent.GetChild(3).transform.position, Quaternion.AngleAxis(-90.0f, Vector3.forward));
+                    newProjectile.GetComponent<Proto_Projectile>().DirectionVector = Vector2.left;
+                }
+                break;
+
+            case 90.0f:
+                if (base.referenceVector == Vector2.right)
+                {
+                    newProjectile = Instantiate(projectile, transform.parent.GetChild(4).transform.position, Quaternion.AngleAxis(90.0f, Vector3.forward));
+                    newProjectile.GetComponent<Proto_Projectile>().DirectionVector = Vector2.right;
+                }
+                else if (base.referenceVector == Vector2.down)
+                {
+                    newProjectile = Instantiate(projectile, transform.parent.GetChild(3).transform.position, Quaternion.AngleAxis(180.0f, Vector3.forward));
+                    newProjectile.GetComponent<Proto_Projectile>().DirectionVector = Vector2.down;
+                }
+                break;
+
+            case 180.0f:
+                if (base.referenceVector == Vector2.up)
+                {
+                    newProjectile = Instantiate(projectile, transform.parent.GetChild(4).transform.position, Quaternion.AngleAxis(0.0f, Vector3.forward));
+                    newProjectile.GetComponent<Proto_Projectile>().DirectionVector = Vector2.up;
+                }
+                else if (base.referenceVector == Vector2.right)
+                {
+                    newProjectile = Instantiate(projectile, transform.parent.GetChild(3).transform.position, Quaternion.AngleAxis(90.0f, Vector3.forward));
+                    newProjectile.GetComponent<Proto_Projectile>().DirectionVector = Vector2.right;
+                }
+                break;
+
+            case 270.0f:
+                if (base.referenceVector == Vector2.up)
+                {
+                    newProjectile = Instantiate(projectile, transform.parent.GetChild(3).transform.position, Quaternion.AngleAxis(0.0f, Vector3.forward));
+                    newProjectile.GetComponent<Proto_Projectile>().DirectionVector = Vector2.up;
+                }
+                else if (base.referenceVector == Vector2.left)
+                {
+                    newProjectile = Instantiate(projectile, transform.parent.GetChild(4).transform.position, Quaternion.AngleAxis(-90.0f, Vector3.forward));
+                    newProjectile.GetComponent<Proto_Projectile>().DirectionVector = Vector2.left;
+                }
+                break;
+        }
+
+        #region Old Code Translucent Reflector
+        /*
         if (transform.rotation.eulerAngles.z == 0.0f)
         {
             if(base.referenceVector == Vector2.down)
@@ -82,8 +139,11 @@ public class Reflector_Translucent : Reflector
                 newProjectile.transform.rotation = Quaternion.AngleAxis(-90.0f, Vector3.forward);
             }
         }
-  
+        */
+        #endregion
+
         setReflectorLaserColor();
+        sparkAnimationScript.playDeflectAnimation();
         setReflectorHitFalseForProjectile();
         
     }

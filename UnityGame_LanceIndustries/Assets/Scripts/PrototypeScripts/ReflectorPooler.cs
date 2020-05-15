@@ -56,7 +56,10 @@ public class ReflectorPooler : MonoBehaviour
                         reflectorQueue.Enqueue(reflectorToAddToQueue);
                     }
 
+                    reflectorPoolDictionary.Add(reflectorList.reflectorPoolTag.ToString(), reflectorQueue);
 
+                    #region Old Code
+                    /*
                     if (reflectorList.reflectorPoolTag == "ReflectorPool_Basic_White")
                     {
                         reflectorPoolDictionary.Add("ReflectorPool_Basic_White", reflectorQueue);
@@ -73,7 +76,8 @@ public class ReflectorPooler : MonoBehaviour
                     {
                         reflectorPoolDictionary.Add("ReflectorPool_Basic_Yellow", reflectorQueue);
                     }
-
+                    */
+                    #endregion
                     break;
 
                 #endregion
@@ -93,24 +97,7 @@ public class ReflectorPooler : MonoBehaviour
                         reflectorQueue.Enqueue(reflectorToAddToQueue);
                     }
 
-
-                    if (reflectorList.reflectorPoolTag == "ReflectorPool_Translucent_White")
-                    {
-                        reflectorPoolDictionary.Add("ReflectorPool_Translucent_White", reflectorQueue);
-                    }
-                    if (reflectorList.reflectorPoolTag == "ReflectorPool_Translucent_Red")
-                    {
-                        reflectorPoolDictionary.Add("ReflectorPool_Translucent_Red", reflectorQueue);
-                    }
-                    if (reflectorList.reflectorPoolTag == "ReflectorPool_Translucent_Blue")
-                    {
-                        reflectorPoolDictionary.Add("ReflectorPool_Translucent_Blue", reflectorQueue);
-                    }
-                    if (reflectorList.reflectorPoolTag == "ReflectorPool_Translucent_Yellow")
-                    {
-                        reflectorPoolDictionary.Add("ReflectorPool_Translucent_Yellow", reflectorQueue);
-                    }
-
+                    reflectorPoolDictionary.Add(reflectorList.reflectorPoolTag.ToString(), reflectorQueue);
                     break;
 
                 #endregion
@@ -130,24 +117,7 @@ public class ReflectorPooler : MonoBehaviour
                         reflectorQueue.Enqueue(reflectorToAddToQueue);
                     }
 
-
-                    if (reflectorList.reflectorPoolTag == "ReflectorPool_DoubleWay_White")
-                    {
-                        reflectorPoolDictionary.Add("ReflectorPool_DoubleWay_White", reflectorQueue);
-                    }
-                    if (reflectorList.reflectorPoolTag == "ReflectorPool_DoubleWay_Red")
-                    {
-                        reflectorPoolDictionary.Add("ReflectorPool_DoubleWay_Red", reflectorQueue);
-                    }
-                    if (reflectorList.reflectorPoolTag == "ReflectorPool_DoubleWay_Blue")
-                    {
-                        reflectorPoolDictionary.Add("ReflectorPool_DoubleWay_Blue", reflectorQueue);
-                    }
-                    if (reflectorList.reflectorPoolTag == "ReflectorPool_DoubleWay_Yellow")
-                    {
-                        reflectorPoolDictionary.Add("ReflectorPool_DoubleWay_Yellow", reflectorQueue);
-                    }
-
+                    reflectorPoolDictionary.Add(reflectorList.reflectorPoolTag.ToString(), reflectorQueue);
                     break;
 
                 #endregion
@@ -167,24 +137,7 @@ public class ReflectorPooler : MonoBehaviour
                         reflectorQueue.Enqueue(reflectorToAddToQueue);
                     }
 
-
-                    if (reflectorList.reflectorPoolTag == "ReflectorPool_Split_White")
-                    {
-                        reflectorPoolDictionary.Add("ReflectorPool_Split_White", reflectorQueue);
-                    }
-                    if (reflectorList.reflectorPoolTag == "ReflectorPool_Split_Red")
-                    {
-                        reflectorPoolDictionary.Add("ReflectorPool_Split_Red", reflectorQueue);
-                    }
-                    if (reflectorList.reflectorPoolTag == "ReflectorPool_Split_Blue")
-                    {
-                        reflectorPoolDictionary.Add("ReflectorPool_Split_Blue", reflectorQueue);
-                    }
-                    if (reflectorList.reflectorPoolTag == "ReflectorPool_Split_Yellow")
-                    {
-                        reflectorPoolDictionary.Add("ReflectorPool_Split_Yellow", reflectorQueue);
-                    }
-
+                    reflectorPoolDictionary.Add(reflectorList.reflectorPoolTag.ToString(), reflectorQueue);
                     break;
 
                 #endregion
@@ -204,27 +157,10 @@ public class ReflectorPooler : MonoBehaviour
                         reflectorQueue.Enqueue(reflectorToAddToQueue);
                     }
 
-
-                    if (reflectorList.reflectorPoolTag == "ReflectorPool_ThreeWay_White")
-                    {
-                        reflectorPoolDictionary.Add("ReflectorPool_ThreeWay_White", reflectorQueue);
-                    }
-                    if (reflectorList.reflectorPoolTag == "ReflectorPool_ThreeWay_Red")
-                    {
-                        reflectorPoolDictionary.Add("ReflectorPool_ThreeWay_Red", reflectorQueue);
-                    }
-                    if (reflectorList.reflectorPoolTag == "ReflectorPool_ThreeWay_Blue")
-                    {
-                        reflectorPoolDictionary.Add("ReflectorPool_ThreeWay_Blue", reflectorQueue);
-                    }
-                    if (reflectorList.reflectorPoolTag == "ReflectorPool_ThreeWay_Yellow")
-                    {
-                        reflectorPoolDictionary.Add("ReflectorPool_ThreeWay_Yellow", reflectorQueue);
-                    }
-
+                    reflectorPoolDictionary.Add(reflectorList.reflectorPoolTag.ToString(), reflectorQueue);
                     break;
 
-                    #endregion
+                #endregion
             }
         }
     }
