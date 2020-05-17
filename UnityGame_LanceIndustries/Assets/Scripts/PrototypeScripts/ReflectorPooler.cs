@@ -33,7 +33,7 @@ public class ReflectorPooler : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    public void Initialization()
     {
         foreach (ReflectorPool reflectorList in reflectorPoolList)
         {

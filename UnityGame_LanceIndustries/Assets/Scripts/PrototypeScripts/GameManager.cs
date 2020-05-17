@@ -26,15 +26,10 @@ public class GameManager : MonoBehaviour
     public bool activationToggle_Grid = false;
     public bool activationToggle_Reflector = false;
 
-    [SerializeField]
     private int ReflectorStock_Basic;
-    [SerializeField]
     private int ReflectorStock_Translucent;
-    [SerializeField]
     private int ReflectorStock_DoubleWay;
-    [SerializeField]
     private int ReflectorStock_Split;
-    [SerializeField]
     private int ReflectorStock_ThreeWay;
 
     public TextMeshProUGUI ReflectorStock_Basic_Text;
@@ -68,7 +63,7 @@ public class GameManager : MonoBehaviour
     #endregion
 
     private float currentWindowTime;
-    public float maxWindowTime;
+    private float maxWindowTime;
     public bool beginCountDown = false;
 
 
@@ -79,42 +74,6 @@ public class GameManager : MonoBehaviour
         {
             gameManagerInstance = this;
         }
-        #endregion
-
-        #region Initialize Grids
-        GameObject[] foundGrids = GameObject.FindGameObjectsWithTag("Grid");
-
-        for (int j = 0; j < foundGrids.Length; ++j)
-        {
-            allGridInScene.Add(foundGrids[j]);
-        }
-
-        resetGridAlpha();
-        #endregion
-
-        reflectorColorsPanel.SetActive(false);
-
-        #region Initialize End Points
-        
-        allEndPoints = GameObject.FindGameObjectsWithTag("EndPoint");
-        numOfEndPoints = allEndPoints.Length;
-
-        #endregion
-
-        currentWindowTime = maxWindowTime;
-        TimerSuccessText.text = maxWindowTime.ToString("F2");
-    }
-
-    void Start()
-    {
-        #region Initialize Reflector Stock Text UI
-
-        ReflectorStock_Basic_Text.text = ReflectorStock_Basic.ToString();
-        ReflectorStock_Translucent_Text.text = ReflectorStock_Translucent.ToString();
-        ReflectorStock_DoubleWay_Text.text = ReflectorStock_DoubleWay.ToString();
-        ReflectorStock_Split_Text.text = ReflectorStock_Split.ToString();
-        ReflectorStock_ThreeWay_Text.text = ReflectorStock_ThreeWay.ToString();
-
         #endregion
     }
 
@@ -786,6 +745,62 @@ public class GameManager : MonoBehaviour
         Debug.Log("All Lasers Have Reached : " + allLasersHaveReached);
         Debug.Log("Begin Countdown : " + beginCountDown);
         */
+    }
+
+    public void Initialization(MapDataHolder mapDataHolder)
+    {
+        #region Initialize Grids
+        GameObject[] foundGrids = GameObject.FindGameObjectsWithTag("Grid");
+
+        for (int j = 0; j < foundGrids.Length; ++j)
+        {
+            allGridInScene.Add(foundGrids[j]);
+        }
+
+        resetGridAlpha();
+        #endregion
+
+        reflectorColorsPanel.SetActive(false);
+
+        #region Initialize End Points
+
+        allEndPoints = GameObject.FindGameObjectsWithTag("EndPoint");
+        numOfEndPoints = allEndPoints.Length;
+
+        #endregion
+
+        #region Initialize Max Window Time
+
+        currentWindowTime = maxWindowTime = mapDataHolder.timeLimit;
+        TimerSuccessText.text = maxWindowTime.ToString("F2");
+
+        #endregion
+
+        #region Initialize Reflector Amount
+
+        ReflectorStock_Basic = mapDataHolder.basicReflectorAmount;
+        ReflectorStock_Translucent = mapDataHolder.translucentReflectorAmount;
+        ReflectorStock_DoubleWay = mapDataHolder.doubleWayReflectorAmount;
+        ReflectorStock_Split = mapDataHolder.splitReflectorAmount;
+        ReflectorStock_ThreeWay = mapDataHolder.threeWayReflectorAmount;
+
+        #endregion
+
+        #region Initialize Reflector Stock Text UI
+
+        ReflectorStock_Basic_Text.text = ReflectorStock_Basic.ToString();
+        ReflectorStock_Translucent_Text.text = ReflectorStock_Translucent.ToString();
+        ReflectorStock_DoubleWay_Text.text = ReflectorStock_DoubleWay.ToString();
+        ReflectorStock_Split_Text.text = ReflectorStock_Split.ToString();
+        ReflectorStock_ThreeWay_Text.text = ReflectorStock_ThreeWay.ToString();
+
+        #endregion
+
+        #region Spawn Pool Objects
+
+        ReflectorPooler.instance_reflectorPooler.Initialization();
+
+        #endregion
     }
 
     #region Accessor Functions

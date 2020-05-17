@@ -6,7 +6,6 @@ using UnityEngine.UI;
 using UnityEditor;
 using TMPro;
 using NaughtyAttributes;
-using System;
 
 public class MapEditorManager : MonoBehaviour
 {

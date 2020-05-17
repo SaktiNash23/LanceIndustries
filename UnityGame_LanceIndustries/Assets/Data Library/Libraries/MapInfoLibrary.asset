@@ -15,6 +15,6 @@ MonoBehaviour:
   idNo: 
   libraryName: MapInfoLibrary
   mapInfos:
-  - {fileID: 11400000, guid: 6a8e5534d08896441b0f421cd52ca778, type: 2}
-  - {fileID: 11400000, guid: e4dcc13e683c7c44fb0a2996909cb9c1, type: 2}
-  - {fileID: 11400000, guid: e6cd814df7fc98c4f88628fe335643ff, type: 2}
+  - {fileID: 11400000, guid: 65cb37650837ac44e9d6027072d6b4ae, type: 2}
+  - {fileID: 11400000, guid: 79a2a09f9cbe3524dbea20214d13db6e, type: 2}
+  - {fileID: 11400000, guid: ac33ab2eb5a017144baa6a85e6165910, type: 2}

@@ -23,38 +23,38 @@ using NaughtyAttributes;
         private Vector3 laserStartDir = Vector3.zero;
 
         // Start is called before the first frame update
-        private void Start()
-        {
+        //private void Start()
+        //{
 
-            switch (dir)
-            {
-                case DIRECTION.UP:
-                    transform.rotation = Quaternion.AngleAxis(0.0f, Vector3.forward);
-                    laserStartDir = Vector3.up;
-                    break;
+        //    switch (dir)
+        //    {
+        //        case DIRECTION.UP:
+        //            transform.rotation = Quaternion.AngleAxis(0.0f, Vector3.forward);
+        //            laserStartDir = Vector3.up;
+        //            break;
 
-                case DIRECTION.DOWN:
-                    transform.rotation = Quaternion.AngleAxis(180.0f, Vector3.forward);
-                    laserStartDir = Vector3.down;
-                    break;
+        //        case DIRECTION.DOWN:
+        //            transform.rotation = Quaternion.AngleAxis(180.0f, Vector3.forward);
+        //            laserStartDir = Vector3.down;
+        //            break;
 
-                case DIRECTION.LEFT:
-                    transform.rotation = Quaternion.AngleAxis(-90.0f, Vector3.forward);
-                    laserStartDir = Vector3.left;
-                    break;
+        //        case DIRECTION.LEFT:
+        //            transform.rotation = Quaternion.AngleAxis(-90.0f, Vector3.forward);
+        //            laserStartDir = Vector3.left;
+        //            break;
 
-                case DIRECTION.RIGHT:
-                    transform.rotation = Quaternion.AngleAxis(90.0f, Vector3.forward);
-                    laserStartDir = Vector3.right;
-                    break;
+        //        case DIRECTION.RIGHT:
+        //            transform.rotation = Quaternion.AngleAxis(90.0f, Vector3.forward);
+        //            laserStartDir = Vector3.right;
+        //            break;
 
-                case DIRECTION.DIAGONAL:
-                    transform.rotation = Quaternion.AngleAxis(-45.0f, Vector3.forward);
-                    laserStartDir = transform.rotation * Vector3.up;
-                    break;
+        //        case DIRECTION.DIAGONAL:
+        //            transform.rotation = Quaternion.AngleAxis(-45.0f, Vector3.forward);
+        //            laserStartDir = transform.rotation * Vector3.up;
+        //            break;
 
-            }
-        }
+        //    }
+        //}
 
         void OnMouseUp()
         {
@@ -79,10 +79,11 @@ using NaughtyAttributes;
         {
             GameManager.gameManagerInstance.Reset();
             GameManager.gameManagerInstance.beginCountDown = true;
-            GameObject projectile = Instantiate(projectileSphere, transform.position, Quaternion.identity);
-            projectile.GetComponent<Proto_Projectile>().DirectionVector = laserStartDir;
-            projectile.transform.rotation = Quaternion.AngleAxis(transform.rotation.eulerAngles.z, Vector3.forward);
-        }
+            Vector3 projectileTargetRot = transform.rotation.eulerAngles - new Vector3(0f, 0f, 90f);
+            GameObject projectile = Instantiate(projectileSphere, transform.position, Quaternion.Euler(projectileTargetRot));
+            projectile.GetComponent<Proto_Projectile>().DirectionVector = projectile.transform.up;
+        //projectile.transform.rotation = Quaternion.AngleAxis(transform.rotation.eulerAngles.z, Vector3.forward);
+    }
 
         [Button("Change Direction of Origin Laser")]
         private void changeLaserDirection()

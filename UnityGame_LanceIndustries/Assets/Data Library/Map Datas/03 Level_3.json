@@ -1,0 +1,94 @@
+{
+    "inSceneObjectDatas": [
+        {
+            "mapGridIndex": 17,
+            "inSceneObjectType": 3,
+            "borderDir": 0,
+            "position": {
+                "x": 0.4000000059604645,
+                "y": 2.1500000953674318,
+                "z": 0.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": -0.7071068286895752,
+                "w": 0.7071068286895752
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            }
+        },
+        {
+            "mapGridIndex": 16,
+            "inSceneObjectType": 2,
+            "borderDir": 4,
+            "position": {
+                "x": -0.5499999523162842,
+                "y": 1.6749999523162842,
+                "z": 0.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.7071068286895752,
+                "w": 0.7071068286895752
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            }
+        },
+        {
+            "mapGridIndex": 21,
+            "inSceneObjectType": 2,
+            "borderDir": 4,
+            "position": {
+                "x": -0.5499999523162842,
+                "y": 0.7250000238418579,
+                "z": 0.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.7071068286895752,
+                "w": 0.7071068286895752
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            }
+        },
+        {
+            "mapGridIndex": 9,
+            "inSceneObjectType": 4,
+            "borderDir": 0,
+            "position": {
+                "x": 2.299999952316284,
+                "y": 4.050000190734863,
+                "z": 0.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            }
+        }
+    ],
+    "timeLimit": 30.0,
+    "basicReflectorAmount": 3,
+    "translucentReflectorAmount": 3,
+    "doubleWayReflectorAmount": 3,
+    "splitReflectorAmount": 5,
+    "threeWayReflectorAmount": 3
+}
