@@ -121,6 +121,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reflectorBase_SO: {fileID: 11400000, guid: 578b7fcf6d7101347a73afb8abd657bf, type: 2}
   sparkAnimationScript: {fileID: 8098227608974769436}
+  reflectorColor_Enum: 3
 --- !u!1 &3647610189769090916
 GameObject:
   m_ObjectHideFlags: 0
@@ -252,6 +253,12 @@ MonoBehaviour:
   inGrid: 0
   isOccupied: 0
   gridReference: {fileID: 0}
+  mouseIsDown: 0
+  currentMousePos: {x: 0, y: 0}
+  lastMousePos: {x: 0, y: 0}
+  deltaMousePos: {x: 0, y: 0}
+  mousePhase: 0
+  reflectorAttached: 0
 --- !u!1 &7612916191170927388
 GameObject:
   m_ObjectHideFlags: 0

@@ -231,4 +231,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectileSpeed: 7
   projectileRaycastLength: 0.1
-  reflectorHit: 0
+  laserColor_Enum: 3

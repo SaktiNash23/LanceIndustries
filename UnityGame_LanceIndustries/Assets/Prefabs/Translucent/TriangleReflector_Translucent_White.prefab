@@ -138,6 +138,7 @@ MonoBehaviour:
   lastMousePos: {x: 0, y: 0}
   deltaMousePos: {x: 0, y: 0}
   mousePhase: 0
+  reflectorAttached: 0
 --- !u!1 &2607511190694344693
 GameObject:
   m_ObjectHideFlags: 0
@@ -202,6 +203,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reflectorBase_SO: {fileID: 11400000, guid: 55e17f8b86d314d41a16ba3e74b1458c, type: 2}
   sparkAnimationScript: {fileID: 3283563357780319507}
+  reflectorColor_Enum: 3
 --- !u!1 &2939757330614061165
 GameObject:
   m_ObjectHideFlags: 0

@@ -14,6 +14,16 @@ public class Proto_Projectile : MonoBehaviour
     private int layerMask;
     private float lifeTime = 5.0f;
 
+    public enum LaserColor_Enum
+    {
+        RED,
+        BLUE,
+        YELLOW,
+        WHITE
+    };
+
+    public LaserColor_Enum laserColor_Enum;
+
     void Awake()
     {
         directionVector = new Vector3(0.0f, 1.0f, 0.0f);
@@ -51,7 +61,7 @@ public class Proto_Projectile : MonoBehaviour
                     #region HIT: Basic Reflector
 
                     case "Reflector":
-                        Debug.Log("Reflector HIT");
+                        //Debug.Log("Reflector HIT");
                         reflectorHit = true;
                         hitStore.collider.gameObject.GetComponent<Reflector>().calculateLaser_Basic(hitStore, gameObject);
                         break;
@@ -60,7 +70,7 @@ public class Proto_Projectile : MonoBehaviour
 
                     #region HIT: Translucent Reflector
                     case "ReflectorTranslucent":
-                        Debug.Log("Reflector Translucent HIT");
+                        //Debug.Log("Reflector Translucent HIT");
                         reflectorHit = true;
                         hitStore.collider.gameObject.GetComponent<Reflector_Translucent>().calculateLaser_Translucent(hitStore, gameObject);
                         break;
@@ -68,7 +78,7 @@ public class Proto_Projectile : MonoBehaviour
 
                     #region HIT: Double Way Reflector
                     case "ReflectorDoubleWay":
-                        Debug.Log("Reflector DoubleWay HIT");
+                        //Debug.Log("Reflector DoubleWay HIT");
                         reflectorHit = true;
                         hitStore.collider.gameObject.GetComponent<Reflector_DoubleWay>().calculateLaser_DoubleWay(hitStore, gameObject);
                         break;
@@ -76,7 +86,7 @@ public class Proto_Projectile : MonoBehaviour
 
                     #region HIT: Split Reflector
                     case "ReflectorSplit":
-                        Debug.Log("Reflector Split HIT");
+                        //Debug.Log("Reflector Split HIT");
                         reflectorHit = true;
                         hitStore.collider.gameObject.GetComponent<Reflector_Split>().calculateLaser_Split(hitStore, gameObject);
                         break;
@@ -84,7 +94,7 @@ public class Proto_Projectile : MonoBehaviour
 
                     #region HIT: Three Way Reflector
                     case "ReflectorThreeWay":
-                        Debug.Log("Reflector Three Way HIT");
+                        //Debug.Log("Reflector Three Way HIT");
                         reflectorHit = true;
                         hitStore.collider.gameObject.GetComponent<Reflector_ThreeWay>().calculateLaser_ThreeWay(hitStore, gameObject);
                         break;

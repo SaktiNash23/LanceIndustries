@@ -7,6 +7,15 @@ public class Reflector : MonoBehaviour
 {
     public Reflector_SO reflectorBase_SO;//ATTN: Assign the correct ScriptableObject in the inspector according to the type of reflector
     public SparkAnimation sparkAnimationScript;//ATTN: Assign the correct sparkAnimator gameobject in the inspector according to the type of reflector / spark
+    public enum ReflectorColor_Enum
+    {
+        RED,
+        BLUE,
+        YELLOW,
+        WHITE
+    };
+
+    public ReflectorColor_Enum reflectorColor_Enum;
     
     protected Vector2 referenceVector;
     protected RaycastHit2D referenceHitParam;
@@ -175,6 +184,29 @@ public class Reflector : MonoBehaviour
     {
         referenceProjectile.GetComponent<TrailRenderer>().material = reflectorBase_SO.laserMaterialToChange;
         referenceProjectile.GetComponent<SpriteRenderer>().color = reflectorBase_SO.laserColorToChange;
+
+        switch (reflectorColor_Enum)
+        {
+            case ReflectorColor_Enum.RED:
+                referenceProjectile.GetComponent<Proto_Projectile>().laserColor_Enum = Proto_Projectile.LaserColor_Enum.RED;
+                //Maybe in the future, change glow of laser here
+                break;
+
+            case ReflectorColor_Enum.BLUE:
+                referenceProjectile.GetComponent<Proto_Projectile>().laserColor_Enum = Proto_Projectile.LaserColor_Enum.BLUE;
+                //Maybe in the future, change glow of laser here
+                break;
+
+            case ReflectorColor_Enum.YELLOW:
+                referenceProjectile.GetComponent<Proto_Projectile>().laserColor_Enum = Proto_Projectile.LaserColor_Enum.YELLOW;
+                //Maybe in the future, change glow of laser here
+                break;
+
+            case ReflectorColor_Enum.WHITE:
+                referenceProjectile.GetComponent<Proto_Projectile>().laserColor_Enum = Proto_Projectile.LaserColor_Enum.WHITE;
+                //Maybe in the future, change glow of laser here
+                break;
+        }
     }
 
     public virtual void setReflectorHitFalseForProjectile()

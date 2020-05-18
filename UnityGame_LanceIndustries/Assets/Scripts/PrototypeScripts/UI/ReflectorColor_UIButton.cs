@@ -45,7 +45,7 @@ public class ReflectorColor_UIButton : MonoBehaviour
 
         if (GameManager.gameManagerInstance.DebugMode_PC == false)
         {
-            if (Input.touchCount <= 1)//Used to be Input.touchCount <= 1
+            if (Input.touchCount == 1)//Used to be Input.touchCount <= 1
             {
                 Touch touch = Input.GetTouch(0);
 
@@ -120,9 +120,9 @@ public class ReflectorColor_UIButton : MonoBehaviour
             returnedReflector.GetComponent<Raycast>().isHoldingDownAccessor = true;
 
 
-            Vector2 point = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            returnedReflector.transform.position = point;
-            returnedReflector.GetComponent<Raycast>().currentMousePos = point;
+            Vector2 pointVec2 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            returnedReflector.transform.position = pointVec2;
+            returnedReflector.GetComponent<Raycast>().currentMousePos = pointVec2;
             returnedReflector.GetComponent<Raycast>().mouseIsDown = true;
 
             //Below 2 lines are Test Code
@@ -170,7 +170,6 @@ public class ReflectorColor_UIButton : MonoBehaviour
         GameManager.gameManagerInstance.reflectorColorsPanel.SetActive(false);
         GameManager.gameManagerInstance.isReflectorColorPanelActive = false;
     }
-
 
     public void OnPointerUp(PointerEventData pointerEventData)
     {

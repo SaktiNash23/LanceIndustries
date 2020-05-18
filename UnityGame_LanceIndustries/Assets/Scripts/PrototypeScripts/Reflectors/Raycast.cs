@@ -42,17 +42,15 @@ public class Raycast : MonoBehaviour
         layerMask = LayerMask.GetMask("ReflectorPlacement");
     }
 
-    #if UNITY_EDITOR
-
     void OnMouseUpAsButton()
     {
+        //#if UNITY_EDITOR
+
         if (GameManager.gameManagerInstance.DebugMode_PC == true)
-        {
+        {     
             //Used to be mouseIsDown == true Test Code
             if (reflectorAttached == true)
             {
-                Debug.Log("HERE BOI");
-
                 mousePhase = MousePhase.ENDED;
 
                 #region MOUSE PHASE ENDED CODE
@@ -166,18 +164,19 @@ public class Raycast : MonoBehaviour
                     GameManager.gameManagerInstance.toggleReflectorColliders();
 
                 reflectorAttached = true; //Test Code 
-            }
+            }        
         }
 
+        
         //This if statement below was previously in OnMouseUp()
         if (GameManager.gameManagerInstance.DebugMode_PC == false)
         {
             if (inGrid && !isHoldingDown)
                 rotateReflector(transform.rotation.eulerAngles.z);
         }
-    }
 
-    #endif
+        //#endif
+    }
 
     void OnMouseUp()
     {
@@ -186,10 +185,12 @@ public class Raycast : MonoBehaviour
 
     void OnMouseOver()
     {
-        if (GameManager.gameManagerInstance.DebugMode_PC == false)
-        {
-            //New Test Code. The original code did not have if(Input.touchCount == 1)
-            if (Input.touchCount == 1)
+        #if UNITY_ANDROID
+
+        //if (GameManager.gameManagerInstance.DebugMode_PC == false)
+        //{
+        //New Test Code. The original code did not have if(Input.touchCount == 1)
+        if (Input.touchCount == 1)
             {
                 if (timeUntilHold < minTimeHold)
                 {
@@ -200,9 +201,12 @@ public class Raycast : MonoBehaviour
                     isHoldingDown = true;
                 }
             }
-        }
 
-    #if UNITY_EDITOR
+        //}
+
+        #endif
+
+#if UNITY_EDITOR
 
         if(GameManager.gameManagerInstance.DebugMode_PC == true)
         {
@@ -213,17 +217,20 @@ public class Raycast : MonoBehaviour
             }
         }
 
-    #endif
+#endif
 
     }
 
     private void Update()
     {
+        #if UNITY_EDITOR
         //Debug.DrawRay(transform.position, -transform.up * rayLength, Color.red);
         //Debug.Log("Activation Toggle Grid :" + GameManager.gameManagerInstance.activationToggle_Grid);
         //Debug.Log("isHoldingDown : " + isHoldingDown);
         //Debug.Log("MOUSE PHASE : " + mousePhase);
-        Debug.Log("Reflector Attached : " + reflectorAttached);
+        //Debug.Log("Reflector Attached : " + reflectorAttached);
+        #endif
+
 
         #if UNITY_EDITOR
 
@@ -236,7 +243,7 @@ public class Raycast : MonoBehaviour
                 isHoldingDown = true;
                 currentMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-                #region Calculate Mouse Position
+#region Calculate Mouse Position
 
                 currentMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 deltaMousePos = currentMousePos - lastMousePos;
@@ -251,11 +258,11 @@ public class Raycast : MonoBehaviour
                     mousePhase = MousePhase.MOVED;
                 }
 
-                #endregion
+#endregion
 
                 switch (mousePhase)
                 {
-                    #region STATIONARY
+#region STATIONARY
 
                     case MousePhase.STATIONARY:
                         transform.position = new Vector3(currentMousePos.x, currentMousePos.y, 0.0f);
@@ -288,9 +295,9 @@ public class Raycast : MonoBehaviour
                             GameManager.gameManagerInstance.resetGridAlpha();
                         break;
 
-                    #endregion
+#endregion
 
-                    #region MOVED   
+#region MOVED   
 
                     case MousePhase.MOVED:
                         transform.position = new Vector3(currentMousePos.x, currentMousePos.y, 0.0f);
@@ -322,7 +329,7 @@ public class Raycast : MonoBehaviour
                             GameManager.gameManagerInstance.resetGridAlpha();
                         break;
 
-                        #endregion
+#endregion
                 }
             }
         }
@@ -524,6 +531,7 @@ public class Raycast : MonoBehaviour
         }
 
         #endregion
+
     }
 
     private void rotateReflector(float zRotation)

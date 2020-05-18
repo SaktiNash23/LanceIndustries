@@ -2412,6 +2412,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c61387f0540c7247a03fd52c88b3d3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DebugMode_PC: 0
   allReflectorSO:
   - {fileID: 11400000, guid: 941bc131841076146a0883e325087317, type: 2}
   - {fileID: 11400000, guid: 0316ad2c5ac048d45b8b600cda262fd3, type: 2}
@@ -2433,11 +2434,6 @@ MonoBehaviour:
   - {fileID: 1889050868}
   activationToggle_Grid: 0
   activationToggle_Reflector: 0
-  ReflectorStock_Basic: 5
-  ReflectorStock_Translucent: 3
-  ReflectorStock_DoubleWay: 3
-  ReflectorStock_Split: 2
-  ReflectorStock_ThreeWay: 1
   ReflectorStock_Basic_Text: {fileID: 847778735}
   ReflectorStock_Translucent_Text: {fileID: 841893886}
   ReflectorStock_DoubleWay_Text: {fileID: 858313131}
@@ -2456,7 +2452,6 @@ MonoBehaviour:
     type: 3}
   reflectorColorsPanel: {fileID: 952090222}
   isReflectorColorPanelActive: 0
-  maxWindowTime: 5
   beginCountDown: 0
 --- !u!4 &401026883
 Transform:

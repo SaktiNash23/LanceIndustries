@@ -205,7 +205,6 @@ public class Reflector_ThreeWay : Reflector
         setReflectorHitFalseForProjectile();
     }
 
-
     public override void setReflectorLaserColor()
     {
         referenceProjectile.GetComponent<TrailRenderer>().material = reflectorThreeWay_SO.laserMaterialToChange;
@@ -215,6 +214,37 @@ public class Reflector_ThreeWay : Reflector
         referenceProjectile.GetComponent<SpriteRenderer>().color = reflectorThreeWay_SO.laserColorToChange;
         newProjectile0.GetComponent<SpriteRenderer>().color = reflectorThreeWay_SO.laserColorToChange;
         newProjectile1.GetComponent<SpriteRenderer>().color = reflectorThreeWay_SO.laserColorToChange;
+
+        switch (reflectorColor_Enum)
+        {
+            case ReflectorColor_Enum.RED:
+                referenceProjectile.GetComponent<Proto_Projectile>().laserColor_Enum = Proto_Projectile.LaserColor_Enum.RED;
+                newProjectile0.GetComponent<Proto_Projectile>().laserColor_Enum = Proto_Projectile.LaserColor_Enum.RED;
+                newProjectile1.GetComponent<Proto_Projectile>().laserColor_Enum = Proto_Projectile.LaserColor_Enum.RED;
+                //Maybe in the future, change glow of laser here
+                break;
+
+            case ReflectorColor_Enum.BLUE:
+                referenceProjectile.GetComponent<Proto_Projectile>().laserColor_Enum = Proto_Projectile.LaserColor_Enum.BLUE;
+                newProjectile0.GetComponent<Proto_Projectile>().laserColor_Enum = Proto_Projectile.LaserColor_Enum.BLUE;
+                newProjectile1.GetComponent<Proto_Projectile>().laserColor_Enum = Proto_Projectile.LaserColor_Enum.BLUE;
+                //Maybe in the future, change glow of laser here
+                break;
+
+            case ReflectorColor_Enum.YELLOW:
+                referenceProjectile.GetComponent<Proto_Projectile>().laserColor_Enum = Proto_Projectile.LaserColor_Enum.YELLOW;
+                newProjectile0.GetComponent<Proto_Projectile>().laserColor_Enum = Proto_Projectile.LaserColor_Enum.YELLOW;
+                newProjectile1.GetComponent<Proto_Projectile>().laserColor_Enum = Proto_Projectile.LaserColor_Enum.YELLOW;
+                //Maybe in the future, change glow of laser here
+                break;
+
+            case ReflectorColor_Enum.WHITE:
+                referenceProjectile.GetComponent<Proto_Projectile>().laserColor_Enum = Proto_Projectile.LaserColor_Enum.WHITE;
+                newProjectile0.GetComponent<Proto_Projectile>().laserColor_Enum = Proto_Projectile.LaserColor_Enum.WHITE;
+                newProjectile1.GetComponent<Proto_Projectile>().laserColor_Enum = Proto_Projectile.LaserColor_Enum.WHITE;
+                //Maybe in the future, change glow of laser here
+                break;
+        }
     }
 
     public override void setReflectorHitFalseForProjectile()
