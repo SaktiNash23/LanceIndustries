@@ -97,7 +97,6 @@ public class Reflector_Split : Reflector
                 break;
         }
 
-
         #region Old Split Reflector Code
         /*
         if (transform.rotation.eulerAngles.z == 0.0f)
@@ -204,7 +203,7 @@ public class Reflector_Split : Reflector
         sparkAnimationScript.playDeflectAnimation();
         setReflectorHitFalseForProjectile();
 
-        //Destroy the original projectile at the end here
+        //Destroy the original projectile at the end here. Destroy the reference projectile last so that the OnDestroy() function will execute last
         Destroy(referenceProjectile);
     }
 
@@ -213,8 +212,8 @@ public class Reflector_Split : Reflector
         newProjectile0.GetComponent<TrailRenderer>().material = reflectorSplit_SO.laserMaterialToChange;
         newProjectile1.GetComponent<TrailRenderer>().material = reflectorSplit_SO.laserMaterialToChange;
 
-        newProjectile0.GetComponent<SpriteRenderer>().color = reflectorSplit_SO.laserColorToChange;
-        newProjectile1.GetComponent<SpriteRenderer>().color = reflectorSplit_SO.laserColorToChange;
+        //newProjectile0.GetComponent<SpriteRenderer>().color = reflectorSplit_SO.laserColorToChange;
+        //newProjectile1.GetComponent<SpriteRenderer>().color = reflectorSplit_SO.laserColorToChange;
 
         switch (reflectorColor_Enum)
         {
@@ -242,6 +241,9 @@ public class Reflector_Split : Reflector
                 //Maybe in the future, change glow of laser here
                 break;
         }
+
+        newProjectile0.GetComponent<Proto_Projectile>().ChangeLaserMaterialColor();
+        newProjectile1.GetComponent<Proto_Projectile>().ChangeLaserMaterialColor();
     }
 
     public override void setReflectorHitFalseForProjectile()

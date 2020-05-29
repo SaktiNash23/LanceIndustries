@@ -149,14 +149,13 @@ public class Reflector_DoubleWay : Reflector
         setReflectorHitFalseForProjectile();
     }
 
-
     public override void setReflectorLaserColor()
     {
         referenceProjectile.GetComponent<TrailRenderer>().material = reflectorDoubleWay_SO.laserMaterialToChange;
         newProjectile.GetComponent<TrailRenderer>().material = reflectorDoubleWay_SO.laserMaterialToChange;
 
-        referenceProjectile.GetComponent<SpriteRenderer>().color = reflectorDoubleWay_SO.laserColorToChange;
-        newProjectile.GetComponent<SpriteRenderer>().color = reflectorDoubleWay_SO.laserColorToChange;
+        //referenceProjectile.GetComponent<SpriteRenderer>().color = reflectorDoubleWay_SO.laserColorToChange;
+        //newProjectile.GetComponent<SpriteRenderer>().color = reflectorDoubleWay_SO.laserColorToChange;
 
         switch (reflectorColor_Enum)
         {
@@ -184,6 +183,9 @@ public class Reflector_DoubleWay : Reflector
                 //Maybe in the future, change glow of laser here
                 break;
         }
+
+        referenceProjectile.GetComponent<Proto_Projectile>().ChangeLaserMaterialColor();
+        newProjectile.GetComponent<Proto_Projectile>().ChangeLaserMaterialColor();
     }
 
     public override void setReflectorHitFalseForProjectile()

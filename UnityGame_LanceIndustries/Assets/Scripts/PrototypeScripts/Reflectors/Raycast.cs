@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 public class Raycast : MonoBehaviour
-{
-    
+{ 
     private Vector3 point;
     private Vector3 startPos;
     public bool isHoldingDown = false;
@@ -47,8 +46,9 @@ public class Raycast : MonoBehaviour
         //#if UNITY_EDITOR
 
         if (GameManager.gameManagerInstance.DebugMode_PC == true)
-        {     
-            //Used to be mouseIsDown == true Test Code
+        {
+            //Used to be mouseIsDown == true (Test Code)     
+            //When mouse button is released, if there is a reflector 'attached' to the mouse, run this code
             if (reflectorAttached == true)
             {
                 mousePhase = MousePhase.ENDED;
@@ -124,11 +124,13 @@ public class Raycast : MonoBehaviour
                 isHoldingDown = false;
                 mouseIsDown = false;
 
-                //Below line is Test Code
                 reflectorAttached = false;
 
-            }         
-            else if (reflectorAttached == false) //Used to be mouseIsDown == false Test Code
+            }
+
+            //Used to be mouseIsDown == false (Test Code).  
+            //When mouse button is released, if there is no reflector 'attached' to the mouse, run this code
+            else if (reflectorAttached == false)  
             {
                 mouseIsDown = true;
                 isHoldingDown = true;
@@ -164,7 +166,7 @@ public class Raycast : MonoBehaviour
                     GameManager.gameManagerInstance.toggleReflectorColliders();
 
                 reflectorAttached = true; //Test Code 
-            }        
+            }  
         }
 
         
@@ -191,22 +193,22 @@ public class Raycast : MonoBehaviour
         //{
         //New Test Code. The original code did not have if(Input.touchCount == 1)
         if (Input.touchCount == 1)
+        {
+            if (timeUntilHold < minTimeHold)
             {
-                if (timeUntilHold < minTimeHold)
-                {
-                    timeUntilHold += Time.deltaTime;
-                }
-                else if (timeUntilHold >= minTimeHold)
-                {
-                    isHoldingDown = true;
-                }
+                timeUntilHold += Time.deltaTime;
             }
+            else if (timeUntilHold >= minTimeHold)
+            {
+                isHoldingDown = true;
+            }
+        }
 
         //}
 
         #endif
 
-#if UNITY_EDITOR
+        #if UNITY_EDITOR
 
         if(GameManager.gameManagerInstance.DebugMode_PC == true)
         {
@@ -217,7 +219,7 @@ public class Raycast : MonoBehaviour
             }
         }
 
-#endif
+        #endif
 
     }
 
@@ -234,6 +236,7 @@ public class Raycast : MonoBehaviour
 
         #if UNITY_EDITOR
 
+        //All the following code that is within the #region Mouse Input is only to control the movement of any reflector attached to the mouse
         #region Mouse Input
 
         if (GameManager.gameManagerInstance.DebugMode_PC == true)
@@ -243,7 +246,7 @@ public class Raycast : MonoBehaviour
                 isHoldingDown = true;
                 currentMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-#region Calculate Mouse Position
+                #region Calculate Mouse Position
 
                 currentMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 deltaMousePos = currentMousePos - lastMousePos;
@@ -258,11 +261,11 @@ public class Raycast : MonoBehaviour
                     mousePhase = MousePhase.MOVED;
                 }
 
-#endregion
+                #endregion
 
                 switch (mousePhase)
                 {
-#region STATIONARY
+                    #region STATIONARY
 
                     case MousePhase.STATIONARY:
                         transform.position = new Vector3(currentMousePos.x, currentMousePos.y, 0.0f);
@@ -295,9 +298,9 @@ public class Raycast : MonoBehaviour
                             GameManager.gameManagerInstance.resetGridAlpha();
                         break;
 
-#endregion
+                        #endregion
 
-#region MOVED   
+                    #region MOVED   
 
                     case MousePhase.MOVED:
                         transform.position = new Vector3(currentMousePos.x, currentMousePos.y, 0.0f);
@@ -329,7 +332,7 @@ public class Raycast : MonoBehaviour
                             GameManager.gameManagerInstance.resetGridAlpha();
                         break;
 
-#endregion
+                        #endregion
                 }
             }
         }
@@ -351,7 +354,7 @@ public class Raycast : MonoBehaviour
                 if (isHoldingDown == true)
                 {
 
-                    if (GameManager.gameManagerInstance.activationToggle_Grid == false)
+                    if (GameManager.gameManagerInstance.activationToggle_Grid == false)//Purpose of this bool is to ensure the code only runs once in Update()
                     {
                         //If this shape is currently attached to a grid
                         if (isOccupied == true)
@@ -371,23 +374,21 @@ public class Raycast : MonoBehaviour
                             ;
                         }
 
-                        GameManager.gameManagerInstance.toggleGridColliders();
+                        GameManager.gameManagerInstance.toggleGridColliders(); //If a grid is occupied, deactivate its 2D Collider and vice versa
                     }
 
-                    if (GameManager.gameManagerInstance.activationToggle_Reflector == false)
+                    if (GameManager.gameManagerInstance.activationToggle_Reflector == false) //Purpose of this bool is to ensure the code only runs once in Update()
                         GameManager.gameManagerInstance.toggleReflectorColliders();
 
                     switch (touch.phase)
                     {
                         case TouchPhase.Began:
-                            //Orthographic Cam Code
                             point = Camera.main.ScreenToWorldPoint(touch.position);
                             transform.position = new Vector3(point.x, point.y, 0.0f);
 
                             break;
 
                         case TouchPhase.Moved:
-                            //Orthographic Cam Test Code
                             point = Camera.main.ScreenToWorldPoint(touch.position);
                             transform.position = new Vector3(point.x, point.y);
                             hit = Physics2D.Raycast(transform.position, -transform.up, rayLength, layerMask);
@@ -395,7 +396,7 @@ public class Raycast : MonoBehaviour
 
                             if (hit)
                             {
-                                if (hit.collider.tag == "Grid")
+                                if (hit.collider.tag == "Grid")//If reflector collides with Grid, highlight the grid
                                 {
                                     if (highlightedGrid != null)
                                     {
@@ -411,11 +412,11 @@ public class Raycast : MonoBehaviour
                                 }
                                 else
                                 {
-                                    GameManager.gameManagerInstance.resetGridAlpha();
+                                    GameManager.gameManagerInstance.resetGridAlpha(); //Reset all the alpha values of all grids to 0 when reflecto not hitting any grid
                                 }
                             }
                             else
-                                GameManager.gameManagerInstance.resetGridAlpha();
+                                GameManager.gameManagerInstance.resetGridAlpha(); //Reset all the alpha values of all grids to 0 when reflecto not hitting any grid
 
                             break;
 
@@ -504,7 +505,6 @@ public class Raycast : MonoBehaviour
                                                                                            //destroyed, else player cannot control the reflectors that are in the scene
                                                                                            //since their Box Colliders have not been reenabled.
 
-                                //Destroy(gameObject); //Uncomment if using traditional Instantiate & Destroy. Object Pooling technique does not require this
                                 Debug.Log("Hit nothing");
                             }
 
@@ -521,9 +521,9 @@ public class Raycast : MonoBehaviour
                     isHoldingDown = false;
 
                     if (GameManager.gameManagerInstance.activationToggle_Reflector == true)
-                        GameManager.gameManagerInstance.resetReflectorColliders();
+                        GameManager.gameManagerInstance.resetReflectorColliders(); //Reactivates all reflector's 2D Colliders that are in the grids
 
-                    GameManager.gameManagerInstance.activationToggle_Grid = false;
+                    GameManager.gameManagerInstance.activationToggle_Grid = false; //Reset the bool for the next time the function, toggleGridColliders() is called
 
                 }
             }

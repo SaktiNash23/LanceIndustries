@@ -153,8 +153,8 @@ public class Reflector_Translucent : Reflector
         referenceProjectile.GetComponent<TrailRenderer>().material = reflectorTranslucent_SO.laserMaterialToChange;
         newProjectile.GetComponent<TrailRenderer>().material = reflectorTranslucent_SO.laserMaterialToChange;
 
-        referenceProjectile.GetComponent<SpriteRenderer>().color = reflectorTranslucent_SO.laserColorToChange;
-        newProjectile.GetComponent<SpriteRenderer>().color = reflectorTranslucent_SO.laserColorToChange;
+        //referenceProjectile.GetComponent<SpriteRenderer>().color = reflectorTranslucent_SO.laserColorToChange;
+        //newProjectile.GetComponent<SpriteRenderer>().color = reflectorTranslucent_SO.laserColorToChange;
 
         switch (reflectorColor_Enum)
         {
@@ -182,6 +182,9 @@ public class Reflector_Translucent : Reflector
                 //Maybe in the future, change glow of laser here
                 break;
         }
+
+        referenceProjectile.GetComponent<Proto_Projectile>().ChangeLaserMaterialColor();
+        newProjectile.GetComponent<Proto_Projectile>().ChangeLaserMaterialColor();
     }
 
     public override void setReflectorHitFalseForProjectile()

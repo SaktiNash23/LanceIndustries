@@ -1,6 +1,48 @@
 {
     "inSceneObjectDatas": [
         {
+            "mapGridIndex": 5,
+            "inSceneObjectType": 3,
+            "borderDir": 0,
+            "position": {
+                "x": -1.5,
+                "y": 4.050000190734863,
+                "z": 0.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            }
+        },
+        {
+            "mapGridIndex": 44,
+            "inSceneObjectType": 3,
+            "borderDir": 0,
+            "position": {
+                "x": 2.299999952316284,
+                "y": -2.5999999046325685,
+                "z": 0.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.7071068286895752,
+                "w": 0.7071068286895752
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            }
+        },
+        {
             "mapGridIndex": 38,
             "inSceneObjectType": 1,
             "borderDir": 2,
@@ -421,27 +463,6 @@
             }
         },
         {
-            "mapGridIndex": 24,
-            "inSceneObjectType": 2,
-            "borderDir": 4,
-            "position": {
-                "x": 2.299999952316284,
-                "y": 0.7250000238418579,
-                "z": 0.0
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.7071068286895752,
-                "w": 0.7071068286895752
-            },
-            "scale": {
-                "x": 1.0,
-                "y": 1.0,
-                "z": 1.0
-            }
-        },
-        {
             "mapGridIndex": 23,
             "inSceneObjectType": 2,
             "borderDir": 4,
@@ -644,6 +665,27 @@
                 "y": 0.0,
                 "z": 0.0,
                 "w": 1.0
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            }
+        },
+        {
+            "mapGridIndex": 8,
+            "inSceneObjectType": 3,
+            "borderDir": 0,
+            "position": {
+                "x": 1.350000023841858,
+                "y": 4.050000190734863,
+                "z": 0.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 1.0,
+                "w": -4.371138828673793e-8
             },
             "scale": {
                 "x": 1.0,

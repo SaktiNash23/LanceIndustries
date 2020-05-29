@@ -211,9 +211,9 @@ public class Reflector_ThreeWay : Reflector
         newProjectile0.GetComponent<TrailRenderer>().material = reflectorThreeWay_SO.laserMaterialToChange;
         newProjectile1.GetComponent<TrailRenderer>().material = reflectorThreeWay_SO.laserMaterialToChange;
 
-        referenceProjectile.GetComponent<SpriteRenderer>().color = reflectorThreeWay_SO.laserColorToChange;
-        newProjectile0.GetComponent<SpriteRenderer>().color = reflectorThreeWay_SO.laserColorToChange;
-        newProjectile1.GetComponent<SpriteRenderer>().color = reflectorThreeWay_SO.laserColorToChange;
+        //referenceProjectile.GetComponent<SpriteRenderer>().color = reflectorThreeWay_SO.laserColorToChange;
+        //newProjectile0.GetComponent<SpriteRenderer>().color = reflectorThreeWay_SO.laserColorToChange;
+        //newProjectile1.GetComponent<SpriteRenderer>().color = reflectorThreeWay_SO.laserColorToChange;
 
         switch (reflectorColor_Enum)
         {
@@ -245,6 +245,10 @@ public class Reflector_ThreeWay : Reflector
                 //Maybe in the future, change glow of laser here
                 break;
         }
+
+        referenceProjectile.GetComponent<Proto_Projectile>().ChangeLaserMaterialColor();
+        newProjectile0.GetComponent<Proto_Projectile>().ChangeLaserMaterialColor();
+        newProjectile1.GetComponent<Proto_Projectile>().ChangeLaserMaterialColor();
     }
 
     public override void setReflectorHitFalseForProjectile()

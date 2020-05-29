@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
 
     public bool DebugMode_PC; //True: Activates PC controls for debugging. False: Activates touch controls
 
+    public bool gimmick_LaserSpeedDecrease;
+
     [InfoBox("Ensure the Reflector Scriptable Objects are placed in the right order in the array", EInfoBoxType.Normal)]
     [ReorderableList]
     public Reflector_SO[] allReflectorSO;
@@ -66,6 +68,18 @@ public class GameManager : MonoBehaviour
     private float maxWindowTime;
     public bool beginCountDown = false;
 
+    #region Variables : Dissolve Effect
+
+    public Material dissolveMaterial;
+    public Material reflectorPanel_DissolveMaterial;
+
+    private float dissolveFade = 0.0f;
+    private float reflectorPanel_dissolveFade = 0.0f;
+
+    public bool activateDissolve = true;
+    public bool fadeIn = false;
+
+    #endregion
 
     void Awake()
     {
@@ -79,10 +93,54 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        //Debug.Log("IsReflectorColorPanelActive " + isReflectorColorPanelActive);
-        //Debug.Log("Begin Countdown : " + beginCountDown);
+        if (dissolveFade < 1.0f)
+        {
+            dissolveFade += Time.deltaTime;
+            dissolveMaterial.SetFloat("_Fade", dissolveFade);
+        }
 
-        if(beginCountDown == true)
+
+        #region Reflector Color Panel Dissolve Test Code
+        /*
+        if (activateDissolve == true)
+        {
+            if(fadeIn == false)
+            {
+                if (reflectorPanel_dissolveFade < 1.0f)
+                {
+                    Debug.LogWarning("DISSOLVE");
+                    reflectorPanel_dissolveFade += Time.deltaTime;
+                    reflectorPanel_DissolveMaterial.SetFloat("_Fade", reflectorPanel_dissolveFade);
+                }
+                else
+                {
+                    reflectorPanel_dissolveFade = 1.0f;
+                    fadeIn = true;
+                    activateDissolve = false;
+                }               
+            }
+            else if(fadeIn == true)
+            {
+                if(reflectorPanel_dissolveFade > 0.0f)
+                {
+                    reflectorPanel_dissolveFade -= Time.deltaTime;
+                    reflectorPanel_DissolveMaterial.SetFloat("_Fade", reflectorPanel_dissolveFade);
+                }
+                else
+                {
+                    reflectorPanel_dissolveFade = 0.0f;
+                    fadeIn = false;
+                    reflectorColorsPanel.SetActive(false);
+                    activateDissolve = false;
+
+                }
+            }
+        }
+        */
+        #endregion
+
+
+        if (beginCountDown == true)
         {
             checkTimingWindowForLaser();
         }
@@ -207,7 +265,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        activationToggle_Reflector = true;
+        activationToggle_Reflector = true; //True: The reflectors have been toggled accordingly
     }
 
     //Resets all reflector colliders to their original state, meaning it will set all reflector 2D Colliders to be active
@@ -654,6 +712,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    //Whenever a laser hits an EndPoint, this function is called to evaluate whether the laser that hit the EndPoint is correct or not.
+    //Hence, this function is usually called in the EndPoint script
     public void updateEndPointStatus(bool hitSuccessEndPoint)
     {
         numOfHitEndPoints++;
@@ -676,20 +736,15 @@ public class GameManager : MonoBehaviour
                 Debug.Log("All Lasers Have Reached, but not all correct");
             }
         }
-
-
-        /*
-        numOfSuccessEndPoints++;
-        Debug.Log("Num of Success End Points : " + numOfSuccessEndPoints);
-
-        if(numOfSuccessEndPoints == numOfEndPoints)
-        {
-            allLasersHaveReached = true;
-            Debug.Log("All Lasers Have Reached!");
-        }
-        */
     }
 
+    //When a laser is fired and the countdown begins, this function performs various operations
+    //
+    // 1.) Checks if all the lasers have reached end points before time limit expires, then subsequently checks if the lasers hit are the correct ones
+    //
+    // 2.) Checks if the all the laser have NOT reached the end point when time limit expires, then it destroys any lasers that are still on screen and resets the timer
+    //
+    // 3.) Updates the Countdown Timer UI with the current time
     public void checkTimingWindowForLaser()
     {  
          if(currentWindowTime > 0.0f)
@@ -708,19 +763,19 @@ public class GameManager : MonoBehaviour
              }
              else
              {
-                //Debug.Log("COUNT");
                 currentWindowTime -= Time.smoothDeltaTime;
                 TimerSuccessText.text = currentWindowTime.ToString("F2");
              }
          }
          else if (currentWindowTime <= 0.0f)
          {
-             //Debug.LogWarning("Timing Window is closed!!!");
              TimerSuccessText.text = "FAIL";
+             findAndDestroyLasers();
              Reset();
          }
     }
 
+    //This function resets the variables related to the game state, so that a new laser can be fired again
     public void Reset()
     {
         currentWindowTime = maxWindowTime;
@@ -745,6 +800,39 @@ public class GameManager : MonoBehaviour
         Debug.Log("All Lasers Have Reached : " + allLasersHaveReached);
         Debug.Log("Begin Countdown : " + beginCountDown);
         */
+    }
+
+    //This function is called whenever a laser has its OnDestroy() function called. If there are still lasers in the scene, game continues as usual
+    //If there are no more lasers in the scene, the timer is directly set to 0, therefore resetting the game state.
+    //
+    //This function was created to ensure if all the lasers were destroyed and none of them reached all the end points, the player would not have to
+    //wait until the timer expired to shoot another laser
+    public void checkForAnyLasersInScene()
+    {
+        GameObject[] activeLasers = GameObject.FindGameObjectsWithTag("Laser");
+
+        if(activeLasers.Length <= 0)
+        {
+            currentWindowTime = 0.0f;
+        }
+        else
+        {
+            Debug.Log("Still got lasers");
+        }
+    }
+
+    public void findAndDestroyLasers()
+    {
+        GameObject[] activeLasers = GameObject.FindGameObjectsWithTag("Laser");
+
+        if(activeLasers.Length > 0)
+        {
+            foreach (GameObject laser in activeLasers)
+            {
+                Destroy(laser);
+            }
+            Debug.Log("Destroyed all stray lasers");
+        }
     }
 
     public void Initialization(MapDataHolder mapDataHolder)
@@ -848,6 +936,15 @@ public class GameManager : MonoBehaviour
 
         set 
         { ReflectorStock_ThreeWay = value; }
+    }
+
+    public float currentWindowTime_Accessor
+    {
+        get
+        { return currentWindowTime; }
+
+        set
+        { currentWindowTime = value; }
     }
 
     #endregion

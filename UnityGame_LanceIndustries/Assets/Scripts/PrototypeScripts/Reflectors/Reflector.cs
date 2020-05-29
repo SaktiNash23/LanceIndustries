@@ -183,30 +183,28 @@ public class Reflector : MonoBehaviour
     public virtual void setReflectorLaserColor()
     {
         referenceProjectile.GetComponent<TrailRenderer>().material = reflectorBase_SO.laserMaterialToChange;
-        referenceProjectile.GetComponent<SpriteRenderer>().color = reflectorBase_SO.laserColorToChange;
+        //referenceProjectile.GetComponent<SpriteRenderer>().color = reflectorBase_SO.laserColorToChange;
 
         switch (reflectorColor_Enum)
         {
             case ReflectorColor_Enum.RED:
                 referenceProjectile.GetComponent<Proto_Projectile>().laserColor_Enum = Proto_Projectile.LaserColor_Enum.RED;
-                //Maybe in the future, change glow of laser here
-                break;
+                        break;
 
             case ReflectorColor_Enum.BLUE:
                 referenceProjectile.GetComponent<Proto_Projectile>().laserColor_Enum = Proto_Projectile.LaserColor_Enum.BLUE;
-                //Maybe in the future, change glow of laser here
                 break;
 
             case ReflectorColor_Enum.YELLOW:
                 referenceProjectile.GetComponent<Proto_Projectile>().laserColor_Enum = Proto_Projectile.LaserColor_Enum.YELLOW;
-                //Maybe in the future, change glow of laser here
                 break;
 
             case ReflectorColor_Enum.WHITE:
                 referenceProjectile.GetComponent<Proto_Projectile>().laserColor_Enum = Proto_Projectile.LaserColor_Enum.WHITE;
-                //Maybe in the future, change glow of laser here
                 break;
         }
+
+        referenceProjectile.GetComponent<Proto_Projectile>().ChangeLaserMaterialColor();
     }
 
     public virtual void setReflectorHitFalseForProjectile()
