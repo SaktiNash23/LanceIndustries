@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: 01 Level_1 Map Info
   m_EditorClassIdentifier: 
   idNo: 01
-  mapName: 01 Level_1
+  mapName: 01 Level_1 (1-1)
   mapData: {fileID: 4900000, guid: f18b1e6ecf93c9c499f389e644eb3583, type: 3}

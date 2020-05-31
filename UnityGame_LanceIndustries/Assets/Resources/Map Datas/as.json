@@ -1,0 +1,31 @@
+{
+    "inSceneObjectDatas": [
+        {
+            "mapGridIndex": 30,
+            "inSceneObjectType": 2,
+            "borderDir": 4,
+            "position": {
+                "x": -1.5,
+                "y": -1.1750001907348633,
+                "z": 0.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.7071068286895752,
+                "w": 0.7071068286895752
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            }
+        }
+    ],
+    "timeLimit": 0.0,
+    "basicReflectorAmount": 0,
+    "translucentReflectorAmount": 0,
+    "doubleWayReflectorAmount": 0,
+    "splitReflectorAmount": 0,
+    "threeWayReflectorAmount": 0
+}

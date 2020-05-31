@@ -6,6 +6,8 @@ using UnityEngine.UI;
 using UnityEditor;
 using TMPro;
 using NaughtyAttributes;
+using System.Linq;
+using UnityEngine.Experimental.AI;
 
 public class MapEditorManager : MonoBehaviour
 {
@@ -22,20 +24,41 @@ public class MapEditorManager : MonoBehaviour
 
     [BoxGroup("PANEL MAP EDITING REFERENCES")] [SerializeField] CanvasGroup cgPanelMapEditing;
     [BoxGroup("PANEL MAP EDITING REFERENCES")] [SerializeField] CanvasGroup cgPanelMapEditingTopLayer;
-    [BoxGroup("PANEL MAP EDITING REFERENCES")] [SerializeField] RectTransform rtPanelEndPoints;
+    [BoxGroup("PANEL MAP EDITING REFERENCES")] [SerializeField] RectTransform rtPanelHorizontalLines;
+    [BoxGroup("PANEL MAP EDITING REFERENCES")] [SerializeField] RectTransform rtPanelVerticalLines;
+    [BoxGroup("PANEL MAP EDITING REFERENCES")] [SerializeField] RectTransform rtPanelDestinationPoints;
+    [BoxGroup("PANEL MAP EDITING REFERENCES")] [SerializeField] RectTransform rtPanelPortals;
+    [BoxGroup("PANEL MAP EDITING REFERENCES")] [SerializeField] RectTransform rtPanelPortals1stSet;
+    [BoxGroup("PANEL MAP EDITING REFERENCES")] [SerializeField] RectTransform rtPanelPortals2ndSet;
+    [BoxGroup("PANEL MAP EDITING REFERENCES")] [SerializeField] List<MapEditorObjectCreatorButton> mapEditorObjectCreatorParentButtons;
+    [BoxGroup("PANEL MAP EDITING REFERENCES")] [SerializeField] List<MapEditorObjectCreatorButton> mapEditorObjectCreatorPortalSubMenuButtons;
     [BoxGroup("PANEL MAP EDITING REFERENCES")] [SerializeField] TMP_InputField ifTimeLimit;
     [BoxGroup("PANEL MAP EDITING REFERENCES")] [SerializeField] TMP_InputField ifBasicReflectorAmount;
     [BoxGroup("PANEL MAP EDITING REFERENCES")] [SerializeField] TMP_InputField ifTranslucentReflectorAmount;
     [BoxGroup("PANEL MAP EDITING REFERENCES")] [SerializeField] TMP_InputField ifDoubleWayReflectorAmount;
     [BoxGroup("PANEL MAP EDITING REFERENCES")] [SerializeField] TMP_InputField ifSplitReflectorAmount;
     [BoxGroup("PANEL MAP EDITING REFERENCES")] [SerializeField] TMP_InputField ifThreeWayReflectorAmount;
-    [BoxGroup("MAP EDITOR IN SCENE OBJECT PREFABS")] [SerializeField] MapEditorInSceneObject verticalLinePrefab;
-    [BoxGroup("MAP EDITOR IN SCENE OBJECT PREFABS")] [SerializeField] MapEditorInSceneObject horizontalLinePrefab;
+    [BoxGroup("PANEL MAP EDITING REFERENCES")] [SerializeField] UIHelper uiHelperOptionMenu;
+
+    [BoxGroup("MAP EDITOR IN SCENE OBJECT PREFABS")] [SerializeField] MapEditorInSceneObject normalVerticalLinePrefab;
+    [BoxGroup("MAP EDITOR IN SCENE OBJECT PREFABS")] [SerializeField] MapEditorInSceneObject whiteVerticalLinePrefab;
+    [BoxGroup("MAP EDITOR IN SCENE OBJECT PREFABS")] [SerializeField] MapEditorInSceneObject redVerticalLinePrefab;
+    [BoxGroup("MAP EDITOR IN SCENE OBJECT PREFABS")] [SerializeField] MapEditorInSceneObject yellowVerticalLinePrefab;
+    [BoxGroup("MAP EDITOR IN SCENE OBJECT PREFABS")] [SerializeField] MapEditorInSceneObject blueVerticalLinePrefab;
+    [BoxGroup("MAP EDITOR IN SCENE OBJECT PREFABS")] [SerializeField] MapEditorInSceneObject normalHorizontalLinePrefab;
+    [BoxGroup("MAP EDITOR IN SCENE OBJECT PREFABS")] [SerializeField] MapEditorInSceneObject whiteHorizontalLinePrefab;
+    [BoxGroup("MAP EDITOR IN SCENE OBJECT PREFABS")] [SerializeField] MapEditorInSceneObject redHorizontalLinePrefab;
+    [BoxGroup("MAP EDITOR IN SCENE OBJECT PREFABS")] [SerializeField] MapEditorInSceneObject yellowHorizontalLinePrefab;
+    [BoxGroup("MAP EDITOR IN SCENE OBJECT PREFABS")] [SerializeField] MapEditorInSceneObject blueHorizontalLinePrefab;
     [BoxGroup("MAP EDITOR IN SCENE OBJECT PREFABS")] [SerializeField] MapEditorInSceneObject originPointPrefab;
     [BoxGroup("MAP EDITOR IN SCENE OBJECT PREFABS")] [SerializeField] MapEditorInSceneObject destinationPointWhitePrefab;
     [BoxGroup("MAP EDITOR IN SCENE OBJECT PREFABS")] [SerializeField] MapEditorInSceneObject destinationPointRedPrefab;
     [BoxGroup("MAP EDITOR IN SCENE OBJECT PREFABS")] [SerializeField] MapEditorInSceneObject destinationPointYellowPrefab;
     [BoxGroup("MAP EDITOR IN SCENE OBJECT PREFABS")] [SerializeField] MapEditorInSceneObject destinationPointBluePrefab;
+    [BoxGroup("MAP EDITOR IN SCENE OBJECT PREFABS")] [SerializeField] MapEditorInSceneObject firstSetPortalHorizontalPrefab;
+    [BoxGroup("MAP EDITOR IN SCENE OBJECT PREFABS")] [SerializeField] MapEditorInSceneObject firstSetPortalVerticalPrefab;
+    [BoxGroup("MAP EDITOR IN SCENE OBJECT PREFABS")] [SerializeField] MapEditorInSceneObject secondSetPortalHorizontalPrefab;
+    [BoxGroup("MAP EDITOR IN SCENE OBJECT PREFABS")] [SerializeField] MapEditorInSceneObject secondSetPortalVerticalPrefab;
 
     [BoxGroup("MAP EDITOR IN SCENE REFERENCES")] [SerializeField] GameObject mapLayoutGameObj;
 
@@ -140,19 +163,43 @@ public class MapEditorManager : MonoBehaviour
         TextAsset mapData = AssetDatabase.LoadAssetAtPath<TextAsset>(LoadedMapDataPath);
         string jsonData = mapData.text;
         MapDataHolder mapDataHolder = JsonUtility.FromJson<MapDataHolder>(jsonData);
-        if(mapDataHolder != null)
+        if (mapDataHolder != null)
         {
-            foreach(var inSceneObjectData in mapDataHolder.inSceneObjectDatas)
+            foreach (var inSceneObjectData in mapDataHolder.inSceneObjectDatas)
             {
                 MapEditorInSceneObject inSceneObject = null;
 
                 switch (inSceneObjectData.inSceneObjectType)
                 {
-                    case IN_SCENE_OBJECT_TYPES.VERTICAL_LINE:
-                        inSceneObject = Instantiate<MapEditorInSceneObject>(verticalLinePrefab, inSceneObjectData.position, inSceneObjectData.rotation);
+                    case IN_SCENE_OBJECT_TYPES.NORMAL_VERTICAL_LINE:
+                        inSceneObject = Instantiate<MapEditorInSceneObject>(normalVerticalLinePrefab, inSceneObjectData.position, inSceneObjectData.rotation);
                         break;
-                    case IN_SCENE_OBJECT_TYPES.HORIZONTAL_LINE:
-                        inSceneObject = Instantiate<MapEditorInSceneObject>(horizontalLinePrefab, inSceneObjectData.position, inSceneObjectData.rotation);
+                    case IN_SCENE_OBJECT_TYPES.WHITE_VERTICAL_LINE:
+                        inSceneObject = Instantiate<MapEditorInSceneObject>(whiteVerticalLinePrefab, inSceneObjectData.position, inSceneObjectData.rotation);
+                        break;
+                    case IN_SCENE_OBJECT_TYPES.RED_VERTICAL_LINE:
+                        inSceneObject = Instantiate<MapEditorInSceneObject>(redVerticalLinePrefab, inSceneObjectData.position, inSceneObjectData.rotation);
+                        break;
+                    case IN_SCENE_OBJECT_TYPES.YELLOW_VERTICAL_LINE:
+                        inSceneObject = Instantiate<MapEditorInSceneObject>(yellowVerticalLinePrefab, inSceneObjectData.position, inSceneObjectData.rotation);
+                        break;
+                    case IN_SCENE_OBJECT_TYPES.BLUE_VERTICAL_LINE:
+                        inSceneObject = Instantiate<MapEditorInSceneObject>(blueVerticalLinePrefab, inSceneObjectData.position, inSceneObjectData.rotation);
+                        break;
+                    case IN_SCENE_OBJECT_TYPES.NORMAL_HORIZONTAL_LINE:
+                        inSceneObject = Instantiate<MapEditorInSceneObject>(normalHorizontalLinePrefab, inSceneObjectData.position, inSceneObjectData.rotation);
+                        break;
+                    case IN_SCENE_OBJECT_TYPES.WHITE_HORIZONTAL_LINE:
+                        inSceneObject = Instantiate<MapEditorInSceneObject>(whiteHorizontalLinePrefab, inSceneObjectData.position, inSceneObjectData.rotation);
+                        break;
+                    case IN_SCENE_OBJECT_TYPES.RED_HORIZONTAL_LINE:
+                        inSceneObject = Instantiate<MapEditorInSceneObject>(redHorizontalLinePrefab, inSceneObjectData.position, inSceneObjectData.rotation);
+                        break;
+                    case IN_SCENE_OBJECT_TYPES.YELLOW_HORIZONTAL_LINE:
+                        inSceneObject = Instantiate<MapEditorInSceneObject>(yellowHorizontalLinePrefab, inSceneObjectData.position, inSceneObjectData.rotation);
+                        break;
+                    case IN_SCENE_OBJECT_TYPES.BLUE_HORIZONTAL_LINE:
+                        inSceneObject = Instantiate<MapEditorInSceneObject>(blueHorizontalLinePrefab, inSceneObjectData.position, inSceneObjectData.rotation);
                         break;
                     case IN_SCENE_OBJECT_TYPES.ORIGIN_POINT:
                         inSceneObject = Instantiate<MapEditorInSceneObject>(originPointPrefab, inSceneObjectData.position, inSceneObjectData.rotation);
@@ -169,19 +216,25 @@ public class MapEditorManager : MonoBehaviour
                     case IN_SCENE_OBJECT_TYPES.DESTINATION_POINT_BLUE:
                         inSceneObject = Instantiate<MapEditorInSceneObject>(destinationPointBluePrefab, inSceneObjectData.position, inSceneObjectData.rotation);
                         break;
+                    case IN_SCENE_OBJECT_TYPES.PORTAL_1ST_SET_HORIZONTAL:
+                        inSceneObject = Instantiate<MapEditorInSceneObject>(firstSetPortalHorizontalPrefab, inSceneObjectData.position, inSceneObjectData.rotation);
+                        break;
+                    case IN_SCENE_OBJECT_TYPES.PORTAL_1ST_SET_VERTICAL:
+                        inSceneObject = Instantiate<MapEditorInSceneObject>(firstSetPortalVerticalPrefab, inSceneObjectData.position, inSceneObjectData.rotation);
+                        break;
+                    case IN_SCENE_OBJECT_TYPES.PORTAL_2ND_SET_HORIZONTAL:
+                        inSceneObject = Instantiate<MapEditorInSceneObject>(secondSetPortalHorizontalPrefab, inSceneObjectData.position, inSceneObjectData.rotation);
+                        break;
+                    case IN_SCENE_OBJECT_TYPES.PORTAL_2ND_SET_VERTICAL:
+                        inSceneObject = Instantiate<MapEditorInSceneObject>(secondSetPortalVerticalPrefab, inSceneObjectData.position, inSceneObjectData.rotation);
+                        break;
                 }
             }
         }
 
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(1.0f);
 
-        MapLayoutBorder[] mapLayoutBorders = FindObjectsOfType<MapLayoutBorder>();
-        foreach(var mapLayoutBorder in mapLayoutBorders)
-            mapLayoutBorder.Initialization();
-
-        MapLayoutBoxSnapper[] mapLayoutBoxSnappers = FindObjectsOfType<MapLayoutBoxSnapper>();
-        foreach (var mapLayoutBoxSnapper in mapLayoutBoxSnappers)
-            mapLayoutBoxSnapper.Initialization();
+        MapSnappersInitialization();
 
         timeLimit = mapDataHolder.timeLimit;
         basicReflectorAmount = mapDataHolder.basicReflectorAmount;
@@ -242,7 +295,7 @@ public class MapEditorManager : MonoBehaviour
 #if UNITY_EDITOR
         MapData newMapData = new MapData();
         string mapDataJson = JsonUtility.ToJson(newMapData, true);
-        string mapDataSavePath = "Assets/Data Library/Map Datas/" + ifMapName.text + ".json";
+        string mapDataSavePath = "Assets/Resources/Map Datas/" + ifMapName.text + ".json";
         FileStream file = new FileStream(mapDataSavePath, FileMode.Create);
         StreamWriter writer = new StreamWriter(file);
         writer.Write(mapDataJson);
@@ -313,8 +366,10 @@ public class MapEditorManager : MonoBehaviour
         cgPanelMapEditingTopLayer.interactable = false;
         cgPanelMapEditingTopLayer.blocksRaycasts = false;
 
+        ResetAllSnappers();
         mapLayoutGameObj.SetActive(false);
-        rtPanelEndPoints.gameObject.SetActive(false);
+
+        MapEditorInputManager.Instance.SwitchSelectedPanel(MAP_EDITING_PANEL.NONE);
 
         MapEditorInSceneObject[] inSceneObjects = FindObjectsOfType<MapEditorInSceneObject>();
         foreach (var inSceneObject in inSceneObjects)
@@ -324,9 +379,303 @@ public class MapEditorManager : MonoBehaviour
         MapEditorInputManager.Instance.MapEditing = false;
     }
 
-    public void TogglePanelEndPoints()
+    private void MapSnappersInitialization()
     {
-        rtPanelEndPoints.gameObject.SetActive(!rtPanelEndPoints.gameObject.activeSelf);
+        MapLayoutBorder[] mapLayoutBorders = FindObjectsOfType<MapLayoutBorder>();
+        foreach (var mapLayoutBorder in mapLayoutBorders)
+            mapLayoutBorder.Initialization();
+
+        MapLayoutBoxSnapper[] mapLayoutBoxSnappers = FindObjectsOfType<MapLayoutBoxSnapper>();
+        foreach (var mapLayoutBoxSnapper in mapLayoutBoxSnappers)
+            mapLayoutBoxSnapper.Initialization();
+    }
+
+    private void ResetAllSnappers()
+    {
+        MapLayoutBorder[] allBorderSnappers = FindObjectsOfType<MapLayoutBorder>();
+        MapLayoutBoxSnapper[] allBoxSnappers = FindObjectsOfType<MapLayoutBoxSnapper>();
+        foreach (var borderSnapper in allBorderSnappers)
+            borderSnapper.GotSnappedObject = false;
+        foreach (var boxSnapper in allBoxSnappers)
+            boxSnapper.GotSnappedObject = false;
+    }
+
+    public void MasterFix()
+    {
+        List<MapEditorInSceneObject> allInSceneObjs = new List<MapEditorInSceneObject>(FindObjectsOfType<MapEditorInSceneObject>());
+        List<MapEditorInSceneObject> inSceneObjsToBeRemoved = new List<MapEditorInSceneObject>();
+
+        List<MapEditorInSceneObject> allOriginEndPoints = new List<MapEditorInSceneObject>();
+        List<MapEditorInSceneObject> allHorizontalLines = new List<MapEditorInSceneObject>();
+        List<MapEditorInSceneObject> allVerticalLines = new List<MapEditorInSceneObject>();
+
+        foreach(var inSceneObj in allInSceneObjs)
+        {
+            IN_SCENE_OBJECT_TYPES objType = inSceneObj.inSceneObjectType;
+            if (objType == IN_SCENE_OBJECT_TYPES.ORIGIN_POINT || objType == IN_SCENE_OBJECT_TYPES.DESTINATION_POINT_WHITE ||
+                objType == IN_SCENE_OBJECT_TYPES.DESTINATION_POINT_RED || objType == IN_SCENE_OBJECT_TYPES.DESTINATION_POINT_YELLOW || objType == IN_SCENE_OBJECT_TYPES.DESTINATION_POINT_BLUE)
+            {
+                allOriginEndPoints.Add(inSceneObj);
+                inSceneObjsToBeRemoved.Add(inSceneObj);
+            }
+        }
+
+        foreach(var inSceneObj in inSceneObjsToBeRemoved)
+        {
+            allInSceneObjs.Remove(inSceneObj);
+        }
+
+        inSceneObjsToBeRemoved.Clear();
+
+        foreach (var inSceneObj in allInSceneObjs)
+        {
+            IN_SCENE_OBJECT_TYPES objType = inSceneObj.inSceneObjectType;
+            if (objType == IN_SCENE_OBJECT_TYPES.NORMAL_HORIZONTAL_LINE || objType == IN_SCENE_OBJECT_TYPES.WHITE_HORIZONTAL_LINE ||
+                objType == IN_SCENE_OBJECT_TYPES.RED_HORIZONTAL_LINE || objType == IN_SCENE_OBJECT_TYPES.YELLOW_HORIZONTAL_LINE || objType == IN_SCENE_OBJECT_TYPES.BLUE_HORIZONTAL_LINE)
+            {
+                allHorizontalLines.Add(inSceneObj);
+                inSceneObjsToBeRemoved.Add(inSceneObj);
+            }
+        }
+
+        foreach (var inSceneObj in inSceneObjsToBeRemoved)
+        {
+            allInSceneObjs.Remove(inSceneObj);
+        }
+
+        inSceneObjsToBeRemoved.Clear();
+
+        foreach (var inSceneObj in allInSceneObjs)
+        {
+            IN_SCENE_OBJECT_TYPES objType = inSceneObj.inSceneObjectType;
+            if (objType == IN_SCENE_OBJECT_TYPES.NORMAL_VERTICAL_LINE || objType == IN_SCENE_OBJECT_TYPES.WHITE_VERTICAL_LINE ||
+                objType == IN_SCENE_OBJECT_TYPES.RED_VERTICAL_LINE || objType == IN_SCENE_OBJECT_TYPES.YELLOW_VERTICAL_LINE || objType == IN_SCENE_OBJECT_TYPES.BLUE_VERTICAL_LINE)
+            {
+                allVerticalLines.Add(inSceneObj);
+                inSceneObjsToBeRemoved.Add(inSceneObj);
+            }
+        }
+
+        foreach (var inSceneObj in inSceneObjsToBeRemoved)
+        {
+            allInSceneObjs.Remove(inSceneObj);
+        }
+
+        inSceneObjsToBeRemoved.Clear();
+
+        DuplicatesFix(allOriginEndPoints);
+        DuplicatesFix(allHorizontalLines);
+        DuplicatesFix(allVerticalLines);
+
+        List<MapGridMapEditor> allMapGrids = new List<MapGridMapEditor>(FindObjectsOfType<MapGridMapEditor>());
+
+        PositionsFix(allMapGrids, allOriginEndPoints);
+        PositionsFix(allMapGrids, allHorizontalLines);
+        PositionsFix(allMapGrids, allVerticalLines);
+
+        MapSnappersInitialization();
+    }
+
+    private void DuplicatesFix(List<MapEditorInSceneObject> inSceneObjs)
+    {
+        if (inSceneObjs.Count <= 0)
+            return;
+
+        IN_SCENE_OBJECT_TYPES objType = inSceneObjs[0].inSceneObjectType;
+
+        switch (objType)
+        {
+            case IN_SCENE_OBJECT_TYPES.ORIGIN_POINT:
+            case IN_SCENE_OBJECT_TYPES.DESTINATION_POINT_WHITE:
+            case IN_SCENE_OBJECT_TYPES.DESTINATION_POINT_RED:
+            case IN_SCENE_OBJECT_TYPES.DESTINATION_POINT_YELLOW:
+            case IN_SCENE_OBJECT_TYPES.DESTINATION_POINT_BLUE:
+                List<int> duplicatedPointObjIndexes = new List<int>();
+                for(int i = 0; i < inSceneObjs.Count - 1; i++)
+                {
+                    if (!duplicatedPointObjIndexes.Contains(i))
+                    {
+                        for (int j = i + 1; j < inSceneObjs.Count; j++)
+                        {
+                            if (inSceneObjs[i].InSceneObjData.mapGridIndex == inSceneObjs[j].InSceneObjData.mapGridIndex)
+                            {
+                                duplicatedPointObjIndexes.Add(j);
+                            }
+                        }
+                    }
+                }
+
+                foreach (var duplicatedPointObjIndex in duplicatedPointObjIndexes)
+                {
+                    if (inSceneObjs[duplicatedPointObjIndex].SnappedTargetBox)
+                    {
+                        inSceneObjs[duplicatedPointObjIndex].SnappedTargetBox.GotSnappedObject = false;
+                    }
+                    Destroy(inSceneObjs[duplicatedPointObjIndex].gameObject);
+                }
+
+                inSceneObjs.RemoveAll(obj => obj == null);
+                break;
+
+            case IN_SCENE_OBJECT_TYPES.NORMAL_HORIZONTAL_LINE:
+            case IN_SCENE_OBJECT_TYPES.WHITE_HORIZONTAL_LINE:
+            case IN_SCENE_OBJECT_TYPES.RED_HORIZONTAL_LINE:
+            case IN_SCENE_OBJECT_TYPES.YELLOW_HORIZONTAL_LINE:
+            case IN_SCENE_OBJECT_TYPES.BLUE_HORIZONTAL_LINE:
+                List<int> duplicatedHorizontalLineIndexes = new List<int>();
+                List<MapEditorInSceneObject> notValidHorizontalLines = new List<MapEditorInSceneObject>();
+
+                foreach(var horizontalLine in inSceneObjs)
+                {
+                    if (horizontalLine.InSceneObjData.borderDir == SNAPPING_DIR.NONE)
+                        notValidHorizontalLines.Add(horizontalLine);
+                }
+
+                foreach(var horizontalLine in notValidHorizontalLines)
+                {
+                    inSceneObjs.Remove(horizontalLine);
+                    Destroy(horizontalLine.gameObject);
+                }
+
+                notValidHorizontalLines.Clear();
+
+                for(int i = 0; i < inSceneObjs.Count - 1; i++)
+                {
+                    if (!duplicatedHorizontalLineIndexes.Contains(i))
+                    {
+                        for (int j = i + 1; j < inSceneObjs.Count; j++)
+                        {
+                            if (inSceneObjs[i].InSceneObjData.mapGridIndex == inSceneObjs[j].InSceneObjData.mapGridIndex && inSceneObjs[i].InSceneObjData.borderDir == inSceneObjs[j].InSceneObjData.borderDir)
+                            {
+                                duplicatedHorizontalLineIndexes.Add(j);
+                            }
+                        }
+                    }
+                }
+
+                foreach (var duplicatedHorizontalLineIndex in duplicatedHorizontalLineIndexes)
+                {
+                    if (inSceneObjs[duplicatedHorizontalLineIndex].SnappedTargetBox)
+                    {
+                        inSceneObjs[duplicatedHorizontalLineIndex].SnappedTargetBox.GotSnappedObject = false;
+                    }
+                    Destroy(inSceneObjs[duplicatedHorizontalLineIndex].gameObject);
+                }
+
+                inSceneObjs.RemoveAll(obj => obj == null);
+                break;
+
+            case IN_SCENE_OBJECT_TYPES.NORMAL_VERTICAL_LINE:
+            case IN_SCENE_OBJECT_TYPES.WHITE_VERTICAL_LINE:
+            case IN_SCENE_OBJECT_TYPES.RED_VERTICAL_LINE:
+            case IN_SCENE_OBJECT_TYPES.YELLOW_VERTICAL_LINE:
+            case IN_SCENE_OBJECT_TYPES.BLUE_VERTICAL_LINE:
+                List<int> duplicatedVerticalLineIndexes = new List<int>();
+                List<MapEditorInSceneObject> notValidVerticalLines = new List<MapEditorInSceneObject>();
+
+                foreach (var verticalLine in inSceneObjs)
+                {
+                    if (verticalLine.InSceneObjData.borderDir == SNAPPING_DIR.NONE)
+                        notValidVerticalLines.Add(verticalLine);
+                }
+
+                foreach (var verticalLine in notValidVerticalLines)
+                {
+                    inSceneObjs.Remove(verticalLine);
+                    Destroy(verticalLine.gameObject);
+                }
+
+                notValidVerticalLines.Clear();
+
+                for (int i = 0; i < inSceneObjs.Count - 1; i++)
+                {
+                    if (!duplicatedVerticalLineIndexes.Contains(i))
+                    {
+                        for (int j = i + 1; j < inSceneObjs.Count; j++)
+                        {
+                            if (inSceneObjs[i].InSceneObjData.mapGridIndex == inSceneObjs[j].InSceneObjData.mapGridIndex && inSceneObjs[i].InSceneObjData.borderDir == inSceneObjs[j].InSceneObjData.borderDir)
+                            {
+                                duplicatedVerticalLineIndexes.Add(j);
+                            }
+                        }
+                    }
+                }
+
+                foreach (var duplicatedVerticalLineIndex in duplicatedVerticalLineIndexes)
+                {
+                    if (inSceneObjs[duplicatedVerticalLineIndex].SnappedTargetBox)
+                    {
+                        inSceneObjs[duplicatedVerticalLineIndex].SnappedTargetBox.GotSnappedObject = false;
+                    }
+                    Destroy(inSceneObjs[duplicatedVerticalLineIndex].gameObject);
+                }
+
+                inSceneObjs.RemoveAll(obj => obj == null);
+                break;
+        }
+    }
+
+    private void PositionsFix(List<MapGridMapEditor> allMapGrids, List<MapEditorInSceneObject> inSceneObjs)
+    {
+        if (inSceneObjs.Count <= 0)
+            return;
+
+        IN_SCENE_OBJECT_TYPES objType = inSceneObjs[0].inSceneObjectType;
+
+        switch (objType)
+        {
+            case IN_SCENE_OBJECT_TYPES.ORIGIN_POINT:
+            case IN_SCENE_OBJECT_TYPES.DESTINATION_POINT_WHITE:
+            case IN_SCENE_OBJECT_TYPES.DESTINATION_POINT_RED:
+            case IN_SCENE_OBJECT_TYPES.DESTINATION_POINT_YELLOW:
+            case IN_SCENE_OBJECT_TYPES.DESTINATION_POINT_BLUE:
+                foreach(var inSceneObj in inSceneObjs)
+                {
+                    foreach(var mapGrid in allMapGrids)
+                    {
+                        if(inSceneObj.InSceneObjData.mapGridIndex == mapGrid.MapGridIndex)
+                        {
+                            inSceneObj.transform.position = mapGrid.GetBoxSnappingPosition();
+                            inSceneObj.UpdateInSceneObjectData();
+                        }
+                    }
+                }
+                break;
+            case IN_SCENE_OBJECT_TYPES.NORMAL_HORIZONTAL_LINE:
+            case IN_SCENE_OBJECT_TYPES.WHITE_HORIZONTAL_LINE:
+            case IN_SCENE_OBJECT_TYPES.RED_HORIZONTAL_LINE:
+            case IN_SCENE_OBJECT_TYPES.YELLOW_HORIZONTAL_LINE:
+            case IN_SCENE_OBJECT_TYPES.BLUE_HORIZONTAL_LINE:
+                foreach (var inSceneObj in inSceneObjs)
+                {
+                    foreach (var mapGrid in allMapGrids)
+                    {
+                        if (inSceneObj.InSceneObjData.mapGridIndex == mapGrid.MapGridIndex)
+                        {
+                            inSceneObj.transform.position = mapGrid.GetBorderSnappingPosition(inSceneObj.InSceneObjData.borderDir);
+                            inSceneObj.UpdateInSceneObjectData();
+                        }
+                    }
+                }
+                break;
+            case IN_SCENE_OBJECT_TYPES.NORMAL_VERTICAL_LINE:
+            case IN_SCENE_OBJECT_TYPES.WHITE_VERTICAL_LINE:
+            case IN_SCENE_OBJECT_TYPES.RED_VERTICAL_LINE:
+            case IN_SCENE_OBJECT_TYPES.YELLOW_VERTICAL_LINE:
+            case IN_SCENE_OBJECT_TYPES.BLUE_VERTICAL_LINE:
+                foreach (var inSceneObj in inSceneObjs)
+                {
+                    foreach (var mapGrid in allMapGrids)
+                    {
+                        if (inSceneObj.InSceneObjData.mapGridIndex == mapGrid.MapGridIndex)
+                        {
+                            inSceneObj.transform.position = mapGrid.GetBorderSnappingPosition(inSceneObj.InSceneObjData.borderDir);
+                            inSceneObj.UpdateInSceneObjectData();
+                        }
+                    }
+                }
+                break;
+        }
     }
 
     private void UpdateIFLevelSettings()
@@ -359,14 +708,213 @@ public class MapEditorManager : MonoBehaviour
         MapEditorInSceneObject inSceneObj = null;
         switch (inSceneObjType)
         {
-            case IN_SCENE_OBJECT_TYPES.HORIZONTAL_LINE:
-                inSceneObj = Instantiate<MapEditorInSceneObject>(horizontalLinePrefab, new Vector3(-0.5f, -3.7f, 0.0f), horizontalLinePrefab.transform.rotation);
+            case IN_SCENE_OBJECT_TYPES.NORMAL_HORIZONTAL_LINE:
+                inSceneObj = Instantiate<MapEditorInSceneObject>(normalHorizontalLinePrefab, new Vector3(-0.5f, -3.7f, 0.0f), normalHorizontalLinePrefab.transform.rotation);
                 break;
-            case IN_SCENE_OBJECT_TYPES.VERTICAL_LINE:
-                inSceneObj = Instantiate<MapEditorInSceneObject>(verticalLinePrefab, new Vector3(-0.5f, -3.7f, 0.0f), verticalLinePrefab.transform.rotation);
+            case IN_SCENE_OBJECT_TYPES.WHITE_HORIZONTAL_LINE:
+                inSceneObj = Instantiate<MapEditorInSceneObject>(whiteHorizontalLinePrefab, new Vector3(-0.5f, -3.7f, 0.0f), whiteHorizontalLinePrefab.transform.rotation);
+                break;
+            case IN_SCENE_OBJECT_TYPES.RED_HORIZONTAL_LINE:
+                inSceneObj = Instantiate<MapEditorInSceneObject>(redHorizontalLinePrefab, new Vector3(-0.5f, -3.7f, 0.0f), redHorizontalLinePrefab.transform.rotation);
+                break;
+            case IN_SCENE_OBJECT_TYPES.YELLOW_HORIZONTAL_LINE:
+                inSceneObj = Instantiate<MapEditorInSceneObject>(yellowHorizontalLinePrefab, new Vector3(-0.5f, -3.7f, 0.0f), yellowHorizontalLinePrefab.transform.rotation);
+                break;
+            case IN_SCENE_OBJECT_TYPES.BLUE_HORIZONTAL_LINE:
+                inSceneObj = Instantiate<MapEditorInSceneObject>(blueHorizontalLinePrefab, new Vector3(-0.5f, -3.7f, 0.0f), blueHorizontalLinePrefab.transform.rotation);
+                break;
+            case IN_SCENE_OBJECT_TYPES.NORMAL_VERTICAL_LINE:
+                inSceneObj = Instantiate<MapEditorInSceneObject>(normalVerticalLinePrefab, new Vector3(-0.5f, -3.7f, 0.0f), normalVerticalLinePrefab.transform.rotation);
+                break;
+            case IN_SCENE_OBJECT_TYPES.WHITE_VERTICAL_LINE:
+                inSceneObj = Instantiate<MapEditorInSceneObject>(whiteVerticalLinePrefab, new Vector3(-0.5f, -3.7f, 0.0f), whiteVerticalLinePrefab.transform.rotation);
+                break;
+            case IN_SCENE_OBJECT_TYPES.RED_VERTICAL_LINE:
+                inSceneObj = Instantiate<MapEditorInSceneObject>(redVerticalLinePrefab, new Vector3(-0.5f, -3.7f, 0.0f), redVerticalLinePrefab.transform.rotation);
+                break;
+            case IN_SCENE_OBJECT_TYPES.YELLOW_VERTICAL_LINE:
+                inSceneObj = Instantiate<MapEditorInSceneObject>(yellowVerticalLinePrefab, new Vector3(-0.5f, -3.7f, 0.0f), yellowVerticalLinePrefab.transform.rotation);
+                break;
+            case IN_SCENE_OBJECT_TYPES.BLUE_VERTICAL_LINE:
+                inSceneObj = Instantiate<MapEditorInSceneObject>(blueVerticalLinePrefab, new Vector3(-0.5f, -3.7f, 0.0f), blueVerticalLinePrefab.transform.rotation);
+                break;
+            case IN_SCENE_OBJECT_TYPES.ORIGIN_POINT:
+                inSceneObj = Instantiate<MapEditorInSceneObject>(originPointPrefab, new Vector3(-0.5f, -3.7f, 0.0f), originPointPrefab.transform.rotation);
+                break;
+            case IN_SCENE_OBJECT_TYPES.DESTINATION_POINT_WHITE:
+                inSceneObj = Instantiate<MapEditorInSceneObject>(destinationPointWhitePrefab, new Vector3(-0.5f, -3.7f, 0.0f), destinationPointWhitePrefab.transform.rotation);
+                break;
+            case IN_SCENE_OBJECT_TYPES.DESTINATION_POINT_RED:
+                inSceneObj = Instantiate<MapEditorInSceneObject>(destinationPointRedPrefab, new Vector3(-0.5f, -3.7f, 0.0f), destinationPointRedPrefab.transform.rotation);
+                break;
+            case IN_SCENE_OBJECT_TYPES.DESTINATION_POINT_YELLOW:
+                inSceneObj = Instantiate<MapEditorInSceneObject>(destinationPointYellowPrefab, new Vector3(-0.5f, -3.7f, 0.0f), destinationPointYellowPrefab.transform.rotation);
+                break;
+            case IN_SCENE_OBJECT_TYPES.DESTINATION_POINT_BLUE:
+                inSceneObj = Instantiate<MapEditorInSceneObject>(destinationPointBluePrefab, new Vector3(-0.5f, -3.7f, 0.0f), destinationPointBluePrefab.transform.rotation);
+                break;
+            case IN_SCENE_OBJECT_TYPES.PORTAL_1ST_SET_HORIZONTAL:
+                inSceneObj = Instantiate<MapEditorInSceneObject>(firstSetPortalHorizontalPrefab, new Vector3(-0.5f, -3.7f, 0.0f), firstSetPortalHorizontalPrefab.transform.rotation);
+                break;
+            case IN_SCENE_OBJECT_TYPES.PORTAL_1ST_SET_VERTICAL:
+                inSceneObj = Instantiate<MapEditorInSceneObject>(firstSetPortalVerticalPrefab, new Vector3(-0.5f, -3.7f, 0.0f), firstSetPortalVerticalPrefab.transform.rotation);
+                break;
+            case IN_SCENE_OBJECT_TYPES.PORTAL_2ND_SET_HORIZONTAL:
+                inSceneObj = Instantiate<MapEditorInSceneObject>(secondSetPortalHorizontalPrefab, new Vector3(-0.5f, -3.7f, 0.0f), secondSetPortalHorizontalPrefab.transform.rotation);
+                break;
+            case IN_SCENE_OBJECT_TYPES.PORTAL_2ND_SET_VERTICAL:
+                inSceneObj = Instantiate<MapEditorInSceneObject>(secondSetPortalVerticalPrefab, new Vector3(-0.5f, -3.7f, 0.0f), secondSetPortalVerticalPrefab.transform.rotation);
                 break;
         }
 
         return inSceneObj;
+    }
+    
+    public void ToggleOptionMenu()
+    {
+        if (!uiHelperOptionMenu.InTransition)
+        {
+            uiHelperOptionMenu.ExecuteUIHandlingAction();
+            MapEditorInputManager.Instance.ToggleOptionMenuVisibility();
+        }
+    }
+
+    public void ShowSubPanel(MAP_EDITING_PANEL selectedPanel, bool toggle = false)
+    {
+        switch (selectedPanel)
+        {
+            case MAP_EDITING_PANEL.NONE:
+                rtPanelHorizontalLines.gameObject.SetActive(false);
+                rtPanelVerticalLines.gameObject.SetActive(false);
+                rtPanelDestinationPoints.gameObject.SetActive(false);
+                rtPanelPortals.gameObject.SetActive(false);
+                rtPanelPortals1stSet.gameObject.SetActive(false);
+                rtPanelPortals2ndSet.gameObject.SetActive(false);
+                foreach (var creatorBtn in mapEditorObjectCreatorParentButtons)
+                    creatorBtn.ToggleHotKeyText(true);
+                break;
+            case MAP_EDITING_PANEL.HORIZONTAL_LINE:
+                if (toggle)
+                {
+                    rtPanelHorizontalLines.gameObject.SetActive(!rtPanelHorizontalLines.gameObject.activeSelf);
+                    foreach (var creatorBtn in mapEditorObjectCreatorParentButtons)
+                        creatorBtn.ToggleHotKeyText(!rtPanelHorizontalLines.gameObject.activeSelf);
+                }
+                else
+                {
+                    rtPanelHorizontalLines.gameObject.SetActive(true);
+                    foreach (var creatorBtn in mapEditorObjectCreatorParentButtons)
+                        creatorBtn.ToggleHotKeyText(false);
+                }
+                rtPanelVerticalLines.gameObject.SetActive(false);
+                rtPanelDestinationPoints.gameObject.SetActive(false);
+                rtPanelPortals.gameObject.SetActive(false);
+                rtPanelPortals1stSet.gameObject.SetActive(false);
+                rtPanelPortals2ndSet.gameObject.SetActive(false);
+                break;
+            case MAP_EDITING_PANEL.VERTICAL_LINE:
+                rtPanelHorizontalLines.gameObject.SetActive(false);
+                if (toggle)
+                {
+                    rtPanelVerticalLines.gameObject.SetActive(!rtPanelVerticalLines.gameObject.activeSelf);
+                    foreach (var creatorBtn in mapEditorObjectCreatorParentButtons)
+                        creatorBtn.ToggleHotKeyText(!rtPanelVerticalLines.gameObject.activeSelf);
+                }
+                else
+                {
+                    rtPanelVerticalLines.gameObject.SetActive(true);
+                    foreach (var creatorBtn in mapEditorObjectCreatorParentButtons)
+                        creatorBtn.ToggleHotKeyText(false);
+                }
+                rtPanelDestinationPoints.gameObject.SetActive(false);
+                rtPanelPortals.gameObject.SetActive(false);
+                rtPanelPortals1stSet.gameObject.SetActive(false);
+                rtPanelPortals2ndSet.gameObject.SetActive(false);
+                break;
+            case MAP_EDITING_PANEL.DESTINATION_POINT:
+                rtPanelHorizontalLines.gameObject.SetActive(false);
+                rtPanelVerticalLines.gameObject.SetActive(false);
+                if (toggle)
+                {
+                    rtPanelDestinationPoints.gameObject.SetActive(!rtPanelDestinationPoints.gameObject.activeSelf);
+                    foreach (var creatorBtn in mapEditorObjectCreatorParentButtons)
+                        creatorBtn.ToggleHotKeyText(!rtPanelDestinationPoints.gameObject.activeSelf);
+                }
+                else
+                {
+                    rtPanelDestinationPoints.gameObject.SetActive(true);
+                    foreach (var creatorBtn in mapEditorObjectCreatorParentButtons)
+                        creatorBtn.ToggleHotKeyText(false);
+                }
+                rtPanelPortals.gameObject.SetActive(false);
+                rtPanelPortals1stSet.gameObject.SetActive(false);
+                rtPanelPortals2ndSet.gameObject.SetActive(false);
+                break;
+            case MAP_EDITING_PANEL.PORTAL:
+                rtPanelHorizontalLines.gameObject.SetActive(false);
+                rtPanelVerticalLines.gameObject.SetActive(false);
+                rtPanelDestinationPoints.gameObject.SetActive(false);
+                if (toggle)
+                {
+                    rtPanelPortals.gameObject.SetActive(!rtPanelPortals.gameObject.activeSelf);
+                    foreach (var creatorBtn in mapEditorObjectCreatorParentButtons)
+                        creatorBtn.ToggleHotKeyText(!rtPanelPortals.gameObject.activeSelf);
+                    foreach (var creatorBtn in mapEditorObjectCreatorPortalSubMenuButtons)
+                        creatorBtn.ToggleHotKeyText(rtPanelPortals.gameObject.activeSelf);
+                }
+                else
+                {
+                    rtPanelPortals.gameObject.SetActive(true);
+                    foreach (var creatorBtn in mapEditorObjectCreatorParentButtons)
+                        creatorBtn.ToggleHotKeyText(false);
+                    foreach (var creatorBtn in mapEditorObjectCreatorPortalSubMenuButtons)
+                        creatorBtn.ToggleHotKeyText(true);
+                }
+                rtPanelPortals1stSet.gameObject.SetActive(false);
+                rtPanelPortals2ndSet.gameObject.SetActive(false);
+
+                break;
+            case MAP_EDITING_PANEL.PORTAL_1ST_SET:
+                rtPanelHorizontalLines.gameObject.SetActive(false);
+                rtPanelVerticalLines.gameObject.SetActive(false);
+                rtPanelDestinationPoints.gameObject.SetActive(false);
+                rtPanelPortals.gameObject.SetActive(false);
+                rtPanelHorizontalLines.gameObject.SetActive(false);
+                rtPanelVerticalLines.gameObject.SetActive(false);
+                rtPanelDestinationPoints.gameObject.SetActive(false);
+                if (toggle)
+                {
+                    rtPanelPortals1stSet.gameObject.SetActive(!rtPanelPortals1stSet.gameObject.activeSelf);
+                    foreach (var creatorBtn in mapEditorObjectCreatorParentButtons)
+                        creatorBtn.ToggleHotKeyText(!rtPanelPortals1stSet.gameObject.activeSelf);
+                }
+                else
+                {
+                    rtPanelPortals1stSet.gameObject.SetActive(true);
+                    foreach (var creatorBtn in mapEditorObjectCreatorParentButtons)
+                        creatorBtn.ToggleHotKeyText(false);
+                }
+                rtPanelPortals2ndSet.gameObject.SetActive(false);
+                break;
+            case MAP_EDITING_PANEL.PORTAL_2ND_SET:
+                rtPanelHorizontalLines.gameObject.SetActive(false);
+                rtPanelVerticalLines.gameObject.SetActive(false);
+                rtPanelDestinationPoints.gameObject.SetActive(false);
+                rtPanelPortals.gameObject.SetActive(false);
+                rtPanelPortals1stSet.gameObject.SetActive(false);
+                if (toggle)
+                {
+                    rtPanelPortals2ndSet.gameObject.SetActive(!rtPanelPortals2ndSet.gameObject.activeSelf);
+                    foreach (var creatorBtn in mapEditorObjectCreatorParentButtons)
+                        creatorBtn.ToggleHotKeyText(!rtPanelPortals2ndSet.gameObject.activeSelf);
+                }
+                else
+                {
+                    rtPanelPortals2ndSet.gameObject.SetActive(true);
+                    foreach (var creatorBtn in mapEditorObjectCreatorParentButtons)
+                        creatorBtn.ToggleHotKeyText(false);
+                }
+                break;
+        }
     }
 }

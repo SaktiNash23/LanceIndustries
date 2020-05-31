@@ -19,20 +19,20 @@ public class MapGridGameplay : MonoBehaviour
         }
     }
 
-    public void ToggleBorder(BORDER_DIRECTION borderDir, bool show)
+    public void ToggleBorder(SNAPPING_DIR borderDir, bool show)
     {
         switch (borderDir)
         {
-            case BORDER_DIRECTION.LEFT:
+            case SNAPPING_DIR.LEFT:
                 leftBorder.ToggleBorder(show);
                 break;
-            case BORDER_DIRECTION.RIGHT:
+            case SNAPPING_DIR.RIGHT:
                 rightBorder.ToggleBorder(show);
                 break;
-            case BORDER_DIRECTION.UP:
+            case SNAPPING_DIR.UP:
                 topBorder.ToggleBorder(show);
                 break;
-            case BORDER_DIRECTION.DOWN:
+            case SNAPPING_DIR.DOWN:
                 bottomBorder.ToggleBorder(show);
                 break;
         }

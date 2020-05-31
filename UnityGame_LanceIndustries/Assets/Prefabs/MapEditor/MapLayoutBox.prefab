@@ -1,5 +1,188 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1204332629450259376
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5938975991309221288}
+  - component: {fileID: 1597971318025346556}
+  - component: {fileID: 941978690340424407}
+  m_Layer: 13
+  m_Name: MapLayoutPortalSnapper (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5938975991309221288
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1204332629450259376}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0.4, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5708005329096585904}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!114 &1597971318025346556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1204332629450259376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52808c0a6478a324e98a82cef7743267, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  portalSnappingType: 1
+  snappingDir: 3
+  snappingDistance: 0
+  unsnapDistance: 0
+--- !u!65 &941978690340424407
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1204332629450259376}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.15, y: 0.6, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &3187075877473593934
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6295333315478875457}
+  - component: {fileID: 2425422163422826298}
+  - component: {fileID: 5362065909239490657}
+  m_Layer: 13
+  m_Name: MapLayoutPortalSnapper (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6295333315478875457
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3187075877473593934}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: -0.4, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5708005329096585904}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!114 &2425422163422826298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3187075877473593934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52808c0a6478a324e98a82cef7743267, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  portalSnappingType: 1
+  snappingDir: 4
+  snappingDistance: 0
+  unsnapDistance: 0
+--- !u!65 &5362065909239490657
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3187075877473593934}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.15, y: 0.6, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &5642524518792281138
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8673837758591555325}
+  - component: {fileID: 8393406387430331954}
+  - component: {fileID: 2834698546632194790}
+  m_Layer: 13
+  m_Name: MapLayoutPortalSnapper (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8673837758591555325
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5642524518792281138}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.4, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5708005329096585904}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8393406387430331954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5642524518792281138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52808c0a6478a324e98a82cef7743267, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  portalSnappingType: 2
+  snappingDir: 2
+  snappingDistance: 0
+  unsnapDistance: 0
+--- !u!65 &2834698546632194790
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5642524518792281138}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.15, y: 0.6, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5708005329096585911
 GameObject:
   m_ObjectHideFlags: 0
@@ -33,6 +216,10 @@ Transform:
   - {fileID: 5432464661653104038}
   - {fileID: 1937536760803808860}
   - {fileID: 6243928186122148041}
+  - {fileID: 4582718112176814916}
+  - {fileID: 8673837758591555325}
+  - {fileID: 5938975991309221288}
+  - {fileID: 6295333315478875457}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -49,6 +236,70 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapGridIndex: 0
+  mapBorderRightSnapper: {fileID: 7845044699993224664}
+  mapBorderBottomSnapper: {fileID: 1937536760803808850}
+  mapBoxSnapper: {fileID: 2854360070100228500}
+--- !u!1 &8336053709985311316
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4582718112176814916}
+  - component: {fileID: 4906098491849419322}
+  - component: {fileID: 3064726159848120570}
+  m_Layer: 13
+  m_Name: MapLayoutPortalSnapper
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4582718112176814916
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8336053709985311316}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.4, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5708005329096585904}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4906098491849419322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8336053709985311316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52808c0a6478a324e98a82cef7743267, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  portalSnappingType: 2
+  snappingDir: 1
+  snappingDistance: 0
+  unsnapDistance: 0
+--- !u!65 &3064726159848120570
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8336053709985311316}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.15, y: 0.6, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &9052804498307405962
 GameObject:
   m_ObjectHideFlags: 0
@@ -60,7 +311,7 @@ GameObject:
   - component: {fileID: 6243928186122148041}
   - component: {fileID: 2025164539109253278}
   - component: {fileID: 2854360070100228500}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: MapLayoutBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -172,7 +423,7 @@ PrefabInstance:
     - target: {fileID: 6557226522153594899, guid: b340fbef7472d6c47bf3c633538c4f37,
         type: 3}
       propertyPath: m_Name
-      value: MapLayoutBorder (2)
+      value: MapLayoutBorderSnapper (2)
       objectReference: {fileID: 0}
     - target: {fileID: 6557226522153594899, guid: b340fbef7472d6c47bf3c633538c4f37,
         type: 3}
@@ -256,15 +507,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b340fbef7472d6c47bf3c633538c4f37, type: 3}
---- !u!4 &5432464661653104038 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6557226522153594898, guid: b340fbef7472d6c47bf3c633538c4f37,
-    type: 3}
-  m_PrefabInstance: {fileID: 1268905775465371060}
-  m_PrefabAsset: {fileID: 0}
 --- !u!212 &5432464661653104041 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 6557226522153594909, guid: b340fbef7472d6c47bf3c633538c4f37,
+    type: 3}
+  m_PrefabInstance: {fileID: 1268905775465371060}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5432464661653104038 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6557226522153594898, guid: b340fbef7472d6c47bf3c633538c4f37,
     type: 3}
   m_PrefabInstance: {fileID: 1268905775465371060}
   m_PrefabAsset: {fileID: 0}
@@ -333,7 +584,7 @@ PrefabInstance:
     - target: {fileID: 6557226522153594899, guid: b340fbef7472d6c47bf3c633538c4f37,
         type: 3}
       propertyPath: m_Name
-      value: MapLayoutBorder
+      value: MapLayoutBorderSnapper
       objectReference: {fileID: 0}
     - target: {fileID: 6557226522153594899, guid: b340fbef7472d6c47bf3c633538c4f37,
         type: 3}
@@ -494,7 +745,7 @@ PrefabInstance:
     - target: {fileID: 6557226522153594899, guid: b340fbef7472d6c47bf3c633538c4f37,
         type: 3}
       propertyPath: m_Name
-      value: MapLayoutBorder (1)
+      value: MapLayoutBorderSnapper (1)
       objectReference: {fileID: 0}
     - target: {fileID: 6557226522153594899, guid: b340fbef7472d6c47bf3c633538c4f37,
         type: 3}
@@ -589,19 +840,31 @@ PrefabInstance:
     - target: {fileID: 8524436585615869202, guid: b340fbef7472d6c47bf3c633538c4f37,
         type: 3}
       propertyPath: m_Size.x
-      value: 0.3
+      value: 0.15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b340fbef7472d6c47bf3c633538c4f37, type: 3}
---- !u!4 &7845044699993224662 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6557226522153594898, guid: b340fbef7472d6c47bf3c633538c4f37,
-    type: 3}
-  m_PrefabInstance: {fileID: 3900328732544730564}
-  m_PrefabAsset: {fileID: 0}
 --- !u!212 &7845044699993224665 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 6557226522153594909, guid: b340fbef7472d6c47bf3c633538c4f37,
+    type: 3}
+  m_PrefabInstance: {fileID: 3900328732544730564}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7845044699993224664 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6557226522153594908, guid: b340fbef7472d6c47bf3c633538c4f37,
+    type: 3}
+  m_PrefabInstance: {fileID: 3900328732544730564}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eabeb63397604e14e913191e38862d1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &7845044699993224662 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6557226522153594898, guid: b340fbef7472d6c47bf3c633538c4f37,
     type: 3}
   m_PrefabInstance: {fileID: 3900328732544730564}
   m_PrefabAsset: {fileID: 0}
@@ -670,7 +933,7 @@ PrefabInstance:
     - target: {fileID: 6557226522153594899, guid: b340fbef7472d6c47bf3c633538c4f37,
         type: 3}
       propertyPath: m_Name
-      value: MapLayoutBorder (3)
+      value: MapLayoutBorderSnapper (3)
       objectReference: {fileID: 0}
     - target: {fileID: 6557226522153594899, guid: b340fbef7472d6c47bf3c633538c4f37,
         type: 3}
@@ -770,19 +1033,31 @@ PrefabInstance:
     - target: {fileID: 8524436585615869202, guid: b340fbef7472d6c47bf3c633538c4f37,
         type: 3}
       propertyPath: m_Size.x
-      value: 0.3
+      value: 0.15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b340fbef7472d6c47bf3c633538c4f37, type: 3}
---- !u!4 &1937536760803808860 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6557226522153594898, guid: b340fbef7472d6c47bf3c633538c4f37,
-    type: 3}
-  m_PrefabInstance: {fileID: 4619692304046024270}
-  m_PrefabAsset: {fileID: 0}
 --- !u!212 &1937536760803808851 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 6557226522153594909, guid: b340fbef7472d6c47bf3c633538c4f37,
+    type: 3}
+  m_PrefabInstance: {fileID: 4619692304046024270}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1937536760803808850 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6557226522153594908, guid: b340fbef7472d6c47bf3c633538c4f37,
+    type: 3}
+  m_PrefabInstance: {fileID: 4619692304046024270}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eabeb63397604e14e913191e38862d1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1937536760803808860 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6557226522153594898, guid: b340fbef7472d6c47bf3c633538c4f37,
     type: 3}
   m_PrefabInstance: {fileID: 4619692304046024270}
   m_PrefabAsset: {fileID: 0}

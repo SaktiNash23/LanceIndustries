@@ -9,13 +9,25 @@ using NaughtyAttributes;
 public enum IN_SCENE_OBJECT_TYPES
 {
     NONE = 0,
-    VERTICAL_LINE = 1,
-    HORIZONTAL_LINE = 2,
+    NORMAL_VERTICAL_LINE = 1,
+    NORMAL_HORIZONTAL_LINE = 2,
     ORIGIN_POINT = 3,
     DESTINATION_POINT_WHITE = 4,
     DESTINATION_POINT_RED = 5,
     DESTINATION_POINT_YELLOW = 6,
-    DESTINATION_POINT_BLUE = 7
+    DESTINATION_POINT_BLUE = 7,
+    WHITE_VERTICAL_LINE = 8,
+    RED_VERTICAL_LINE = 9,
+    YELLOW_VERTICAL_LINE = 10,
+    BLUE_VERTICAL_LINE = 11,
+    WHITE_HORIZONTAL_LINE = 12,
+    RED_HORIZONTAL_LINE = 13,
+    YELLOW_HORIZONTAL_LINE = 14,
+    BLUE_HORIZONTAL_LINE = 15,
+    PORTAL_1ST_SET_VERTICAL = 16,
+    PORTAL_1ST_SET_HORIZONTAL = 17,
+    PORTAL_2ND_SET_VERTICAL = 18,
+    PORTAL_2ND_SET_HORIZONTAL = 19
 }
 
 public class MapEditorInSceneObject : MonoBehaviour
@@ -28,7 +40,9 @@ public class MapEditorInSceneObject : MonoBehaviour
 
     public InSceneObjectData InSceneObjData { get; set; } = new InSceneObjectData();
 
+    // Can consider use inherited classed so that only need 1 of this var
     public MapLayoutBorder SnappedTargetBorder { get; set; } = null;
+    public MapLayoutPortalSnapper SnappedTargetPortalSnapper { get; set; } = null;
     public MapLayoutBoxSnapper SnappedTargetBox { get; set; } = null;
 
     private GizmoBase attachedGizmo;
@@ -54,6 +68,10 @@ public class MapEditorInSceneObject : MonoBehaviour
         else if (SnappedTargetBox)
         {
             transform.position = SnappedTargetBox.GetSnappingPosition();
+        }
+        else if(SnappedTargetPortalSnapper)
+        {
+            transform.position = SnappedTargetPortalSnapper.GetSnappingPosition();
         }
     }
 
@@ -106,7 +124,7 @@ public class InSceneObjectData
 {
     public int mapGridIndex;
     public IN_SCENE_OBJECT_TYPES inSceneObjectType;
-    public BORDER_DIRECTION borderDir;
+    public SNAPPING_DIR borderDir;
     public Vector3 position;
     public Quaternion rotation;
     public Vector3 scale;

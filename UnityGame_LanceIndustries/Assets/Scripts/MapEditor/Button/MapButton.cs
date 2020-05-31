@@ -9,7 +9,6 @@ using TMPro;
 public class MapButton : MonoBehaviour
 {
     public Button btnMap;
-    public TextMeshProUGUI txtMapNo;
     public TextMeshProUGUI txtMapName;
 
     public string MapDataPath { get; set; }
@@ -24,13 +23,12 @@ public class MapButton : MonoBehaviour
     public void PopularizeDisplay(MapInfo targetMapInfo)
     {
         mapInfo = targetMapInfo;
-        txtMapNo.text = targetMapInfo.idNo.ToString();
         txtMapName.text = targetMapInfo.mapName;
     }
 
     public void InitializeMapDataPath()
     {
-        string mapDataDirectory = "Assets/Data Library/Map Datas/";
+        string mapDataDirectory = "Assets/Resources/Map Datas/";
         string targetPath = mapDataDirectory + txtMapName.text + ".json";
         MapDataPath = targetPath;
     }

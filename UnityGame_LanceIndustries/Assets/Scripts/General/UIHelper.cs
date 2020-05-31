@@ -17,28 +17,26 @@ public enum UI_HELPER_FUNCTION_TYPES
 public class UIHelper : MonoBehaviour
 {
     [InfoBox("For POP, ExecuteUIHandlingAction with bool param should be called. For MOVE_IN_OUT, ExecuteUIHandlingAction without param should be called.")]
-    [OnValueChanged("OnValueUiHelperFunctionTypeChangeCallback")]
-    [SerializeField] UI_HELPER_FUNCTION_TYPES helperFunctionType;
+    public UI_HELPER_FUNCTION_TYPES helperFunctionType;
 
-    [ShowIf("isPop")] [BoxGroup("POP SETTINGS")] [SerializeField] CanvasGroup cgParent;
-    [ShowIf("isPop")] [BoxGroup("POP SETTINGS")] [SerializeField] Image imgCgParentToUnpopWindow;
-    [ShowIf("isPop")] [BoxGroup("POP SETTINGS")] [SerializeField] Button btnCgParentToUnpopWindow;
-    [ShowIf("isPop")] [BoxGroup("POP SETTINGS")] [SerializeField] CanvasGroup cgPopTarget;
-    [ShowIf("isPop")] [BoxGroup("POP SETTINGS")] [SerializeField] Vector3 maxScale;
-    [ShowIf("isPop")] [BoxGroup("POP SETTINGS")] [SerializeField] float popDuration;
-    [ShowIf("isPop")] [BoxGroup("POP SETTINGS")] [SerializeField] UnityEvent callbacksAfterPop = null;
-    [ShowIf("isPop")] [BoxGroup("POP SETTINGS")] [SerializeField] UnityEvent callbacksAfterUnPop = null;
+    [BoxGroup("POP SETTINGS")] public CanvasGroup cgParent;
+    [BoxGroup("POP SETTINGS")] public Image imgCgParentToUnpopWindow;
+    [BoxGroup("POP SETTINGS")] public Button btnCgParentToUnpopWindow;
+    [BoxGroup("POP SETTINGS")] public CanvasGroup cgPopTarget;
+    [BoxGroup("POP SETTINGS")] public Vector3 maxScale;
+    [BoxGroup("POP SETTINGS")] public float popDuration;
+    [BoxGroup("POP SETTINGS")] public UnityEvent callbacksAfterPop = null;
+    [BoxGroup("POP SETTINGS")] public UnityEvent callbacksAfterUnPop = null;
 
-    [ShowIf("isMove")] [BoxGroup("MOVE SETTINGS")] [SerializeField] RectTransform rtTargetToMove;
-    [ShowIf("isMove")] [BoxGroup("MOVE SETTINGS")] [SerializeField] Vector3 moveOffset;
-    [ShowIf("isMove")] [BoxGroup("MOVE SETTINGS")] [SerializeField] float moveDuration;
+    [BoxGroup("MOVE SETTINGS")] public RectTransform rtTargetToMove;
+    [BoxGroup("MOVE SETTINGS")] public Vector3 moveOffset;
+    [BoxGroup("MOVE SETTINGS")] public float moveDuration;
 
     private UnityAction<bool> btnCallbackActionBool = null;
     private UnityAction btnCallbackActionNoParam = null;
 
-    private bool isPop;
-    private bool isMove;
-
+    public bool InTransition { get; set; } = false;
+    
     private bool moved;
     private Vector3 originPos;
 
@@ -48,12 +46,10 @@ public class UIHelper : MonoBehaviour
     {
         if (helperFunctionType == UI_HELPER_FUNCTION_TYPES.POP)
         {
-            isPop = true;
             btnCallbackActionBool += Pop;
         }
         else if(helperFunctionType == UI_HELPER_FUNCTION_TYPES.MOVE_IN_OUT)
         {
-            isMove = true;
             originPos = rtTargetToMove.anchoredPosition;
             btnCallbackActionNoParam += Move;
         }
@@ -127,41 +123,28 @@ public class UIHelper : MonoBehaviour
     {
         if(!moved)
         {
-            moved = !moved;
-            Vector3 targetPos = originPos + moveOffset;
-            LeanTween.value(this.gameObject, originPos, targetPos, moveDuration).setOnUpdate((Vector3 pos) => WindowMoveUpdate(pos));
+            if (!InTransition)
+            {
+                moved = !moved;
+                Vector3 targetPos = originPos + moveOffset;
+                InTransition = true;
+                LeanTween.value(this.gameObject, originPos, targetPos, moveDuration).setOnUpdate((Vector3 pos) => WindowMoveUpdate(pos)).setOnComplete(() => InTransition = false);
+            }
         }
         else
         {
-            moved = !moved;
-            Vector3 targetPos = originPos;
-            LeanTween.value(this.gameObject, originPos + moveOffset, targetPos, moveDuration).setOnUpdate((Vector3 pos) => WindowMoveUpdate(pos));
+            if (!InTransition)
+            {
+                moved = !moved;
+                Vector3 targetPos = originPos;
+                InTransition = true;
+                LeanTween.value(this.gameObject, originPos + moveOffset, targetPos, moveDuration).setOnUpdate((Vector3 pos) => WindowMoveUpdate(pos)).setOnComplete(() => InTransition = false);
+            }
         }
     }
 
     private void WindowMoveUpdate(Vector3 pos)
     {
         rtTargetToMove.anchoredPosition = pos;
-    }
-
-    //----------------------------- INSPECTOR HANDLING FUNCTIONS -----------------------------//
-
-    private void OnValueUiHelperFunctionTypeChangeCallback(UI_HELPER_FUNCTION_TYPES oldValue, UI_HELPER_FUNCTION_TYPES newValue)
-    {
-        if (newValue == UI_HELPER_FUNCTION_TYPES.NONE)
-        {
-            isPop = false;
-            isMove = false;
-        }
-        if (newValue == UI_HELPER_FUNCTION_TYPES.POP)
-        {
-            isPop = true;
-            isMove = false;
-        }
-        if(newValue == UI_HELPER_FUNCTION_TYPES.MOVE_IN_OUT)
-        {
-            isPop = false;
-            isMove = true;
-        }
     }
 }

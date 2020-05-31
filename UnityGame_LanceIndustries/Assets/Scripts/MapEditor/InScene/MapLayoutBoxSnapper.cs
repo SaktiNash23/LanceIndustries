@@ -48,7 +48,7 @@ public class MapLayoutBoxSnapper : MonoBehaviour
     public void Initialization()
     {
         BoxCollider boxCol = GetComponent<BoxCollider>();
-        Collider[] overlappedCols = Physics.OverlapBox(transform.position + boxCol.center, boxCol.size / 2f, transform.rotation, LayerMask.GetMask("MapEditorInSceneObject"));
+        Collider[] overlappedCols = Physics.OverlapBox(transform.position + boxCol.center, boxCol.size / 2f, transform.rotation, LayerMask.GetMask("MapEditorOriginEndPoint"));
         if(overlappedCols.Length > 0)
         {
             if(overlappedCols[0].TryGetComponent(out MapEditorInSceneObject inSceneObj))

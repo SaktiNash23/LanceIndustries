@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5111331504699231103}
   - component: {fileID: 5111331504699231102}
-  m_Layer: 9
+  m_Layer: 15
   m_Name: imgOriginPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,6 +45,8 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -67,7 +69,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -565400945
-  m_SortingLayer: 2
+  m_SortingLayer: 5
   m_SortingOrder: 10
   m_Sprite: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 0, g: 1, b: 0, a: 1}
@@ -93,7 +95,7 @@ GameObject:
   - component: {fileID: 5111331505042153367}
   - component: {fileID: 5111331505042153364}
   - component: {fileID: 5111331505042153365}
-  m_Layer: 9
+  m_Layer: 15
   m_Name: OriginPointPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
