@@ -38,7 +38,7 @@ public class MapEditorInSceneObject : MonoBehaviour
     [BoxGroup("MAP EDITOR IN SCENE OBJECT SETTINGS")] public Color selectedColor;
     [BoxGroup("MAP EDITOR IN SCENE OBJECT REFERENCES")] public EventTrigger eventTrigger;
 
-    public InSceneObjectData InSceneObjData { get; set; } = new InSceneObjectData();
+    public InSceneObjectData InSceneObjData  = new InSceneObjectData();
 
     // Can consider use inherited classed so that only need 1 of this var
     public MapLayoutBorder SnappedTargetBorder { get; set; } = null;

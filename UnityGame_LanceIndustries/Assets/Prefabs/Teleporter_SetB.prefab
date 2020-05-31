@@ -5090,8 +5090,8 @@ GameObject:
   - component: {fileID: 671621668316250350}
   - component: {fileID: 9125271163375402476}
   m_Layer: 0
-  m_Name: Teleporter_SetA
-  m_TagString: TeleporterSetA
+  m_Name: Teleporter_SetB
+  m_TagString: TeleporterSetB
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5154,7 +5154,7 @@ SpriteRenderer:
   m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: e3be02eaca1b0064998430f3edf6cd51, type: 3}
-  m_Color: {r: 0.56078434, g: 0, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.57110596, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

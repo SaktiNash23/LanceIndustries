@@ -388,6 +388,10 @@ public class MapEditorManager : MonoBehaviour
         MapLayoutBoxSnapper[] mapLayoutBoxSnappers = FindObjectsOfType<MapLayoutBoxSnapper>();
         foreach (var mapLayoutBoxSnapper in mapLayoutBoxSnappers)
             mapLayoutBoxSnapper.Initialization();
+
+        MapLayoutPortalSnapper[] mapLayoutPortalSnappers = FindObjectsOfType<MapLayoutPortalSnapper>();
+        foreach (var mapLayoutPortalSnapper in mapLayoutPortalSnappers)
+            mapLayoutPortalSnapper.Initialization();
     }
 
     private void ResetAllSnappers()

@@ -1,46 +1,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using NaughtyAttributes;
+
+public enum BorderColor
+{
+    RED,
+    BLUE,
+    YELLOW,
+    WHITE
+};
 
 public class ColoredBorder : MonoBehaviour
 {
-    public Material redMaterial;
-    public Material blueMaterial;
-    public Material yellowMaterial;
-    public Material whiteMaterial;
+    [BoxGroup("MAP BORDER REFERENCES")] [SerializeField] SpriteRenderer spriteRend;
+    [BoxGroup("MAP BORDER REFERENCES")] [SerializeField] Collider2D col1;
+    [BoxGroup("MAP BORDER REFERENCES")] [SerializeField] Collider2D col2;
+    [BoxGroup("MAP BORDER REFERENCES")] [SerializeField] Collider2D col3;
 
-    public enum BorderColor
-    {
-        RED,
-        BLUE,
-        YELLOW,
-        WHITE
-    };
+    [BoxGroup("MAP BORDER SETTINGS")] [SerializeField] Color redBorderColor;
+    [BoxGroup("MAP BORDER SETTINGS")] [SerializeField] Color blueBorderColor;
+    [BoxGroup("MAP BORDER SETTINGS")] [SerializeField] Color yellowBorderColor;
+    [BoxGroup("MAP BORDER SETTINGS")] [SerializeField] Color whiteBorderColor;
 
     public BorderColor borderColor;
-
-
-    void Awake()
-    {
-        switch (borderColor)
-        {
-            case BorderColor.RED:
-                gameObject.GetComponent<SpriteRenderer>().color = redMaterial.color;
-                break;
-
-            case BorderColor.BLUE:
-                gameObject.GetComponent<SpriteRenderer>().color = blueMaterial.color;
-                break;
-
-            case BorderColor.YELLOW:
-                gameObject.GetComponent<SpriteRenderer>().color = yellowMaterial.color;
-                break;
-
-            case BorderColor.WHITE:
-                gameObject.GetComponent<SpriteRenderer>().color = whiteMaterial.color;
-                break;
-        }
-    }
 
     public void checkIfCorrectLaserHit(GameObject projectile)
     {
@@ -61,21 +44,28 @@ public class ColoredBorder : MonoBehaviour
         switch (borderColor)
         {
             case BorderColor.RED:
-                gameObject.GetComponent<SpriteRenderer>().color = redMaterial.color;
+                gameObject.GetComponent<SpriteRenderer>().color = redBorderColor;
                 break;
 
             case BorderColor.BLUE:
-                gameObject.GetComponent<SpriteRenderer>().color = blueMaterial.color;
+                gameObject.GetComponent<SpriteRenderer>().color = blueBorderColor;
                 break;
 
             case BorderColor.YELLOW:
-                gameObject.GetComponent<SpriteRenderer>().color = yellowMaterial.color;
+                gameObject.GetComponent<SpriteRenderer>().color = yellowBorderColor;
                 break;
 
             case BorderColor.WHITE:
-                gameObject.GetComponent<SpriteRenderer>().color = whiteMaterial.color;
+                gameObject.GetComponent<SpriteRenderer>().color = whiteBorderColor;
                 break;
         }
     }
 
+    public void ToggleBorder(bool show)
+    {
+        if (show)
+            spriteRend.enabled = col1.enabled = col2.enabled = col3.enabled = true;
+        else
+            spriteRend.enabled = col1.enabled = col2.enabled = col3.enabled = false;
+    } 
 }
