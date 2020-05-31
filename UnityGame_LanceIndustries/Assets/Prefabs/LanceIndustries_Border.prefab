@@ -48,10 +48,12 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 893b9a5ef9af3564e88f1a3306fd40e3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -101,6 +103,10 @@ EdgeCollider2D:
   m_Points:
   - {x: 0.044713087, y: -6.9252825}
   - {x: 0.06628127, y: 6.9193177}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0
 --- !u!68 &129970989
 EdgeCollider2D:
   m_ObjectHideFlags: 0
@@ -119,6 +125,10 @@ EdgeCollider2D:
   m_Points:
   - {x: 0.61903876, y: -6.9478664}
   - {x: 0.62100184, y: 6.971261}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0
 --- !u!68 &129970990
 EdgeCollider2D:
   m_ObjectHideFlags: 0
@@ -138,3 +148,7 @@ EdgeCollider2D:
   - {x: -0.6600782, y: -6.9055414}
   - {x: -0.61387795, y: 0.80110687}
   - {x: -0.698803, y: 6.905542}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0

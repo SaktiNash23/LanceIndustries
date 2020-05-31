@@ -34,16 +34,11 @@ public class ReflectorUIButton : MonoBehaviour
 
         if (isReflectorInStock)
         {
-            activateReflectorColorUIPanel(buttonTypeTag);
-            GameManager.gameManagerInstance.reflectorColorsPanel.SetActive(true);
-            GameManager.gameManagerInstance.isReflectorColorPanelActive = true;
-
-            //Test Code
-            //GameManager.gameManagerInstance.toggleReflectorColliders();
+            activateReflectorColorUIPanel();                 
         }
         else if (!isReflectorInStock)
         {
-            Debug.Log("No reflector in stock");
+            Debug.LogWarning("No reflector in stock");
         }
     }
 
@@ -51,9 +46,9 @@ public class ReflectorUIButton : MonoBehaviour
     //
     //Ex: If the button for Reflector type Basic is pressed, the string tag from that button is passed to this function as an argument. Based
     // on the argument passed, the Reflector Color Buttons are updated with the appropriate sprites and tags
-    public void activateReflectorColorUIPanel(string buttonTag)
+    public void activateReflectorColorUIPanel()
     {
-        switch (buttonTag)
+        switch (buttonTypeTag)
         {
             case "ReflectorButton_Basic":
                 for(int i = 0; i < GameManager.gameManagerInstance.allReflectorColorButtons.Count; ++i)
@@ -94,6 +89,9 @@ public class ReflectorUIButton : MonoBehaviour
                     GameManager.gameManagerInstance.allReflectorColorButtons[i].GetComponent<ReflectorColor_UIButton>().reflectorTypeTag = "ThreeWay";
                 }
                 break;
-        }        
+        }
+
+        GameManager.gameManagerInstance.reflectorColorsPanel.SetActive(true);
+        GameManager.gameManagerInstance.isReflectorColorPanelActive = true;
     }
 }

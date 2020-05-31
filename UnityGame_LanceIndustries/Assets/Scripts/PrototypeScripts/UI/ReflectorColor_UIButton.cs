@@ -15,21 +15,21 @@ public class ReflectorColor_UIButton : MonoBehaviour
     void Start()
     {
         #region Initializing Event Triggers
-
+        
         EventTrigger eventTrigger = GetComponent<EventTrigger>();
 
         EventTrigger.Entry entryOnPointerDown = new EventTrigger.Entry();
-        EventTrigger.Entry entryOnPointerUp = new EventTrigger.Entry();
+        //EventTrigger.Entry entryOnPointerUp = new EventTrigger.Entry();
 
         entryOnPointerDown.eventID = EventTriggerType.PointerDown;
-        entryOnPointerDown.callback.AddListener((data) => { OnPointerDown((PointerEventData)data); });
+        //entryOnPointerUp.eventID = EventTriggerType.PointerUp;
 
-        entryOnPointerUp.eventID = EventTriggerType.PointerUp;
-        entryOnPointerUp.callback.AddListener((data) => { OnPointerUp((PointerEventData)data); });
+        entryOnPointerDown.callback.AddListener((data) => { OnPointerDown((PointerEventData)data); });
+        //entryOnPointerUp.callback.AddListener((data) => { OnPointerUp((PointerEventData)data); });
 
         eventTrigger.triggers.Add(entryOnPointerDown);
-        eventTrigger.triggers.Add(entryOnPointerUp);
-
+        //eventTrigger.triggers.Add(entryOnPointerUp);
+        
         #endregion
     }
 
@@ -125,7 +125,6 @@ public class ReflectorColor_UIButton : MonoBehaviour
             returnedReflector.GetComponent<Raycast>().currentMousePos = pointVec2;
             returnedReflector.GetComponent<Raycast>().mouseIsDown = true;
 
-            //Below 2 lines are Test Code
             returnedReflector.GetComponent<Raycast>().reflectorAttached = true;
             GameManager.gameManagerInstance.toggleReflectorColliders(); //Ensures reflectors don't overlap when taking a reflector from the pool 
 
@@ -175,4 +174,5 @@ public class ReflectorColor_UIButton : MonoBehaviour
     {
 
     }
+
 }

@@ -16,6 +16,11 @@ TagManager:
   - Border
   - InactivePooledReflectors
   - EndPoint
+  - TeleporterSetA
+  - TeleporterSetB
+  - TeleporterSetC
+  - ColoredBorder
+  - StartingPoint
   layers:
   - Default
   - TransparentFX
