@@ -104,7 +104,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.045949697, y: -1.8251092}
+  m_Offset: {x: -0.045949697, y: -1.7712444}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -115,7 +115,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.9587278, y: 0.046000004}
+  m_Size: {x: 2.9587278, y: 0.15372968}
   m_EdgeRadius: 0
 --- !u!1 &4788941756421596477
 GameObject:
@@ -170,6 +170,8 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -255,6 +257,7 @@ MonoBehaviour:
   lastMousePos: {x: 0, y: 0}
   deltaMousePos: {x: 0, y: 0}
   mousePhase: 0
+  reflectorAttached: 0
 --- !u!1 &7261377959563278474
 GameObject:
   m_ObjectHideFlags: 0
@@ -299,7 +302,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -1.6338193, y: -0.04655367}
+  m_Offset: {x: -1.5906005, y: -0.04655361}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -310,7 +313,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.046000004, y: 3.337943}
+  m_Size: {x: 0.13243759, y: 3.337943}
   m_EdgeRadius: 0
 --- !u!1 &7504748378945062674
 GameObject:
@@ -362,6 +365,10 @@ EdgeCollider2D:
   m_Points:
   - {x: -1.5741996, y: 1.7305969}
   - {x: 1.611814, y: -1.748288}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0
 --- !u!114 &4715521626796394985
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -376,6 +383,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reflectorBase_SO: {fileID: 11400000, guid: 33453aa5b9bd97444bf15d42ca65101f, type: 2}
   sparkAnimationScript: {fileID: 6972584881053964145}
+  reflectorColor_Enum: 0
 --- !u!1001 &4467142220804832902
 PrefabInstance:
   m_ObjectHideFlags: 0

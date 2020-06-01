@@ -10,7 +10,7 @@ public class Proto_Projectile : MonoBehaviour
     private Rigidbody2D rb;
     private bool reflectorHit = false;
     public RaycastHit2D hitStore;
-    private int layerMask;
+    public LayerMask layerMaskStruct; //Set the layers that you want the Laser to ignore in the script attached to Projectile2D prefab
     private bool destroyCheck = false; //Purpose of this variable is to ensure OnDestroy() contents are only called if the laser hits specific game objects
 
     public enum LaserColor_Enum
@@ -30,10 +30,6 @@ public class Proto_Projectile : MonoBehaviour
     {
         directionVector = new Vector3(0.0f, 1.0f, 0.0f);
         rb = GetComponent<Rigidbody2D>();
-
-        layerMask = 1 << 8;
-        layerMask = ~layerMask; //Make raycast to ignore only Layer 8 which is the IgnoredByProjectile layer
-
     }
 
     void FixedUpdate()
@@ -42,11 +38,11 @@ public class Proto_Projectile : MonoBehaviour
 
         if (reflectorHit == false)
         {
-            RaycastHit2D hitStore = Physics2D.Raycast(transform.position, directionVector, projectileRaycastLength, layerMask);
+            RaycastHit2D hitStore = Physics2D.Raycast(transform.position, directionVector, projectileRaycastLength, ~layerMaskStruct); //LayerMask is inversed so it ignores the layers that is set
             Debug.DrawRay(transform.position, directionVector * projectileRaycastLength);
 
             if (hitStore)
-            {              
+            {
                 switch(hitStore.collider.gameObject.tag)
                 {
                     #region HIT: Basic Reflector
@@ -122,11 +118,12 @@ public class Proto_Projectile : MonoBehaviour
                     case "TeleporterSetB":
                     case "TeleporterSetC":
                         Debug.Log("HIT TELEPORTER SET");
-                        hitStore.collider.gameObject.GetComponent<Teleporter>().teleportLaser(gameObject, hitStore.collider.gameObject);
+                        hitStore.collider.gameObject.GetComponentInParent<Teleporter>().teleportLaser(gameObject, hitStore.collider.gameObject);
                         break;
 
                     #endregion
 
+                    #region HIT: Colored Border
                     case "ColoredBorder":
                         hitStore.collider.gameObject.GetComponent<ColoredBorder>().checkIfCorrectLaserHit(gameObject);
                         break;
@@ -134,6 +131,7 @@ public class Proto_Projectile : MonoBehaviour
                         //If hit object with tag: "BorderColored"
                         //Use same script concept as EndPoint script. Each border have enum that you set the color.
                         //Then check the laser color enum with colored border enum, then perform the appropriate response
+                    #endregion
                 }
             }
         }     
@@ -218,7 +216,6 @@ public class Proto_Projectile : MonoBehaviour
         if(GameManager.gameManagerInstance.gimmick_LaserSpeedDecrease == true)
         {
             projectileSpeed = Mathf.Clamp(--projectileSpeed, 2.0f, 7.0f);
-            //Debug.LogWarning("Current Projectile Speed : " + projectileSpeed);
         }
     }
 

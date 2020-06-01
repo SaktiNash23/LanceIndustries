@@ -74,7 +74,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.023392558, y: -1.8251092}
+  m_Offset: {x: -0.023392558, y: -1.7614006}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -85,7 +85,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.0871165, y: 0.046000004}
+  m_Size: {x: 3.0871165, y: 0.17341733}
   m_EdgeRadius: 0
 --- !u!1 &6237248329076079766
 GameObject:
@@ -131,7 +131,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -1.6338193, y: -0.0055760145}
+  m_Offset: {x: -1.5690278, y: -0.0055760145}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -142,7 +142,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.046000004, y: 3.414787}
+  m_Size: {x: 0.17558312, y: 3.414787}
   m_EdgeRadius: 0
 --- !u!1 &6515732726968042254
 GameObject:
@@ -194,6 +194,10 @@ EdgeCollider2D:
   m_Points:
   - {x: -1.5741996, y: 1.7305969}
   - {x: 1.611814, y: -1.748288}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0
 --- !u!114 &8303042771166154229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -292,6 +296,8 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:

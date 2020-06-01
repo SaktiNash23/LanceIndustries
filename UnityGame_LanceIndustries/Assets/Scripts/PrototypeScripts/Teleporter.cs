@@ -27,25 +27,25 @@ public class Teleporter : MonoBehaviour
                     switch(teleporterPair[i].transform.rotation.eulerAngles.z)
                     {
                         case 0.0f://Laser Direction: RIGHT
-                            projectileToTeleport.transform.position = teleporterPair[i].transform.position + new Vector3(0.2f, 0.0f, 0.0f);
+                            projectileToTeleport.transform.position = teleporterPair[i].transform.position + new Vector3(0.1f, 0.0f, 0.0f);
                             projectileToTeleport.gameObject.GetComponent<Proto_Projectile>().DirectionVector = Vector2.right;
                             projectileToTeleport.transform.rotation = Quaternion.AngleAxis(90.0f, Vector3.forward);
                             break;
 
                         case 90.0f://Laser Direction: UP
-                            projectileToTeleport.transform.position = teleporterPair[i].transform.position + new Vector3(0.0f, 0.2f, 0.0f);
+                            projectileToTeleport.transform.position = teleporterPair[i].transform.position + new Vector3(0.0f, 0.1f, 0.0f);
                             projectileToTeleport.gameObject.GetComponent<Proto_Projectile>().DirectionVector = Vector2.up;
                             projectileToTeleport.transform.rotation = Quaternion.AngleAxis(0.0f, Vector3.forward);
                             break;
 
                         case 180.0f://Laser Direction: LEFT
-                            projectileToTeleport.transform.position = teleporterPair[i].transform.position + new Vector3(-0.2f, 0.0f, 0.0f);
+                            projectileToTeleport.transform.position = teleporterPair[i].transform.position + new Vector3(-0.1f, 0.0f, 0.0f);
                             projectileToTeleport.gameObject.GetComponent<Proto_Projectile>().DirectionVector = Vector2.left;
                             projectileToTeleport.transform.rotation = Quaternion.AngleAxis(-90.0f, Vector3.forward);
                             break;
 
                         case 270.0f://Laser Direction: DOWN
-                            projectileToTeleport.transform.position = teleporterPair[i].transform.position + new Vector3(0.0f, -0.2f, 0.0f);
+                            projectileToTeleport.transform.position = teleporterPair[i].transform.position + new Vector3(0.0f, -0.1f, 0.0f);
                             projectileToTeleport.gameObject.GetComponent<Proto_Projectile>().DirectionVector = Vector2.down;
                             projectileToTeleport.transform.rotation = Quaternion.AngleAxis(180.0f, Vector3.forward);
                             break;

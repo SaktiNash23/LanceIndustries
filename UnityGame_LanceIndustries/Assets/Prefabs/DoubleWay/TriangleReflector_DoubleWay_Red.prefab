@@ -74,7 +74,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.008844972, y: -1.8251092}
+  m_Offset: {x: 0.011706948, y: -1.7510571}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -85,7 +85,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.1105564, y: 0.046000004}
+  m_Size: {x: 3.2009847, y: 0.17924833}
   m_EdgeRadius: 0
 --- !u!1 &6784235114204756098
 GameObject:
@@ -140,6 +140,8 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -225,6 +227,7 @@ MonoBehaviour:
   lastMousePos: {x: 0, y: 0}
   deltaMousePos: {x: 0, y: 0}
   mousePhase: 0
+  reflectorAttached: 0
 --- !u!1 &8391881900038888109
 GameObject:
   m_ObjectHideFlags: 0
@@ -275,6 +278,10 @@ EdgeCollider2D:
   m_Points:
   - {x: -1.5741996, y: 1.7305969}
   - {x: 1.611814, y: -1.748288}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0
 --- !u!114 &1136291085072416283
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -289,6 +296,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reflectorBase_SO: {fileID: 11400000, guid: 9f4ea7fa01dd12548bf849bd0df88ecc, type: 2}
   sparkAnimationScript: {fileID: 7624069423066926125}
+  reflectorColor_Enum: 0
 --- !u!1 &8533190763871205990
 GameObject:
   m_ObjectHideFlags: 0
@@ -363,7 +371,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -1.6338193, y: 0.017923355}
+  m_Offset: {x: -1.560256, y: 0.017923355}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -374,7 +382,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.046, y: 3.5809574}
+  m_Size: {x: 0.16338122, y: 3.5809574}
   m_EdgeRadius: 0
 --- !u!1001 &3815606134900909530
 PrefabInstance:
