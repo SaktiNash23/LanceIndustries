@@ -9569,6 +9569,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Teleporter_SetA
       objectReference: {fileID: 0}
+    - target: {fileID: 8955327603995315985, guid: c9af440d119cc7746bc361a83b3be903,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c9af440d119cc7746bc361a83b3be903, type: 3}
 --- !u!4 &1667956581 stripped
@@ -9901,6 +9906,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Teleporter_SetA (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8955327603995315985, guid: c9af440d119cc7746bc361a83b3be903,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c9af440d119cc7746bc361a83b3be903, type: 3}
@@ -11783,12 +11793,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dontDestroyOnLoad: 0
   debugMode: 1
-  levelToLoad: {fileID: 4900000, guid: a88a962a91e8c2346888f6ce235ee6d1, type: 3}
+  levelToLoad: {fileID: 4900000, guid: 00e85ee27c7029143b6c0c5c470bdb25, type: 3}
   transformGrids: {fileID: 111282493}
   transformBorders: {fileID: 374762130}
   originPointPrefab: {fileID: 4185421489143442178, guid: 3fb9b50c41ee0924680c6877d1833257,
     type: 3}
   endPointPrefab: {fileID: 5064881903754493089, guid: d092b5a58822b334bb69f32d6861725b,
+    type: 3}
+  teleporterSetAPrefab: {fileID: 1199401729216033231, guid: c9af440d119cc7746bc361a83b3be903,
+    type: 3}
+  teleporterSetBPrefab: {fileID: 1199401729216033231, guid: 094f80d115850b248aa7b34259793d8d,
     type: 3}
 --- !u!4 &1918685768
 Transform:
