@@ -92,7 +92,8 @@ public class MapEditorInputManager : MonoBehaviour
                 {
                     if (!Physics.Raycast(mouseRay, out hit, cachedMainCamera.farClipPlane + 5.0f, layerMask))
                     {
-                        SwitchInputMode(INPUT_MODE.NONE);
+                        if (CurrentGizmoMode == GIZMO_MODE.MOVE)
+                            SwitchInputMode(INPUT_MODE.NONE);
                     }
                 }
             }

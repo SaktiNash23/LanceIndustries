@@ -17,6 +17,8 @@ public class LevelLoader : MonoBehaviour
 
     [BoxGroup("PREFABS")] [SerializeField] Proto_LaserOrigin originPointPrefab;
     [BoxGroup("PREFABS")] [SerializeField] EndPoint endPointPrefab;
+    [BoxGroup("PREFABS")] [SerializeField] Teleporter teleporterSetAPrefab;
+    [BoxGroup("PREFABS")] [SerializeField] Teleporter teleporterSetBPrefab;
 
     private static LevelLoader _instance;
     public static LevelLoader Instance
@@ -64,6 +66,22 @@ public class LevelLoader : MonoBehaviour
                 case IN_SCENE_OBJECT_TYPES.NORMAL_VERTICAL_LINE:
                     transformBorders.GetChild(inSceneObjData.mapGridIndex).GetComponent<MapGridGameplay>().ToggleBorder(inSceneObjData.borderDir, true);
                     break;
+                case IN_SCENE_OBJECT_TYPES.WHITE_HORIZONTAL_LINE:
+                case IN_SCENE_OBJECT_TYPES.WHITE_VERTICAL_LINE:
+                    transformBorders.GetChild(inSceneObjData.mapGridIndex).GetComponent<MapGridGameplay>().ToggleColoredBorder(BorderColor.WHITE, inSceneObjData.borderDir, true);
+                    break;
+                case IN_SCENE_OBJECT_TYPES.RED_HORIZONTAL_LINE:
+                case IN_SCENE_OBJECT_TYPES.RED_VERTICAL_LINE:
+                    transformBorders.GetChild(inSceneObjData.mapGridIndex).GetComponent<MapGridGameplay>().ToggleColoredBorder(BorderColor.RED, inSceneObjData.borderDir, true);
+                    break;
+                case IN_SCENE_OBJECT_TYPES.YELLOW_HORIZONTAL_LINE:
+                case IN_SCENE_OBJECT_TYPES.YELLOW_VERTICAL_LINE:
+                    transformBorders.GetChild(inSceneObjData.mapGridIndex).GetComponent<MapGridGameplay>().ToggleColoredBorder(BorderColor.YELLOW, inSceneObjData.borderDir, true);
+                    break;
+                case IN_SCENE_OBJECT_TYPES.BLUE_HORIZONTAL_LINE:
+                case IN_SCENE_OBJECT_TYPES.BLUE_VERTICAL_LINE:
+                    transformBorders.GetChild(inSceneObjData.mapGridIndex).GetComponent<MapGridGameplay>().ToggleColoredBorder(BorderColor.BLUE, inSceneObjData.borderDir, true);
+                    break;
                 case IN_SCENE_OBJECT_TYPES.ORIGIN_POINT:
                     Proto_LaserOrigin originPoint = Instantiate(originPointPrefab, transformBorders.GetChild(inSceneObjData.mapGridIndex).transform.position, inSceneObjData.rotation, transformBorders.GetChild(inSceneObjData.mapGridIndex).transform);
                     transformGrids.GetChild(inSceneObjData.mapGridIndex).gameObject.SetActive(false);
@@ -91,6 +109,16 @@ public class LevelLoader : MonoBehaviour
                     transformGrids.GetChild(inSceneObjData.mapGridIndex).gameObject.SetActive(false);
                     endPointBlue.targetLaser = EndPoint.targetLaserColor.BLUE;
                     endPointBlue.Initialization();
+                    break;
+                case IN_SCENE_OBJECT_TYPES.PORTAL_1ST_SET_HORIZONTAL:
+                case IN_SCENE_OBJECT_TYPES.PORTAL_1ST_SET_VERTICAL:
+                    Teleporter teleporter1stSet = Instantiate(teleporterSetAPrefab, transformBorders.GetChild(inSceneObjData.mapGridIndex).GetComponent<MapGridGameplay>().GetBorderTransform(inSceneObjData.borderDir));
+                    teleporter1stSet.SetRotation(inSceneObjData.borderDir);
+                    break;
+                case IN_SCENE_OBJECT_TYPES.PORTAL_2ND_SET_HORIZONTAL:
+                case IN_SCENE_OBJECT_TYPES.PORTAL_2ND_SET_VERTICAL:
+                    Teleporter teleporter2ndSet = Instantiate(teleporterSetBPrefab, transformBorders.GetChild(inSceneObjData.mapGridIndex).GetComponent<MapGridGameplay>().GetBorderTransform(inSceneObjData.borderDir));
+                    teleporter2ndSet.SetRotation(inSceneObjData.borderDir);
                     break;
             }
         }
@@ -109,6 +137,22 @@ public class LevelLoader : MonoBehaviour
                 case IN_SCENE_OBJECT_TYPES.NORMAL_VERTICAL_LINE:
                     transformBorders.GetChild(inSceneObjData.mapGridIndex).GetComponent<MapGridGameplay>().ToggleBorder(inSceneObjData.borderDir, true);
                     break;
+                case IN_SCENE_OBJECT_TYPES.WHITE_HORIZONTAL_LINE:
+                case IN_SCENE_OBJECT_TYPES.WHITE_VERTICAL_LINE:
+                    transformBorders.GetChild(inSceneObjData.mapGridIndex).GetComponent<MapGridGameplay>().ToggleColoredBorder(BorderColor.WHITE, inSceneObjData.borderDir, true);
+                    break;
+                case IN_SCENE_OBJECT_TYPES.RED_HORIZONTAL_LINE:
+                case IN_SCENE_OBJECT_TYPES.RED_VERTICAL_LINE:
+                    transformBorders.GetChild(inSceneObjData.mapGridIndex).GetComponent<MapGridGameplay>().ToggleColoredBorder(BorderColor.RED, inSceneObjData.borderDir, true);
+                    break;
+                case IN_SCENE_OBJECT_TYPES.YELLOW_HORIZONTAL_LINE:
+                case IN_SCENE_OBJECT_TYPES.YELLOW_VERTICAL_LINE:
+                    transformBorders.GetChild(inSceneObjData.mapGridIndex).GetComponent<MapGridGameplay>().ToggleColoredBorder(BorderColor.YELLOW, inSceneObjData.borderDir, true);
+                    break;
+                case IN_SCENE_OBJECT_TYPES.BLUE_HORIZONTAL_LINE:
+                case IN_SCENE_OBJECT_TYPES.BLUE_VERTICAL_LINE:
+                    transformBorders.GetChild(inSceneObjData.mapGridIndex).GetComponent<MapGridGameplay>().ToggleColoredBorder(BorderColor.BLUE, inSceneObjData.borderDir, true);
+                    break;
                 case IN_SCENE_OBJECT_TYPES.ORIGIN_POINT:
                     Proto_LaserOrigin originPoint = Instantiate(originPointPrefab, transformBorders.GetChild(inSceneObjData.mapGridIndex).transform.position, inSceneObjData.rotation, transformBorders.GetChild(inSceneObjData.mapGridIndex).transform);
                     transformGrids.GetChild(inSceneObjData.mapGridIndex).gameObject.SetActive(false);
@@ -136,6 +180,16 @@ public class LevelLoader : MonoBehaviour
                     transformGrids.GetChild(inSceneObjData.mapGridIndex).gameObject.SetActive(false);
                     endPointBlue.targetLaser = EndPoint.targetLaserColor.BLUE;
                     endPointBlue.Initialization();
+                    break;
+                case IN_SCENE_OBJECT_TYPES.PORTAL_1ST_SET_HORIZONTAL:
+                case IN_SCENE_OBJECT_TYPES.PORTAL_1ST_SET_VERTICAL:
+                    Teleporter teleporter1stSet = Instantiate(teleporterSetAPrefab, transformBorders.GetChild(inSceneObjData.mapGridIndex).GetComponent<MapGridGameplay>().GetBorderTransform(inSceneObjData.borderDir));
+                    teleporter1stSet.SetRotation(inSceneObjData.borderDir);
+                    break;
+                case IN_SCENE_OBJECT_TYPES.PORTAL_2ND_SET_HORIZONTAL:
+                case IN_SCENE_OBJECT_TYPES.PORTAL_2ND_SET_VERTICAL:
+                    Teleporter teleporter2ndSet = Instantiate(teleporterSetBPrefab, transformBorders.GetChild(inSceneObjData.mapGridIndex).GetComponent<MapGridGameplay>().GetBorderTransform(inSceneObjData.borderDir));
+                    teleporter2ndSet.SetRotation(inSceneObjData.borderDir);
                     break;
             }
         }

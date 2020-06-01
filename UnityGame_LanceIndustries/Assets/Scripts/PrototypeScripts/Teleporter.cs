@@ -70,4 +70,23 @@ public class Teleporter : MonoBehaviour
             return false;
         }
     }
+
+    public void SetRotation(SNAPPING_DIR dir)
+    {
+        switch (dir)
+        {
+            case SNAPPING_DIR.LEFT:
+                transform.rotation = Quaternion.Euler(Vector3.zero);
+                break;
+            case SNAPPING_DIR.RIGHT:
+                transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 180f));
+                break;
+            case SNAPPING_DIR.UP:
+                transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 270f));
+                break;
+            case SNAPPING_DIR.DOWN:
+                transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 90f));
+                break;
+        }
+    }
 }

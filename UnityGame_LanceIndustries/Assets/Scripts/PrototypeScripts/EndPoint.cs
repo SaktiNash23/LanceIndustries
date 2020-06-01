@@ -21,28 +21,6 @@ public class EndPoint : MonoBehaviour
     private bool isHitByLaser = false;
     private bool isHitByCorrectLaser = false;
 
-    void Awake()
-    {
-        switch (targetLaser)
-        {
-            case targetLaserColor.RED:
-                gameObject.GetComponent<SpriteRenderer>().color = redMaterial.color;
-                break;
-
-            case targetLaserColor.BLUE:
-                gameObject.GetComponent<SpriteRenderer>().color = blueMaterial.color;
-                break;
-
-            case targetLaserColor.YELLOW:
-                gameObject.GetComponent<SpriteRenderer>().color = yellowMaterial.color;
-                break;
-
-            case targetLaserColor.WHITE:
-                gameObject.GetComponent<SpriteRenderer>().color = whiteMaterial.color;
-                break;
-        }
-    }
-
     public void checkIfCorrectLaserHit(GameObject projectile)
     {
         if (isHitByLaser == false)
