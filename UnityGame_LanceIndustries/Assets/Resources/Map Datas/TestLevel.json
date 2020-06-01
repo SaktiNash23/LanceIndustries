@@ -1,0 +1,199 @@
+{
+    "inSceneObjectDatas": [
+        {
+            "mapGridIndex": 36,
+            "inSceneObjectType": 18,
+            "borderDir": 2,
+            "position": {
+                "x": -0.1499999761581421,
+                "y": -1.6500000953674317,
+                "z": 0.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            }
+        },
+        {
+            "mapGridIndex": 38,
+            "inSceneObjectType": 3,
+            "borderDir": 0,
+            "position": {
+                "x": 1.350000023841858,
+                "y": -1.6500000953674317,
+                "z": 0.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": -1.0,
+                "w": -4.371138828673793e-8
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            }
+        },
+        {
+            "mapGridIndex": 3,
+            "inSceneObjectType": 3,
+            "borderDir": 0,
+            "position": {
+                "x": 1.350000023841858,
+                "y": 5.0,
+                "z": 0.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": -0.7071068286895752,
+                "w": 0.7071068286895752
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            }
+        },
+        {
+            "mapGridIndex": 11,
+            "inSceneObjectType": 17,
+            "borderDir": 3,
+            "position": {
+                "x": -0.5499999523162842,
+                "y": 3.5,
+                "z": 0.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.7071068286895752,
+                "w": 0.7071068286895752
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            }
+        },
+        {
+            "mapGridIndex": 18,
+            "inSceneObjectType": 19,
+            "borderDir": 3,
+            "position": {
+                "x": 1.350000023841858,
+                "y": 2.549999952316284,
+                "z": 0.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.7071068286895752,
+                "w": 0.7071068286895752
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            }
+        },
+        {
+            "mapGridIndex": 21,
+            "inSceneObjectType": 3,
+            "borderDir": 0,
+            "position": {
+                "x": -0.5499999523162842,
+                "y": 1.2000000476837159,
+                "z": 0.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": -0.7071068286895752,
+                "w": -0.7071068286895752
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            }
+        },
+        {
+            "mapGridIndex": 1,
+            "inSceneObjectType": 3,
+            "borderDir": 0,
+            "position": {
+                "x": -0.5499999523162842,
+                "y": 5.0,
+                "z": 0.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": -0.7071068286895752,
+                "w": 0.7071068286895752
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            }
+        },
+        {
+            "mapGridIndex": 6,
+            "inSceneObjectType": 17,
+            "borderDir": 4,
+            "position": {
+                "x": -0.5499999523162842,
+                "y": 3.6499998569488527,
+                "z": 0.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.7071068286895752,
+                "w": 0.7071068286895752
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            }
+        },
+        {
+            "mapGridIndex": 28,
+            "inSceneObjectType": 3,
+            "borderDir": 0,
+            "position": {
+                "x": 1.350000023841858,
+                "y": 0.25,
+                "z": 0.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": -0.7071068286895752,
+                "w": -0.7071068286895752
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            }
+        }
+    ],
+    "timeLimit": 5.0,
+    "basicReflectorAmount": 5,
+    "translucentReflectorAmount": 5,
+    "doubleWayReflectorAmount": 5,
+    "splitReflectorAmount": 5,
+    "threeWayReflectorAmount": 5
+}
