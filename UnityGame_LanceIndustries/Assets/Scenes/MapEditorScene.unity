@@ -8973,7 +8973,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd7220ae935437c4c8120ed3140aff6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  usedToTogglePanel: 1
+  usedToTogglePanel: 0
   btnObjectCreator: {fileID: 829447368}
   txtHotKey: {fileID: 1786887869}
   mapEditorInSceneObjectPrefab: {fileID: 2367679546286519377, guid: 1fe46bf3821cc89409204870354f26f0,
@@ -11702,7 +11702,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd7220ae935437c4c8120ed3140aff6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  usedToTogglePanel: 1
+  usedToTogglePanel: 0
   btnObjectCreator: {fileID: 1076337750}
   txtHotKey: {fileID: 528860777}
   mapEditorInSceneObjectPrefab: {fileID: 2367679546286519377, guid: d0c4718dc799e294d865f19d2a4eb21f,
@@ -16795,7 +16795,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd7220ae935437c4c8120ed3140aff6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  usedToTogglePanel: 1
+  usedToTogglePanel: 0
   btnObjectCreator: {fileID: 1525189824}
   txtHotKey: {fileID: 633841370}
   mapEditorInSceneObjectPrefab: {fileID: 2367679546286519377, guid: d7da3d9534e8e8344ba8cc2cda7c2769,
@@ -21488,7 +21488,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd7220ae935437c4c8120ed3140aff6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  usedToTogglePanel: 1
+  usedToTogglePanel: 0
   btnObjectCreator: {fileID: 2027964214}
   txtHotKey: {fileID: 2031045364}
   mapEditorInSceneObjectPrefab: {fileID: 2367679546286519377, guid: 047fea9a960514e4c95f4559dd451ea6,
