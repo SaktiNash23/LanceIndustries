@@ -30,6 +30,8 @@ public class ReflectorUIButton : MonoBehaviour
     //the reflector color panel based on the result
     public void OnPointerUp(PointerEventData pointerEventData)
     {
+        #region Original Code
+        /*
         isReflectorInStock = GameManager.gameManagerInstance.checkReflectorStockAvailability(buttonTypeTag);
 
         if (isReflectorInStock)
@@ -40,6 +42,15 @@ public class ReflectorUIButton : MonoBehaviour
         {
             Debug.LogWarning("No reflector in stock");
         }
+        */
+        #endregion
+
+        #region TEST CODE
+
+        GameManager.gameManagerInstance.updateReflectorColorStocks(buttonTypeTag);
+        activateReflectorColorUIPanel();
+
+        #endregion
     }
 
     //This function updates the buttons in Reflector Color Panel UI with the appropriate images and changes the tag of the buttons as well

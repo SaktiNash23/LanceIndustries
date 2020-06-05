@@ -9,7 +9,6 @@ using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviour
 {
-
     public bool DebugMode_PC; //True: Activates PC controls for debugging. False: Activates touch controls
 
     public bool gimmick_LaserSpeedDecrease;
@@ -78,6 +77,41 @@ public class GameManager : MonoBehaviour
 
     public bool activateDissolve = true;
     public bool fadeIn = false;
+
+    #endregion
+
+
+    #region TEST CODE
+
+    private int ReflectorStock_Basic_White;
+    private int ReflectorStock_Basic_Red;
+    private int ReflectorStock_Basic_Blue;
+    private int ReflectorStock_Basic_Yellow;
+
+    private int ReflectorStock_Translucent_White;
+    private int ReflectorStock_Translucent_Red;
+    private int ReflectorStock_Translucent_Blue;
+    private int ReflectorStock_Translucent_Yellow;
+
+    private int ReflectorStock_DoubleWay_White;
+    private int ReflectorStock_DoubleWay_Red;
+    private int ReflectorStock_DoubleWay_Blue;
+    private int ReflectorStock_DoubleWay_Yellow;
+
+    private int ReflectorStock_Split_White;
+    private int ReflectorStock_Split_Red;
+    private int ReflectorStock_Split_Blue;
+    private int ReflectorStock_Split_Yellow;
+
+    private int ReflectorStock_ThreeWay_White;
+    private int ReflectorStock_ThreeWay_Red;
+    private int ReflectorStock_ThreeWay_Blue;
+    private int ReflectorStock_ThreeWay_Yellow;
+
+    public TextMeshProUGUI ReflectorStock_White_Text;
+    public TextMeshProUGUI ReflectorStock_Red_Text;
+    public TextMeshProUGUI ReflectorStock_Blue_Text;
+    public TextMeshProUGUI ReflectorStock_Yellow_Text;
 
     #endregion
 
@@ -524,7 +558,8 @@ public class GameManager : MonoBehaviour
     //identify whether the reflector is a Basic, Translucent, Double Way, Split or Three Way type reflector
     public void returnReflectorToStock(GameObject reflector)
     {
-
+        #region Original Code
+        /*
         if (reflector.transform.GetChild(0).GetComponent<Reflector_Translucent>())
         {
             if (reflector.name.Contains("White"))
@@ -666,6 +701,174 @@ public class GameManager : MonoBehaviour
         reflector.transform.position = GameObject.FindGameObjectWithTag("InactivePooledReflectors").transform.position;
         reflector.transform.rotation = Quaternion.identity;
         reflector.SetActive(false);
+        */
+        #endregion
+
+        #region TEST CODE
+
+        if (reflector.transform.GetChild(0).GetComponent<Reflector_Translucent>())
+        {
+            if (reflector.name.Contains("White"))
+            {
+                ReflectorPooler.instance_reflectorPooler.reflectorPoolDictionary["ReflectorPool_Translucent_White"].Enqueue(reflector);
+                ReflectorStock_Translucent_White++;
+            }
+            else if (reflector.name.Contains("Red"))
+            {
+                ReflectorPooler.instance_reflectorPooler.reflectorPoolDictionary["ReflectorPool_Translucent_Red"].Enqueue(reflector);
+                ReflectorStock_Translucent_Red++;
+            }
+            else if (reflector.name.Contains("Blue"))
+            {
+                ReflectorPooler.instance_reflectorPooler.reflectorPoolDictionary["ReflectorPool_Translucent_Blue"].Enqueue(reflector);
+                ReflectorStock_Translucent_Blue++;
+            }
+            else if (reflector.name.Contains("Yellow"))
+            {
+                ReflectorPooler.instance_reflectorPooler.reflectorPoolDictionary["ReflectorPool_Translucent_Yellow"].Enqueue(reflector);
+                ReflectorStock_Translucent_Yellow++;
+            }
+            else
+            {
+                Debug.LogWarning("No such reflector exists. Check to ensure the reflector contains the string you are checking for in the editor. Ensure it is case sensitive.");
+            }
+
+            //ReflectorStock_Translucent++;
+            //ReflectorStock_Translucent_Text.text = ReflectorStock_Translucent.ToString();
+
+        }
+
+        else if (reflector.transform.GetChild(0).GetComponent<Reflector_DoubleWay>() != null)
+        {
+            if (reflector.name.Contains("White"))
+            {
+                ReflectorPooler.instance_reflectorPooler.reflectorPoolDictionary["ReflectorPool_DoubleWay_White"].Enqueue(reflector);
+                ReflectorStock_DoubleWay_White++;
+            }
+            else if (reflector.name.Contains("Red"))
+            {
+                ReflectorPooler.instance_reflectorPooler.reflectorPoolDictionary["ReflectorPool_DoubleWay_Red"].Enqueue(reflector);
+                ReflectorStock_DoubleWay_Red++;
+            }
+            else if (reflector.name.Contains("Blue"))
+            {
+                ReflectorPooler.instance_reflectorPooler.reflectorPoolDictionary["ReflectorPool_DoubleWay_Blue"].Enqueue(reflector);
+                ReflectorStock_DoubleWay_Blue++;
+            }
+            else if (reflector.name.Contains("Yellow"))
+            {
+                ReflectorPooler.instance_reflectorPooler.reflectorPoolDictionary["ReflectorPool_DoubleWay_Yellow"].Enqueue(reflector);
+                ReflectorStock_DoubleWay_Yellow++;
+            }
+            else
+            {
+                Debug.LogWarning("No such reflector exists. Check to ensure the reflector contains the string you are checking for in the editor. Ensure it is case sensitive.");
+            }
+
+            //ReflectorStock_DoubleWay++;
+            //ReflectorStock_DoubleWay_Text.text = ReflectorStock_DoubleWay.ToString();
+        }
+
+        else if (reflector.transform.GetChild(0).GetComponent<Reflector_Split>() != null)
+        {
+            if (reflector.name.Contains("White"))
+            {
+                ReflectorPooler.instance_reflectorPooler.reflectorPoolDictionary["ReflectorPool_Split_White"].Enqueue(reflector);
+                ReflectorStock_Split_White++;
+            }
+            else if (reflector.name.Contains("Red"))
+            {
+                ReflectorPooler.instance_reflectorPooler.reflectorPoolDictionary["ReflectorPool_Split_Red"].Enqueue(reflector);
+                ReflectorStock_Split_Red++;
+            }
+            else if (reflector.name.Contains("Blue"))
+            {
+                ReflectorPooler.instance_reflectorPooler.reflectorPoolDictionary["ReflectorPool_Split_Blue"].Enqueue(reflector);
+                ReflectorStock_Split_Blue++;
+            }
+            else if (reflector.name.Contains("Yellow"))
+            {
+                ReflectorPooler.instance_reflectorPooler.reflectorPoolDictionary["ReflectorPool_Split_Yellow"].Enqueue(reflector);
+                ReflectorStock_Split_Yellow++;
+            }
+            else
+            {
+                Debug.LogWarning("No such reflector exists. Check to ensure the reflector contains the string you are checking for in the editor. Ensure it is case sensitive.");
+            }
+
+            //ReflectorStock_Split++;
+            //ReflectorStock_Split_Text.text = ReflectorStock_Split.ToString();
+        }
+
+        else if (reflector.transform.GetChild(0).GetComponent<Reflector_ThreeWay>() != null)
+        {
+            if (reflector.name.Contains("White"))
+            {
+                ReflectorPooler.instance_reflectorPooler.reflectorPoolDictionary["ReflectorPool_ThreeWay_White"].Enqueue(reflector);
+                ReflectorStock_ThreeWay_White++;
+            }
+            else if (reflector.name.Contains("Red"))
+            {
+                ReflectorPooler.instance_reflectorPooler.reflectorPoolDictionary["ReflectorPool_ThreeWay_Red"].Enqueue(reflector);
+                ReflectorStock_ThreeWay_Red++;
+            }
+            else if (reflector.name.Contains("Blue"))
+            {
+                ReflectorPooler.instance_reflectorPooler.reflectorPoolDictionary["ReflectorPool_ThreeWay_Blue"].Enqueue(reflector);
+                ReflectorStock_ThreeWay_Blue++;
+            }
+            else if (reflector.name.Contains("Yellow"))
+            {
+                ReflectorPooler.instance_reflectorPooler.reflectorPoolDictionary["ReflectorPool_ThreeWay_Yellow"].Enqueue(reflector);
+                ReflectorStock_ThreeWay_Yellow++;
+            }
+            else
+            {
+                Debug.LogWarning("No such reflector exists. Check to ensure the reflector contains the string you are checking for in the editor. Ensure it is case sensitive.");
+            }
+
+            //ReflectorStock_ThreeWay++;
+            //ReflectorStock_ThreeWay_Text.text = ReflectorStock_ThreeWay.ToString();
+        }
+
+        else if (reflector.transform.GetChild(0).GetComponent<Reflector>())
+        {
+            if (reflector.name.Contains("White"))
+            {
+                ReflectorPooler.instance_reflectorPooler.reflectorPoolDictionary["ReflectorPool_Basic_White"].Enqueue(reflector);
+                ReflectorStock_Basic_White++;
+            }
+            else if (reflector.name.Contains("Red"))
+            {
+                ReflectorPooler.instance_reflectorPooler.reflectorPoolDictionary["ReflectorPool_Basic_Red"].Enqueue(reflector);
+                ReflectorStock_Basic_Red++;
+            }
+            else if (reflector.name.Contains("Blue"))
+            {
+                ReflectorPooler.instance_reflectorPooler.reflectorPoolDictionary["ReflectorPool_Basic_Blue"].Enqueue(reflector);
+                ReflectorStock_Basic_Blue++;
+            }
+            else if (reflector.name.Contains("Yellow"))
+            {
+                ReflectorPooler.instance_reflectorPooler.reflectorPoolDictionary["ReflectorPool_Basic_Yellow"].Enqueue(reflector);
+                ReflectorStock_Basic_Yellow++;
+            }
+            else
+            {
+                Debug.LogWarning("No such reflector exists. Check to ensure the reflector contains the string you are checking for in the editor. Ensure it is case sensitive.");
+            }
+
+            //ReflectorStock_Basic++;
+            //ReflectorStock_Basic_Text.text = ReflectorStock_Basic.ToString();
+
+            Debug.Log("I WAS HERE");
+        }
+
+        reflector.transform.position = GameObject.FindGameObjectWithTag("InactivePooledReflectors").transform.position;
+        reflector.transform.rotation = Quaternion.identity;
+        reflector.SetActive(false);
+
+        #endregion
     }
 
     //This function removes a reflector from the List, allReflectorsInScene. The reflector that is removed from the list is the reflector that
@@ -835,6 +1038,198 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    //This function is called in ReflectorUIButton, this function updates all 20 Reflector Color stocks UI before opening the Reflector Color Panel
+    public void updateReflectorColorStocks(string pressedReflectorTypeButtonTag)
+    {
+        switch(pressedReflectorTypeButtonTag)
+        {
+            case "ReflectorButton_Basic":
+                ReflectorStock_White_Text.text = ReflectorStock_Basic_White.ToString();
+                ReflectorStock_Red_Text.text = ReflectorStock_Basic_Red.ToString();
+                ReflectorStock_Blue_Text.text = ReflectorStock_Basic_Blue.ToString();
+                ReflectorStock_Yellow_Text.text = ReflectorStock_Basic_Yellow.ToString();
+                break;
+
+            case "ReflectorButton_Translucent":
+                ReflectorStock_White_Text.text = ReflectorStock_Translucent_White.ToString();
+                ReflectorStock_Red_Text.text = ReflectorStock_Translucent_Red.ToString();
+                ReflectorStock_Blue_Text.text = ReflectorStock_Translucent_Blue.ToString();
+                ReflectorStock_Yellow_Text.text = ReflectorStock_Translucent_Yellow.ToString();
+                break;
+
+            case "ReflectorButton_DoubleWay":
+                ReflectorStock_White_Text.text = ReflectorStock_DoubleWay_White.ToString();
+                ReflectorStock_Red_Text.text = ReflectorStock_DoubleWay_Red.ToString();
+                ReflectorStock_Blue_Text.text = ReflectorStock_DoubleWay_Blue.ToString();
+                ReflectorStock_Yellow_Text.text = ReflectorStock_DoubleWay_Yellow.ToString();
+                break;
+
+            case "ReflectorButton_Split":
+                ReflectorStock_White_Text.text = ReflectorStock_Split_White.ToString();
+                ReflectorStock_Red_Text.text = ReflectorStock_Split_Red.ToString();
+                ReflectorStock_Blue_Text.text = ReflectorStock_Split_Blue.ToString();
+                ReflectorStock_Yellow_Text.text = ReflectorStock_Split_Yellow.ToString();
+                break;
+
+            case "ReflectorButton_ThreeWay":
+                ReflectorStock_White_Text.text = ReflectorStock_ThreeWay_White.ToString();
+                ReflectorStock_Red_Text.text = ReflectorStock_ThreeWay_Red.ToString();
+                ReflectorStock_Blue_Text.text = ReflectorStock_ThreeWay_Blue.ToString();
+                ReflectorStock_Yellow_Text.text = ReflectorStock_ThreeWay_Yellow.ToString();
+                break;
+        }
+    }
+
+    //This function is called when a reflector color UI button is pressed, it checks if the specific reflector type and color is available by passing in 
+    //the reflector type tag and reflector color tag. If it is available, the reflector will be taken from the pool and the player can control the reflector
+    public bool checkReflectorColorsStock(string reflectorTypeTag, string reflectorColorTag)
+    {
+        switch(reflectorTypeTag)
+        {
+            case "Basic":
+                switch (reflectorColorTag)
+                {
+                    case "White":
+                        if (ReflectorStock_Basic_White > 0)
+                            return true;
+                        break;
+
+                    case "Red":
+                        if (ReflectorStock_Basic_Red > 0)
+                            return true;
+                        break;
+
+                    case "Blue":
+                        if (ReflectorStock_Basic_Blue > 0)
+                            return true;
+                        break;
+
+                    case "Yellow":
+                        if (ReflectorStock_Basic_Yellow > 0)
+                            return true;
+                        break;
+
+                    default:
+                        break;
+                }
+                break;
+
+            case "Translucent":
+                switch (reflectorColorTag)
+                {
+                    case "White":
+                        if (ReflectorStock_Translucent_White > 0)
+                            return true;
+                        break;
+
+                    case "Red":
+                        if (ReflectorStock_Translucent_Red > 0)
+                            return true;
+                        break;
+
+                    case "Blue":
+                        if (ReflectorStock_Translucent_Blue > 0)
+                            return true;
+                        break;
+
+                    case "Yellow":
+                        if (ReflectorStock_Translucent_Yellow > 0)
+                            return true;
+                        break;
+
+                    default:
+                        break;
+                }
+                break;
+
+            case "DoubleWay":
+                switch (reflectorColorTag)
+                {
+                    case "White":
+                        if (ReflectorStock_DoubleWay_White > 0)
+                            return true;
+                        break;
+
+                    case "Red":
+                        if (ReflectorStock_DoubleWay_Red > 0)
+                            return true;
+                        break;
+
+                    case "Blue":
+                        if (ReflectorStock_DoubleWay_Blue > 0)
+                            return true;
+                        break;
+
+                    case "Yellow":
+                        if (ReflectorStock_DoubleWay_Yellow > 0)
+                            return true;
+                        break;
+
+                    default:
+                        break;
+                }
+                break;
+
+            case "Split":
+                switch (reflectorColorTag)
+                {
+                    case "White":
+                        if (ReflectorStock_Split_White > 0)
+                            return true;
+                        break;
+
+                    case "Red":
+                        if (ReflectorStock_Split_Red > 0)
+                            return true;
+                        break;
+
+                    case "Blue":
+                        if (ReflectorStock_Split_Blue > 0)
+                            return true;
+                        break;
+
+                    case "Yellow":
+                        if (ReflectorStock_Split_Yellow > 0)
+                            return true;
+                        break;
+
+                    default:
+                        break;
+                }
+                break;
+
+            case "ThreeWay":
+                switch (reflectorColorTag)
+                {
+                    case "White":
+                        if (ReflectorStock_ThreeWay_White > 0)
+                            return true;
+                        break;
+
+                    case "Red":
+                        if (ReflectorStock_ThreeWay_Red > 0)
+                            return true;
+                        break;
+
+                    case "Blue":
+                        if (ReflectorStock_ThreeWay_Blue > 0)
+                            return true;
+                        break;
+
+                    case "Yellow":
+                        if (ReflectorStock_ThreeWay_Yellow > 0)
+                            return true;
+                        break;
+
+                    default:
+                        break;
+                }
+                break;
+        }
+
+        return false;
+    }
+
     public void Initialization(MapDataHolder mapDataHolder)
     {
         #region Initialize Grids
@@ -945,6 +1340,187 @@ public class GameManager : MonoBehaviour
 
         set
         { currentWindowTime = value; }
+    }
+
+
+    public int ReflectorStockBasicWhite_Accessor
+    {
+        get
+        { return ReflectorStock_Basic_White; }
+
+        set
+        { ReflectorStock_Basic_White = value;}
+    }
+
+    public int ReflectorStockBasicRed_Accessor
+    {
+        get
+        { return ReflectorStock_Basic_Red; }
+
+        set
+        { ReflectorStock_Basic_Red = value; }
+    }
+
+    public int ReflectorStockBasicBlue_Accessor
+    {
+        get
+        { return ReflectorStock_Basic_Blue; }
+
+        set
+        { ReflectorStock_Basic_Blue = value; }
+    }
+
+    public int ReflectorStockBasicYellow_Accessor
+    {
+        get
+        { return ReflectorStock_Basic_Yellow; }
+
+        set
+        { ReflectorStock_Basic_Yellow = value; }
+    }
+
+    public int ReflectorStockTranslucentWhite_Accessor
+    {
+        get
+        { return ReflectorStock_Translucent_White; }
+
+        set
+        { ReflectorStock_Translucent_White = value; }
+    }
+
+    public int ReflectorStockTranslucentRed_Accessor
+    {
+        get
+        { return ReflectorStock_Translucent_Red; }
+
+        set
+        { ReflectorStock_Translucent_Red = value; }
+    }
+
+    public int ReflectorStockTranslucentBlue_Accessor
+    {
+        get
+        { return ReflectorStock_Translucent_Blue; }
+
+        set
+        { ReflectorStock_Translucent_Blue = value; }
+    }
+
+    public int ReflectorStockTranslucentYellow_Accessor
+    {
+        get
+        { return ReflectorStock_Translucent_Yellow; }
+
+        set
+        { ReflectorStock_Translucent_Yellow = value; }
+    }
+
+    public int ReflectorStockDoubleWayWhite_Accessor
+    {
+        get
+        { return ReflectorStock_DoubleWay_White; }
+
+        set
+        { ReflectorStock_DoubleWay_White = value; }
+    }
+
+    public int ReflectorStockDoubleWayRed_Accessor
+    {
+        get
+        { return ReflectorStock_DoubleWay_Red; }
+
+        set
+        { ReflectorStock_DoubleWay_Red = value; }
+    }
+
+    public int ReflectorStockDoubleWayBlue_Accessor
+    {
+        get
+        { return ReflectorStock_DoubleWay_Blue; }
+
+        set
+        { ReflectorStock_DoubleWay_Blue = value; }
+    }
+
+    public int ReflectorStockDoubleWayYellow_Accessor
+    {
+        get
+        { return ReflectorStock_DoubleWay_Yellow; }
+
+        set
+        { ReflectorStock_DoubleWay_Yellow = value; }
+    }
+
+    public int ReflectorStockSplitWhite_Accessor
+    {
+        get
+        { return ReflectorStock_Split_White; }
+
+        set
+        { ReflectorStock_Split_White = value; }
+    }
+
+    public int ReflectorStockSplitRed_Accessor
+    {
+        get
+        { return ReflectorStock_Split_Red; }
+
+        set
+        { ReflectorStock_Split_Red = value; }
+    }
+
+    public int ReflectorStockSplitBlue_Accessor
+    {
+        get
+        { return ReflectorStock_Split_Blue; }
+
+        set
+        { ReflectorStock_Split_Blue = value; }
+    }
+
+    public int ReflectorStockSplitYellow_Accessor
+    {
+        get
+        { return ReflectorStock_Split_Yellow; }
+
+        set
+        { ReflectorStock_Split_Yellow = value; }
+    }
+
+    public int ReflectorStockThreeWayWhite_Accessor
+    {
+        get
+        { return ReflectorStock_ThreeWay_White; }
+
+        set
+        { ReflectorStock_ThreeWay_White = value; }
+    }
+
+    public int ReflectorStockThreeWayRed_Accessor
+    {
+        get
+        { return ReflectorStock_ThreeWay_Red; }
+
+        set
+        { ReflectorStock_ThreeWay_Red = value; }
+    }
+
+    public int ReflectorStockThreeWayBlue_Accessor
+    {
+        get
+        { return ReflectorStock_ThreeWay_Blue; }
+
+        set
+        { ReflectorStock_ThreeWay_Blue = value; }
+    }
+
+    public int ReflectorStockThreeWayYellow_Accessor
+    {
+        get
+        { return ReflectorStock_ThreeWay_Yellow; }
+
+        set
+        { ReflectorStock_ThreeWay_Yellow = value; }
     }
 
     #endregion

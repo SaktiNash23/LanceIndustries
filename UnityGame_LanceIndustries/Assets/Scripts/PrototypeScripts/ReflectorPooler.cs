@@ -35,6 +35,9 @@ public class ReflectorPooler : MonoBehaviour
     // Start is called before the first frame update
     public void Initialization()
     {
+        
+        #region Currently used code
+        /*
         foreach (ReflectorPool reflectorList in reflectorPoolList)
         {
             Queue<GameObject> reflectorQueue = new Queue<GameObject>();
@@ -56,28 +59,7 @@ public class ReflectorPooler : MonoBehaviour
                         reflectorQueue.Enqueue(reflectorToAddToQueue);
                     }
 
-                    reflectorPoolDictionary.Add(reflectorList.reflectorPoolTag.ToString(), reflectorQueue);
-
-                    #region Old Code
-                    /*
-                    if (reflectorList.reflectorPoolTag == "ReflectorPool_Basic_White")
-                    {
-                        reflectorPoolDictionary.Add("ReflectorPool_Basic_White", reflectorQueue);
-                    }
-                    if (reflectorList.reflectorPoolTag == "ReflectorPool_Basic_Red")
-                    {
-                        reflectorPoolDictionary.Add("ReflectorPool_Basic_Red", reflectorQueue);
-                    }
-                    if (reflectorList.reflectorPoolTag == "ReflectorPool_Basic_Blue")
-                    {
-                        reflectorPoolDictionary.Add("ReflectorPool_Basic_Blue", reflectorQueue);
-                    }
-                    if(reflectorList.reflectorPoolTag == "ReflectorPool_Basic_Yellow")
-                    {
-                        reflectorPoolDictionary.Add("ReflectorPool_Basic_Yellow", reflectorQueue);
-                    }
-                    */
-                    #endregion
+                    reflectorPoolDictionary.Add(reflectorList.reflectorPoolTag.ToString(), reflectorQueue);                   
                     break;
 
                 #endregion
@@ -163,5 +145,278 @@ public class ReflectorPooler : MonoBehaviour
                 #endregion
             }
         }
+        */
+        #endregion
+
+        #region TEST CODE
+
+        foreach (ReflectorPool reflectorList in reflectorPoolList)
+        {
+            Queue<GameObject> reflectorQueue = new Queue<GameObject>();
+
+            switch (reflectorList.reflectorPoolTag)
+            {
+                #region Basic Reflector Pooling
+
+                case "ReflectorPool_Basic_White":
+                    for (int i = 0; i < GameManager.gameManagerInstance.ReflectorStockBasicWhite_Accessor; ++i)
+                    {
+                        GameObject reflectorToAddToQueue = Instantiate(reflectorList.reflectorPrefab, Vector2.zero, Quaternion.identity);
+                        reflectorToAddToQueue.transform.position = GameObject.FindGameObjectWithTag("InactivePooledReflectors").transform.position;
+                        reflectorToAddToQueue.SetActive(false);
+                        reflectorQueue.Enqueue(reflectorToAddToQueue);
+                    }
+
+                    reflectorPoolDictionary.Add(reflectorList.reflectorPoolTag.ToString(), reflectorQueue);
+                    break;
+
+                case "ReflectorPool_Basic_Red":
+                    for (int i = 0; i < GameManager.gameManagerInstance.ReflectorStockBasicRed_Accessor; ++i)
+                    {
+                        GameObject reflectorToAddToQueue = Instantiate(reflectorList.reflectorPrefab, Vector2.zero, Quaternion.identity);
+                        reflectorToAddToQueue.transform.position = GameObject.FindGameObjectWithTag("InactivePooledReflectors").transform.position;
+                        reflectorToAddToQueue.SetActive(false);
+                        reflectorQueue.Enqueue(reflectorToAddToQueue);
+                    }
+
+                    reflectorPoolDictionary.Add(reflectorList.reflectorPoolTag.ToString(), reflectorQueue);
+                    break;
+
+                case "ReflectorPool_Basic_Blue":
+                    for (int i = 0; i < GameManager.gameManagerInstance.ReflectorStockBasicBlue_Accessor; ++i)
+                    {
+                        GameObject reflectorToAddToQueue = Instantiate(reflectorList.reflectorPrefab, Vector2.zero, Quaternion.identity);
+                        reflectorToAddToQueue.transform.position = GameObject.FindGameObjectWithTag("InactivePooledReflectors").transform.position;
+                        reflectorToAddToQueue.SetActive(false);
+                        reflectorQueue.Enqueue(reflectorToAddToQueue);
+                    }
+
+                    reflectorPoolDictionary.Add(reflectorList.reflectorPoolTag.ToString(), reflectorQueue);
+                    break;
+
+                case "ReflectorPool_Basic_Yellow":
+                    for (int i = 0; i < GameManager.gameManagerInstance.ReflectorStockBasicYellow_Accessor; ++i)
+                    {
+                        GameObject reflectorToAddToQueue = Instantiate(reflectorList.reflectorPrefab, Vector2.zero, Quaternion.identity);
+                        reflectorToAddToQueue.transform.position = GameObject.FindGameObjectWithTag("InactivePooledReflectors").transform.position;
+                        reflectorToAddToQueue.SetActive(false);
+                        reflectorQueue.Enqueue(reflectorToAddToQueue);
+                    }
+
+                    reflectorPoolDictionary.Add(reflectorList.reflectorPoolTag.ToString(), reflectorQueue);
+                    break;
+
+
+                #endregion
+
+                #region Translucent Reflector Pooling
+
+                case "ReflectorPool_Translucent_White":
+                    for (int i = 0; i < GameManager.gameManagerInstance.ReflectorStockTranslucentWhite_Accessor; ++i)
+                    {
+                        GameObject reflectorToAddToQueue = Instantiate(reflectorList.reflectorPrefab, Vector2.zero, Quaternion.identity);
+                        reflectorToAddToQueue.transform.position = GameObject.FindGameObjectWithTag("InactivePooledReflectors").transform.position;
+                        reflectorToAddToQueue.SetActive(false);
+                        reflectorQueue.Enqueue(reflectorToAddToQueue);
+                    }
+
+                    reflectorPoolDictionary.Add(reflectorList.reflectorPoolTag.ToString(), reflectorQueue);
+                    break;
+                case "ReflectorPool_Translucent_Red":
+                    for (int i = 0; i < GameManager.gameManagerInstance.ReflectorStockTranslucentRed_Accessor; ++i)
+                    {
+                        GameObject reflectorToAddToQueue = Instantiate(reflectorList.reflectorPrefab, Vector2.zero, Quaternion.identity);
+                        reflectorToAddToQueue.transform.position = GameObject.FindGameObjectWithTag("InactivePooledReflectors").transform.position;
+                        reflectorToAddToQueue.SetActive(false);
+                        reflectorQueue.Enqueue(reflectorToAddToQueue);
+                    }
+
+                    reflectorPoolDictionary.Add(reflectorList.reflectorPoolTag.ToString(), reflectorQueue);
+                    break;
+                case "ReflectorPool_Translucent_Blue":
+                    for (int i = 0; i < GameManager.gameManagerInstance.ReflectorStockTranslucentBlue_Accessor; ++i)
+                    {
+                        GameObject reflectorToAddToQueue = Instantiate(reflectorList.reflectorPrefab, Vector2.zero, Quaternion.identity);
+                        reflectorToAddToQueue.transform.position = GameObject.FindGameObjectWithTag("InactivePooledReflectors").transform.position;
+                        reflectorToAddToQueue.SetActive(false);
+                        reflectorQueue.Enqueue(reflectorToAddToQueue);
+                    }
+
+                    reflectorPoolDictionary.Add(reflectorList.reflectorPoolTag.ToString(), reflectorQueue);
+                    break;
+                case "ReflectorPool_Translucent_Yellow":
+                    for (int i = 0; i < GameManager.gameManagerInstance.ReflectorStockTranslucentYellow_Accessor; ++i)
+                    {
+                        GameObject reflectorToAddToQueue = Instantiate(reflectorList.reflectorPrefab, Vector2.zero, Quaternion.identity);
+                        reflectorToAddToQueue.transform.position = GameObject.FindGameObjectWithTag("InactivePooledReflectors").transform.position;
+                        reflectorToAddToQueue.SetActive(false);
+                        reflectorQueue.Enqueue(reflectorToAddToQueue);
+                    }
+
+                    reflectorPoolDictionary.Add(reflectorList.reflectorPoolTag.ToString(), reflectorQueue);
+                    break;
+
+
+
+                #endregion
+
+                #region Double Way Reflector Pooling
+
+                case "ReflectorPool_DoubleWay_White":
+                    for (int i = 0; i < GameManager.gameManagerInstance.ReflectorStockDoubleWayWhite_Accessor; ++i)
+                    {
+                        GameObject reflectorToAddToQueue = Instantiate(reflectorList.reflectorPrefab, Vector2.zero, Quaternion.identity);
+                        reflectorToAddToQueue.transform.position = GameObject.FindGameObjectWithTag("InactivePooledReflectors").transform.position;
+                        reflectorToAddToQueue.SetActive(false);
+                        reflectorQueue.Enqueue(reflectorToAddToQueue);
+                    }
+
+                    reflectorPoolDictionary.Add(reflectorList.reflectorPoolTag.ToString(), reflectorQueue);
+                    break;
+
+                case "ReflectorPool_DoubleWay_Red":
+                    for (int i = 0; i < GameManager.gameManagerInstance.ReflectorStockDoubleWayRed_Accessor; ++i)
+                    {
+                        GameObject reflectorToAddToQueue = Instantiate(reflectorList.reflectorPrefab, Vector2.zero, Quaternion.identity);
+                        reflectorToAddToQueue.transform.position = GameObject.FindGameObjectWithTag("InactivePooledReflectors").transform.position;
+                        reflectorToAddToQueue.SetActive(false);
+                        reflectorQueue.Enqueue(reflectorToAddToQueue);
+                    }
+
+                    reflectorPoolDictionary.Add(reflectorList.reflectorPoolTag.ToString(), reflectorQueue);
+                    break;
+
+                case "ReflectorPool_DoubleWay_Blue":
+                    for (int i = 0; i < GameManager.gameManagerInstance.ReflectorStockDoubleWayBlue_Accessor; ++i)
+                    {
+                        GameObject reflectorToAddToQueue = Instantiate(reflectorList.reflectorPrefab, Vector2.zero, Quaternion.identity);
+                        reflectorToAddToQueue.transform.position = GameObject.FindGameObjectWithTag("InactivePooledReflectors").transform.position;
+                        reflectorToAddToQueue.SetActive(false);
+                        reflectorQueue.Enqueue(reflectorToAddToQueue);
+                    }
+
+                    reflectorPoolDictionary.Add(reflectorList.reflectorPoolTag.ToString(), reflectorQueue);
+                    break;
+
+                case "ReflectorPool_DoubleWay_Yellow":
+                    for (int i = 0; i < GameManager.gameManagerInstance.ReflectorStockDoubleWayYellow_Accessor; ++i)
+                    {
+                        GameObject reflectorToAddToQueue = Instantiate(reflectorList.reflectorPrefab, Vector2.zero, Quaternion.identity);
+                        reflectorToAddToQueue.transform.position = GameObject.FindGameObjectWithTag("InactivePooledReflectors").transform.position;
+                        reflectorToAddToQueue.SetActive(false);
+                        reflectorQueue.Enqueue(reflectorToAddToQueue);
+                    }
+
+                    reflectorPoolDictionary.Add(reflectorList.reflectorPoolTag.ToString(), reflectorQueue);
+                    break;
+
+                #endregion
+
+                #region Split Reflector Pooling
+
+                case "ReflectorPool_Split_White":
+                    for (int i = 0; i < GameManager.gameManagerInstance.ReflectorStockSplitWhite_Accessor; ++i)
+                    {
+                        GameObject reflectorToAddToQueue = Instantiate(reflectorList.reflectorPrefab, Vector2.zero, Quaternion.identity);
+                        reflectorToAddToQueue.transform.position = GameObject.FindGameObjectWithTag("InactivePooledReflectors").transform.position;
+                        reflectorToAddToQueue.SetActive(false);
+                        reflectorQueue.Enqueue(reflectorToAddToQueue);
+                    }
+
+                    reflectorPoolDictionary.Add(reflectorList.reflectorPoolTag.ToString(), reflectorQueue);
+                    break;
+
+                case "ReflectorPool_Split_Red":
+                    for (int i = 0; i < GameManager.gameManagerInstance.ReflectorStockSplitRed_Accessor; ++i)
+                    {
+                        GameObject reflectorToAddToQueue = Instantiate(reflectorList.reflectorPrefab, Vector2.zero, Quaternion.identity);
+                        reflectorToAddToQueue.transform.position = GameObject.FindGameObjectWithTag("InactivePooledReflectors").transform.position;
+                        reflectorToAddToQueue.SetActive(false);
+                        reflectorQueue.Enqueue(reflectorToAddToQueue);
+                    }
+
+                    reflectorPoolDictionary.Add(reflectorList.reflectorPoolTag.ToString(), reflectorQueue);
+                    break;
+
+                case "ReflectorPool_Split_Blue":
+                    for (int i = 0; i < GameManager.gameManagerInstance.ReflectorStockSplitBlue_Accessor; ++i)
+                    {
+                        GameObject reflectorToAddToQueue = Instantiate(reflectorList.reflectorPrefab, Vector2.zero, Quaternion.identity);
+                        reflectorToAddToQueue.transform.position = GameObject.FindGameObjectWithTag("InactivePooledReflectors").transform.position;
+                        reflectorToAddToQueue.SetActive(false);
+                        reflectorQueue.Enqueue(reflectorToAddToQueue);
+                    }
+
+                    reflectorPoolDictionary.Add(reflectorList.reflectorPoolTag.ToString(), reflectorQueue);
+                    break;
+
+                case "ReflectorPool_Split_Yellow":
+                    for (int i = 0; i < GameManager.gameManagerInstance.ReflectorStockSplitYellow_Accessor; ++i)
+                    {
+                        GameObject reflectorToAddToQueue = Instantiate(reflectorList.reflectorPrefab, Vector2.zero, Quaternion.identity);
+                        reflectorToAddToQueue.transform.position = GameObject.FindGameObjectWithTag("InactivePooledReflectors").transform.position;
+                        reflectorToAddToQueue.SetActive(false);
+                        reflectorQueue.Enqueue(reflectorToAddToQueue);
+                    }
+
+                    reflectorPoolDictionary.Add(reflectorList.reflectorPoolTag.ToString(), reflectorQueue);
+                    break;
+
+                #endregion
+
+                #region Three Way Reflector Pooling
+
+                case "ReflectorPool_ThreeWay_White":
+                    for (int i = 0; i < GameManager.gameManagerInstance.ReflectorStockThreeWayWhite_Accessor; ++i)
+                    {
+                        GameObject reflectorToAddToQueue = Instantiate(reflectorList.reflectorPrefab, Vector2.zero, Quaternion.identity);
+                        reflectorToAddToQueue.transform.position = GameObject.FindGameObjectWithTag("InactivePooledReflectors").transform.position;
+                        reflectorToAddToQueue.SetActive(false);
+                        reflectorQueue.Enqueue(reflectorToAddToQueue);
+                    }
+
+                    reflectorPoolDictionary.Add(reflectorList.reflectorPoolTag.ToString(), reflectorQueue);
+                    break;
+
+                case "ReflectorPool_ThreeWay_Red":
+                    for (int i = 0; i < GameManager.gameManagerInstance.ReflectorStockThreeWayRed_Accessor; ++i)
+                    {
+                        GameObject reflectorToAddToQueue = Instantiate(reflectorList.reflectorPrefab, Vector2.zero, Quaternion.identity);
+                        reflectorToAddToQueue.transform.position = GameObject.FindGameObjectWithTag("InactivePooledReflectors").transform.position;
+                        reflectorToAddToQueue.SetActive(false);
+                        reflectorQueue.Enqueue(reflectorToAddToQueue);
+                    }
+
+                    reflectorPoolDictionary.Add(reflectorList.reflectorPoolTag.ToString(), reflectorQueue);
+                    break;
+                case "ReflectorPool_ThreeWay_Blue":
+                    for (int i = 0; i < GameManager.gameManagerInstance.ReflectorStockThreeWayBlue_Accessor; ++i)
+                    {
+                        GameObject reflectorToAddToQueue = Instantiate(reflectorList.reflectorPrefab, Vector2.zero, Quaternion.identity);
+                        reflectorToAddToQueue.transform.position = GameObject.FindGameObjectWithTag("InactivePooledReflectors").transform.position;
+                        reflectorToAddToQueue.SetActive(false);
+                        reflectorQueue.Enqueue(reflectorToAddToQueue);
+                    }
+
+                    reflectorPoolDictionary.Add(reflectorList.reflectorPoolTag.ToString(), reflectorQueue);
+                    break;
+
+                case "ReflectorPool_ThreeWay_Yellow":
+                    for (int i = 0; i < GameManager.gameManagerInstance.ReflectorStockThreeWayYellow_Accessor; ++i)
+                    {
+                        GameObject reflectorToAddToQueue = Instantiate(reflectorList.reflectorPrefab, Vector2.zero, Quaternion.identity);
+                        reflectorToAddToQueue.transform.position = GameObject.FindGameObjectWithTag("InactivePooledReflectors").transform.position;
+                        reflectorToAddToQueue.SetActive(false);
+                        reflectorQueue.Enqueue(reflectorToAddToQueue);
+                    }
+
+                    reflectorPoolDictionary.Add(reflectorList.reflectorPoolTag.ToString(), reflectorQueue);
+                    break;
+
+                    #endregion
+            }
+        }
+
+        #endregion
     }
 }

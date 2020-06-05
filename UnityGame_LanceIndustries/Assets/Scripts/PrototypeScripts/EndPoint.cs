@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class EndPoint : MonoBehaviour
 {
-    public Material redMaterial;
-    public Material blueMaterial;
-    public Material yellowMaterial;
-    public Material whiteMaterial;
-
     public enum targetLaserColor
     {
         RED,
@@ -64,19 +59,19 @@ public class EndPoint : MonoBehaviour
         switch (targetLaser)
         {
             case targetLaserColor.RED:
-                gameObject.GetComponent<SpriteRenderer>().color = redMaterial.color;
+                gameObject.GetComponent<SpriteRenderer>().color = Color.red;
                 break;
 
             case targetLaserColor.BLUE:
-                gameObject.GetComponent<SpriteRenderer>().color = blueMaterial.color;
+                gameObject.GetComponent<SpriteRenderer>().color = Color.blue;
                 break;
 
             case targetLaserColor.YELLOW:
-                gameObject.GetComponent<SpriteRenderer>().color = yellowMaterial.color;
+                gameObject.GetComponent<SpriteRenderer>().color = Color.yellow;
                 break;
 
             case targetLaserColor.WHITE:
-                gameObject.GetComponent<SpriteRenderer>().color = whiteMaterial.color;
+                gameObject.GetComponent<SpriteRenderer>().color = Color.white;
                 break;
         }
     }
