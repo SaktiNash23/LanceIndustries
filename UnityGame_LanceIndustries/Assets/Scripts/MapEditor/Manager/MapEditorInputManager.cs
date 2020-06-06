@@ -22,10 +22,11 @@ public enum MAP_EDITING_PANEL
     NONE = 0,
     HORIZONTAL_LINE = 1,
     VERTICAL_LINE = 2,
-    DESTINATION_POINT = 3,
-    PORTAL = 4,
-    PORTAL_1ST_SET = 5,
-    PORTAL_2ND_SET = 6
+    ORIGIN_POINT = 3,
+    DESTINATION_POINT = 4,
+    PORTAL = 5,
+    PORTAL_1ST_SET = 6,
+    PORTAL_2ND_SET = 7
 }
 
 public class MapEditorInputManager : MonoBehaviour
@@ -50,6 +51,7 @@ public class MapEditorInputManager : MonoBehaviour
 
     public bool MapEditing { get; set; } = false;
     public bool OptionMenuVisibility { get; set; } = false;
+    public bool LevelSettingsVisibility { get; set; } = false;
 
     private void Awake()
     {
@@ -72,8 +74,8 @@ public class MapEditorInputManager : MonoBehaviour
 
     private void Update()
     {
-        // If map finish initializing, option menu is off and the user not editing the value in the input fields
-        if (MapEditing && !OptionMenuVisibility && !MapEditorManager.Instance.EditingIF)
+        // If map finish initializing, option menu is off, level menu is off and the user not editing the value in the input fields
+        if (MapEditing && !OptionMenuVisibility && !LevelSettingsVisibility && !MapEditorManager.Instance.EditingIF)
         {
             if (Input.GetMouseButtonDown(0))
             {
@@ -153,7 +155,7 @@ public class MapEditorInputManager : MonoBehaviour
                     {
                         if (selectingObject)
                             SwitchInputMode(INPUT_MODE.NONE);
-                        SelectObject(MapEditorManager.Instance.CreateInSceneObj(IN_SCENE_OBJECT_TYPES.ORIGIN_POINT));
+                        SwitchSelectedPanel(MAP_EDITING_PANEL.ORIGIN_POINT);
                     }
                     else if (Input.GetKeyDown(KeyCode.Alpha4))
                     {
@@ -239,6 +241,36 @@ public class MapEditorInputManager : MonoBehaviour
                         if (selectingObject)
                             SwitchInputMode(INPUT_MODE.NONE);
                         SelectObject(MapEditorManager.Instance.CreateInSceneObj(IN_SCENE_OBJECT_TYPES.BLUE_VERTICAL_LINE));
+                        SwitchSelectedPanel(0);
+                    }
+                    break;
+                case MAP_EDITING_PANEL.ORIGIN_POINT:
+                    if (Input.GetKeyDown(KeyCode.Alpha1))
+                    {
+                        if (selectingObject)
+                            SwitchInputMode(INPUT_MODE.NONE);
+                        SelectObject(MapEditorManager.Instance.CreateInSceneObj(IN_SCENE_OBJECT_TYPES.ORIGIN_POINT_WHITE));
+                        SwitchSelectedPanel(0);
+                    }
+                    else if (Input.GetKeyDown(KeyCode.Alpha2))
+                    {
+                        if (selectingObject)
+                            SwitchInputMode(INPUT_MODE.NONE);
+                        SelectObject(MapEditorManager.Instance.CreateInSceneObj(IN_SCENE_OBJECT_TYPES.ORIGIN_POINT_RED));
+                        SwitchSelectedPanel(0);
+                    }
+                    else if (Input.GetKeyDown(KeyCode.Alpha3))
+                    {
+                        if (selectingObject)
+                            SwitchInputMode(INPUT_MODE.NONE);
+                        SelectObject(MapEditorManager.Instance.CreateInSceneObj(IN_SCENE_OBJECT_TYPES.ORIGIN_POINT_YELLOW));
+                        SwitchSelectedPanel(0);
+                    }
+                    else if (Input.GetKeyDown(KeyCode.Alpha4))
+                    {
+                        if (selectingObject)
+                            SwitchInputMode(INPUT_MODE.NONE);
+                        SelectObject(MapEditorManager.Instance.CreateInSceneObj(IN_SCENE_OBJECT_TYPES.ORIGIN_POINT_BLUE));
                         SwitchSelectedPanel(0);
                     }
                     break;
@@ -329,7 +361,14 @@ public class MapEditorInputManager : MonoBehaviour
                 if (selectingObject)
                     SwitchInputMode(INPUT_MODE.NONE);
                 MapEditorManager.Instance.ToggleOptionMenu();
-            }    
+            }
+            
+            if(Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                if (selectingObject)
+                    SwitchInputMode(INPUT_MODE.NONE);
+                MapEditorManager.Instance.ToggleLevelSettingsMenu();
+            }
         }
 
         if(MapEditing && CurrentInputMode == INPUT_MODE.SELECTING && CurrentGizmoMode == GIZMO_MODE.MOVE)
@@ -352,7 +391,10 @@ public class MapEditorInputManager : MonoBehaviour
                 case IN_SCENE_OBJECT_TYPES.BLUE_VERTICAL_LINE:
                     targetMask = LayerMask.GetMask("MapEditorBorderSnapper");
                     break;
-                case IN_SCENE_OBJECT_TYPES.ORIGIN_POINT:
+                case IN_SCENE_OBJECT_TYPES.ORIGIN_POINT_WHITE:
+                case IN_SCENE_OBJECT_TYPES.ORIGIN_POINT_RED:
+                case IN_SCENE_OBJECT_TYPES.ORIGIN_POINT_YELLOW:
+                case IN_SCENE_OBJECT_TYPES.ORIGIN_POINT_BLUE:
                 case IN_SCENE_OBJECT_TYPES.DESTINATION_POINT_WHITE:
                 case IN_SCENE_OBJECT_TYPES.DESTINATION_POINT_RED:
                 case IN_SCENE_OBJECT_TYPES.DESTINATION_POINT_YELLOW:
@@ -462,13 +504,9 @@ public class MapEditorInputManager : MonoBehaviour
         SwitchInputMode(INPUT_MODE.NONE);
     }
 
-    public MapEditorInSceneObject GetSelectingInSceneObject()
-    {
-        return selectingObject;
-    }
+    public MapEditorInSceneObject GetSelectingInSceneObject() => selectingObject;
 
-    public void ToggleOptionMenuVisibility()
-    {
-        OptionMenuVisibility = !OptionMenuVisibility;
-    }
+    public void ToggleOptionMenuVisibility() => OptionMenuVisibility = !OptionMenuVisibility;
+
+    public void ToggleLevelSettingsMenuVisibility() => LevelSettingsVisibility = !LevelSettingsVisibility;
 }

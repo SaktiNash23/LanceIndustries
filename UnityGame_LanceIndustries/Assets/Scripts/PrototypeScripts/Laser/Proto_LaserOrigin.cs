@@ -40,31 +40,6 @@ public class Proto_LaserOrigin : MonoBehaviour
     public Sprite WhiteIcon;
 
     // Disable/Remove Awake() once Initialization function is already implemented
-    void Awake()
-    {
-        switch (laserColor_StartingPoint)
-        {
-            case LaserColor_StartingPoint.RED:
-                tempLaserColor = Color.red;
-                transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = RedIcon;
-                break;
-
-            case LaserColor_StartingPoint.BLUE:
-                tempLaserColor = Color.blue;
-                transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = BlueIcon;
-                break;
-
-            case LaserColor_StartingPoint.YELLOW:
-                tempLaserColor = Color.yellow;
-                transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = YellowIcon;
-                break;
-
-            case LaserColor_StartingPoint.WHITE:
-                tempLaserColor = Color.white;
-                transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = WhiteIcon;
-                break;
-        }
-    }
 
     void OnMouseUp()
     {

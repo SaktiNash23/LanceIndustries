@@ -238,6 +238,10 @@ MonoBehaviour:
   mapGridIndex: 0
   mapBorderRightSnapper: {fileID: 7845044699993224664}
   mapBorderBottomSnapper: {fileID: 1937536760803808850}
+  mapPortalUpSnapper: {fileID: 1597971318025346556}
+  mapPortalBottomSnapper: {fileID: 2425422163422826298}
+  mapPortalLeftSnapper: {fileID: 4906098491849419322}
+  mapPortalRightSnapper: {fileID: 8393406387430331954}
   mapBoxSnapper: {fileID: 2854360070100228500}
 --- !u!1 &8336053709985311316
 GameObject:

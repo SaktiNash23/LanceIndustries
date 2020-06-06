@@ -82,9 +82,29 @@ public class LevelLoader : MonoBehaviour
                 case IN_SCENE_OBJECT_TYPES.BLUE_VERTICAL_LINE:
                     transformBorders.GetChild(inSceneObjData.mapGridIndex).GetComponent<MapGridGameplay>().ToggleColoredBorder(BorderColor.BLUE, inSceneObjData.borderDir, true);
                     break;
-                case IN_SCENE_OBJECT_TYPES.ORIGIN_POINT:
-                    Proto_LaserOrigin originPoint = Instantiate(originPointPrefab, transformBorders.GetChild(inSceneObjData.mapGridIndex).transform.position, inSceneObjData.rotation, transformBorders.GetChild(inSceneObjData.mapGridIndex).transform);
+                case IN_SCENE_OBJECT_TYPES.ORIGIN_POINT_WHITE:
+                    Proto_LaserOrigin originPointWhite = Instantiate(originPointPrefab, transformBorders.GetChild(inSceneObjData.mapGridIndex).transform.position, inSceneObjData.rotation, transformBorders.GetChild(inSceneObjData.mapGridIndex).transform);
                     transformGrids.GetChild(inSceneObjData.mapGridIndex).gameObject.SetActive(false);
+                    originPointWhite.laserColor_StartingPoint = Proto_LaserOrigin.LaserColor_StartingPoint.WHITE;
+                    originPointWhite.Initialization();
+                    break;
+                case IN_SCENE_OBJECT_TYPES.ORIGIN_POINT_RED:
+                    Proto_LaserOrigin originPointRed = Instantiate(originPointPrefab, transformBorders.GetChild(inSceneObjData.mapGridIndex).transform.position, inSceneObjData.rotation, transformBorders.GetChild(inSceneObjData.mapGridIndex).transform);
+                    transformGrids.GetChild(inSceneObjData.mapGridIndex).gameObject.SetActive(false);
+                    originPointRed.laserColor_StartingPoint = Proto_LaserOrigin.LaserColor_StartingPoint.RED;
+                    originPointRed.Initialization();
+                    break;
+                case IN_SCENE_OBJECT_TYPES.ORIGIN_POINT_YELLOW:
+                    Proto_LaserOrigin originPointYellow = Instantiate(originPointPrefab, transformBorders.GetChild(inSceneObjData.mapGridIndex).transform.position, inSceneObjData.rotation, transformBorders.GetChild(inSceneObjData.mapGridIndex).transform);
+                    transformGrids.GetChild(inSceneObjData.mapGridIndex).gameObject.SetActive(false);
+                    originPointYellow.laserColor_StartingPoint = Proto_LaserOrigin.LaserColor_StartingPoint.YELLOW;
+                    originPointYellow.Initialization();
+                    break;
+                case IN_SCENE_OBJECT_TYPES.ORIGIN_POINT_BLUE:
+                    Proto_LaserOrigin originPointBlue = Instantiate(originPointPrefab, transformBorders.GetChild(inSceneObjData.mapGridIndex).transform.position, inSceneObjData.rotation, transformBorders.GetChild(inSceneObjData.mapGridIndex).transform);
+                    transformGrids.GetChild(inSceneObjData.mapGridIndex).gameObject.SetActive(false);
+                    originPointBlue.laserColor_StartingPoint = Proto_LaserOrigin.LaserColor_StartingPoint.BLUE;
+                    originPointBlue.Initialization();
                     break;
                 case IN_SCENE_OBJECT_TYPES.DESTINATION_POINT_WHITE:
                     EndPoint endPointWhite = Instantiate(endPointPrefab, transformBorders.GetChild(inSceneObjData.mapGridIndex).transform.position, inSceneObjData.rotation, transformBorders.GetChild(inSceneObjData.mapGridIndex).transform);
@@ -153,9 +173,29 @@ public class LevelLoader : MonoBehaviour
                 case IN_SCENE_OBJECT_TYPES.BLUE_VERTICAL_LINE:
                     transformBorders.GetChild(inSceneObjData.mapGridIndex).GetComponent<MapGridGameplay>().ToggleColoredBorder(BorderColor.BLUE, inSceneObjData.borderDir, true);
                     break;
-                case IN_SCENE_OBJECT_TYPES.ORIGIN_POINT:
-                    Proto_LaserOrigin originPoint = Instantiate(originPointPrefab, transformBorders.GetChild(inSceneObjData.mapGridIndex).transform.position, inSceneObjData.rotation, transformBorders.GetChild(inSceneObjData.mapGridIndex).transform);
+                case IN_SCENE_OBJECT_TYPES.ORIGIN_POINT_WHITE:
+                    Proto_LaserOrigin originPointWhite = Instantiate(originPointPrefab, transformBorders.GetChild(inSceneObjData.mapGridIndex).transform.position, inSceneObjData.rotation, transformBorders.GetChild(inSceneObjData.mapGridIndex).transform);
                     transformGrids.GetChild(inSceneObjData.mapGridIndex).gameObject.SetActive(false);
+                    originPointWhite.laserColor_StartingPoint = Proto_LaserOrigin.LaserColor_StartingPoint.WHITE;
+                    originPointWhite.Initialization();
+                    break;
+                case IN_SCENE_OBJECT_TYPES.ORIGIN_POINT_RED:
+                    Proto_LaserOrigin originPointRed = Instantiate(originPointPrefab, transformBorders.GetChild(inSceneObjData.mapGridIndex).transform.position, inSceneObjData.rotation, transformBorders.GetChild(inSceneObjData.mapGridIndex).transform);
+                    transformGrids.GetChild(inSceneObjData.mapGridIndex).gameObject.SetActive(false);
+                    originPointRed.laserColor_StartingPoint = Proto_LaserOrigin.LaserColor_StartingPoint.RED;
+                    originPointRed.Initialization();
+                    break;
+                case IN_SCENE_OBJECT_TYPES.ORIGIN_POINT_YELLOW:
+                    Proto_LaserOrigin originPointYellow = Instantiate(originPointPrefab, transformBorders.GetChild(inSceneObjData.mapGridIndex).transform.position, inSceneObjData.rotation, transformBorders.GetChild(inSceneObjData.mapGridIndex).transform);
+                    transformGrids.GetChild(inSceneObjData.mapGridIndex).gameObject.SetActive(false);
+                    originPointYellow.laserColor_StartingPoint = Proto_LaserOrigin.LaserColor_StartingPoint.YELLOW;
+                    originPointYellow.Initialization();
+                    break;
+                case IN_SCENE_OBJECT_TYPES.ORIGIN_POINT_BLUE:
+                    Proto_LaserOrigin originPointBlue = Instantiate(originPointPrefab, transformBorders.GetChild(inSceneObjData.mapGridIndex).transform.position, inSceneObjData.rotation, transformBorders.GetChild(inSceneObjData.mapGridIndex).transform);
+                    transformGrids.GetChild(inSceneObjData.mapGridIndex).gameObject.SetActive(false);
+                    originPointBlue.laserColor_StartingPoint = Proto_LaserOrigin.LaserColor_StartingPoint.BLUE;
+                    originPointBlue.Initialization();
                     break;
                 case IN_SCENE_OBJECT_TYPES.DESTINATION_POINT_WHITE:
                     EndPoint endPointWhite = Instantiate(endPointPrefab, transformBorders.GetChild(inSceneObjData.mapGridIndex).transform.position, inSceneObjData.rotation, transformBorders.GetChild(inSceneObjData.mapGridIndex).transform);

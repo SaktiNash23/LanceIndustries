@@ -53,7 +53,8 @@ public class MapLayoutBoxSnapper : MonoBehaviour
         {
             if(overlappedCols[0].TryGetComponent(out MapEditorInSceneObject inSceneObj))
             {
-                if (inSceneObj.inSceneObjectType == IN_SCENE_OBJECT_TYPES.ORIGIN_POINT || inSceneObj.inSceneObjectType == IN_SCENE_OBJECT_TYPES.DESTINATION_POINT_WHITE ||
+                if (inSceneObj.inSceneObjectType == IN_SCENE_OBJECT_TYPES.ORIGIN_POINT_WHITE || inSceneObj.inSceneObjectType == IN_SCENE_OBJECT_TYPES.ORIGIN_POINT_RED ||
+                    inSceneObj.inSceneObjectType == IN_SCENE_OBJECT_TYPES.ORIGIN_POINT_YELLOW || inSceneObj.inSceneObjectType == IN_SCENE_OBJECT_TYPES.ORIGIN_POINT_BLUE || inSceneObj.inSceneObjectType == IN_SCENE_OBJECT_TYPES.DESTINATION_POINT_WHITE ||
                     inSceneObj.inSceneObjectType == IN_SCENE_OBJECT_TYPES.DESTINATION_POINT_RED || inSceneObj.inSceneObjectType == IN_SCENE_OBJECT_TYPES.DESTINATION_POINT_YELLOW ||
                     inSceneObj.inSceneObjectType == IN_SCENE_OBJECT_TYPES.DESTINATION_POINT_BLUE)
                 {
@@ -74,7 +75,8 @@ public class MapLayoutBoxSnapper : MonoBehaviour
     {
         if (!GotSnappedObject)
         {
-            if (inSceneObj.inSceneObjectType == IN_SCENE_OBJECT_TYPES.ORIGIN_POINT || inSceneObj.inSceneObjectType == IN_SCENE_OBJECT_TYPES.DESTINATION_POINT_WHITE ||
+            if (inSceneObj.inSceneObjectType == IN_SCENE_OBJECT_TYPES.ORIGIN_POINT_WHITE || inSceneObj.inSceneObjectType == IN_SCENE_OBJECT_TYPES.ORIGIN_POINT_RED ||
+                inSceneObj.inSceneObjectType == IN_SCENE_OBJECT_TYPES.ORIGIN_POINT_YELLOW || inSceneObj.inSceneObjectType == IN_SCENE_OBJECT_TYPES.ORIGIN_POINT_BLUE || inSceneObj.inSceneObjectType == IN_SCENE_OBJECT_TYPES.DESTINATION_POINT_WHITE ||
                 inSceneObj.inSceneObjectType == IN_SCENE_OBJECT_TYPES.DESTINATION_POINT_RED || inSceneObj.inSceneObjectType == IN_SCENE_OBJECT_TYPES.DESTINATION_POINT_YELLOW ||
                 inSceneObj.inSceneObjectType == IN_SCENE_OBJECT_TYPES.DESTINATION_POINT_BLUE)
             {

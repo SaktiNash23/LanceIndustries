@@ -1261,21 +1261,26 @@ public class GameManager : MonoBehaviour
 
         #region Initialize Reflector Amount
 
-        ReflectorStock_Basic = mapDataHolder.basicReflectorAmount;
-        ReflectorStock_Translucent = mapDataHolder.translucentReflectorAmount;
-        ReflectorStock_DoubleWay = mapDataHolder.doubleWayReflectorAmount;
-        ReflectorStock_Split = mapDataHolder.splitReflectorAmount;
-        ReflectorStock_ThreeWay = mapDataHolder.threeWayReflectorAmount;
-
-        #endregion
-
-        #region Initialize Reflector Stock Text UI
-
-        ReflectorStock_Basic_Text.text = ReflectorStock_Basic.ToString();
-        ReflectorStock_Translucent_Text.text = ReflectorStock_Translucent.ToString();
-        ReflectorStock_DoubleWay_Text.text = ReflectorStock_DoubleWay.ToString();
-        ReflectorStock_Split_Text.text = ReflectorStock_Split.ToString();
-        ReflectorStock_ThreeWay_Text.text = ReflectorStock_ThreeWay.ToString();
+        ReflectorStock_Basic_White = mapDataHolder.basicReflectorAmount;
+        ReflectorStock_Basic_Red = mapDataHolder.redBasicReflectorAmount;
+        ReflectorStock_Basic_Yellow = mapDataHolder.yellowBasicReflectorAmount;
+        ReflectorStock_Basic_Blue = mapDataHolder.blueBasicReflectorAmount;
+        ReflectorStock_Translucent_White = mapDataHolder.translucentReflectorAmount;
+        ReflectorStock_Translucent_Red = mapDataHolder.redTranslucentReflectorAmount;
+        ReflectorStock_Translucent_Yellow = mapDataHolder.yellowTranslucentReflectorAmount;
+        ReflectorStock_Translucent_Blue = mapDataHolder.blueTranslucentReflectorAmount;
+        ReflectorStock_DoubleWay_White = mapDataHolder.doubleWayReflectorAmount;
+        ReflectorStock_DoubleWay_Red = mapDataHolder.redDoubleWayReflectorAmount;
+        ReflectorStock_DoubleWay_Yellow = mapDataHolder.yellowDoubleWayReflectorAmount;
+        ReflectorStock_DoubleWay_Blue = mapDataHolder.blueDoubleWayReflectorAmount;
+        ReflectorStock_Split_White = mapDataHolder.splitReflectorAmount;
+        ReflectorStock_Split_Red = mapDataHolder.redSplitReflectorAmount;
+        ReflectorStock_Split_Yellow = mapDataHolder.yellowSplitReflectorAmount;
+        ReflectorStock_Split_Blue = mapDataHolder.blueSplitReflectorAmount;
+        ReflectorStock_ThreeWay_White = mapDataHolder.threeWayReflectorAmount;
+        ReflectorStock_ThreeWay_Red = mapDataHolder.redThreeWayReflectorAmount;
+        ReflectorStock_ThreeWay_Yellow = mapDataHolder.yellowThreeWayReflectorAmount;
+        ReflectorStock_ThreeWay_Blue = mapDataHolder.blueThreeWayReflectorAmount;
 
         #endregion
 

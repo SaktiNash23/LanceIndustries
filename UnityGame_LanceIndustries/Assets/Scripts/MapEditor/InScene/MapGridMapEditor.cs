@@ -8,6 +8,10 @@ public class MapGridMapEditor : MonoBehaviour
     [BoxGroup("MAP GRID SETTINGS")] [SerializeField] int mapGridIndex;
     [BoxGroup("MAP GRID SETTINGS")] [SerializeField] MapLayoutBorder mapBorderRightSnapper;
     [BoxGroup("MAP GRID SETTINGS")] [SerializeField] MapLayoutBorder mapBorderBottomSnapper;
+    [BoxGroup("MAP GRID SETTINGS")] [SerializeField] MapLayoutPortalSnapper mapPortalUpSnapper;
+    [BoxGroup("MAP GRID SETTINGS")] [SerializeField] MapLayoutPortalSnapper mapPortalBottomSnapper;
+    [BoxGroup("MAP GRID SETTINGS")] [SerializeField] MapLayoutPortalSnapper mapPortalLeftSnapper;
+    [BoxGroup("MAP GRID SETTINGS")] [SerializeField] MapLayoutPortalSnapper mapPortalRightSnapper;
     [BoxGroup("MAP GRID SETTINGS")] [SerializeField] MapLayoutBoxSnapper mapBoxSnapper;
 
     public int MapGridIndex
@@ -18,9 +22,9 @@ public class MapGridMapEditor : MonoBehaviour
         }
     }
 
-    public Vector3 GetBorderSnappingPosition(SNAPPING_DIR borderDir)
+    public Vector3 GetBorderSnappingPosition(SNAPPING_DIR snappingDir)
     {
-        switch (borderDir)
+        switch (snappingDir)
         {
             case SNAPPING_DIR.RIGHT:
                 if (!mapBorderRightSnapper)
@@ -41,6 +45,44 @@ public class MapGridMapEditor : MonoBehaviour
                 return Vector3.zero;
         }
 
+    }
+
+    public Vector3 GetPortalSnappingPosition(SNAPPING_DIR snappingDir)
+    {
+        switch (snappingDir)
+        {
+            case SNAPPING_DIR.UP:
+                if(!mapPortalUpSnapper)
+                {
+                    Debug.LogWarning("UP PORTAL SNAPPER IS NOT BEING ASSIGNED.", this);
+                    return Vector3.zero;
+                }
+                return mapPortalUpSnapper.GetSnappingPosition();
+            case SNAPPING_DIR.DOWN:
+                if (!mapPortalBottomSnapper)
+                {
+                    Debug.LogWarning("BOTTOM PORTAL SNAPPER IS NOT BEING ASSIGNED.", this);
+                    return Vector3.zero;
+                }
+                return mapPortalBottomSnapper.GetSnappingPosition();
+            case SNAPPING_DIR.LEFT:
+                if (!mapPortalLeftSnapper)
+                {
+                    Debug.LogWarning("LEFT PORTAL SNAPPER IS NOT BEING ASSIGNED.", this);
+                    return Vector3.zero;
+                }
+                return mapPortalLeftSnapper.GetSnappingPosition();
+            case SNAPPING_DIR.RIGHT:
+                if (!mapPortalRightSnapper)
+                {
+                    Debug.LogWarning("RIGHT PORTAL SNAPPER IS NOT BEING ASSIGNED.", this);
+                    return Vector3.zero;
+                }
+                return mapPortalRightSnapper.GetSnappingPosition();
+            default:
+                Debug.LogWarning("NO SUCH DIR OF SNAPPER EXISTS IN MAP GRID");
+                return Vector3.zero;
+        }
     }
 
     public Vector3 GetBoxSnappingPosition()
