@@ -159,6 +159,7 @@ public class MapEditorManager : MonoBehaviour
              
             mapButtons.Clear();
         }
+
         foreach(var mapInfo in mapInfos)
         {
             MapButton mapButton = Instantiate<MapButton>(mapButtonPrefab, rtPanelMapList.transform, false);

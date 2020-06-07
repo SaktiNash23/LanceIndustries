@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8882323c74161224ab0fb5ab9f7d504e, type: 3}
-  m_Name: 16 zh map
+  m_Name: 01 Level_17_A Map Info
   m_EditorClassIdentifier: 
-  idNo: 
-  mapName: 16 zh map
-  mapData: {fileID: 4900000, guid: 3e38f018180a3734d9593fb2483b88df, type: 3}
+  idNo: 017
+  mapName: 01 Level_17_A
+  mapData: {fileID: 4900000, guid: 0301644208809b24dab51744ca608e71, type: 3}
