@@ -361,6 +361,7 @@ public class MapEditorManager : MonoBehaviour
         FileStream file = new FileStream(mapDataSavePath, FileMode.Create);
         StreamWriter writer = new StreamWriter(file);
         writer.Write(mapDataJson);
+        writer.Flush();
         writer.Close();
         file.Close();
         AssetDatabase.Refresh();
@@ -426,6 +427,7 @@ public class MapEditorManager : MonoBehaviour
 
         StreamWriter streamWriter = new StreamWriter(LoadedMapDataPath, false);
         streamWriter.WriteLine(jsonData);
+        streamWriter.Flush();
         streamWriter.Close();
         AssetDatabase.Refresh();
 #endif
