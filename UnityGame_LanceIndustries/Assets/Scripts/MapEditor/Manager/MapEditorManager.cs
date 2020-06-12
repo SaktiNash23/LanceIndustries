@@ -424,8 +424,12 @@ public class MapEditorManager : MonoBehaviour
 
         string jsonData = JsonUtility.ToJson(mapDataHolder, true);
 
-        using (StreamWriter streamWriter = new StreamWriter(LoadedMapDataPath, false))
-            streamWriter.Write(jsonData);
+        using (FileStream file = new FileStream(LoadedMapDataPath, FileMode.Create))
+        {
+            using (StreamWriter writer = new StreamWriter(file))
+                writer.Write(jsonData);
+        }
+
         AssetDatabase.Refresh();
 #endif
     }
