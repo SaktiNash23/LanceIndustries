@@ -198,6 +198,8 @@ public class MapEditorManager : MonoBehaviour
 
         mapLayoutGameObj.SetActive(true);
 
+        Debug.Log("THIS IS BS");
+
         TextAsset mapData = AssetDatabase.LoadAssetAtPath<TextAsset>(LoadedMapDataPath);
         string jsonData = mapData.text;
         MapDataHolder mapDataHolder = JsonUtility.FromJson<MapDataHolder>(jsonData);
