@@ -176,9 +176,15 @@ public class MapEditorManager : MonoBehaviour
 
     //-------------------------- BUTTONS FUNCTIONS --------------------------//
 
+    bool loadingMap = false;
+
     public void LoadMap()
     {
-        StartCoroutine(LoadMapCoroutine(0.25f));
+        if (!loadingMap)
+        {
+            StartCoroutine(LoadMapCoroutine(0.25f));
+            loadingMap = true;
+        }
     }
 
     public IEnumerator LoadMapCoroutine(float delay)
@@ -310,6 +316,7 @@ public class MapEditorManager : MonoBehaviour
         UpdateIFLevelSettings();
 
         MapEditorInputManager.Instance.MapEditing = true;
+        loadingMap = false;
 #endif
         yield return null;
     }
