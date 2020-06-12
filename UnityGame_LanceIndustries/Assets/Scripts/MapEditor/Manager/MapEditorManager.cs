@@ -358,12 +358,11 @@ public class MapEditorManager : MonoBehaviour
         MapData newMapData = new MapData();
         string mapDataJson = JsonUtility.ToJson(newMapData, true);
         string mapDataSavePath = "Assets/Resources/Map Datas/" + ifMapName.text + ".json";
-        FileStream file = new FileStream(mapDataSavePath, FileMode.Create);
-        StreamWriter writer = new StreamWriter(file);
-        writer.Write(mapDataJson);
-        writer.Flush();
-        writer.Close();
-        file.Close();
+        using (FileStream file = new FileStream(mapDataSavePath, FileMode.Create))
+        {
+            using (StreamWriter writer = new StreamWriter(file))
+                writer.Write(mapDataJson);
+        }
         AssetDatabase.Refresh();
 
         string mapInfoSavePath = "Assets/Resources/Map Infos/" + ifMapName.text + " Map Info.asset";
@@ -425,10 +424,8 @@ public class MapEditorManager : MonoBehaviour
 
         string jsonData = JsonUtility.ToJson(mapDataHolder, true);
 
-        StreamWriter streamWriter = new StreamWriter(LoadedMapDataPath, false);
-        streamWriter.WriteLine(jsonData);
-        streamWriter.Flush();
-        streamWriter.Close();
+        using (StreamWriter streamWriter = new StreamWriter(LoadedMapDataPath, false))
+            streamWriter.Write(jsonData);
         AssetDatabase.Refresh();
 #endif
     }
