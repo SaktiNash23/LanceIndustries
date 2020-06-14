@@ -34,10 +34,10 @@ public class Proto_LaserOrigin : MonoBehaviour
     private Color tempLaserColor;
     public float colorIntensity;
 
-    public Sprite RedIcon;
-    public Sprite BlueIcon;
-    public Sprite YellowIcon;
-    public Sprite WhiteIcon;
+    public Sprite StartingPointRed;
+    public Sprite StartingPointBlue;
+    public Sprite StartingPointYellow;
+    public Sprite StartingPointWhite;
 
     // Disable/Remove Awake() once Initialization function is already implemented
 
@@ -73,7 +73,7 @@ public class Proto_LaserOrigin : MonoBehaviour
     public void shootLaser()
     {
         Vector3 projectileTargetRot = transform.rotation.eulerAngles - new Vector3(0f, 0f, 90f);
-        GameObject projectile = Instantiate(projectileSphere, transform.position, Quaternion.Euler(projectileTargetRot));
+        GameObject projectile = Instantiate(projectileSphere, transform.position + (transform.right * 0.4f), Quaternion.Euler(projectileTargetRot)); //The transform.right vector multiplied with a float is to create offset when laser is instantiated
         projectile.GetComponent<Proto_Projectile>().DirectionVector = projectile.transform.up;
         //projectile.transform.rotation = Quaternion.AngleAxis(transform.rotation.eulerAngles.z, Vector3.forward);      
 
@@ -147,22 +147,26 @@ public class Proto_LaserOrigin : MonoBehaviour
         {
             case LaserColor_StartingPoint.RED:
                 tempLaserColor = Color.red;
-                transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = RedIcon;
+                GetComponent<SpriteRenderer>().sprite = StartingPointRed;
+                //transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = StartingPointRed;
                 break;
 
             case LaserColor_StartingPoint.BLUE:
                 tempLaserColor = Color.blue;
-                transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = BlueIcon;
+                GetComponent<SpriteRenderer>().sprite = StartingPointBlue;
+                //transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = StartingPointBlue;
                 break;
 
             case LaserColor_StartingPoint.YELLOW:
                 tempLaserColor = Color.yellow;
-                transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = YellowIcon;
+                GetComponent<SpriteRenderer>().sprite = StartingPointYellow;
+                //transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = StartingPointYellow;
                 break;
 
             case LaserColor_StartingPoint.WHITE:
                 tempLaserColor = Color.white;
-                transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = WhiteIcon;
+                GetComponent<SpriteRenderer>().sprite = StartingPointWhite;
+                //transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = StartingPointWhite;
                 break;
         }
     }

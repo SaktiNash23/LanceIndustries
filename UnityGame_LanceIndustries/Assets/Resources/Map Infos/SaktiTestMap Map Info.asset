@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8882323c74161224ab0fb5ab9f7d504e, type: 3}
-  m_Name: TestLevel Map Info
+  m_Name: SaktiTestMap Map Info
   m_EditorClassIdentifier: 
-  idNo: 10
-  mapName: TestLevel
-  mapData: {fileID: 4900000, guid: d723aed6cfe0cda4881a3cd9538cff31, type: 3}
+  idNo: 
+  mapName: SaktiTestMap
+  mapData: {fileID: 4900000, guid: 02a1b7dd59fc4ed44ac8ac3043e4ef46, type: 3}

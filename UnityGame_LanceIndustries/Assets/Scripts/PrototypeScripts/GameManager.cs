@@ -40,11 +40,27 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI ReflectorStock_ThreeWay_Text;
     public TextMeshProUGUI TimerSuccessText;
 
-    public Sprite reflectorSprite_Basic;
-    public Sprite reflectorSprite_Translucent;
-    public Sprite reflectorSprite_DoubleWay;
+    public Sprite reflectorSprite_Basic_White;
+    public Sprite reflectorSprite_Basic_Red;
+    public Sprite reflectorSprite_Basic_Blue;
+    public Sprite reflectorSprite_Basic_Yellow;
+
+    public Sprite reflectorSprite_Translucent_White;
+    public Sprite reflectorSprite_Translucent_Red;
+    public Sprite reflectorSprite_Translucent_Blue;
+    public Sprite reflectorSprite_Translucent_Yellow;
+
+    public Sprite reflectorSprite_DoubleWay_White;
+    public Sprite reflectorSprite_DoubleWay_Red;
+    public Sprite reflectorSprite_DoubleWay_Blue;
+    public Sprite reflectorSprite_DoubleWay_Yellow;
+
     public Sprite reflectorSprite_Split;
-    public Sprite reflectorSprite_ThreeWay;
+
+    public Sprite reflectorSprite_ThreeWay_White;
+    public Sprite reflectorSprite_ThreeWay_Red;
+    public Sprite reflectorSprite_ThreeWay_Blue;
+    public Sprite reflectorSprite_ThreeWay_Yellow;
 
     public GameObject reflectorColorsPanel; //Panel that contains the buttons for the different reflector color buttons
 

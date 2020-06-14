@@ -31,8 +31,17 @@ public class EndPoint : MonoBehaviour
             else
             {
                 Debug.Log("Wrong LASER COLOR TAG");
+
+                #region End Point Behaviour
+
                 isHitByLaser = true;
                 GameManager.gameManagerInstance.updateEndPointStatus(false);
+
+                #endregion
+
+                //Enable / Uncomment the code in End Point Behaviour if you want the End Point to detect any laser only once, then stop detecting any future lasers that might hit
+                //Disable / Comment the code in End Point Behaviour if you want the End Point to continue detecting any laser, even if the laser that hits it is wrong
+
             }
         }
     }

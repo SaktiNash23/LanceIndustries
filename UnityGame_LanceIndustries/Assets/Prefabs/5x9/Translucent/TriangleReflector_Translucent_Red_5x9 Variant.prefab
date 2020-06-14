@@ -7,11 +7,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4788941756421596477, guid: 87020aed8a5091b46b6a0cb382605da2,
-        type: 3}
-      propertyPath: m_Name
-      value: TriangleReflector_Translucent_Red_5x9 Variant
-      objectReference: {fileID: 0}
     - target: {fileID: 1517852725891293297, guid: 87020aed8a5091b46b6a0cb382605da2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -70,12 +65,17 @@ PrefabInstance:
     - target: {fileID: 1517852725891293297, guid: 87020aed8a5091b46b6a0cb382605da2,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.21
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 1517852725891293297, guid: 87020aed8a5091b46b6a0cb382605da2,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.18
+      value: 0.57
+      objectReference: {fileID: 0}
+    - target: {fileID: 4788941756421596477, guid: 87020aed8a5091b46b6a0cb382605da2,
+        type: 3}
+      propertyPath: m_Name
+      value: TriangleReflector_Translucent_Red_5x9 Variant
       objectReference: {fileID: 0}
     - target: {fileID: 7504748378945062674, guid: 87020aed8a5091b46b6a0cb382605da2,
         type: 3}

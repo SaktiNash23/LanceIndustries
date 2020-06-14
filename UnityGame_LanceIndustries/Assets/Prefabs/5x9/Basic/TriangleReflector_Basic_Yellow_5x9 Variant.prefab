@@ -7,10 +7,75 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4712686264036362429, guid: b5708ab605cb1bb48815c301e5b955a1,
+    - target: {fileID: 1392394197716528666, guid: b5708ab605cb1bb48815c301e5b955a1,
         type: 3}
-      propertyPath: m_Name
-      value: TriangleReflector_Basic_Yellow_5x9 Variant
+      propertyPath: m_Offset.y
+      value: -0.5946039
+      objectReference: {fileID: 0}
+    - target: {fileID: 1392394197716528666, guid: b5708ab605cb1bb48815c301e5b955a1,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.06925696
+      objectReference: {fileID: 0}
+    - target: {fileID: 1392394197716528666, guid: b5708ab605cb1bb48815c301e5b955a1,
+        type: 3}
+      propertyPath: m_Offset.x
+      value: 0.0018395185
+      objectReference: {fileID: 0}
+    - target: {fileID: 1392394197716528666, guid: b5708ab605cb1bb48815c301e5b955a1,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 1.1794884
+      objectReference: {fileID: 0}
+    - target: {fileID: 1507749439824099774, guid: b5708ab605cb1bb48815c301e5b955a1,
+        type: 3}
+      propertyPath: m_Offset.x
+      value: -0.5841359
+      objectReference: {fileID: 0}
+    - target: {fileID: 1507749439824099774, guid: b5708ab605cb1bb48815c301e5b955a1,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.06647563
+      objectReference: {fileID: 0}
+    - target: {fileID: 1507749439824099774, guid: b5708ab605cb1bb48815c301e5b955a1,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: 0.009115994
+      objectReference: {fileID: 0}
+    - target: {fileID: 1507749439824099774, guid: b5708ab605cb1bb48815c301e5b955a1,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 1.1831015
+      objectReference: {fileID: 0}
+    - target: {fileID: 1531476911161884142, guid: b5708ab605cb1bb48815c301e5b955a1,
+        type: 3}
+      propertyPath: m_Points.Array.data[0].x
+      value: -0.5696725
+      objectReference: {fileID: 0}
+    - target: {fileID: 1531476911161884142, guid: b5708ab605cb1bb48815c301e5b955a1,
+        type: 3}
+      propertyPath: m_Points.Array.data[0].y
+      value: 0.5815805
+      objectReference: {fileID: 0}
+    - target: {fileID: 1531476911161884142, guid: b5708ab605cb1bb48815c301e5b955a1,
+        type: 3}
+      propertyPath: m_Points.Array.data[1].x
+      value: 0.5474494
+      objectReference: {fileID: 0}
+    - target: {fileID: 1531476911161884142, guid: b5708ab605cb1bb48815c301e5b955a1,
+        type: 3}
+      propertyPath: m_Points.Array.data[1].y
+      value: -0.5346089
+      objectReference: {fileID: 0}
+    - target: {fileID: 1531476911161884142, guid: b5708ab605cb1bb48815c301e5b955a1,
+        type: 3}
+      propertyPath: m_Points.Array.data[2].x
+      value: 0.5970836
+      objectReference: {fileID: 0}
+    - target: {fileID: 1531476911161884142, guid: b5708ab605cb1bb48815c301e5b955a1,
+        type: 3}
+      propertyPath: m_Points.Array.data[2].y
+      value: -0.58122283
       objectReference: {fileID: 0}
     - target: {fileID: 1586130273581436401, guid: b5708ab605cb1bb48815c301e5b955a1,
         type: 3}
@@ -70,12 +135,47 @@ PrefabInstance:
     - target: {fileID: 1586130273581436401, guid: b5708ab605cb1bb48815c301e5b955a1,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.21
+      value: 0.57
       objectReference: {fileID: 0}
     - target: {fileID: 1586130273581436401, guid: b5708ab605cb1bb48815c301e5b955a1,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.18
+      value: 0.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 2341513103120875487, guid: b5708ab605cb1bb48815c301e5b955a1,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.025
+      objectReference: {fileID: 0}
+    - target: {fileID: 2341513103120875487, guid: b5708ab605cb1bb48815c301e5b955a1,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.037
+      objectReference: {fileID: 0}
+    - target: {fileID: 4712686264036362429, guid: b5708ab605cb1bb48815c301e5b955a1,
+        type: 3}
+      propertyPath: m_Name
+      value: TriangleReflector_Basic_Yellow_5x9 Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 9139887275584674735, guid: b5708ab605cb1bb48815c301e5b955a1,
+        type: 3}
+      propertyPath: m_Offset.x
+      value: 0.018587112
+      objectReference: {fileID: 0}
+    - target: {fileID: 9139887275584674735, guid: b5708ab605cb1bb48815c301e5b955a1,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 1.2130756
+      objectReference: {fileID: 0}
+    - target: {fileID: 9139887275584674735, guid: b5708ab605cb1bb48815c301e5b955a1,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: 0.020176291
+      objectReference: {fileID: 0}
+    - target: {fileID: 9139887275584674735, guid: b5708ab605cb1bb48815c301e5b955a1,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 1.2169588
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b5708ab605cb1bb48815c301e5b955a1, type: 3}
