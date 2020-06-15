@@ -174,7 +174,16 @@ public class Raycast : MonoBehaviour
         if (GameManager.gameManagerInstance.DebugMode_PC == false)
         {
             if (inGrid && !isHoldingDown)
-                rotateReflector(transform.rotation.eulerAngles.z);
+            {
+                if(gameObject.name.Contains("ThreeWay"))
+                {
+                    //Do nothing
+                }
+                else
+                { 
+                    rotateReflector(transform.rotation.eulerAngles.z); 
+                }             
+            }             
         }
 
         //#endif
@@ -215,7 +224,16 @@ public class Raycast : MonoBehaviour
             if(Input.GetMouseButtonUp(1))
             {
                 if(inGrid)
-                    rotateReflector(transform.rotation.eulerAngles.z);
+                {
+                    if (gameObject.name.Contains("ThreeWay"))
+                    {
+                        //Do nothing
+                    }
+                    else
+                    {
+                        rotateReflector(transform.rotation.eulerAngles.z);
+                    }
+                }
             }
         }
 

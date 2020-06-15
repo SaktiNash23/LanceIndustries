@@ -12,6 +12,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TriangleReflector_ThreeWay_White_5x9 Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 3790659977575156419, guid: ba48edfbdbc969e4baab40c248682ecd,
+        type: 3}
+      propertyPath: m_TagString
+      value: ReflectorThreeWay
+      objectReference: {fileID: 0}
     - target: {fileID: 5309012556999175584, guid: ba48edfbdbc969e4baab40c248682ecd,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -70,17 +75,12 @@ PrefabInstance:
     - target: {fileID: 5309012556999175584, guid: ba48edfbdbc969e4baab40c248682ecd,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.21
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5309012556999175584, guid: ba48edfbdbc969e4baab40c248682ecd,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.18
-      objectReference: {fileID: 0}
-    - target: {fileID: 3790659977575156419, guid: ba48edfbdbc969e4baab40c248682ecd,
-        type: 3}
-      propertyPath: m_TagString
-      value: ReflectorThreeWay
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba48edfbdbc969e4baab40c248682ecd, type: 3}

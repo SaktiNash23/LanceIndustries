@@ -18,10 +18,10 @@ public class ColoredBorder : MonoBehaviour
     [BoxGroup("MAP BORDER REFERENCES")] [SerializeField] Collider2D col2;
     [BoxGroup("MAP BORDER REFERENCES")] [SerializeField] Collider2D col3;
 
-    [BoxGroup("MAP BORDER SETTINGS")] [SerializeField] Color redBorderColor;
-    [BoxGroup("MAP BORDER SETTINGS")] [SerializeField] Color blueBorderColor;
-    [BoxGroup("MAP BORDER SETTINGS")] [SerializeField] Color yellowBorderColor;
-    [BoxGroup("MAP BORDER SETTINGS")] [SerializeField] Color whiteBorderColor;
+    [BoxGroup("MAP BORDER SETTINGS")] [SerializeField] Sprite redBorder;
+    [BoxGroup("MAP BORDER SETTINGS")] [SerializeField] Sprite blueBorder;
+    [BoxGroup("MAP BORDER SETTINGS")] [SerializeField] Sprite yellowBorder;
+    [BoxGroup("MAP BORDER SETTINGS")] [SerializeField] Sprite whiteBorder;
 
     public BorderColor borderColor;
 
@@ -44,19 +44,19 @@ public class ColoredBorder : MonoBehaviour
         switch (borderColor)
         {
             case BorderColor.RED:
-                gameObject.GetComponent<SpriteRenderer>().color = redBorderColor;
+                gameObject.GetComponent<SpriteRenderer>().sprite = redBorder;
                 break;
 
             case BorderColor.BLUE:
-                gameObject.GetComponent<SpriteRenderer>().color = blueBorderColor;
+                gameObject.GetComponent<SpriteRenderer>().sprite = blueBorder;
                 break;
 
             case BorderColor.YELLOW:
-                gameObject.GetComponent<SpriteRenderer>().color = yellowBorderColor;
+                gameObject.GetComponent<SpriteRenderer>().sprite = yellowBorder;
                 break;
 
             case BorderColor.WHITE:
-                gameObject.GetComponent<SpriteRenderer>().color = whiteBorderColor;
+                gameObject.GetComponent<SpriteRenderer>().sprite = whiteBorder;
                 break;
         }
     }

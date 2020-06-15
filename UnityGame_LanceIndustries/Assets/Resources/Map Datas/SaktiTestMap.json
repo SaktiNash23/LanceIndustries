@@ -1,0 +1,151 @@
+{
+    "inSceneObjectDatas": [
+        {
+            "mapGridIndex": 24,
+            "inSceneObjectType": 22,
+            "borderDir": 0,
+            "position": {
+                "x": 2.299999952316284,
+                "y": 1.2000000476837159,
+                "z": 0.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": -1.0,
+                "w": -4.371138828673793e-8
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            }
+        },
+        {
+            "mapGridIndex": 42,
+            "inSceneObjectType": 21,
+            "borderDir": 0,
+            "position": {
+                "x": 0.4000000059604645,
+                "y": -2.5999999046325685,
+                "z": 0.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.7071068286895752,
+                "w": 0.7071068286895752
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            }
+        },
+        {
+            "mapGridIndex": 2,
+            "inSceneObjectType": 20,
+            "borderDir": 0,
+            "position": {
+                "x": 0.4000000059604645,
+                "y": 5.0,
+                "z": 0.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": -0.7071068286895752,
+                "w": 0.7071068286895752
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            }
+        },
+        {
+            "mapGridIndex": 20,
+            "inSceneObjectType": 3,
+            "borderDir": 0,
+            "position": {
+                "x": -1.5,
+                "y": 1.2000000476837159,
+                "z": 0.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            }
+        },
+        {
+            "mapGridIndex": 27,
+            "inSceneObjectType": 5,
+            "borderDir": 0,
+            "position": {
+                "x": 0.4000000059604645,
+                "y": 0.25,
+                "z": 0.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            }
+        },
+        {
+            "mapGridIndex": 5,
+            "inSceneObjectType": 6,
+            "borderDir": 0,
+            "position": {
+                "x": -1.5,
+                "y": 4.050000190734863,
+                "z": 0.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            }
+        }
+    ],
+    "timeLimit": 9.0,
+    "basicReflectorAmount": 1,
+    "redBasicReflectorAmount": 1,
+    "yellowBasicReflectorAmount": 1,
+    "blueBasicReflectorAmount": 1,
+    "translucentReflectorAmount": 1,
+    "redTranslucentReflectorAmount": 1,
+    "yellowTranslucentReflectorAmount": 1,
+    "blueTranslucentReflectorAmount": 1,
+    "doubleWayReflectorAmount": 1,
+    "redDoubleWayReflectorAmount": 1,
+    "yellowDoubleWayReflectorAmount": 1,
+    "blueDoubleWayReflectorAmount": 1,
+    "splitReflectorAmount": 1,
+    "redSplitReflectorAmount": 1,
+    "yellowSplitReflectorAmount": 1,
+    "blueSplitReflectorAmount": 1,
+    "threeWayReflectorAmount": 1,
+    "redThreeWayReflectorAmount": 1,
+    "yellowThreeWayReflectorAmount": 1,
+    "blueThreeWayReflectorAmount": 1
+}

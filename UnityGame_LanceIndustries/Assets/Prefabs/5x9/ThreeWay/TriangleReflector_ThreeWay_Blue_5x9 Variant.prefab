@@ -7,10 +7,45 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 913741411477279619, guid: 45c5304e478b76f4f8ae2609b8fdacdc,
+        type: 3}
+      propertyPath: m_Offset.x
+      value: 0.02204156
+      objectReference: {fileID: 0}
+    - target: {fileID: 913741411477279619, guid: 45c5304e478b76f4f8ae2609b8fdacdc,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 1.6028147
+      objectReference: {fileID: 0}
+    - target: {fileID: 913741411477279619, guid: 45c5304e478b76f4f8ae2609b8fdacdc,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: -0.0034234524
+      objectReference: {fileID: 0}
+    - target: {fileID: 913741411477279619, guid: 45c5304e478b76f4f8ae2609b8fdacdc,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 1.609561
+      objectReference: {fileID: 0}
+    - target: {fileID: 1822958399927771838, guid: 45c5304e478b76f4f8ae2609b8fdacdc,
+        type: 3}
+      propertyPath: m_TagString
+      value: ReflectorThreeWay
+      objectReference: {fileID: 0}
+    - target: {fileID: 2535574697294746414, guid: 45c5304e478b76f4f8ae2609b8fdacdc,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 3683934348500566161, guid: 45c5304e478b76f4f8ae2609b8fdacdc,
         type: 3}
       propertyPath: m_Name
       value: TriangleReflector_ThreeWay_Blue_5x9 Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 3780347491754036847, guid: 45c5304e478b76f4f8ae2609b8fdacdc,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7240157492992017885, guid: 45c5304e478b76f4f8ae2609b8fdacdc,
         type: 3}
@@ -70,17 +105,22 @@ PrefabInstance:
     - target: {fileID: 7240157492992017885, guid: 45c5304e478b76f4f8ae2609b8fdacdc,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.21
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7240157492992017885, guid: 45c5304e478b76f4f8ae2609b8fdacdc,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.18
+      value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 1822958399927771838, guid: 45c5304e478b76f4f8ae2609b8fdacdc,
+    - target: {fileID: 7633325274519935828, guid: 45c5304e478b76f4f8ae2609b8fdacdc,
         type: 3}
-      propertyPath: m_TagString
-      value: ReflectorThreeWay
+      propertyPath: m_LocalPosition.y
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8372291514180876811, guid: 45c5304e478b76f4f8ae2609b8fdacdc,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 45c5304e478b76f4f8ae2609b8fdacdc, type: 3}

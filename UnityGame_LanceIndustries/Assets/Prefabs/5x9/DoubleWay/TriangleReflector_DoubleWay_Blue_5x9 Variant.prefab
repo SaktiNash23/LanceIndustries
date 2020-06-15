@@ -7,11 +7,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4855767745492968263, guid: b35fb308fdd861c4d9d282125764ea44,
-        type: 3}
-      propertyPath: m_Name
-      value: TriangleReflector_DoubleWay_Blue_5x9 Variant
-      objectReference: {fileID: 0}
     - target: {fileID: 1443092712734123531, guid: b35fb308fdd861c4d9d282125764ea44,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -70,17 +65,22 @@ PrefabInstance:
     - target: {fileID: 1443092712734123531, guid: b35fb308fdd861c4d9d282125764ea44,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.21
+      value: 0.59
       objectReference: {fileID: 0}
     - target: {fileID: 1443092712734123531, guid: b35fb308fdd861c4d9d282125764ea44,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.18
+      value: 0.57
       objectReference: {fileID: 0}
     - target: {fileID: 4622925003080340098, guid: b35fb308fdd861c4d9d282125764ea44,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.9
+      value: -0.566
+      objectReference: {fileID: 0}
+    - target: {fileID: 4855767745492968263, guid: b35fb308fdd861c4d9d282125764ea44,
+        type: 3}
+      propertyPath: m_Name
+      value: TriangleReflector_DoubleWay_Blue_5x9 Variant
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b35fb308fdd861c4d9d282125764ea44, type: 3}

@@ -64,15 +64,55 @@ public class ReflectorUIButton : MonoBehaviour
             case "ReflectorButton_Basic":
                 for(int i = 0; i < GameManager.gameManagerInstance.allReflectorColorButtons.Count; ++i)
                 {
-                    GameManager.gameManagerInstance.allReflectorColorButtons[i].GetComponent<Image>().sprite = GameManager.gameManagerInstance.reflectorSprite_Basic;
+                    switch (i)
+                    {
+                        case 0:
+                            GameManager.gameManagerInstance.allReflectorColorButtons[i].GetComponent<Image>().sprite = GameManager.gameManagerInstance.reflectorSprite_Basic_White;
+                            break;
+
+                        case 1:
+                            GameManager.gameManagerInstance.allReflectorColorButtons[i].GetComponent<Image>().sprite = GameManager.gameManagerInstance.reflectorSprite_Basic_Red;
+                            break;
+
+                        case 2:
+                            GameManager.gameManagerInstance.allReflectorColorButtons[i].GetComponent<Image>().sprite = GameManager.gameManagerInstance.reflectorSprite_Basic_Blue;
+                            break;
+
+                        case 3:
+                            GameManager.gameManagerInstance.allReflectorColorButtons[i].GetComponent<Image>().sprite = GameManager.gameManagerInstance.reflectorSprite_Basic_Yellow;
+                            break;
+                    }
+
+                    //GameManager.gameManagerInstance.allReflectorColorButtons[i].GetComponent<Image>().sprite = GameManager.gameManagerInstance.reflectorSprite_Basic;
                     GameManager.gameManagerInstance.allReflectorColorButtons[i].GetComponent<ReflectorColor_UIButton>().reflectorTypeTag = "Basic";
+
                 }
                 break;
 
             case "ReflectorButton_Translucent":
                 for (int i = 0; i < GameManager.gameManagerInstance.allReflectorColorButtons.Count; ++i)
                 {
-                    GameManager.gameManagerInstance.allReflectorColorButtons[i].GetComponent<Image>().sprite = GameManager.gameManagerInstance.reflectorSprite_Translucent;
+                    switch (i)
+                    {
+                        case 0:
+                            GameManager.gameManagerInstance.allReflectorColorButtons[i].GetComponent<Image>().sprite = GameManager.gameManagerInstance.reflectorSprite_Translucent_White;
+                            break;
+
+                        case 1:
+                            GameManager.gameManagerInstance.allReflectorColorButtons[i].GetComponent<Image>().sprite = GameManager.gameManagerInstance.reflectorSprite_Translucent_Red;
+                            break;
+
+                        case 2:
+                            GameManager.gameManagerInstance.allReflectorColorButtons[i].GetComponent<Image>().sprite = GameManager.gameManagerInstance.reflectorSprite_Translucent_Blue;
+                            break;
+
+                        case 3:
+                            GameManager.gameManagerInstance.allReflectorColorButtons[i].GetComponent<Image>().sprite = GameManager.gameManagerInstance.reflectorSprite_Translucent_Yellow;
+                            break;
+                    }
+
+
+                    //GameManager.gameManagerInstance.allReflectorColorButtons[i].GetComponent<Image>().sprite = GameManager.gameManagerInstance.reflectorSprite_Translucent;
                     GameManager.gameManagerInstance.allReflectorColorButtons[i].GetComponent<ReflectorColor_UIButton>().reflectorTypeTag = "Translucent";
                 }
                 break;
@@ -80,7 +120,26 @@ public class ReflectorUIButton : MonoBehaviour
             case "ReflectorButton_DoubleWay":
                 for (int i = 0; i < GameManager.gameManagerInstance.allReflectorColorButtons.Count; ++i)
                 {
-                    GameManager.gameManagerInstance.allReflectorColorButtons[i].GetComponent<Image>().sprite = GameManager.gameManagerInstance.reflectorSprite_DoubleWay;
+                    switch (i)
+                    {
+                        case 0:
+                            GameManager.gameManagerInstance.allReflectorColorButtons[i].GetComponent<Image>().sprite = GameManager.gameManagerInstance.reflectorSprite_DoubleWay_White;
+                            break;
+
+                        case 1:
+                            GameManager.gameManagerInstance.allReflectorColorButtons[i].GetComponent<Image>().sprite = GameManager.gameManagerInstance.reflectorSprite_DoubleWay_Red;
+                            break;
+
+                        case 2:
+                            GameManager.gameManagerInstance.allReflectorColorButtons[i].GetComponent<Image>().sprite = GameManager.gameManagerInstance.reflectorSprite_DoubleWay_Blue;
+                            break;
+
+                        case 3:
+                            GameManager.gameManagerInstance.allReflectorColorButtons[i].GetComponent<Image>().sprite = GameManager.gameManagerInstance.reflectorSprite_DoubleWay_Yellow;
+                            break;
+                    }
+
+                    //GameManager.gameManagerInstance.allReflectorColorButtons[i].GetComponent<Image>().sprite = GameManager.gameManagerInstance.reflectorSprite_DoubleWay;
                     GameManager.gameManagerInstance.allReflectorColorButtons[i].GetComponent<ReflectorColor_UIButton>().reflectorTypeTag = "DoubleWay";
                 }
                 break;
@@ -96,7 +155,27 @@ public class ReflectorUIButton : MonoBehaviour
             case "ReflectorButton_ThreeWay":
                 for (int i = 0; i < GameManager.gameManagerInstance.allReflectorColorButtons.Count; ++i)
                 {
-                    GameManager.gameManagerInstance.allReflectorColorButtons[i].GetComponent<Image>().sprite = GameManager.gameManagerInstance.reflectorSprite_ThreeWay;
+                    switch (i)
+                    {
+                        case 0:
+                            GameManager.gameManagerInstance.allReflectorColorButtons[i].GetComponent<Image>().sprite = GameManager.gameManagerInstance.reflectorSprite_ThreeWay_White;
+                            break;
+
+                        case 1:
+                            GameManager.gameManagerInstance.allReflectorColorButtons[i].GetComponent<Image>().sprite = GameManager.gameManagerInstance.reflectorSprite_ThreeWay_Red;
+                            break;
+
+                        case 2:
+                            GameManager.gameManagerInstance.allReflectorColorButtons[i].GetComponent<Image>().sprite = GameManager.gameManagerInstance.reflectorSprite_ThreeWay_Blue;
+                            break;
+
+                        case 3:
+                            GameManager.gameManagerInstance.allReflectorColorButtons[i].GetComponent<Image>().sprite = GameManager.gameManagerInstance.reflectorSprite_ThreeWay_Yellow;
+                            break;
+                    }
+
+
+                    //GameManager.gameManagerInstance.allReflectorColorButtons[i].GetComponent<Image>().sprite = GameManager.gameManagerInstance.reflectorSprite_ThreeWay;
                     GameManager.gameManagerInstance.allReflectorColorButtons[i].GetComponent<ReflectorColor_UIButton>().reflectorTypeTag = "ThreeWay";
                 }
                 break;

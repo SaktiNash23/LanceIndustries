@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: -160310933
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e3be02eaca1b0064998430f3edf6cd51, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 470858fc5ae413b4a8232497634b3d6f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -101,7 +101,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.5148437, y: 13.849999}
+    oldSize: {x: 0.1, y: 1.3}
     newSize: {x: 1.49, y: 13.85}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -122,8 +122,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf529892d404ce249891edb5a08f5c9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  redMaterial: {fileID: 2100000, guid: 6fa9f7f73c2753243bf12fb9cbb94652, type: 2}
-  blueMaterial: {fileID: 2100000, guid: c1634d554d4eff24c9715f1bc2eeb412, type: 2}
-  yellowMaterial: {fileID: 2100000, guid: fa1312c4608f5fd4cb506468799e4c8a, type: 2}
-  whiteMaterial: {fileID: 2100000, guid: 77904cd10f47db14281bce409f12f82a, type: 2}
+  spriteRend: {fileID: 0}
+  col1: {fileID: 0}
+  col2: {fileID: 0}
+  col3: {fileID: 0}
+  redBorderColor: {r: 0, g: 0, b: 0, a: 0}
+  blueBorderColor: {r: 0, g: 0, b: 0, a: 0}
+  yellowBorderColor: {r: 0, g: 0, b: 0, a: 0}
+  whiteBorderColor: {r: 0, g: 0, b: 0, a: 0}
   borderColor: 0
