@@ -7,11 +7,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2152455473105095275, guid: 653d4dad66e28f3468f354da39d2f9bf,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10
+      objectReference: {fileID: 0}
     - target: {fileID: 3647610189769090916, guid: 653d4dad66e28f3468f354da39d2f9bf,
         type: 3}
       propertyPath: m_Name
       value: TriangleReflector_Basic_White_5x9 Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 5664021706183177420, guid: 653d4dad66e28f3468f354da39d2f9bf,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6454846410386135995, guid: 653d4dad66e28f3468f354da39d2f9bf,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: baa11ecde8fa9a342acb3eccc36736d9, type: 2}
     - target: {fileID: 7348511201709040168, guid: 653d4dad66e28f3468f354da39d2f9bf,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -77,6 +92,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 0.55
       objectReference: {fileID: 0}
+    - target: {fileID: 7632390877843814155, guid: 653d4dad66e28f3468f354da39d2f9bf,
+        type: 3}
+      propertyPath: reflectorAnimationScript
+      value: 
+      objectReference: {fileID: 6523999500296485224}
     - target: {fileID: 8503851764717785751, guid: 653d4dad66e28f3468f354da39d2f9bf,
         type: 3}
       propertyPath: m_WasSpriteAssigned
@@ -84,3 +104,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 653d4dad66e28f3468f354da39d2f9bf, type: 3}
+--- !u!114 &6523999500296485224 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7718906791302750193, guid: 653d4dad66e28f3468f354da39d2f9bf,
+    type: 3}
+  m_PrefabInstance: {fileID: 3573314033338295961}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bc29c76b2f335d44b7f3e1db5c85e5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

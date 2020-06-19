@@ -144,6 +144,10 @@ public class Reflector_Translucent : Reflector
 
         setReflectorLaserColor();
         sparkAnimationScript.playDeflectAnimation();
+
+        if (reflectorAnimationScript != null)
+            reflectorAnimationScript.playDeflectAnimation(transform.rotation.eulerAngles.z);
+
         setReflectorHitFalseForProjectile();
         
     }

@@ -91,7 +91,22 @@ public class Proto_Projectile : MonoBehaviour
                     case "InvalidBounds":
                         projectileSpeed = 0.0f;
                         destroyCheck = true; //If true, it means the projectile was destroyed by hitting invalid bounds or border
-                        Destroy(gameObject, 0.0f);                  
+
+                        if (hitStore.collider.gameObject.transform.parent.name.Contains("Basic"))
+                        {
+                            hitStore.collider.gameObject.transform.parent.GetChild(0).GetComponent<Reflector>().playInvalidHitAnimation();
+                        }
+                        else if (hitStore.collider.gameObject.transform.parent.name.Contains("Translucent"))
+                        {
+                            hitStore.collider.gameObject.transform.parent.GetChild(0).GetComponent<Reflector_Translucent>().playInvalidHitAnimation();
+                        }
+                        else if (hitStore.collider.gameObject.transform.parent.name.Contains("DoubleWay"))
+                        {
+                            hitStore.collider.gameObject.transform.parent.GetChild(0).GetComponent<Reflector_DoubleWay>().playInvalidHitAnimation();
+                        }
+                        //Three Way does not have Invalid Bounds
+
+                        Destroy(gameObject, 0.0f);
                         break;
                     #endregion
 

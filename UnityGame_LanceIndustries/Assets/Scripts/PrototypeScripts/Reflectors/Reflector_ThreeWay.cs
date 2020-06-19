@@ -161,6 +161,9 @@ public class Reflector_ThreeWay : Reflector
         sparkAnimationScript.playDeflectAnimation();
         setReflectorHitFalseForProjectile();
 
+        if (reflectorAnimationScript != null)
+            reflectorAnimationScript.playDeflectAnimation(transform.rotation.eulerAngles.z);
+
         Destroy(referenceProjectile);
 
     }
@@ -224,4 +227,5 @@ public class Reflector_ThreeWay : Reflector
         newProjectile2.GetComponent<Proto_Projectile>().Invoke("reflectorHitFalse", 0.02f);
 
     }
+
 }

@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4186292247917252473
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7351614663836392328}
+  m_Layer: 8
+  m_Name: ReferencePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7351614663836392328
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4186292247917252473}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3615822924982576867}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4499185340850134999
 GameObject:
   m_ObjectHideFlags: 0
@@ -44,7 +74,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0044597387, y: -0.5724645}
+  m_Offset: {x: 0.0044597387, y: -0.5042013}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -55,7 +85,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.1799257, y: 0.09145558}
+  m_Size: {x: 1.1799257, y: 0.22798204}
   m_EdgeRadius: 0
 --- !u!1 &4897695389442489880
 GameObject:
@@ -101,7 +131,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.57087535, y: 0.013406634}
+  m_Offset: {x: -0.48979348, y: 0.013406634}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -112,7 +142,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.08724439, y: 1.1871092}
+  m_Size: {x: 0.2494081, y: 1.1871092}
   m_EdgeRadius: 0
 --- !u!1 &5700356643383050624
 GameObject:
@@ -162,8 +192,8 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -0.55820507, y: 0.6358861}
-  - {x: 0.6507381, y: -0.558385}
+  - {x: -0.6014945, y: 0.56460255}
+  - {x: 0.56776667, y: -0.61466134}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
@@ -182,6 +212,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reflectorBase_SO: {fileID: 11400000, guid: 1844300229d7c9a47886469f77330647, type: 2}
   sparkAnimationScript: {fileID: 1681457466131979370}
+  reflectorAnimationScript: {fileID: 8534836667198160387}
   reflectorColor_Enum: 1
 --- !u!1 &7298146891657405359
 GameObject:
@@ -195,6 +226,8 @@ GameObject:
   - component: {fileID: 8035666071991918559}
   - component: {fileID: 6555426671037132989}
   - component: {fileID: 5743321162150149960}
+  - component: {fileID: 6565153253724164461}
+  - component: {fileID: 8534836667198160387}
   m_Layer: 8
   m_Name: TriangleReflector_Basic_Blue
   m_TagString: ReflectorGM
@@ -217,6 +250,7 @@ Transform:
   - {fileID: 1822962179275632647}
   - {fileID: 5335038308190916256}
   - {fileID: 3981809438980895664}
+  - {fileID: 7351614663836392328}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -322,6 +356,37 @@ MonoBehaviour:
   deltaMousePos: {x: 0, y: 0}
   mousePhase: 0
   reflectorAttached: 0
+--- !u!95 &6565153253724164461
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7298146891657405359}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: baa11ecde8fa9a342acb3eccc36736d9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &8534836667198160387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7298146891657405359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bc29c76b2f335d44b7f3e1db5c85e5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5361640390967047581
 PrefabInstance:
   m_ObjectHideFlags: 0

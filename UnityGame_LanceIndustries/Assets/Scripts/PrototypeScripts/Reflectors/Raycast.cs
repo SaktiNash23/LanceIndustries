@@ -63,7 +63,7 @@ public class Raycast : MonoBehaviour
                     {
                         if (hit.transform.gameObject.GetComponent<Proto_Grid>().isOccupied_Grid == false)
                         {
-                            Debug.Log("HITTT");
+                            //Debug.Log("HITTT");
 
                             transform.position = hit.transform.position;
 
@@ -555,9 +555,35 @@ public class Raycast : MonoBehaviour
     private void rotateReflector(float zRotation)
     {
         if (zRotation != 270.0f)
+        {
             transform.Rotate(0.0f, 0.0f, 90.0f);
+            Debug.Log("ROTATE REFLECTOR");
+
+        }
         else
+        {
             transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
+        }
+
+        switch (transform.rotation.eulerAngles.z)
+        {
+            case 0.0f:
+                GetComponent<Animator>().SetFloat("currentRotation", 0.0f);
+                break;
+
+            case 90.0f:
+                GetComponent<Animator>().SetFloat("currentRotation", 90.0f);
+                break;
+
+            case 180.0f:
+                GetComponent<Animator>().SetFloat("currentRotation", 180.0f);
+                break;
+
+            case 270.0f:
+                GetComponent<Animator>().SetFloat("currentRotation", 270.0f);
+                break;
+        }
+        
     }
 
     public bool isHoldingDownAccessor

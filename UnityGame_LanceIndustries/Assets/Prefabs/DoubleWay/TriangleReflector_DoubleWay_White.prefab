@@ -68,6 +68,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reflectorBase_SO: {fileID: 11400000, guid: 10e5234d431d67c419b44dd0312bc375, type: 2}
   sparkAnimationScript: {fileID: 3267723944176127341}
+  reflectorAnimationScript: {fileID: 2641764060016206616}
   reflectorColor_Enum: 3
 --- !u!1 &2240171478769448737
 GameObject:
@@ -168,6 +169,8 @@ GameObject:
   - component: {fileID: 3704993137894528742}
   - component: {fileID: 438856620890405252}
   - component: {fileID: 1394651594191763057}
+  - component: {fileID: 2188098101044098136}
+  - component: {fileID: 2641764060016206616}
   m_Layer: 8
   m_Name: TriangleReflector_DoubleWay_White
   m_TagString: ReflectorGM
@@ -298,6 +301,37 @@ MonoBehaviour:
   deltaMousePos: {x: 0, y: 0}
   mousePhase: 0
   reflectorAttached: 0
+--- !u!95 &2188098101044098136
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4154172602943171222}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: baa11ecde8fa9a342acb3eccc36736d9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &2641764060016206616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4154172602943171222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bc29c76b2f335d44b7f3e1db5c85e5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7106395629232740078
 GameObject:
   m_ObjectHideFlags: 0

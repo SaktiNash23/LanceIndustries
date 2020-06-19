@@ -44,7 +44,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.57787836, y: 0.0014945865}
+  m_Offset: {x: -0.47230518, y: 0.0014945865}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -55,7 +55,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.07277489, y: 1.1809291}
+  m_Size: {x: 0.28392127, y: 1.1809291}
   m_EdgeRadius: 0
 --- !u!1 &1787207636584154443
 GameObject:
@@ -105,8 +105,8 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -0.5492906, y: 0.6437918}
-  - {x: 0.6270979, y: -0.5465324}
+  - {x: -0.63199943, y: 0.5499547}
+  - {x: 0.5481485, y: -0.62863976}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
@@ -125,6 +125,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reflectorBase_SO: {fileID: 11400000, guid: 578b7fcf6d7101347a73afb8abd657bf, type: 2}
   sparkAnimationScript: {fileID: 8098227608974769436}
+  reflectorAnimationScript: {fileID: 7718906791302750193}
   reflectorColor_Enum: 3
 --- !u!1 &3647610189769090916
 GameObject:
@@ -138,6 +139,8 @@ GameObject:
   - component: {fileID: 4058509064196905748}
   - component: {fileID: 950081508769428598}
   - component: {fileID: 1757164583298349955}
+  - component: {fileID: 6454846410386135995}
+  - component: {fileID: 7718906791302750193}
   m_Layer: 8
   m_Name: TriangleReflector_Basic_White
   m_TagString: ReflectorGM
@@ -160,6 +163,7 @@ Transform:
   - {fileID: 5664021706183177420}
   - {fileID: 2152455473105095275}
   - {fileID: 5797585330698375878}
+  - {fileID: 3428300566080728351}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -265,6 +269,67 @@ MonoBehaviour:
   deltaMousePos: {x: 0, y: 0}
   mousePhase: 0
   reflectorAttached: 0
+--- !u!95 &6454846410386135995
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3647610189769090916}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &7718906791302750193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3647610189769090916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bc29c76b2f335d44b7f3e1db5c85e5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &3862286338308763565
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3428300566080728351}
+  m_Layer: 8
+  m_Name: ReferencePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3428300566080728351
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3862286338308763565}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7348511201709040168}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7612916191170927388
 GameObject:
   m_ObjectHideFlags: 0
@@ -309,7 +374,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.005030513, y: -0.58633673}
+  m_Offset: {x: 0.005030513, y: -0.50049615}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -320,7 +385,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.1679444, y: 0.075041056}
+  m_Size: {x: 1.1679444, y: 0.24672222}
   m_EdgeRadius: 0
 --- !u!1001 &3269415649280005355
 PrefabInstance:

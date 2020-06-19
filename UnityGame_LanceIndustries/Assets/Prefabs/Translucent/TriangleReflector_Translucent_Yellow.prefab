@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 1002155430169977481}
   - component: {fileID: 4077368899852832235}
   - component: {fileID: 3303483306398401054}
+  - component: {fileID: -5193104871798559448}
+  - component: {fileID: -8024679244414880867}
   m_Layer: 8
   m_Name: TriangleReflector_Translucent_Yellow
   m_TagString: ReflectorGM
@@ -36,6 +38,7 @@ Transform:
   - {fileID: 4994767752935682398}
   - {fileID: 6108387474778998156}
   - {fileID: 5406982878432670277}
+  - {fileID: 4402392948239478105}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -141,6 +144,37 @@ MonoBehaviour:
   deltaMousePos: {x: 0, y: 0}
   mousePhase: 0
   reflectorAttached: 0
+--- !u!95 &-5193104871798559448
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 514550912398810873}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: baa11ecde8fa9a342acb3eccc36736d9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &-8024679244414880867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 514550912398810873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bc29c76b2f335d44b7f3e1db5c85e5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &807770452619513726
 GameObject:
   m_ObjectHideFlags: 0
@@ -228,6 +262,36 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.062775016, y: 1.1367962}
   m_EdgeRadius: 0
+--- !u!1 &3183215427050756867
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4402392948239478105}
+  m_Layer: 8
+  m_Name: ReferencePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4402392948239478105
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3183215427050756867}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5783131478979435445}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3276237406904040662
 GameObject:
   m_ObjectHideFlags: 0
@@ -276,8 +340,8 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -0.5666604, y: 0.57245827}
-  - {x: 0.5858522, y: -0.5763765}
+  - {x: -0.5666604, y: 0.50531113}
+  - {x: 0.48685348, y: -0.5763765}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
@@ -296,6 +360,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reflectorBase_SO: {fileID: 11400000, guid: 3157a4ea11d78ce42af172d2f536e0fc, type: 2}
   sparkAnimationScript: {fileID: 7718871215047204255}
+  reflectorAnimationScript: {fileID: -8024679244414880867}
   reflectorColor_Enum: 2
 --- !u!1 &6637291554349933185
 GameObject:

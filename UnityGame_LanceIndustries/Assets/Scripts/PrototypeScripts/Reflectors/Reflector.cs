@@ -7,6 +7,8 @@ public class Reflector : MonoBehaviour
 {
     public Reflector_SO reflectorBase_SO;//ATTN: Assign the correct ScriptableObject in the inspector according to the type of reflector
     public SparkAnimation sparkAnimationScript;//ATTN: Assign the correct sparkAnimator gameobject in the inspector according to the type of reflector / spark
+    public ReflectorAnimation reflectorAnimationScript; //ATTN: Assign the correct reflectorAnimator gameobject in the inspector to the type of reflector
+
     public enum ReflectorColor_Enum
     {
         RED,
@@ -33,7 +35,11 @@ public class Reflector : MonoBehaviour
             Debug.LogWarning("Spark Animation script is not inserted. Please insert Spark Animation script in the editor");
         }
 
-        Debug.Log("Basic Reflector SO : " + reflectorBase_SO);     
+        if(reflectorAnimationScript == null)
+        {
+            Debug.LogWarning("Reflector Animation script is not inserted. Please insert Reflector Animation script in the editor");
+        }
+
     }
 
     public void retrieveLaserProperties(RaycastHit2D hitParam, GameObject projectile)
@@ -105,69 +111,7 @@ public class Reflector : MonoBehaviour
                 break;
         }
 
-        #region Old Calculate Laser Base
-        /*
-        if (transform.rotation.eulerAngles.z == 0.0f)
-        {
-            if (referenceVector == Vector2.down)
-            {
-                referenceProjectile.gameObject.GetComponent<Proto_Projectile>().DirectionVector = Vector2.right;
-                referenceProjectile.transform.rotation = Quaternion.AngleAxis(90.0f, Vector3.forward);
-            }
-
-            if (referenceVector == Vector2.left)
-            {
-                referenceProjectile.gameObject.GetComponent<Proto_Projectile>().DirectionVector = Vector2.up;
-                referenceProjectile.transform.rotation = Quaternion.AngleAxis(0.0f, Vector3.forward); 
-            }
-        }   
-
-        if (transform.rotation.eulerAngles.z == 90.0f)
-        {
-            if (referenceVector == Vector2.right)
-            {
-                referenceProjectile.GetComponent<Proto_Projectile>().DirectionVector = Vector3.up;
-                referenceProjectile.transform.rotation = Quaternion.AngleAxis(0.0f, Vector3.forward);
-            }
-
-            if (referenceVector == Vector2.down)
-            {
-                referenceProjectile.GetComponent<Proto_Projectile>().DirectionVector = Vector2.left;
-                referenceProjectile.transform.rotation = Quaternion.AngleAxis(-90.0f, Vector3.forward);
-            }
-            
-        }
-
-        if (transform.rotation.eulerAngles.z == 180.0f)
-        {
-            if (referenceVector == Vector2.up)
-            {
-                referenceProjectile.gameObject.GetComponent<Proto_Projectile>().DirectionVector = Vector2.left;
-                referenceProjectile.transform.rotation = Quaternion.AngleAxis(-90.0f, Vector3.forward);
-            }
-
-            if (referenceVector == Vector2.right)
-            {
-                referenceProjectile.GetComponent<Proto_Projectile>().DirectionVector = Vector2.down;
-                referenceProjectile.transform.rotation = Quaternion.AngleAxis(180.0f, Vector3.forward);
-            }
-        }
-
-        if (transform.rotation.eulerAngles.z == 270.0f)
-        {
-            if (referenceVector == Vector2.up)
-            {
-                referenceProjectile.GetComponent<Proto_Projectile>().DirectionVector = Vector2.right;
-                referenceProjectile.transform.rotation = Quaternion.AngleAxis(90.0f, Vector3.forward);
-            }
-            else if (referenceVector == Vector2.left)
-            {
-                referenceProjectile.GetComponent<Proto_Projectile>().DirectionVector = Vector2.down;
-                referenceProjectile.transform.rotation = Quaternion.AngleAxis(180.0f, Vector3.forward);
-            }
-        }
-        */
-        #endregion
+        referenceProjectile.transform.position = transform.parent.Find("ReferencePoint").transform.position; //Aligns the position of the laser so that it is always in the center
     }
 
     public void calculateLaser_Basic(RaycastHit2D hitParam, GameObject projectile)
@@ -177,6 +121,11 @@ public class Reflector : MonoBehaviour
         calculateLaser_Base();
         setReflectorLaserColor();
         sparkAnimationScript.playDeflectAnimation();
+
+        if(reflectorAnimationScript != null)
+            reflectorAnimationScript.playDeflectAnimation(transform.rotation.eulerAngles.z);
+
+
         setReflectorHitFalseForProjectile();
     }
 
@@ -210,6 +159,12 @@ public class Reflector : MonoBehaviour
     public virtual void setReflectorHitFalseForProjectile()
     {
         referenceProjectile.GetComponent<Proto_Projectile>().Invoke("reflectorHitFalse", 0.02f);
+    }
+
+    public void playInvalidHitAnimation()
+    {
+        reflectorAnimationScript.playInvalidAnimation(transform.rotation.eulerAngles.z);
+        Debug.Log("INVALID");
     }
 
 }

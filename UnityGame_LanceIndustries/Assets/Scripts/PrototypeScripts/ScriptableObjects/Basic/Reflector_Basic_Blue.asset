@@ -15,3 +15,10 @@ MonoBehaviour:
   laserMaterialToChange: {fileID: 2100000, guid: c1634d554d4eff24c9715f1bc2eeb412,
     type: 2}
   laserColorToChange: {r: 0, g: 0, b: 1, a: 1}
+  animClip_Rotation_0: {fileID: 7400000, guid: accb970815a196a47a340c2a2b9d4177, type: 2}
+  animClip_Rotation_90: {fileID: 7400000, guid: 3badd58ea54b2cc4fab3d35463ce9ea7,
+    type: 2}
+  animClip_Rotation_180: {fileID: 7400000, guid: 6838839f80685e64aa989dae898af6f3,
+    type: 2}
+  animClip_Rotation_270: {fileID: 7400000, guid: 5fc4ed79407857340a30a538e508787d,
+    type: 2}

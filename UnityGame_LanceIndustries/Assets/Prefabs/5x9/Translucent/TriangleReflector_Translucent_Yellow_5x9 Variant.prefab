@@ -12,6 +12,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TriangleReflector_Translucent_Yellow_5x9 Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 2910989647656793078, guid: 3b09d73406118ac48a59872e0b56b6d3,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10
+      objectReference: {fileID: 0}
     - target: {fileID: 3276237406904040662, guid: 3b09d73406118ac48a59872e0b56b6d3,
         type: 3}
       propertyPath: m_TagString
@@ -91,6 +96,41 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.y
       value: 0.57
+      objectReference: {fileID: 0}
+    - target: {fileID: 5957774418500399098, guid: 3b09d73406118ac48a59872e0b56b6d3,
+        type: 3}
+      propertyPath: m_Offset.x
+      value: -0.5089502
+      objectReference: {fileID: 0}
+    - target: {fileID: 5957774418500399098, guid: 3b09d73406118ac48a59872e0b56b6d3,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.28269017
+      objectReference: {fileID: 0}
+    - target: {fileID: 6129426861284341854, guid: 3b09d73406118ac48a59872e0b56b6d3,
+        type: 3}
+      propertyPath: m_Offset.x
+      value: 0.0056928396
+      objectReference: {fileID: 0}
+    - target: {fileID: 6129426861284341854, guid: 3b09d73406118ac48a59872e0b56b6d3,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: -0.5434767
+      objectReference: {fileID: 0}
+    - target: {fileID: 6129426861284341854, guid: 3b09d73406118ac48a59872e0b56b6d3,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.31771708
+      objectReference: {fileID: 0}
+    - target: {fileID: 6129426861284341854, guid: 3b09d73406118ac48a59872e0b56b6d3,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 1.1517975
+      objectReference: {fileID: 0}
+    - target: {fileID: 8872164709542661457, guid: 3b09d73406118ac48a59872e0b56b6d3,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3b09d73406118ac48a59872e0b56b6d3, type: 3}

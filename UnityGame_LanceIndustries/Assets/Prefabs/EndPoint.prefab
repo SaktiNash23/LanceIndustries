@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5064881903754493091}
   - component: {fileID: 5064881903754493090}
   - component: {fileID: 5064881903754493089}
+  - component: {fileID: 2580391769372021726}
   m_Layer: 0
   m_Name: EndPoint
   m_TagString: EndPoint
@@ -28,8 +29,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5064881903754493088}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.82, y: 0.117, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -74,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: -160310933
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: 92bbe531dafb98d4db2794737ce3da7c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -100,9 +101,9 @@ BoxCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
-    border: {x: 0.049999997, y: 0.049999997, z: 0.049999997, w: 0.049999997}
+    border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.16, y: 0.16}
+    oldSize: {x: 1.19, y: 1.19}
     newSize: {x: 0.16, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -126,9 +127,9 @@ BoxCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -0.000000014901161}
   m_SpriteTilingProperty:
-    border: {x: 0.049999997, y: 0.049999997, z: 0.049999997, w: 0.049999997}
+    border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.16, y: 0.16}
+    oldSize: {x: 1.19, y: 1.19}
     newSize: {x: 0.16, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -149,8 +150,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 142be6414ee184542afda50dfc31932d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  redMaterial: {fileID: 2100000, guid: 6fa9f7f73c2753243bf12fb9cbb94652, type: 2}
-  blueMaterial: {fileID: 2100000, guid: c1634d554d4eff24c9715f1bc2eeb412, type: 2}
-  yellowMaterial: {fileID: 2100000, guid: fa1312c4608f5fd4cb506468799e4c8a, type: 2}
-  whiteMaterial: {fileID: 2100000, guid: 77904cd10f47db14281bce409f12f82a, type: 2}
   targetLaser: 0
+  endPoint_Red: {fileID: 21300000, guid: 5092b9f069b127644816288363804999, type: 3}
+  endPoint_Red_ON: {fileID: 21300000, guid: 0cd8d2ea63db57041a8c20cc2430a0d0, type: 3}
+  endPoint_Blue: {fileID: 21300000, guid: 79109772958f43b428c4db7190f244d0, type: 3}
+  endPoint_Blue_ON: {fileID: 21300000, guid: 7396d0fccb52a094498d158ed84f94a7, type: 3}
+  endPoint_Yellow: {fileID: 21300000, guid: bb15bedcb7954be44b6b863ad26abc77, type: 3}
+  endPoint_Yellow_ON: {fileID: 21300000, guid: c38f0009fb258f045acc91c72c308715, type: 3}
+  endPoint_White: {fileID: 21300000, guid: 92bbe531dafb98d4db2794737ce3da7c, type: 3}
+  endPoint_White_ON: {fileID: 21300000, guid: d28638c8813d6f249aeb9a2ccc4e1486, type: 3}
+--- !u!95 &2580391769372021726
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5064881903754493088}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bbc7ce4308011cc46b96e259e2f1b717, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

@@ -39,7 +39,7 @@ public class Proto_LaserOrigin : MonoBehaviour
     public Sprite StartingPointYellow;
     public Sprite StartingPointWhite;
 
-    // Disable/Remove Awake() once Initialization function is already implemented
+    private GameObject[] allActiveReflectors;
 
     void OnMouseUp()
     {
@@ -67,6 +67,17 @@ public class Proto_LaserOrigin : MonoBehaviour
         }
     }
 
+    private void activateAnimatorComponentsOnReflectors()
+    {
+        allActiveReflectors = System.Array.Empty<GameObject>();
+        allActiveReflectors = GameObject.FindGameObjectsWithTag("ReflectorGM");
+
+        foreach(GameObject activeReflector in allActiveReflectors)
+        {
+            activeReflector.GetComponent<Animator>().enabled = true;
+        }
+    }
+
     #region Naughty Attributes Functions
 
     [Button("Shoot Laser")]
@@ -83,24 +94,30 @@ public class Proto_LaserOrigin : MonoBehaviour
         {
             case "RED":
                 projectile.GetComponent<Proto_Projectile>().laserColor_Enum = Proto_Projectile.LaserColor_Enum.RED;
+                tempLaserColor = Color.red;
                 break;
 
             case "BLUE":
                 projectile.GetComponent<Proto_Projectile>().laserColor_Enum = Proto_Projectile.LaserColor_Enum.BLUE;
+                tempLaserColor = Color.blue;
                 break;
 
             case "YELLOW":
                 projectile.GetComponent<Proto_Projectile>().laserColor_Enum = Proto_Projectile.LaserColor_Enum.YELLOW;
+                tempLaserColor = Color.yellow;
                 break;
 
             case "WHITE":
                 projectile.GetComponent<Proto_Projectile>().laserColor_Enum = Proto_Projectile.LaserColor_Enum.WHITE;
+                tempLaserColor = Color.white;
                 break;
         }
 
         projectile.GetComponent<SpriteRenderer>().material.color = tempLaserColor * colorIntensity;
 
         #endregion
+
+        //activateAnimatorComponentsOnReflectors();
     }
 
     [Button("Change Direction of Origin Laser")]
@@ -139,7 +156,6 @@ public class Proto_LaserOrigin : MonoBehaviour
     }
 
     #endregion
-
 
     public void Initialization()
     {

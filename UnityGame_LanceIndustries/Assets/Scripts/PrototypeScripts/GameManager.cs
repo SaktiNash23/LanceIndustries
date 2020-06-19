@@ -9,7 +9,7 @@ using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviour
 {
-    public bool DebugMode_PC; //True: Activates PC controls for debugging. False: Activates touch controls
+    public bool DebugMode_PC; //True: Activates PC controls for debugging. False: Activates touch controls. Ensure this is marked 'false' when creating mobile build
 
     public bool gimmick_LaserSpeedDecrease;
 
@@ -326,7 +326,7 @@ public class GameManager : MonoBehaviour
             allReflectorsInScene[i].GetComponent<BoxCollider2D>().enabled = true;
         }
 
-        Debug.LogWarning("Reset Reflector Colliders");
+        //Debug.LogWarning("Reset Reflector Colliders");
 
         activationToggle_Reflector = false;
     }
@@ -970,16 +970,16 @@ public class GameManager : MonoBehaviour
          {
              if (allCorrectLasersHaveReached == true)
              {
-                 //Debug.Log("All Correct Laser Have Reached earlier than time limit!!");
                  TimerSuccessText.text = "WIN";
-                 Reset();
+                 beginCountDown = false; //Only when beginCountdown is false, we can reset the game by clicking on any of the starting points again
+                 //Reset();
              }
              else if(allLasersHaveReached == true)
              {
-                //Debug.LogWarning("All Lasers Reached, but not all correct");
                 TimerSuccessText.text = "FAIL";
-                Reset();
-             }
+                beginCountDown = false; //Only when beginCountdown is false, we can reset the game by clicking on any of the starting points again
+                //Reset();
+            }
              else
              {
                 currentWindowTime -= Time.smoothDeltaTime;
@@ -990,8 +990,9 @@ public class GameManager : MonoBehaviour
          {
              TimerSuccessText.text = "FAIL";
              findAndDestroyLasers();
-             Reset();
-         }
+             beginCountDown = false; //Only when beginCountdown is false, we can reset the game by clicking on any of the starting points again
+             //Reset();
+        }
     }
 
     //This function resets the variables related to the game state, so that a new laser can be fired again
@@ -1003,6 +1004,7 @@ public class GameManager : MonoBehaviour
         {
             endPoint.GetComponent<EndPoint>().isHitByLaser_Accessor = false;
             endPoint.GetComponent<EndPoint>().isHitByCorrectLaser_Accessor = false;
+            endPoint.GetComponent<EndPoint>().resetEndPoint();
         }
 
         numOfHitEndPoints = 0;
@@ -1033,6 +1035,13 @@ public class GameManager : MonoBehaviour
         if(activeLasers.Length <= 0)
         {
             currentWindowTime = 0.0f;
+
+            //If there are no more active reflectors in the scene, deactivate their animator components so they can be reflected again
+            GameObject[] allActiveReflectors = GameObject.FindGameObjectsWithTag("ReflectorGM");
+            foreach(GameObject activeReflector in allActiveReflectors)
+            {
+                //activeReflector.GetComponent<Animator>().enabled = false;
+            }
         }
         else
         {

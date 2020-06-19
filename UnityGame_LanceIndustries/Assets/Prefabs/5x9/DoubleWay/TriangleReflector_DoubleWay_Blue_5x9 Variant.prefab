@@ -7,6 +7,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1333554040019133918, guid: b35fb308fdd861c4d9d282125764ea44,
+        type: 3}
+      propertyPath: reflectorAnimationScript
+      value: 
+      objectReference: {fileID: 2722893497976089962}
     - target: {fileID: 1443092712734123531, guid: b35fb308fdd861c4d9d282125764ea44,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -84,3 +89,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b35fb308fdd861c4d9d282125764ea44, type: 3}
+--- !u!114 &2722893497976089962 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 634668493496922607, guid: b35fb308fdd861c4d9d282125764ea44,
+    type: 3}
+  m_PrefabInstance: {fileID: 3244670446034082949}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bc29c76b2f335d44b7f3e1db5c85e5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

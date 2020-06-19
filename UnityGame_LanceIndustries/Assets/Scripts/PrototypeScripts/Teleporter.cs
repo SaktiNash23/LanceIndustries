@@ -7,6 +7,8 @@ public class Teleporter : MonoBehaviour
     private bool isPairValid = false;
     private GameObject[] teleporterPair;
 
+
+
     public void teleportLaser(GameObject projectileToTeleport, GameObject hitTeleporter)
     {
         //Check which set of teleporter is it
@@ -77,15 +79,19 @@ public class Teleporter : MonoBehaviour
         {
             case SNAPPING_DIR.LEFT:
                 transform.rotation = Quaternion.Euler(Vector3.zero);
+                transform.position += new Vector3(0.08f, 0.0f, 0.0f);
                 break;
             case SNAPPING_DIR.RIGHT:
                 transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 180f));
+                transform.position += new Vector3(-0.10f, 0.02f, 0.0f);
                 break;
             case SNAPPING_DIR.UP:
                 transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 270f));
+                transform.position += new Vector3(0.0f, -0.10f, 0.0f);
                 break;
             case SNAPPING_DIR.DOWN:
                 transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 90f));
+                transform.position += new Vector3(0.0f, 0.12f, 0.0f);
                 break;
         }
     }

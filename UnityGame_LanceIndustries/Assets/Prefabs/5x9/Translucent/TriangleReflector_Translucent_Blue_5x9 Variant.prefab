@@ -7,6 +7,41 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 881370992193172105, guid: ae12ed35b5710a04a9f3a2be71fa285e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2453082690763278214, guid: ae12ed35b5710a04a9f3a2be71fa285e,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: -0.55956423
+      objectReference: {fileID: 0}
+    - target: {fileID: 2453082690763278214, guid: ae12ed35b5710a04a9f3a2be71fa285e,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.25819087
+      objectReference: {fileID: 0}
+    - target: {fileID: 2453082690763278214, guid: ae12ed35b5710a04a9f3a2be71fa285e,
+        type: 3}
+      propertyPath: m_Offset.x
+      value: -0.0072420835
+      objectReference: {fileID: 0}
+    - target: {fileID: 2453082690763278214, guid: ae12ed35b5710a04a9f3a2be71fa285e,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 1.1252434
+      objectReference: {fileID: 0}
+    - target: {fileID: 2717153473407602722, guid: ae12ed35b5710a04a9f3a2be71fa285e,
+        type: 3}
+      propertyPath: m_Offset.x
+      value: -0.5187781
+      objectReference: {fileID: 0}
+    - target: {fileID: 2717153473407602722, guid: ae12ed35b5710a04a9f3a2be71fa285e,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.27685827
+      objectReference: {fileID: 0}
     - target: {fileID: 2835807081527714925, guid: ae12ed35b5710a04a9f3a2be71fa285e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -72,6 +107,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 0.57
       objectReference: {fileID: 0}
+    - target: {fileID: 4996097281761003738, guid: ae12ed35b5710a04a9f3a2be71fa285e,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: baa11ecde8fa9a342acb3eccc36736d9, type: 2}
     - target: {fileID: 5732723463307260467, guid: ae12ed35b5710a04a9f3a2be71fa285e,
         type: 3}
       propertyPath: m_Offset.x
@@ -87,10 +127,32 @@ PrefabInstance:
       propertyPath: m_TagString
       value: ReflectorTranslucent
       objectReference: {fileID: 0}
+    - target: {fileID: 6881193869822774318, guid: ae12ed35b5710a04a9f3a2be71fa285e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10
+      objectReference: {fileID: 0}
     - target: {fileID: 8088198439385407777, guid: ae12ed35b5710a04a9f3a2be71fa285e,
         type: 3}
       propertyPath: m_Name
       value: TriangleReflector_Translucent_Blue_5x9 Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 8303042771166154229, guid: ae12ed35b5710a04a9f3a2be71fa285e,
+        type: 3}
+      propertyPath: reflectorAnimationScript
+      value: 
+      objectReference: {fileID: 567194993418516731}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ae12ed35b5710a04a9f3a2be71fa285e, type: 3}
+--- !u!114 &567194993418516731 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2389811241803522659, guid: ae12ed35b5710a04a9f3a2be71fa285e,
+    type: 3}
+  m_PrefabInstance: {fileID: 2807225254030088856}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bc29c76b2f335d44b7f3e1db5c85e5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

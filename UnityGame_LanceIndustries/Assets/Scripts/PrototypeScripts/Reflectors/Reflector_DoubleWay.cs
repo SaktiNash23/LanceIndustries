@@ -125,10 +125,12 @@ public class Reflector_DoubleWay : Reflector
                 break;
         }
 
-
         setReflectorLaserColor();
         sparkAnimationScript.playDeflectAnimation();
         setReflectorHitFalseForProjectile();
+
+        if (reflectorAnimationScript != null)
+            reflectorAnimationScript.playDeflectAnimation(transform.rotation.eulerAngles.z);
 
         Destroy(referenceProjectile);
     }
@@ -183,4 +185,5 @@ public class Reflector_DoubleWay : Reflector
         newProjectile0.GetComponent<Proto_Projectile>().Invoke("reflectorHitFalse", 0.02f);
         newProjectile1.GetComponent<Proto_Projectile>().Invoke("reflectorHitFalse", 0.02f);
     }
+
 }
