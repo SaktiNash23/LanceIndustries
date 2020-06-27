@@ -17,9 +17,9 @@ public class Reflector_Translucent : Reflector
         base.retrieveLaserProperties(hitParam, projectile);
         base.calculateLaser_Base();
 
-        switch(transform.rotation.eulerAngles.z)
+        switch(/*transform.rotation.eulerAngles.z*/ Mathf.Round(transform.parent.Find("ReferencePoint").localEulerAngles.z))
         {
-            case 0.0f:
+            case 0:
                 if (base.referenceVector == Vector2.down)
                 {
                     newProjectile = Instantiate(projectile, transform.parent.GetChild(4).transform.position, Quaternion.AngleAxis(180.0f, Vector3.forward));
@@ -32,7 +32,7 @@ public class Reflector_Translucent : Reflector
                 }
                 break;
 
-            case 90.0f:
+            case 90:
                 if (base.referenceVector == Vector2.right)
                 {
                     newProjectile = Instantiate(projectile, transform.parent.GetChild(4).transform.position, Quaternion.AngleAxis(90.0f, Vector3.forward));
@@ -45,7 +45,7 @@ public class Reflector_Translucent : Reflector
                 }
                 break;
 
-            case 180.0f:
+            case 180:
                 if (base.referenceVector == Vector2.up)
                 {
                     newProjectile = Instantiate(projectile, transform.parent.GetChild(4).transform.position, Quaternion.AngleAxis(0.0f, Vector3.forward));
@@ -58,7 +58,7 @@ public class Reflector_Translucent : Reflector
                 }
                 break;
 
-            case 270.0f:
+            case 270:
                 if (base.referenceVector == Vector2.up)
                 {
                     newProjectile = Instantiate(projectile, transform.parent.GetChild(3).transform.position, Quaternion.AngleAxis(0.0f, Vector3.forward));
@@ -72,81 +72,11 @@ public class Reflector_Translucent : Reflector
                 break;
         }
 
-        #region Old Code Translucent Reflector
-        /*
-        if (transform.rotation.eulerAngles.z == 0.0f)
-        {
-            if(base.referenceVector == Vector2.down)
-            {
-                newProjectile = Instantiate(projectile, transform.parent.GetChild(4).transform.position, Quaternion.identity);
-                newProjectile.GetComponent<Proto_Projectile>().DirectionVector = Vector2.down;
-                newProjectile.transform.rotation = Quaternion.AngleAxis(180.0f, Vector3.forward);
-            }
-            else if (base.referenceVector == Vector2.left)
-            {
-                newProjectile = Instantiate(projectile, transform.parent.GetChild(3).transform.position, Quaternion.identity);
-                newProjectile.GetComponent<Proto_Projectile>().DirectionVector = Vector2.left;
-                newProjectile.transform.rotation = Quaternion.AngleAxis(-90.0f, Vector3.forward);
-            }
-        }
-
-        if(transform.rotation.eulerAngles.z == 90.0f)
-        {
-            if (base.referenceVector == Vector2.right)
-            {
-                newProjectile = Instantiate(projectile, transform.parent.GetChild(4).transform.position, Quaternion.identity);
-                newProjectile.GetComponent<Proto_Projectile>().DirectionVector = Vector2.right;
-                newProjectile.transform.rotation = Quaternion.AngleAxis(90.0f, Vector3.forward);
-            }
-
-            if (base.referenceVector == Vector2.down)
-            {
-                newProjectile = Instantiate(projectile, transform.parent.GetChild(3).transform.position, Quaternion.identity);
-                newProjectile.GetComponent<Proto_Projectile>().DirectionVector = Vector2.down;
-                newProjectile.transform.rotation = Quaternion.AngleAxis(180.0f, Vector3.forward);
-            }
-        }
-
-        if(transform.rotation.eulerAngles.z == 180.0f)
-        {
-            if (base.referenceVector == Vector2.up)
-            {
-                newProjectile = Instantiate(projectile, transform.parent.GetChild(4).transform.position, Quaternion.identity);
-                newProjectile.GetComponent<Proto_Projectile>().DirectionVector = Vector2.up;
-                newProjectile.transform.rotation = Quaternion.AngleAxis(0.0f, Vector3.forward);
-            }
-
-            if (base.referenceVector == Vector2.right)
-            {
-                newProjectile = Instantiate(projectile, transform.parent.GetChild(3).transform.position, Quaternion.identity);
-                newProjectile.GetComponent<Proto_Projectile>().DirectionVector = Vector2.right;
-                newProjectile.transform.rotation = Quaternion.AngleAxis(90.0f, Vector3.forward);
-            }
-        }
-
-        if(transform.rotation.eulerAngles.z == 270.0f)
-        {
-            if (base.referenceVector == Vector2.up)
-            {
-                newProjectile = Instantiate(projectile, transform.parent.GetChild(3).transform.position, Quaternion.identity);
-                newProjectile.GetComponent<Proto_Projectile>().DirectionVector = Vector2.up;
-                newProjectile.transform.rotation = Quaternion.AngleAxis(0.0f, Vector3.forward);
-            }
-            else if (base.referenceVector == Vector2.left)
-            {
-                newProjectile = Instantiate(projectile, transform.parent.GetChild(4).transform.position, Quaternion.identity);
-                newProjectile.GetComponent<Proto_Projectile>().DirectionVector = Vector2.left;
-                newProjectile.transform.rotation = Quaternion.AngleAxis(-90.0f, Vector3.forward);
-            }
-        }
-        */
-        #endregion
-
         setReflectorLaserColor();
         sparkAnimationScript.playDeflectAnimation();
 
         if (reflectorAnimationScript != null)
-            reflectorAnimationScript.playDeflectAnimation(transform.rotation.eulerAngles.z);
+            reflectorAnimationScript.playDeflectAnimation(/*transform.rotation.eulerAngles.z*/ transform.parent.Find("ReferencePoint").localEulerAngles.z);
 
         setReflectorHitFalseForProjectile();
         

@@ -14,7 +14,7 @@ public class SparkAnimation : MonoBehaviour
 
     public void playDeflectAnimation()
     {
-        anim.SetBool("playSpark", true);
+        anim.Play("DeflectSpark", 0 , 0f);
     }
 
     public void resetDeflectAnimation()

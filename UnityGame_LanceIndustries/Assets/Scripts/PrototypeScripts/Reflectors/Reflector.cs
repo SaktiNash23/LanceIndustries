@@ -56,9 +56,9 @@ public class Reflector : MonoBehaviour
             referenceProjectile.transform.position = referenceHitParam.point;
         }
 
-        switch (transform.rotation.eulerAngles.z)
+        switch (/*Mathf.Round(transform.parent.rotation.eulerAngles.z)*/ Mathf.Round(transform.parent.Find("ReferencePoint").localEulerAngles.z))
         {
-            case 0.0f:
+            case 0:
                 if (referenceVector == Vector2.down)
                 {
                     referenceProjectile.gameObject.GetComponent<Proto_Projectile>().DirectionVector = Vector2.right;
@@ -71,7 +71,7 @@ public class Reflector : MonoBehaviour
                 }
                 break;
 
-            case 90.0f:
+            case 90:
                 if (referenceVector == Vector2.right)
                 {
                     referenceProjectile.GetComponent<Proto_Projectile>().DirectionVector = Vector3.up;
@@ -84,7 +84,7 @@ public class Reflector : MonoBehaviour
                 }
                 break;
 
-            case 180.0f:
+            case 180:
                 if (referenceVector == Vector2.up)
                 {
                     referenceProjectile.gameObject.GetComponent<Proto_Projectile>().DirectionVector = Vector2.left;
@@ -97,7 +97,7 @@ public class Reflector : MonoBehaviour
                 }
                 break;
 
-            case 270.0f:
+            case 270:
                 if (referenceVector == Vector2.up)
                 {
                     referenceProjectile.GetComponent<Proto_Projectile>().DirectionVector = Vector2.right;
@@ -108,6 +108,11 @@ public class Reflector : MonoBehaviour
                     referenceProjectile.GetComponent<Proto_Projectile>().DirectionVector = Vector2.down;
                     referenceProjectile.transform.rotation = Quaternion.AngleAxis(180.0f, Vector3.forward);
                 }
+                break;
+
+            default:
+                Debug.Log("NO HIT");
+                Debug.Log(transform.parent.rotation.eulerAngles.z);
                 break;
         }
 
@@ -122,9 +127,8 @@ public class Reflector : MonoBehaviour
         setReflectorLaserColor();
         sparkAnimationScript.playDeflectAnimation();
 
-        if(reflectorAnimationScript != null)
-            reflectorAnimationScript.playDeflectAnimation(transform.rotation.eulerAngles.z);
-
+        if (reflectorAnimationScript != null)
+            reflectorAnimationScript.playDeflectAnimation(/*transform.parent.rotation.eulerAngles.z*/ transform.parent.Find("ReferencePoint").localEulerAngles.z);
 
         setReflectorHitFalseForProjectile();
     }
@@ -163,7 +167,7 @@ public class Reflector : MonoBehaviour
 
     public void playInvalidHitAnimation()
     {
-        reflectorAnimationScript.playInvalidAnimation(transform.rotation.eulerAngles.z);
+        reflectorAnimationScript.playInvalidAnimation(/*transform.parent.rotation.eulerAngles.z*/ transform.parent.Find("ReferencePoint").localEulerAngles.z);
         Debug.Log("INVALID");
     }
 

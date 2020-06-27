@@ -111,7 +111,7 @@ public class Raycast : MonoBehaviour
                                                                                //since their Box Colliders have not been reenabled.
 
                     //Destroy(gameObject); //Uncomment if using traditional Instantiate & Destroy. Object Pooling technique does not require this
-                    Debug.Log("Hit nothing");
+                    //Debug.Log("Hit nothing");
                 }
 
                 #endregion
@@ -136,7 +136,7 @@ public class Raycast : MonoBehaviour
                 isHoldingDown = true;
 
                 mousePhase = MousePhase.BEGAN;
-                Debug.Log("BEGAN");
+                //Debug.Log("BEGAN");
 
                 if (GameManager.gameManagerInstance.activationToggle_Grid == false)
                 {
@@ -231,7 +231,7 @@ public class Raycast : MonoBehaviour
                     }
                     else
                     {
-                        rotateReflector(transform.rotation.eulerAngles.z);
+                        rotateReflector(transform.rotation.eulerAngles.z); //Original
                     }
                 }
             }
@@ -557,15 +557,16 @@ public class Raycast : MonoBehaviour
         if (zRotation != 270.0f)
         {
             transform.Rotate(0.0f, 0.0f, 90.0f);
-            Debug.Log("ROTATE REFLECTOR");
-
+            transform.Find("ReferencePoint").localRotation = Quaternion.Euler(0.0f, 0.0f, transform.Find("ReferencePoint").localEulerAngles.z + 90.0f);
+            //Debug.Log("ROTATE REFLECTOR");        
         }
         else
         {
             transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
+            transform.Find("ReferencePoint").localRotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
         }
 
-        switch (transform.rotation.eulerAngles.z)
+        switch (transform.rotation.eulerAngles.z /*transform.Find("ReferencePoint").localEulerAngles.z*/)
         {
             case 0.0f:
                 GetComponent<Animator>().SetFloat("currentRotation", 0.0f);
@@ -582,8 +583,7 @@ public class Raycast : MonoBehaviour
             case 270.0f:
                 GetComponent<Animator>().SetFloat("currentRotation", 270.0f);
                 break;
-        }
-        
+        }        
     }
 
     public bool isHoldingDownAccessor
