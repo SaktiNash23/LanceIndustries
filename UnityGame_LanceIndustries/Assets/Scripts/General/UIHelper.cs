@@ -63,6 +63,11 @@ public class UIHelper : MonoBehaviour
 
     //----------------------------- CALLBACK HANDLING FUNCTIONS -----------------------------//
 
+    public void ExecuteUIHandlingAction(bool targetBool)
+    {
+        btnCallbackActionBool.Invoke(targetBool);
+    }
+
     public void ExecuteUIHandlingAction(bool targetBool, UnityAction callback = null)
     {
         if (helperFunctionType == UI_HELPER_FUNCTION_TYPES.POP)
