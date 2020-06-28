@@ -367,7 +367,13 @@ public class MapEditorManager : MonoBehaviour
 #if UNITY_EDITOR
         MapData newMapData = new MapData();
         string mapDataJson = JsonUtility.ToJson(newMapData, true);
-        string mapDataSavePath = "Assets/Resources/Map Datas/" + ifMapName.text + ".json";
+        string mapDataSavePath = "";
+
+        if (ifMapName.text.Contains("("))
+            mapDataSavePath = "Assets/Resources/Map Datas/" + ifMapName.text.Split(new string[] { " (" }, System.StringSplitOptions.None)[0] + ".json";
+        else
+            mapDataSavePath = "Assets/Resources/Map Datas/" + ifMapName.text + ".json";
+
         using (FileStream file = new FileStream(mapDataSavePath, FileMode.Create))
         {
             using (StreamWriter writer = new StreamWriter(file))
