@@ -14,6 +14,7 @@ public class MapDataHolder
 {
     public List<InSceneObjectData> inSceneObjectDatas;
     public float timeLimit;
+    public float designerHighScore;
     public int basicReflectorAmount;
     public int redBasicReflectorAmount;
     public int yellowBasicReflectorAmount;

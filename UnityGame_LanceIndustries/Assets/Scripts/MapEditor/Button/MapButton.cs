@@ -29,7 +29,12 @@ public class MapButton : MonoBehaviour
     public void InitializeMapDataPath()
     {
         string mapDataDirectory = "Assets/Resources/Map Datas/";
-        string targetPath = mapDataDirectory + txtMapName.text + ".json";
+        string targetPath = "";
+        if (txtMapName.text.Contains("("))
+            targetPath = mapDataDirectory + txtMapName.text.Split(new string[] { " (" }, System.StringSplitOptions.None)[0] + ".json";
+        else
+            targetPath = mapDataDirectory + txtMapName.text + ".json";
+
         MapDataPath = targetPath;
     }
 

@@ -9,10 +9,25 @@ public class MainMenuLevelUI : MonoBehaviour
 {
     [BoxGroup("REFERENCES")] [SerializeField] Button btnLevel;
     [BoxGroup("REFERENCES")] [SerializeField] TMP_Text txtLevel;
-    [BoxGroup("REFERENCES")] [SerializeField] TMP_Text txtHighscore;
+
+    public int MapIndex { get; set; }
+
+    public MapInfo TargetMapInfo { get; set; }
+
+    private void OnEnable()
+    {
+        btnLevel.onClick.AddListener(() => MainMenuUIManager.Instance.ShowLevelPreview(true, MapIndex));
+    }
+
+    private void OnDisable()
+    {
+        btnLevel.onClick.RemoveAllListeners();
+    }
 
     public void PopularizeDisplay(MapInfo mapInfo)
     {
+        TargetMapInfo = mapInfo;
+
         int openBracketIndex = mapInfo.mapName.IndexOf('(');
         int closeBracketIndex = mapInfo.mapName.IndexOf(')');
         
@@ -24,7 +39,5 @@ public class MainMenuLevelUI : MonoBehaviour
         }
 
         txtLevel.text = targetName;
-        
-        //txtHighscore
     }
 }

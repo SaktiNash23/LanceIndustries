@@ -35,6 +35,7 @@ public class MapEditorManager : MonoBehaviour
     [BoxGroup("PANEL MAP EDITING REFERENCES")] [SerializeField] List<MapEditorObjectCreatorButton> mapEditorObjectCreatorParentButtons;
     [BoxGroup("PANEL MAP EDITING REFERENCES")] [SerializeField] List<MapEditorObjectCreatorButton> mapEditorObjectCreatorPortalSubMenuButtons;
     [BoxGroup("PANEL MAP EDITING REFERENCES")] [SerializeField] TMP_InputField ifTimeLimit;
+    [BoxGroup("PANEL MAP EDITING REFERENCES")] [SerializeField] TMP_InputField ifDesignerHighScore;
     [BoxGroup("PANEL MAP EDITING REFERENCES")] [SerializeField] TMP_InputField ifWhiteBasicReflectorAmount;
     [BoxGroup("PANEL MAP EDITING REFERENCES")] [SerializeField] TMP_InputField ifRedBasicReflectorAmount;
     [BoxGroup("PANEL MAP EDITING REFERENCES")] [SerializeField] TMP_InputField ifYellowBasicReflectorAmount;
@@ -99,6 +100,7 @@ public class MapEditorManager : MonoBehaviour
     }
 
     private float timeLimit;
+    private float designerHighScore;
     private int whiteBasicReflectorAmount;
     private int redBasicReflectorAmount;
     private int yellowBasicReflectorAmount;
@@ -290,6 +292,7 @@ public class MapEditorManager : MonoBehaviour
         MapSnappersInitialization();
 
         timeLimit = mapDataHolder.timeLimit;
+        designerHighScore = mapDataHolder.designerHighScore;
         whiteBasicReflectorAmount = mapDataHolder.basicReflectorAmount;
         redBasicReflectorAmount = mapDataHolder.redBasicReflectorAmount;
         yellowBasicReflectorAmount = mapDataHolder.yellowBasicReflectorAmount;
@@ -408,6 +411,7 @@ public class MapEditorManager : MonoBehaviour
         }
 
         mapDataHolder.timeLimit = float.Parse(ifTimeLimit.text);
+        mapDataHolder.designerHighScore = float.Parse(ifDesignerHighScore.text);
         mapDataHolder.basicReflectorAmount = int.Parse(ifWhiteBasicReflectorAmount.text);
         mapDataHolder.redBasicReflectorAmount = int.Parse(ifRedBasicReflectorAmount.text);
         mapDataHolder.yellowBasicReflectorAmount = int.Parse(ifYellowBasicReflectorAmount.text);
@@ -918,6 +922,7 @@ public class MapEditorManager : MonoBehaviour
     private void UpdateIFLevelSettings()
     {
         ifTimeLimit.text = timeLimit.ToString();
+        ifDesignerHighScore.text = designerHighScore.ToString();
         ifWhiteBasicReflectorAmount.text = whiteBasicReflectorAmount.ToString();
         ifRedBasicReflectorAmount.text = redBasicReflectorAmount.ToString();
         ifYellowBasicReflectorAmount.text = yellowBasicReflectorAmount.ToString();

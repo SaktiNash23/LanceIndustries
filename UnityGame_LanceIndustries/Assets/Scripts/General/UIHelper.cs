@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
-using NaughtyAttributes;
 
 public enum UI_HELPER_FUNCTION_TYPES
 {
@@ -16,29 +15,36 @@ public enum UI_HELPER_FUNCTION_TYPES
 [ExecuteInEditMode]
 public class UIHelper : MonoBehaviour
 {
-    [InfoBox("For POP, ExecuteUIHandlingAction with bool param should be called. For MOVE_IN_OUT, ExecuteUIHandlingAction without param should be called.")]
     public UI_HELPER_FUNCTION_TYPES helperFunctionType;
 
-    [BoxGroup("POP SETTINGS")] public CanvasGroup cgParent;
-    [BoxGroup("POP SETTINGS")] public Image imgCgParentToUnpopWindow;
-    [BoxGroup("POP SETTINGS")] public Button btnCgParentToUnpopWindow;
-    [BoxGroup("POP SETTINGS")] public CanvasGroup cgPopTarget;
-    [BoxGroup("POP SETTINGS")] public Vector3 maxScale;
-    [BoxGroup("POP SETTINGS")] public float popDuration;
-    [BoxGroup("POP SETTINGS")] public UnityEvent callbacksAfterPop = null;
-    [BoxGroup("POP SETTINGS")] public UnityEvent callbacksAfterUnPop = null;
+    public CanvasGroup cgParent;
+    public Image imgCgParentToUnpopWindow;
+    public Button btnCgParentToUnpopWindow;
+    public CanvasGroup cgPopTarget;
+    public float maxAlphaImgToUnpopWindow = 0.5f;
+    public Vector3 maxScale;
+    public float popDuration;
+    public UnityEvent callbacksAfterPop = null;
+    public UnityEvent callbacksAfterUnPop = null;
+    public UnityEvent onScrollLeftCompleteCallback = null;
+    public UnityEvent onScrollRightCompleteCallback = null;
+    public ScrollRect scrollRect;
+    public RectTransform content;
 
-    [BoxGroup("MOVE SETTINGS")] public RectTransform rtTargetToMove;
-    [BoxGroup("MOVE SETTINGS")] public Vector3 moveOffset;
-    [BoxGroup("MOVE SETTINGS")] public float moveDuration;
+    public RectTransform rtTargetToMove;
+    public Vector3 moveOffset;
+    public float moveDuration;
 
     private UnityAction<bool> btnCallbackActionBool = null;
     private UnityAction btnCallbackActionNoParam = null;
+   
 
     public bool InTransition { get; set; } = false;
     
     private bool moved;
     private Vector3 originPos;
+
+    public int ScrollContentCurrentPageIndex { get; set; }
 
     //----------------------------- MONOBEHAVIOUR FUNCTIONS -----------------------------//
 
@@ -57,15 +63,17 @@ public class UIHelper : MonoBehaviour
 
     //----------------------------- CALLBACK HANDLING FUNCTIONS -----------------------------//
 
-    public void ExecuteUIHandlingAction(bool targetBool)
+    public void ExecuteUIHandlingAction(bool targetBool, UnityAction callback = null)
     {
         if (helperFunctionType == UI_HELPER_FUNCTION_TYPES.POP)
         {
             btnCallbackActionBool.Invoke(targetBool);
-            if (targetBool && callbacksAfterPop != null)
-                callbacksAfterPop.Invoke();
-            else if (callbacksAfterUnPop != null)
-                callbacksAfterUnPop.Invoke();
+            if (callback != null)
+                callback.Invoke();
+            //if (targetBool && callbacksAfterPop != null)
+            //    callbacksAfterPop.Invoke();
+            //else if (callbacksAfterUnPop != null)
+            //    callbacksAfterUnPop.Invoke();
         }
     }
 
@@ -83,15 +91,25 @@ public class UIHelper : MonoBehaviour
     {
         if (pop)
         {
-            imgCgParentToUnpopWindow.raycastTarget = true;
             Vector3 initialScale = new Vector3(0f, 0f, 0f);
             LeanTween.value(this.gameObject, initialScale, maxScale, popDuration).setEaseOutBack().setOnUpdate((Vector3 targetScale) => WindowScaleUpdate(targetScale)).setOnComplete(() =>
             {
+                imgCgParentToUnpopWindow.raycastTarget = true;
                 cgPopTarget.interactable = true;
                 cgPopTarget.blocksRaycasts = true;
                 btnCgParentToUnpopWindow.onClick.AddListener(() => ExecuteUIHandlingAction(false));
+                if (callbacksAfterPop != null)
+                    callbacksAfterPop.Invoke();
+
+                if (scrollRect)
+                    scrollRect.enabled = true;
+
             });
-            LeanTween.value(0f, 0.5f, popDuration).setOnUpdate(ImgParentBgAlphaUpdate);
+            LeanTween.value(0f, maxAlphaImgToUnpopWindow, popDuration).setOnUpdate(ImgParentBgAlphaUpdate);
+
+            if (scrollRect)
+                scrollRect.content.anchoredPosition = Vector2.zero;
+
         }
         else
         {
@@ -100,10 +118,15 @@ public class UIHelper : MonoBehaviour
             cgPopTarget.blocksRaycasts = false;
             LeanTween.value(this.gameObject, initialScale, new Vector3(0f, 0f, 0f), popDuration).setEaseOutCubic().setOnUpdate((Vector3 targetScale) => WindowScaleUpdate(targetScale));
             btnCgParentToUnpopWindow.onClick.RemoveAllListeners();
-            LeanTween.value(0.5f, 0.0f, popDuration).setOnUpdate(ImgParentBgAlphaUpdate).setOnComplete(() =>
+            LeanTween.value(maxAlphaImgToUnpopWindow, 0.0f, popDuration).setOnUpdate(ImgParentBgAlphaUpdate).setOnComplete(() =>
             {
                 imgCgParentToUnpopWindow.raycastTarget = false;
+                if (callbacksAfterUnPop != null)
+                    callbacksAfterUnPop.Invoke();
             });
+
+            if (scrollRect)
+                scrollRect.enabled = false;
         }
     }
 
@@ -114,7 +137,7 @@ public class UIHelper : MonoBehaviour
 
     private void ImgParentBgAlphaUpdate(float value)
     {
-        imgCgParentToUnpopWindow.color = new Color(0f, 0f, 0f, value);
+        imgCgParentToUnpopWindow.color = new Color(imgCgParentToUnpopWindow.color.r, imgCgParentToUnpopWindow.color.g, imgCgParentToUnpopWindow.color.b, value);
     }
 
     //----------------------------- MOVE HANDLING FUNCTIONS -----------------------------//
