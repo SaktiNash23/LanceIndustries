@@ -37,9 +37,10 @@ public class LevelPreviewPage : MonoBehaviour
         // Toggle all to off
         for(int i = 0; i < levelLayout.transform.childCount; i++)
         {
-            levelLayout.transform.GetChild(i).GetComponent<MapGridUI>().ToggleAllWall(false);
+            levelLayout.transform.GetChild(i).GetComponent<MapGridUI>().ToggleAllWalls(false);
             levelLayout.transform.GetChild(i).GetComponent<MapGridUI>().ToggleOriginPoint(default, Quaternion.identity, false);
             levelLayout.transform.GetChild(i).GetComponent<MapGridUI>().ToggleDestinationPoint(default, Quaternion.identity, false);
+            levelLayout.transform.GetChild(i).GetComponent<MapGridUI>().ToggleAllPortals(false);
         }
 
         // Toggle those right one
@@ -90,6 +91,14 @@ public class LevelPreviewPage : MonoBehaviour
                     break;
                 case IN_SCENE_OBJECT_TYPES.DESTINATION_POINT_BLUE:
                     levelLayout.transform.GetChild(inSceneObj.mapGridIndex).GetComponent<MapGridUI>().ToggleDestinationPoint(BorderColor.BLUE, inSceneObj.rotation, true);
+                    break;
+                case IN_SCENE_OBJECT_TYPES.PORTAL_1ST_SET_HORIZONTAL:
+                case IN_SCENE_OBJECT_TYPES.PORTAL_1ST_SET_VERTICAL:
+                    levelLayout.transform.GetChild(inSceneObj.mapGridIndex).GetComponent<MapGridUI>().TogglePortal(true, inSceneObj.borderDir, true);
+                    break;
+                case IN_SCENE_OBJECT_TYPES.PORTAL_2ND_SET_HORIZONTAL:
+                case IN_SCENE_OBJECT_TYPES.PORTAL_2ND_SET_VERTICAL:
+                    levelLayout.transform.GetChild(inSceneObj.mapGridIndex).GetComponent<MapGridUI>().TogglePortal(false, inSceneObj.borderDir, true);
                     break;
             }
         }

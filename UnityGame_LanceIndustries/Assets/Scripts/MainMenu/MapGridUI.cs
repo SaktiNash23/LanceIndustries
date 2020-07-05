@@ -11,7 +11,13 @@ public class MapGridUI : MonoBehaviour
     [SerializeField] Image bottomWall;
 
     [SerializeField] Image originPoint;
+
     [SerializeField] Image destinationPoint;
+
+    [SerializeField] Image leftPortal;
+    [SerializeField] Image rightPortal;
+    [SerializeField] Image topPortal;
+    [SerializeField] Image bottomPortal;
 
     [SerializeField] Sprite basicWallSprite;
     [SerializeField] Sprite whiteWallSprite;
@@ -28,6 +34,9 @@ public class MapGridUI : MonoBehaviour
     [SerializeField] Sprite redDestinationPointSprite;
     [SerializeField] Sprite yellowDestinationPointSprite;
     [SerializeField] Sprite blueDestinationPointSprite;
+
+    [SerializeField] Sprite portalSetOneSprite;
+    [SerializeField] Sprite portalSetTwoSprite;
 
     public void ToggleWall(BorderColor wallColor, SNAPPING_DIR wallDir, bool show)
     {
@@ -106,9 +115,49 @@ public class MapGridUI : MonoBehaviour
         destinationPoint.enabled = show;
     }
 
-    public void ToggleAllWall(bool show)
+    public void TogglePortal(bool setOne, SNAPPING_DIR portalDir, bool show)
+    {
+        switch (portalDir)
+        {
+            case SNAPPING_DIR.LEFT:
+                leftPortal.enabled = show;
+                if (setOne)
+                    leftPortal.sprite = portalSetOneSprite;
+                else
+                    leftPortal.sprite = portalSetTwoSprite;
+                break;
+            case SNAPPING_DIR.RIGHT:
+                rightPortal.enabled = show;
+                if (setOne)
+                    rightPortal.sprite = portalSetOneSprite;
+                else
+                    rightPortal.sprite = portalSetTwoSprite;
+                break;
+            case SNAPPING_DIR.UP:
+                topPortal.enabled = show;
+                if (setOne)
+                    topPortal.sprite = portalSetOneSprite;
+                else
+                    topPortal.sprite = portalSetTwoSprite;
+                break;
+            case SNAPPING_DIR.DOWN:
+                bottomPortal.enabled = show;
+                if (setOne)
+                    bottomPortal.sprite = portalSetOneSprite;
+                else
+                    bottomPortal.sprite = portalSetTwoSprite;
+                break;
+        }
+    }
+
+    public void ToggleAllWalls(bool show)
     {
         leftWall.enabled = rightWall.enabled = topWall.enabled = bottomWall.enabled = show;
+    }
+
+    public void ToggleAllPortals(bool show)
+    {
+        leftPortal.enabled = rightPortal.enabled = topPortal.enabled = bottomPortal.enabled = show;
     }
 
     private void ApplyWallColor(Image targetWall, BorderColor wallColor)
