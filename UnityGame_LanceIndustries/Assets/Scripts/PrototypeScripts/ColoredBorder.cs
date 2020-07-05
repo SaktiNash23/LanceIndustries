@@ -8,7 +8,8 @@ public enum BorderColor
     RED,
     BLUE,
     YELLOW,
-    WHITE
+    WHITE,
+    NONE
 };
 
 public class ColoredBorder : MonoBehaviour

@@ -23,6 +23,8 @@ public class UIHelperEditor : Editor
                 EditorGUILayout.LabelField("---OPTIONAL---", EditorStyles.boldLabel);
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("content"));
                 EditorGUILayout.LabelField("---SCROLL SNAPPING SETTINGS (OPTIONAL)---", EditorStyles.boldLabel);
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("onScrollLeftStartCallback"));
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("onScrollRightStartCallback"));
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("onScrollLeftCompleteCallback"));
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("onScrollRightCompleteCallback"));
                 serializedObject.ApplyModifiedProperties();
@@ -39,8 +41,11 @@ public class UIHelperEditor : Editor
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("scrollRect"));
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("content"));
                 EditorGUILayout.LabelField("---SCROLL SNAPPING SETTINGS (OPTIONAL)---", EditorStyles.boldLabel);
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("onScrollLeftStartCallback"));
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("onScrollRightStartCallback"));
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("onScrollLeftCompleteCallback"));
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("onScrollRightCompleteCallback"));
+                EditorGUILayout.LabelField("---POP SETTINGS (OPTIONAL)---", EditorStyles.boldLabel);
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("callbacksAfterPop"));
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("callbacksAfterUnPop"));
                 serializedObject.ApplyModifiedProperties();
@@ -50,6 +55,8 @@ public class UIHelperEditor : Editor
                 targetScript.moveOffset = EditorGUILayout.Vector3Field("Move Offset", targetScript.moveOffset);
                 targetScript.moveDuration = EditorGUILayout.FloatField("Move Duration", targetScript.moveDuration);
                 EditorGUILayout.LabelField("---SCROLL SNAPPING SETTINGS (OPTIONAL)---", EditorStyles.boldLabel);
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("onScrollLeftStartCallback"));
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("onScrollRightStartCallback"));
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("onScrollLeftCompleteCallback"));
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("onScrollRightCompleteCallback"));
                 serializedObject.ApplyModifiedProperties();

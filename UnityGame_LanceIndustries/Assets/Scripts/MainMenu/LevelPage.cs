@@ -13,6 +13,9 @@ public class LevelPage : MonoBehaviour
     {
         foreach(var mapInfo in mapInfos)
         {
+            // Add the map data holder into persistent data manager for access in the future without keep casting it
+            PersistentDataManager.Instance.MapDataHolderNamePairs.Add(new MapDataHolderNamePair() { mapName = mapInfo.mapName, mapDataHolder = JsonUtility.FromJson<MapDataHolder>(mapInfo.mapData.text) });
+
             MainMenuLevelUI levelUI = Instantiate(levelUIPrefab, transform, false);
             MainMenuUIManager.Instance.LevelUIs.Add(levelUI);
             levelUI.PopularizeDisplay(mapInfo);

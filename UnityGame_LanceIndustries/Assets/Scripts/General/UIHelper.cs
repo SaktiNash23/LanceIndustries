@@ -26,6 +26,8 @@ public class UIHelper : MonoBehaviour
     public float popDuration;
     public UnityEvent callbacksAfterPop = null;
     public UnityEvent callbacksAfterUnPop = null;
+    public UnityEvent onScrollLeftStartCallback = null;
+    public UnityEvent onScrollRightStartCallback = null;
     public UnityEvent onScrollLeftCompleteCallback = null;
     public UnityEvent onScrollRightCompleteCallback = null;
     public ScrollRect scrollRect;
@@ -38,7 +40,6 @@ public class UIHelper : MonoBehaviour
     private UnityAction<bool> btnCallbackActionBool = null;
     private UnityAction btnCallbackActionNoParam = null;
    
-
     public bool InTransition { get; set; } = false;
     
     private bool moved;

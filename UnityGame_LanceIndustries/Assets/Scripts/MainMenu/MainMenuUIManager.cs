@@ -48,8 +48,30 @@ public class MainMenuUIManager : MonoBehaviour
     private void OnEnable()
     {
         btnBackToLevelSelection.onClick.AddListener(() => ShowLevelPreview(false));
-        btnSwitchLevelLeft.onClick.AddListener(() => UIHelperManager.Instance.ScrollSnapping(uiHelperPanelLevelPreview, false, () => ShowLevelPreview(true, --selectedMapPreviewIndex)));
-        btnSwitchLevelRight.onClick.AddListener(() => UIHelperManager.Instance.ScrollSnapping(uiHelperPanelLevelPreview, true, () => ShowLevelPreview(true, ++selectedMapPreviewIndex)));
+        btnSwitchLevelLeft.onClick.AddListener(() => UIHelperManager.Instance.ScrollSnapping(uiHelperPanelLevelPreview, false, () => 
+        { 
+            btnSwitchLevelLeft.gameObject.SetActive(false);
+            btnSwitchLevelRight.gameObject.SetActive(false);
+            btnBackToLevelSelection.gameObject.SetActive(false);
+        }, () =>
+        {
+            btnSwitchLevelLeft.gameObject.SetActive(true);
+            btnSwitchLevelRight.gameObject.SetActive(true);
+            btnBackToLevelSelection.gameObject.SetActive(true);
+            ShowLevelPreview(true, --selectedMapPreviewIndex);
+        }));
+        btnSwitchLevelRight.onClick.AddListener(() => UIHelperManager.Instance.ScrollSnapping(uiHelperPanelLevelPreview, true, () =>
+        {
+            btnSwitchLevelLeft.gameObject.SetActive(false);
+            btnSwitchLevelRight.gameObject.SetActive(false);
+            btnBackToLevelSelection.gameObject.SetActive(false);
+        }, () =>
+        {
+            btnSwitchLevelLeft.gameObject.SetActive(true);
+            btnSwitchLevelRight.gameObject.SetActive(true);
+            btnBackToLevelSelection.gameObject.SetActive(true);
+            ShowLevelPreview(true, ++selectedMapPreviewIndex);
+        }));
     }
 
     private void OnDisable()

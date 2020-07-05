@@ -31,7 +31,6 @@ public class UIHelperManager : MonoBehaviour
 
     public void SnappingOnBeginDrag(BaseEventData eventData)
     {
-        Debug.Log(eventData.selectedObject);
 #if UNITY_EDITOR
         pointerStartDragPos = ((PointerEventData)eventData).position;
 #elif UNITY_IOS || UNITY_ANDROID
@@ -81,6 +80,17 @@ public class UIHelperManager : MonoBehaviour
 
             if (currentPageIndex != targetPageIndex)
             {
+                if(scrollRight)
+                {
+                    if (uiHelper.onScrollRightStartCallback.GetPersistentEventCount() > 0)
+                        uiHelper.onScrollRightStartCallback.Invoke();
+                }
+                else
+                {
+                    if (uiHelper.onScrollLeftStartCallback.GetPersistentEventCount() > 0)
+                        uiHelper.onScrollLeftStartCallback.Invoke();
+                }
+
                 uiHelper.GetComponent<EventTrigger>().enabled = false;
                 if(uiHelper.imgCgParentToUnpopWindow)
                     uiHelper.imgCgParentToUnpopWindow.raycastTarget = false;
@@ -104,8 +114,11 @@ public class UIHelperManager : MonoBehaviour
         }
     }
 
-    public void ScrollSnapping(UIHelper targetUI, bool scrollRight, UnityAction callbackOnCompleted = null)
+    public void ScrollSnapping(UIHelper targetUI, bool scrollRight, UnityAction callbackOnStart = null, UnityAction callbackOnCompleted = null)
     {
+        if (callbackOnStart != null)
+            callbackOnStart.Invoke();
+
         int maxPageIndex = targetUI.content.childCount - 1;
 
         int currentPageIndex = Mathf.RoundToInt(Mathf.Abs(targetUI.content.anchoredPosition.x / canvasScaler.referenceResolution.x));

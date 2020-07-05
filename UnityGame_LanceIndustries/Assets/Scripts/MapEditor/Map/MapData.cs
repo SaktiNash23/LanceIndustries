@@ -6,5 +6,4 @@ using System;
 [Serializable]
 public class MapData
 {
-    public int testVar1;
 }

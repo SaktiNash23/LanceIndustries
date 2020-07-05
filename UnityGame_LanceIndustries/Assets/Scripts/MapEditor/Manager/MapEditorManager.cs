@@ -36,6 +36,9 @@ public class MapEditorManager : MonoBehaviour
     [BoxGroup("PANEL MAP EDITING REFERENCES")] [SerializeField] List<MapEditorObjectCreatorButton> mapEditorObjectCreatorPortalSubMenuButtons;
     [BoxGroup("PANEL MAP EDITING REFERENCES")] [SerializeField] TMP_InputField ifTimeLimit;
     [BoxGroup("PANEL MAP EDITING REFERENCES")] [SerializeField] TMP_InputField ifDesignerHighScore;
+    [BoxGroup("PANEL MAP EDITING REFERENCES")] [SerializeField] TMP_InputField if1StarRequiredTime;
+    [BoxGroup("PANEL MAP EDITING REFERENCES")] [SerializeField] TMP_InputField if2StarRequiredTime;
+    [BoxGroup("PANEL MAP EDITING REFERENCES")] [SerializeField] TMP_InputField if3StarRequiredTime;
     [BoxGroup("PANEL MAP EDITING REFERENCES")] [SerializeField] TMP_InputField ifWhiteBasicReflectorAmount;
     [BoxGroup("PANEL MAP EDITING REFERENCES")] [SerializeField] TMP_InputField ifRedBasicReflectorAmount;
     [BoxGroup("PANEL MAP EDITING REFERENCES")] [SerializeField] TMP_InputField ifYellowBasicReflectorAmount;
@@ -101,6 +104,9 @@ public class MapEditorManager : MonoBehaviour
 
     private float timeLimit;
     private float designerHighScore;
+    private float oneStarRequiredTime;
+    private float twoStarRequiredTime;
+    private float threeStarRequiredTime;
     private int whiteBasicReflectorAmount;
     private int redBasicReflectorAmount;
     private int yellowBasicReflectorAmount;
@@ -293,6 +299,9 @@ public class MapEditorManager : MonoBehaviour
 
         timeLimit = mapDataHolder.timeLimit;
         designerHighScore = mapDataHolder.designerHighScore;
+        oneStarRequiredTime = mapDataHolder.oneStarRequiredTime;
+        twoStarRequiredTime = mapDataHolder.twoStarRequiredTime;
+        threeStarRequiredTime = mapDataHolder.threeStarRequiredTime;
         whiteBasicReflectorAmount = mapDataHolder.basicReflectorAmount;
         redBasicReflectorAmount = mapDataHolder.redBasicReflectorAmount;
         yellowBasicReflectorAmount = mapDataHolder.yellowBasicReflectorAmount;
@@ -418,6 +427,9 @@ public class MapEditorManager : MonoBehaviour
 
         mapDataHolder.timeLimit = float.Parse(ifTimeLimit.text);
         mapDataHolder.designerHighScore = float.Parse(ifDesignerHighScore.text);
+        mapDataHolder.oneStarRequiredTime = float.Parse(if1StarRequiredTime.text);
+        mapDataHolder.twoStarRequiredTime = float.Parse(if2StarRequiredTime.text);
+        mapDataHolder.threeStarRequiredTime = float.Parse(if3StarRequiredTime.text);
         mapDataHolder.basicReflectorAmount = int.Parse(ifWhiteBasicReflectorAmount.text);
         mapDataHolder.redBasicReflectorAmount = int.Parse(ifRedBasicReflectorAmount.text);
         mapDataHolder.yellowBasicReflectorAmount = int.Parse(ifYellowBasicReflectorAmount.text);
@@ -929,6 +941,9 @@ public class MapEditorManager : MonoBehaviour
     {
         ifTimeLimit.text = timeLimit.ToString();
         ifDesignerHighScore.text = designerHighScore.ToString();
+        if1StarRequiredTime.text = oneStarRequiredTime.ToString();
+        if2StarRequiredTime.text = twoStarRequiredTime.ToString();
+        if3StarRequiredTime.text = threeStarRequiredTime.ToString();
         ifWhiteBasicReflectorAmount.text = whiteBasicReflectorAmount.ToString();
         ifRedBasicReflectorAmount.text = redBasicReflectorAmount.ToString();
         ifYellowBasicReflectorAmount.text = yellowBasicReflectorAmount.ToString();
