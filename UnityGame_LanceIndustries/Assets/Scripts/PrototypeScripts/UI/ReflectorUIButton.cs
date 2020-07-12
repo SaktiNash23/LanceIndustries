@@ -183,5 +183,6 @@ public class ReflectorUIButton : MonoBehaviour
 
         GameManager.gameManagerInstance.reflectorColorsPanel.SetActive(true);
         GameManager.gameManagerInstance.isReflectorColorPanelActive = true;
+        GameManager.gameManagerInstance.reflectorColorsPanel.GetComponent<Animator>().SetBool("ReflectorColorPanelDisplayed", true);
     }
 }

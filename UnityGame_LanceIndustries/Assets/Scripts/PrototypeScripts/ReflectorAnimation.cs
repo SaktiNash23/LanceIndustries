@@ -5,39 +5,23 @@ using UnityEngine;
 public class ReflectorAnimation : MonoBehaviour
 {
     private Animator anim;
+    private Animator buildAnimator;
     private float storeReflectorFloatZ;
+
+    void Awake()
+    {
+        
+    }
 
     void Start()
     {
         anim = GetComponent<Animator>();
+        buildAnimator = transform.Find("BuildAnimator").GetComponent<Animator>();
     }
 
     public void playDeflectAnimation(float reflector_zRotation)
     {
         storeReflectorFloatZ = reflector_zRotation;
-
-        #region Old Anim Code
-        /*
-        switch (reflector_zRotation)
-        {
-            case 0.0f:
-                anim.SetBool("playDeflect_0", true);
-                break;
-
-            case 90.0f:
-                anim.SetBool("playDeflect_90", true);
-                break;
-
-            case 180.0f:
-                anim.SetBool("playDeflect_180", true);
-                break;
-
-            case 270.0f:
-                anim.SetBool("playDeflect_270", true);
-                break;
-        }
-        */
-        #endregion
 
         if (Mathf.Approximately(reflector_zRotation, 0.0f))
         {
@@ -63,35 +47,11 @@ public class ReflectorAnimation : MonoBehaviour
             anim.Play("Reflector_Rotation270", 0, 0f);
             return;
         }
-
     }
 
     public void playInvalidAnimation(float reflector_zRotation)
     {
         storeReflectorFloatZ = reflector_zRotation;
-
-        #region Old Anim Code
-        /*
-        switch (reflector_zRotation)
-        {
-            case 0.0f:
-                anim.SetBool("playInvalid_0", true);
-                break;
-
-            case 90.0f:
-                anim.SetBool("playInvalid_90", true);
-                break;
-
-            case 180.0f:
-                anim.SetBool("playInvalid_180", true);
-                break;
-
-            case 270.0f:
-                anim.SetBool("playInvalid_270", true);
-                break;
-        }
-        */
-        #endregion
 
         if (Mathf.Approximately(reflector_zRotation, 0.0f))
         {
@@ -138,4 +98,33 @@ public class ReflectorAnimation : MonoBehaviour
     {
         transform.Find("ReferencePoint").localRotation = Quaternion.Euler(0.0f, 0.0f, zRotation);
     }
+
+    public void activateBuildAnimation(float zRotation)
+    {    
+        if (Mathf.Approximately(zRotation, 0.0f))
+        {
+            buildAnimator.Play("BuildAnimation", 0, 0f);
+            anim.Play("BuildAnimation_Reflector", 0, 0f);
+            return;
+        }
+        else if (Mathf.Approximately(zRotation, 90.0f))
+        {
+            buildAnimator.Play("BuildAnimation_Hammer_90", 0, 0f);
+            anim.Play("BuildAnimation_Reflector_90", 0, 0f);
+            return;
+        }
+        else if (Mathf.Approximately(zRotation, 180.0f))
+        {
+            buildAnimator.Play("BuildAnimation_Hammer_180", 0, 0f);
+            anim.Play("BuildAnimation_Reflector_180", 0, 0f);
+            return;
+        }
+        else if (Mathf.Approximately(zRotation, 270.0f))
+        {
+            buildAnimator.Play("BuildAnimation_Hammer_270", 0, 0f);
+            anim.Play("BuildAnimation_Reflector_270", 0, 0f);
+            return;
+        }        
+    }
+
 }

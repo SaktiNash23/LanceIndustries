@@ -24,18 +24,18 @@ public class Reflector_Split : Reflector
                 if (base.referenceVector == Vector2.down)
                 {
                     newProjectile0 = Instantiate(projectile, transform.parent.GetChild(3).transform.position, Quaternion.AngleAxis(-90.0f, Vector3.forward));
-                    newProjectile0.GetComponent<Proto_Projectile>().DirectionVector = Vector2.left;
+                    newProjectile0.GetComponent<Proto_Projectile>().directionVector = Vector2.left;
 
                     newProjectile1 = Instantiate(projectile, transform.parent.GetChild(4).transform.position, Quaternion.AngleAxis(180.0f, Vector3.forward));
-                    newProjectile1.GetComponent<Proto_Projectile>().DirectionVector = Vector2.down;
+                    newProjectile1.GetComponent<Proto_Projectile>().directionVector = Vector2.down;
                 }
                 else if (base.referenceVector == Vector2.left)
                 {
                     newProjectile0 = Instantiate(projectile, transform.parent.GetChild(3).transform.position, Quaternion.AngleAxis(-90.0f, Vector3.forward));
-                    newProjectile0.GetComponent<Proto_Projectile>().DirectionVector = Vector2.left;
+                    newProjectile0.GetComponent<Proto_Projectile>().directionVector = Vector2.left;
 
                     newProjectile1 = Instantiate(projectile, transform.parent.GetChild(4).transform.position, Quaternion.AngleAxis(180.0f, Vector3.forward));
-                    newProjectile1.GetComponent<Proto_Projectile>().DirectionVector = Vector2.down;
+                    newProjectile1.GetComponent<Proto_Projectile>().directionVector = Vector2.down;
                 }
                 break;
 
@@ -43,18 +43,18 @@ public class Reflector_Split : Reflector
                 if (base.referenceVector == Vector2.right)
                 {
                     newProjectile0 = Instantiate(projectile, transform.parent.GetChild(3).transform.position, Quaternion.AngleAxis(180.0f, Vector3.forward));
-                    newProjectile0.GetComponent<Proto_Projectile>().DirectionVector = Vector2.down;
+                    newProjectile0.GetComponent<Proto_Projectile>().directionVector = Vector2.down;
 
                     newProjectile1 = Instantiate(projectile, transform.parent.GetChild(4).transform.position, Quaternion.AngleAxis(90.0f, Vector3.forward));
-                    newProjectile1.GetComponent<Proto_Projectile>().DirectionVector = Vector2.right;
+                    newProjectile1.GetComponent<Proto_Projectile>().directionVector = Vector2.right;
                 }
                 else if (base.referenceVector == Vector2.down)
                 {
                     newProjectile0 = Instantiate(projectile, transform.parent.GetChild(3).transform.position, Quaternion.AngleAxis(180.0f, Vector3.forward));
-                    newProjectile0.GetComponent<Proto_Projectile>().DirectionVector = Vector2.down;
+                    newProjectile0.GetComponent<Proto_Projectile>().directionVector = Vector2.down;
 
                     newProjectile1 = Instantiate(projectile, transform.parent.GetChild(4).transform.position, Quaternion.AngleAxis(90.0f, Vector3.forward));
-                    newProjectile1.GetComponent<Proto_Projectile>().DirectionVector = Vector2.right;
+                    newProjectile1.GetComponent<Proto_Projectile>().directionVector = Vector2.right;
                 }
                 break;
 
@@ -62,18 +62,18 @@ public class Reflector_Split : Reflector
                 if (base.referenceVector == Vector2.up)
                 {
                     newProjectile0 = Instantiate(projectile, transform.parent.GetChild(3).transform.position, Quaternion.AngleAxis(90.0f, Vector3.forward));
-                    newProjectile0.GetComponent<Proto_Projectile>().DirectionVector = Vector2.right;
+                    newProjectile0.GetComponent<Proto_Projectile>().directionVector = Vector2.right;
 
                     newProjectile1 = Instantiate(projectile, transform.parent.GetChild(4).transform.position, Quaternion.AngleAxis(0.0f, Vector3.forward));
-                    newProjectile1.GetComponent<Proto_Projectile>().DirectionVector = Vector2.up;
+                    newProjectile1.GetComponent<Proto_Projectile>().directionVector = Vector2.up;
                 }
                 else if (base.referenceVector == Vector2.right)
                 {
                     newProjectile0 = Instantiate(projectile, transform.parent.GetChild(3).transform.position, Quaternion.AngleAxis(90.0f, Vector3.forward));
-                    newProjectile0.GetComponent<Proto_Projectile>().DirectionVector = Vector2.right;
+                    newProjectile0.GetComponent<Proto_Projectile>().directionVector = Vector2.right;
 
                     newProjectile1 = Instantiate(projectile, transform.parent.GetChild(4).transform.position, Quaternion.AngleAxis(0.0f, Vector3.forward));
-                    newProjectile1.GetComponent<Proto_Projectile>().DirectionVector = Vector2.up;
+                    newProjectile1.GetComponent<Proto_Projectile>().directionVector = Vector2.up;
                 }
                 break;
 
@@ -81,18 +81,18 @@ public class Reflector_Split : Reflector
                 if (base.referenceVector == Vector2.up)
                 {
                     newProjectile0 = Instantiate(projectile, transform.parent.GetChild(3).transform.position, Quaternion.AngleAxis(0.0f, Vector3.forward));
-                    newProjectile0.GetComponent<Proto_Projectile>().DirectionVector = Vector2.up;
+                    newProjectile0.GetComponent<Proto_Projectile>().directionVector = Vector2.up;
 
                     newProjectile1 = Instantiate(projectile, transform.parent.GetChild(4).transform.position, Quaternion.AngleAxis(-90.0f, Vector3.forward));
-                    newProjectile1.GetComponent<Proto_Projectile>().DirectionVector = Vector2.left;
+                    newProjectile1.GetComponent<Proto_Projectile>().directionVector = Vector2.left;
                 }
                 else if (base.referenceVector == Vector2.left)
                 {
                     newProjectile0 = Instantiate(projectile, transform.parent.GetChild(3).transform.position, Quaternion.AngleAxis(0.0f, Vector3.forward));
-                    newProjectile0.GetComponent<Proto_Projectile>().DirectionVector = Vector2.up;
+                    newProjectile0.GetComponent<Proto_Projectile>().directionVector = Vector2.up;
 
                     newProjectile1 = Instantiate(projectile, transform.parent.GetChild(4).transform.position, Quaternion.AngleAxis(-90.0f, Vector3.forward));
-                    newProjectile1.GetComponent<Proto_Projectile>().DirectionVector = Vector2.left;
+                    newProjectile1.GetComponent<Proto_Projectile>().directionVector = Vector2.left;
                 }
                 break;
         }
@@ -209,8 +209,8 @@ public class Reflector_Split : Reflector
 
     public override void setReflectorLaserColor()
     {
-        newProjectile0.GetComponent<TrailRenderer>().material = reflectorSplit_SO.laserMaterialToChange;
-        newProjectile1.GetComponent<TrailRenderer>().material = reflectorSplit_SO.laserMaterialToChange;
+        //newProjectile0.GetComponent<TrailRenderer>().material = reflectorSplit_SO.laserMaterialToChange;
+        //newProjectile1.GetComponent<TrailRenderer>().material = reflectorSplit_SO.laserMaterialToChange;
 
         //newProjectile0.GetComponent<SpriteRenderer>().color = reflectorSplit_SO.laserColorToChange;
         //newProjectile1.GetComponent<SpriteRenderer>().color = reflectorSplit_SO.laserColorToChange;

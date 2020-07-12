@@ -47,6 +47,16 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5253034917775206121, guid: 2505f43fa0c442b469bd075bffccff76,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5253034917775206121, guid: 2505f43fa0c442b469bd075bffccff76,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5518357499725564515, guid: 2505f43fa0c442b469bd075bffccff76,
         type: 3}
       propertyPath: m_Controller

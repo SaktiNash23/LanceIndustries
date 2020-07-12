@@ -46,9 +46,8 @@ public class Proto_LaserOrigin : MonoBehaviour
         if (GameManager.gameManagerInstance.beginCountDown == false)
         {
             GameManager.gameManagerInstance.Reset();
-            GameManager.gameManagerInstance.beginCountDown = true;
+            GameManager.gameManagerInstance.beginCountDown = true; //Disable this line if you want to test without timer
 
-            //shootLaser();
             GameObject[] allStartingPoints = GameObject.FindGameObjectsWithTag("StartingPoint");
 
             for (int i = 0; i < allStartingPoints.Length; ++i)
@@ -84,8 +83,13 @@ public class Proto_LaserOrigin : MonoBehaviour
     public void shootLaser()
     {
         Vector3 projectileTargetRot = transform.rotation.eulerAngles - new Vector3(0f, 0f, 90f);
-        GameObject projectile = Instantiate(projectileSphere, transform.position + (transform.right * 0.4f), Quaternion.Euler(projectileTargetRot)); //The transform.right vector multiplied with a float is to create offset when laser is instantiated
-        projectile.GetComponent<Proto_Projectile>().DirectionVector = projectile.transform.up;
+
+        GameObject projectile = LaserPooler.instance_LaserPoolList.laserPoolDictionary["LaserStock"].Dequeue();
+        projectile.transform.SetPositionAndRotation(transform.position + (transform.right * 0.4f), Quaternion.Euler(projectileTargetRot));
+
+        projectile.SetActive(true);
+
+        projectile.GetComponent<Proto_Projectile>().setLaserDirectionEnum(transform.rotation.eulerAngles.z);
         //projectile.transform.rotation = Quaternion.AngleAxis(transform.rotation.eulerAngles.z, Vector3.forward);      
 
         #region Starting Point Laser Color
@@ -113,46 +117,10 @@ public class Proto_LaserOrigin : MonoBehaviour
                 break;
         }
 
-        projectile.GetComponent<SpriteRenderer>().material.color = tempLaserColor * colorIntensity;
+        //projectile.GetComponent<SpriteRenderer>().material.color = tempLaserColor * colorIntensity;
+        projectile.GetComponent<Proto_Projectile>().ChangeLaserMaterialColor();
 
         #endregion
-
-        //activateAnimatorComponentsOnReflectors();
-    }
-
-    [Button("Change Direction of Origin Laser")]
-    private void changeLaserDirection()
-    {
-        switch (dir)
-        {
-            case DIRECTION.UP:
-                laserStartDir = Vector2.right;
-                dir = DIRECTION.RIGHT;
-                //transform.rotation = Quaternion.AngleAxis(90.0f, Vector3.forward);
-                break;
-
-            case DIRECTION.RIGHT:
-                laserStartDir = Vector2.down;
-                dir = DIRECTION.DOWN;
-                //transform.rotation = Quaternion.AngleAxis(180.0f, Vector3.forward);
-                break;
-
-            case DIRECTION.DOWN:
-                laserStartDir = Vector2.left;
-                dir = DIRECTION.LEFT;
-                //transform.rotation = Quaternion.AngleAxis(-90.0f, Vector3.forward);
-                break;
-
-            case DIRECTION.LEFT:
-                laserStartDir = Vector2.up;
-                dir = DIRECTION.UP;
-                //transform.rotation = Quaternion.AngleAxis(0.0f, Vector3.forward);
-                break;
-
-            default:
-                break;
-        }
-
     }
 
     #endregion
@@ -164,26 +132,22 @@ public class Proto_LaserOrigin : MonoBehaviour
             case LaserColor_StartingPoint.RED:
                 tempLaserColor = Color.red;
                 GetComponent<SpriteRenderer>().sprite = StartingPointRed;
-                //transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = StartingPointRed;
                 break;
 
             case LaserColor_StartingPoint.BLUE:
                 tempLaserColor = Color.blue;
                 GetComponent<SpriteRenderer>().sprite = StartingPointBlue;
-                //transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = StartingPointBlue;
                 break;
 
             case LaserColor_StartingPoint.YELLOW:
                 tempLaserColor = Color.yellow;
                 GetComponent<SpriteRenderer>().sprite = StartingPointYellow;
-                //transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = StartingPointYellow;
                 break;
 
             case LaserColor_StartingPoint.WHITE:
                 tempLaserColor = Color.white;
                 GetComponent<SpriteRenderer>().sprite = StartingPointWhite;
-                //transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = StartingPointWhite;
                 break;
         }
-    }
+    }  
 }

@@ -19,201 +19,229 @@ public class Reflector_ThreeWay : Reflector
     {
         base.retrieveLaserProperties(hitParam, projectile);
 
-        #region Three Way Code v1.0
+        #region Three Way Code v2.0
         /*
-        base.calculateLaser_Base();
-
-        switch(transform.rotation.eulerAngles.z)
+        switch (referenceVector.ToString()) //Using reference vector here instead of rotation cause Three Way Reflector can't be rotated by player
         {
-            case 0.0f:
-                if (base.referenceVector == Vector2.down)
-                {
-                    newProjectile0 = Instantiate(projectile, transform.parent.GetChild(3).transform.position, Quaternion.AngleAxis(-90.0f, Vector3.forward));
-                    newProjectile0.GetComponent<Proto_Projectile>().DirectionVector = Vector2.left;
+            #region Vector2.up
+            case "(0.0, 1.0)":   //Vector2.up
+                //newProjectile0 = Instantiate(projectile, transform.parent.Find("ProjectileSpawner0").transform.position, Quaternion.AngleAxis(0.0f, Vector3.forward));       
+                newProjectile0 = LaserPooler.instance_LaserPoolList.laserPoolDictionary["LaserStock"].Dequeue();
+                newProjectile0.transform.SetPositionAndRotation(transform.parent.Find("ProjectileSpawner0").transform.position, Quaternion.AngleAxis(0.0f, Vector3.forward));
+                newProjectile0.GetComponent<Proto_Projectile>().directionVector = Vector2.up;
 
-                    newProjectile1 = Instantiate(projectile, transform.parent.GetChild(4).transform.position, Quaternion.AngleAxis(180.0f, Vector3.forward));
-                    newProjectile1.GetComponent<Proto_Projectile>().DirectionVector = Vector2.down;
-                }
-                else if (base.referenceVector == Vector2.left)
-                {
-                    newProjectile0 = Instantiate(projectile, transform.parent.GetChild(3).transform.position, Quaternion.AngleAxis(-90.0f, Vector3.forward));
-                    newProjectile0.GetComponent<Proto_Projectile>().DirectionVector = Vector2.left;
+                //newProjectile1 = Instantiate(projectile, transform.parent.Find("ProjectileSpawner2").transform.position, Quaternion.AngleAxis(90.0f, Vector3.forward));
+                newProjectile1 = LaserPooler.instance_LaserPoolList.laserPoolDictionary["LaserStock"].Dequeue();
+                newProjectile1.transform.SetPositionAndRotation(transform.parent.Find("ProjectileSpawner2").transform.position, Quaternion.AngleAxis(90.0f, Vector3.forward));
+                newProjectile1.GetComponent<Proto_Projectile>().directionVector = Vector2.left;
 
-                    newProjectile1 = Instantiate(projectile, transform.parent.GetChild(4).transform.position, Quaternion.AngleAxis(180.0f, Vector3.forward));
-                    newProjectile1.GetComponent<Proto_Projectile>().DirectionVector = Vector2.down;
-                }
+                //newProjectile2 = Instantiate(projectile, transform.parent.Find("ProjectileSpawner3").transform.position, Quaternion.AngleAxis(-90.0f, Vector3.forward));
+                newProjectile2 = LaserPooler.instance_LaserPoolList.laserPoolDictionary["LaserStock"].Dequeue();
+                newProjectile2.transform.SetPositionAndRotation(transform.parent.Find("ProjectileSpawner3").transform.position, Quaternion.AngleAxis(-90.0f, Vector3.forward));
+                newProjectile2.GetComponent<Proto_Projectile>().directionVector = Vector2.right;
                 break;
+            #endregion
 
-            case 90.0f:
-                if (base.referenceVector == Vector2.right)
-                {
-                    newProjectile0 = Instantiate(projectile, transform.parent.GetChild(3).transform.position, Quaternion.AngleAxis(180.0f, Vector3.forward));
-                    newProjectile0.GetComponent<Proto_Projectile>().DirectionVector = Vector2.down;
+            #region Vector2.down
+            case "(0.0, -1.0)":  //Vector2.down
+                //newProjectile0 = Instantiate(projectile, transform.parent.Find("ProjectileSpawner1").transform.position, Quaternion.AngleAxis(180.0f, Vector3.forward));
+                newProjectile0 = LaserPooler.instance_LaserPoolList.laserPoolDictionary["LaserStock"].Dequeue();
+                newProjectile0.transform.SetPositionAndRotation(transform.parent.Find("ProjectileSpawner1").transform.position, Quaternion.AngleAxis(180.0f, Vector3.forward));
+                newProjectile0.GetComponent<Proto_Projectile>().directionVector = Vector2.down;
 
-                    newProjectile1 = Instantiate(projectile, transform.parent.GetChild(4).transform.position, Quaternion.AngleAxis(90.0f, Vector3.forward));
-                    newProjectile1.GetComponent<Proto_Projectile>().DirectionVector = Vector2.right;
-                }
-                else if (base.referenceVector == Vector2.down)
-                {
-                    newProjectile0 = Instantiate(projectile, transform.parent.GetChild(3).transform.position, Quaternion.AngleAxis(180.0f, Vector3.forward));
-                    newProjectile0.GetComponent<Proto_Projectile>().DirectionVector = Vector2.down;
+                //newProjectile1 = Instantiate(projectile, transform.parent.Find("ProjectileSpawner2").transform.position, Quaternion.AngleAxis(90.0f, Vector3.forward));
+                newProjectile1 = LaserPooler.instance_LaserPoolList.laserPoolDictionary["LaserStock"].Dequeue();
+                newProjectile1.transform.SetPositionAndRotation(transform.parent.Find("ProjectileSpawner2").transform.position, Quaternion.AngleAxis(90.0f, Vector3.forward));
+                newProjectile1.GetComponent<Proto_Projectile>().directionVector = Vector2.left;
 
-                    newProjectile1 = Instantiate(projectile, transform.parent.GetChild(4).transform.position, Quaternion.AngleAxis(90.0f, Vector3.forward));
-                    newProjectile1.GetComponent<Proto_Projectile>().DirectionVector = Vector2.right;
-                }
+                //newProjectile2 = Instantiate(projectile, transform.parent.Find("ProjectileSpawner3").transform.position, Quaternion.AngleAxis(-90.0f, Vector3.forward));
+                newProjectile2 = LaserPooler.instance_LaserPoolList.laserPoolDictionary["LaserStock"].Dequeue();
+                newProjectile2.transform.SetPositionAndRotation(transform.parent.Find("ProjectileSpawner3").transform.position, Quaternion.AngleAxis(-90.0f, Vector3.forward));
+                newProjectile2.GetComponent<Proto_Projectile>().directionVector = Vector2.right;
                 break;
+            #endregion
 
-            case 180.0f:
-                if (base.referenceVector == Vector2.up)
-                {
-                    newProjectile0 = Instantiate(projectile, transform.parent.GetChild(3).transform.position, Quaternion.AngleAxis(90.0f, Vector3.forward));
-                    newProjectile0.GetComponent<Proto_Projectile>().DirectionVector = Vector2.right;
+            #region Vector2.left
+            case "(-1.0, 0.0)":  //Vector2.left
+                //newProjectile0 = Instantiate(projectile, transform.parent.Find("ProjectileSpawner0").transform.position, Quaternion.AngleAxis(0.0f, Vector3.forward));
+                newProjectile0 = LaserPooler.instance_LaserPoolList.laserPoolDictionary["LaserStock"].Dequeue();
+                newProjectile0.transform.SetPositionAndRotation(transform.parent.Find("ProjectileSpawner0").transform.position, Quaternion.AngleAxis(0.0f, Vector3.forward));
+                newProjectile0.GetComponent<Proto_Projectile>().directionVector = Vector2.up;
 
-                    newProjectile1 = Instantiate(projectile, transform.parent.GetChild(4).transform.position, Quaternion.AngleAxis(0.0f, Vector3.forward));
-                    newProjectile1.GetComponent<Proto_Projectile>().DirectionVector = Vector2.up;
-                }
-                else if (base.referenceVector == Vector2.right)
-                {
-                    newProjectile0 = Instantiate(projectile, transform.parent.GetChild(3).transform.position, Quaternion.AngleAxis(90.0f, Vector3.forward));
-                    newProjectile0.GetComponent<Proto_Projectile>().DirectionVector = Vector2.right;
+                //newProjectile1 = Instantiate(projectile, transform.parent.Find("ProjectileSpawner1").transform.position, Quaternion.AngleAxis(180.0f, Vector3.forward));
+                newProjectile1 = LaserPooler.instance_LaserPoolList.laserPoolDictionary["LaserStock"].Dequeue();
+                newProjectile1.transform.SetPositionAndRotation(transform.parent.Find("ProjectileSpawner1").transform.position, Quaternion.AngleAxis(180.0f, Vector3.forward));
+                newProjectile1.GetComponent<Proto_Projectile>().directionVector = Vector2.down;
 
-                    newProjectile1 = Instantiate(projectile, transform.parent.GetChild(4).transform.position, Quaternion.AngleAxis(0.0f, Vector3.forward));
-                    newProjectile1.GetComponent<Proto_Projectile>().DirectionVector = Vector2.up;
-                }
+                //newProjectile2 = Instantiate(projectile, transform.parent.Find("ProjectileSpawner2").transform.position, Quaternion.AngleAxis(90.0f, Vector3.forward));
+                newProjectile2 = LaserPooler.instance_LaserPoolList.laserPoolDictionary["LaserStock"].Dequeue();
+                newProjectile2.transform.SetPositionAndRotation(transform.parent.Find("ProjectileSpawner2").transform.position, Quaternion.AngleAxis(90.0f, Vector3.forward));
+                newProjectile2.GetComponent<Proto_Projectile>().directionVector = Vector2.left;
                 break;
+            #endregion
 
-            case 270.0f:
-                if (base.referenceVector == Vector2.up)
-                {
-                    newProjectile0 = Instantiate(projectile, transform.parent.GetChild(3).transform.position, Quaternion.AngleAxis(0.0f, Vector3.forward));
-                    newProjectile0.GetComponent<Proto_Projectile>().DirectionVector = Vector2.up;
+            #region Vector2.right
+            case "(1.0, 0.0)":   //Vector2.right
+                //newProjectile0 = Instantiate(projectile, transform.parent.Find("ProjectileSpawner0").transform.position, Quaternion.AngleAxis(0.0f, Vector3.forward));
+                newProjectile0 = LaserPooler.instance_LaserPoolList.laserPoolDictionary["LaserStock"].Dequeue();
+                newProjectile0.transform.SetPositionAndRotation(transform.parent.Find("ProjectileSpawner0").transform.position, Quaternion.AngleAxis(0.0f, Vector3.forward));
+                newProjectile0.GetComponent<Proto_Projectile>().directionVector = Vector2.up;
 
-                    newProjectile1 = Instantiate(projectile, transform.parent.GetChild(4).transform.position, Quaternion.AngleAxis(-90.0f, Vector3.forward));
-                    newProjectile1.GetComponent<Proto_Projectile>().DirectionVector = Vector2.left;
-                }
-                else if (base.referenceVector == Vector2.left)
-                {
-                    newProjectile0 = Instantiate(projectile, transform.parent.GetChild(3).transform.position, Quaternion.AngleAxis(0.0f, Vector3.forward));
-                    newProjectile0.GetComponent<Proto_Projectile>().DirectionVector = Vector2.up;
+                //newProjectile1 = Instantiate(projectile, transform.parent.Find("ProjectileSpawner1").transform.position, Quaternion.AngleAxis(180.0f, Vector3.forward));
+                newProjectile1 = LaserPooler.instance_LaserPoolList.laserPoolDictionary["LaserStock"].Dequeue();
+                newProjectile1.transform.SetPositionAndRotation(transform.parent.Find("ProjectileSpawner1").transform.position, Quaternion.AngleAxis(180.0f, Vector3.forward));
+                newProjectile1.GetComponent<Proto_Projectile>().directionVector = Vector2.down;
 
-                    newProjectile1 = Instantiate(projectile, transform.parent.GetChild(4).transform.position, Quaternion.AngleAxis(-90.0f, Vector3.forward));
-                    newProjectile1.GetComponent<Proto_Projectile>().DirectionVector = Vector2.left;
-                }
+                //newProjectile2 = Instantiate(projectile, transform.parent.Find("ProjectileSpawner3").transform.position, Quaternion.AngleAxis(-90.0f, Vector3.forward));
+                newProjectile2 = LaserPooler.instance_LaserPoolList.laserPoolDictionary["LaserStock"].Dequeue();
+                newProjectile2.transform.SetPositionAndRotation(transform.parent.Find("ProjectileSpawner3").transform.position, Quaternion.AngleAxis(-90.0f, Vector3.forward));
+                newProjectile2.GetComponent<Proto_Projectile>().directionVector = Vector2.right;
                 break;
+            #endregion      
         }
-
-        setReflectorLaserColor();
-        sparkAnimationScript.playDeflectAnimation();
-        setReflectorHitFalseForProjectile();
         */
         #endregion
 
-        Debug.Log(referenceVector.ToString());
-      
-        switch (referenceVector.ToString())
+        if (LaserPooler.instance_LaserPoolList.laserPoolDictionary["LaserStock"].Count > 0)
         {
-            case "(0.0, 1.0)":   //Vector2.up
-                newProjectile0 = Instantiate(projectile, transform.parent.GetChild(1).transform.position, Quaternion.AngleAxis(0.0f, Vector3.forward));
-                newProjectile0.GetComponent<Proto_Projectile>().DirectionVector = Vector2.up;
+            switch (projectile.GetComponent<Proto_Projectile>().laserDirection)
+            {
+                #region INCOMING LASER DIRECTION: UP
+                case Proto_Projectile.LaserDirection.UP:
+                    newProjectile0 = LaserPooler.instance_LaserPoolList.laserPoolDictionary["LaserStock"].Dequeue();
+                    newProjectile0.transform.SetPositionAndRotation(transform.parent.Find("ProjectileSpawner0").transform.position, Quaternion.AngleAxis(0.0f, Vector3.forward));
+                    newProjectile0.GetComponent<Proto_Projectile>().directionVector = Vector2.up;
+                    newProjectile0.GetComponent<Proto_Projectile>().laserDirection = Proto_Projectile.LaserDirection.UP;
 
-                newProjectile1 = Instantiate(projectile, transform.parent.GetChild(3).transform.position, Quaternion.AngleAxis(-90.0f, Vector3.forward));
-                newProjectile1.GetComponent<Proto_Projectile>().DirectionVector = Vector2.left;
+                    newProjectile1 = LaserPooler.instance_LaserPoolList.laserPoolDictionary["LaserStock"].Dequeue();
+                    newProjectile1.transform.SetPositionAndRotation(transform.parent.Find("ProjectileSpawner2").transform.position, Quaternion.AngleAxis(90.0f, Vector3.forward));
+                    newProjectile1.GetComponent<Proto_Projectile>().directionVector = Vector2.left;
+                    newProjectile1.GetComponent<Proto_Projectile>().laserDirection = Proto_Projectile.LaserDirection.LEFT;
 
-                newProjectile2 = Instantiate(projectile, transform.parent.GetChild(4).transform.position, Quaternion.AngleAxis(90.0f, Vector3.forward));
-                newProjectile2.GetComponent<Proto_Projectile>().DirectionVector = Vector2.right;
-                break;
+                    newProjectile2 = LaserPooler.instance_LaserPoolList.laserPoolDictionary["LaserStock"].Dequeue();
+                    newProjectile2.transform.SetPositionAndRotation(transform.parent.Find("ProjectileSpawner3").transform.position, Quaternion.AngleAxis(-90.0f, Vector3.forward));
+                    newProjectile2.GetComponent<Proto_Projectile>().directionVector = Vector2.right;
+                    newProjectile2.GetComponent<Proto_Projectile>().laserDirection = Proto_Projectile.LaserDirection.RIGHT;
+                    break;
+                #endregion
 
-            case "(0.0, -1.0)":  //Vector2.down
-                newProjectile0 = Instantiate(projectile, transform.parent.GetChild(2).transform.position, Quaternion.AngleAxis(180.0f, Vector3.forward));
-                newProjectile0.GetComponent<Proto_Projectile>().DirectionVector = Vector2.down;
+                #region INCOMING LASER DIRECTION: DOWN
+                case Proto_Projectile.LaserDirection.DOWN:
+                    newProjectile0 = LaserPooler.instance_LaserPoolList.laserPoolDictionary["LaserStock"].Dequeue();
+                    newProjectile0.transform.SetPositionAndRotation(transform.parent.Find("ProjectileSpawner1").transform.position, Quaternion.AngleAxis(180.0f, Vector3.forward));
+                    newProjectile0.GetComponent<Proto_Projectile>().directionVector = Vector2.down;
+                    newProjectile0.GetComponent<Proto_Projectile>().laserDirection = Proto_Projectile.LaserDirection.DOWN;
 
-                newProjectile1 = Instantiate(projectile, transform.parent.GetChild(3).transform.position, Quaternion.AngleAxis(-90.0f, Vector3.forward));
-                newProjectile1.GetComponent<Proto_Projectile>().DirectionVector = Vector2.left;
+                    newProjectile1 = LaserPooler.instance_LaserPoolList.laserPoolDictionary["LaserStock"].Dequeue();
+                    newProjectile1.transform.SetPositionAndRotation(transform.parent.Find("ProjectileSpawner2").transform.position, Quaternion.AngleAxis(90.0f, Vector3.forward));
+                    newProjectile1.GetComponent<Proto_Projectile>().directionVector = Vector2.left;
+                    newProjectile1.GetComponent<Proto_Projectile>().laserDirection = Proto_Projectile.LaserDirection.LEFT;
 
-                newProjectile2 = Instantiate(projectile, transform.parent.GetChild(4).transform.position, Quaternion.AngleAxis(90.0f, Vector3.forward));
-                newProjectile2.GetComponent<Proto_Projectile>().DirectionVector = Vector2.right;
-                break;
+                    newProjectile2 = LaserPooler.instance_LaserPoolList.laserPoolDictionary["LaserStock"].Dequeue();
+                    newProjectile2.transform.SetPositionAndRotation(transform.parent.Find("ProjectileSpawner3").transform.position, Quaternion.AngleAxis(-90.0f, Vector3.forward));
+                    newProjectile2.GetComponent<Proto_Projectile>().directionVector = Vector2.right;
+                    newProjectile2.GetComponent<Proto_Projectile>().laserDirection = Proto_Projectile.LaserDirection.RIGHT;
+                    break;
+                #endregion
 
-            case "(-1.0, 0.0)":  //Vector2.left
-                newProjectile0 = Instantiate(projectile, transform.parent.GetChild(1).transform.position, Quaternion.AngleAxis(0.0f, Vector3.forward));
-                newProjectile0.GetComponent<Proto_Projectile>().DirectionVector = Vector2.up;
+                #region INCOMING LASER DIRECTION: LEFT
+                case Proto_Projectile.LaserDirection.LEFT:
+                    newProjectile0 = LaserPooler.instance_LaserPoolList.laserPoolDictionary["LaserStock"].Dequeue();
+                    newProjectile0.transform.SetPositionAndRotation(transform.parent.Find("ProjectileSpawner0").transform.position, Quaternion.AngleAxis(0.0f, Vector3.forward));
+                    newProjectile0.GetComponent<Proto_Projectile>().directionVector = Vector2.up;
+                    newProjectile0.GetComponent<Proto_Projectile>().laserDirection = Proto_Projectile.LaserDirection.UP;
 
-                newProjectile1 = Instantiate(projectile, transform.parent.GetChild(2).transform.position, Quaternion.AngleAxis(180.0f, Vector3.forward));
-                newProjectile1.GetComponent<Proto_Projectile>().DirectionVector = Vector2.down;
+                    newProjectile1 = LaserPooler.instance_LaserPoolList.laserPoolDictionary["LaserStock"].Dequeue();
+                    newProjectile1.transform.SetPositionAndRotation(transform.parent.Find("ProjectileSpawner1").transform.position, Quaternion.AngleAxis(180.0f, Vector3.forward));
+                    newProjectile1.GetComponent<Proto_Projectile>().directionVector = Vector2.down;
+                    newProjectile1.GetComponent<Proto_Projectile>().laserDirection = Proto_Projectile.LaserDirection.DOWN;
 
-                newProjectile2 = Instantiate(projectile, transform.parent.GetChild(3).transform.position, Quaternion.AngleAxis(-90.0f, Vector3.forward));
-                newProjectile2.GetComponent<Proto_Projectile>().DirectionVector = Vector2.left;
-                break;
+                    newProjectile2 = LaserPooler.instance_LaserPoolList.laserPoolDictionary["LaserStock"].Dequeue();
+                    newProjectile2.transform.SetPositionAndRotation(transform.parent.Find("ProjectileSpawner2").transform.position, Quaternion.AngleAxis(90.0f, Vector3.forward));
+                    newProjectile2.GetComponent<Proto_Projectile>().directionVector = Vector2.left;
+                    newProjectile2.GetComponent<Proto_Projectile>().laserDirection = Proto_Projectile.LaserDirection.LEFT;
+                    break;
+                #endregion
 
-            case "(1.0, 0.0)":   //Vector2.right
-                newProjectile0 = Instantiate(projectile, transform.parent.GetChild(1).transform.position, Quaternion.AngleAxis(0.0f, Vector3.forward));
-                newProjectile0.GetComponent<Proto_Projectile>().DirectionVector = Vector2.up;
+                #region INCOMING LASER DIRECTION: RIGHT
+                case Proto_Projectile.LaserDirection.RIGHT:
+                    newProjectile0 = LaserPooler.instance_LaserPoolList.laserPoolDictionary["LaserStock"].Dequeue();
+                    newProjectile0.transform.SetPositionAndRotation(transform.parent.Find("ProjectileSpawner0").transform.position, Quaternion.AngleAxis(0.0f, Vector3.forward));
+                    newProjectile0.GetComponent<Proto_Projectile>().directionVector = Vector2.up;
+                    newProjectile0.GetComponent<Proto_Projectile>().laserDirection = Proto_Projectile.LaserDirection.UP;
 
-                newProjectile1 = Instantiate(projectile, transform.parent.GetChild(2).transform.position, Quaternion.AngleAxis(180.0f, Vector3.forward));
-                newProjectile1.GetComponent<Proto_Projectile>().DirectionVector = Vector2.down;
+                    newProjectile1 = LaserPooler.instance_LaserPoolList.laserPoolDictionary["LaserStock"].Dequeue();
+                    newProjectile1.transform.SetPositionAndRotation(transform.parent.Find("ProjectileSpawner1").transform.position, Quaternion.AngleAxis(180.0f, Vector3.forward));
+                    newProjectile1.GetComponent<Proto_Projectile>().directionVector = Vector2.down;
+                    newProjectile1.GetComponent<Proto_Projectile>().laserDirection = Proto_Projectile.LaserDirection.DOWN;
 
-                newProjectile2 = Instantiate(projectile, transform.parent.GetChild(4).transform.position, Quaternion.AngleAxis(90.0f, Vector3.forward));
-                newProjectile2.GetComponent<Proto_Projectile>().DirectionVector = Vector2.right;
-                break;
+                    newProjectile2 = LaserPooler.instance_LaserPoolList.laserPoolDictionary["LaserStock"].Dequeue();
+                    newProjectile2.transform.SetPositionAndRotation(transform.parent.Find("ProjectileSpawner3").transform.position, Quaternion.AngleAxis(-90.0f, Vector3.forward));
+                    newProjectile2.GetComponent<Proto_Projectile>().directionVector = Vector2.right;
+                    newProjectile2.GetComponent<Proto_Projectile>().laserDirection = Proto_Projectile.LaserDirection.RIGHT;
+                    break;
+                #endregion
+
+                default:
+                    break;
+            }
+
+            newProjectile0.SetActive(true);
+            newProjectile1.SetActive(true);
+            newProjectile2.SetActive(true);
+
+            setReflectorLaserColor();
+            sparkAnimationScript.playDeflectAnimation();
+            setReflectorHitFalseForProjectile();
+
+            if (reflectorAnimationScript != null)
+                reflectorAnimationScript.playDeflectAnimation(transform.rotation.eulerAngles.z);
+
+            referenceProjectile.GetComponent<Proto_Projectile>().returnLaserToPool(referenceProjectile);
+
+            referenceProjectile.SetActive(false);
         }
-
-        setReflectorLaserColor();
-        sparkAnimationScript.playDeflectAnimation();
-        setReflectorHitFalseForProjectile();
-
-        if (reflectorAnimationScript != null)
-            reflectorAnimationScript.playDeflectAnimation(transform.rotation.eulerAngles.z);
-
-        Destroy(referenceProjectile);
-
+        else
+        {
+            Debug.LogWarning("Laser Pool Out of Stock");
+            GameManager.gameManagerInstance.currentWindowTime_Accessor = 0.0f;
+            GameManager.gameManagerInstance.findAndReturnLasersToPool();
+            //LaserPooler.instance_LaserPoolList.addLasersToPool(); //Readds lasers to the pool
+        }
     }
 
     public override void setReflectorLaserColor()
     {
-        //referenceProjectile.GetComponent<TrailRenderer>().material = reflectorThreeWay_SO.laserMaterialToChange;
-        //newProjectile0.GetComponent<TrailRenderer>().material = reflectorThreeWay_SO.laserMaterialToChange;
-        //newProjectile1.GetComponent<TrailRenderer>().material = reflectorThreeWay_SO.laserMaterialToChange;
-
-        //referenceProjectile.GetComponent<SpriteRenderer>().color = reflectorThreeWay_SO.laserColorToChange;
-        //newProjectile0.GetComponent<SpriteRenderer>().color = reflectorThreeWay_SO.laserColorToChange;
-        //newProjectile1.GetComponent<SpriteRenderer>().color = reflectorThreeWay_SO.laserColorToChange;
-
         switch (reflectorColor_Enum)
         {
             case ReflectorColor_Enum.RED:
-                //referenceProjectile.GetComponent<Proto_Projectile>().laserColor_Enum = Proto_Projectile.LaserColor_Enum.RED;
                 newProjectile0.GetComponent<Proto_Projectile>().laserColor_Enum = Proto_Projectile.LaserColor_Enum.RED;
                 newProjectile1.GetComponent<Proto_Projectile>().laserColor_Enum = Proto_Projectile.LaserColor_Enum.RED;
                 newProjectile2.GetComponent<Proto_Projectile>().laserColor_Enum = Proto_Projectile.LaserColor_Enum.RED;
-                //Maybe in the future, change glow of laser here
                 break;
-
+                
             case ReflectorColor_Enum.BLUE:
-                //referenceProjectile.GetComponent<Proto_Projectile>().laserColor_Enum = Proto_Projectile.LaserColor_Enum.BLUE;
                 newProjectile0.GetComponent<Proto_Projectile>().laserColor_Enum = Proto_Projectile.LaserColor_Enum.BLUE;
                 newProjectile1.GetComponent<Proto_Projectile>().laserColor_Enum = Proto_Projectile.LaserColor_Enum.BLUE;
                 newProjectile2.GetComponent<Proto_Projectile>().laserColor_Enum = Proto_Projectile.LaserColor_Enum.BLUE;
-                //Maybe in the future, change glow of laser here
                 break;
 
             case ReflectorColor_Enum.YELLOW:
-                //referenceProjectile.GetComponent<Proto_Projectile>().laserColor_Enum = Proto_Projectile.LaserColor_Enum.YELLOW;
                 newProjectile0.GetComponent<Proto_Projectile>().laserColor_Enum = Proto_Projectile.LaserColor_Enum.YELLOW;
                 newProjectile1.GetComponent<Proto_Projectile>().laserColor_Enum = Proto_Projectile.LaserColor_Enum.YELLOW;
                 newProjectile2.GetComponent<Proto_Projectile>().laserColor_Enum = Proto_Projectile.LaserColor_Enum.YELLOW;
-                //Maybe in the future, change glow of laser here
                 break;
 
             case ReflectorColor_Enum.WHITE:
-                //referenceProjectile.GetComponent<Proto_Projectile>().laserColor_Enum = Proto_Projectile.LaserColor_Enum.WHITE;
                 newProjectile0.GetComponent<Proto_Projectile>().laserColor_Enum = Proto_Projectile.LaserColor_Enum.WHITE;
                 newProjectile1.GetComponent<Proto_Projectile>().laserColor_Enum = Proto_Projectile.LaserColor_Enum.WHITE;
                 newProjectile2.GetComponent<Proto_Projectile>().laserColor_Enum = Proto_Projectile.LaserColor_Enum.WHITE;
-                //Maybe in the future, change glow of laser here
+                break;
+                
+            default:
                 break;
         }
 
-        //referenceProjectile.GetComponent<Proto_Projectile>().ChangeLaserMaterialColor();
         newProjectile0.GetComponent<Proto_Projectile>().ChangeLaserMaterialColor();
         newProjectile1.GetComponent<Proto_Projectile>().ChangeLaserMaterialColor();
         newProjectile2.GetComponent<Proto_Projectile>().ChangeLaserMaterialColor();

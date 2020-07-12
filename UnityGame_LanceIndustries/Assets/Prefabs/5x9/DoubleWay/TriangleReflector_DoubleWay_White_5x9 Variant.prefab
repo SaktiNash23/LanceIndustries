@@ -22,6 +22,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: TriangleReflector_DoubleWay_White_5x9 Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 6363552591758070634, guid: ae37d7da5bdccf84aa1182690d49e254,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6363552591758070634, guid: ae37d7da5bdccf84aa1182690d49e254,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7981319568302206938, guid: ae37d7da5bdccf84aa1182690d49e254,
         type: 3}
       propertyPath: m_LocalPosition.x

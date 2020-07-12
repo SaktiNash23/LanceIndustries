@@ -9,8 +9,10 @@ using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviour
 {
+    [BoxGroup("Debug Toggle")]
     public bool DebugMode_PC; //True: Activates PC controls for debugging. False: Activates touch controls. Ensure this is marked 'false' when creating mobile build
 
+    [BoxGroup("Gimmicks Toggle")]
     public bool gimmick_LaserSpeedDecrease;
 
     [InfoBox("Ensure the Reflector Scriptable Objects are placed in the right order in the array", EInfoBoxType.Normal)]
@@ -19,56 +21,88 @@ public class GameManager : MonoBehaviour
 
     public static GameManager gameManagerInstance; //Game Manager Instance
 
+    [BoxGroup("Reflectors & Grids GameObject Lists")]
     public List<GameObject> allReflectorsInScene = new List<GameObject>();
+    [BoxGroup("Reflectors & Grids GameObject Lists")]
     public List<GameObject> allGridInScene = new List<GameObject>();
+    [BoxGroup("Buttons")]
     public List<Button> allReflectorButtons = new List<Button>();
+    [BoxGroup("Buttons")]
     public List<Button> allReflectorColorButtons = new List<Button>();
 
+    [HideInInspector]
     public bool activationToggle_Grid = false;
+    [HideInInspector]
     public bool activationToggle_Reflector = false;
 
-    private int ReflectorStock_Basic;
-    private int ReflectorStock_Translucent;
-    private int ReflectorStock_DoubleWay;
-    private int ReflectorStock_Split;
-    private int ReflectorStock_ThreeWay;
+    
 
+    [BoxGroup("TextMeshPro UI")]
     public TextMeshProUGUI ReflectorStock_Basic_Text;
+    [BoxGroup("TextMeshPro UI")]
     public TextMeshProUGUI ReflectorStock_Translucent_Text;
+    [BoxGroup("TextMeshPro UI")]
     public TextMeshProUGUI ReflectorStock_DoubleWay_Text;
+    [BoxGroup("TextMeshPro UI")]
     public TextMeshProUGUI ReflectorStock_Split_Text;
+    [BoxGroup("TextMeshPro UI")]
     public TextMeshProUGUI ReflectorStock_ThreeWay_Text;
+    [BoxGroup("TextMeshPro UI")]
     public TextMeshProUGUI TimerSuccessText;
+    [BoxGroup("TextMeshPro UI")]
+    public TextMeshProUGUI ReflectorStock_White_Text;
+    [BoxGroup("TextMeshPro UI")]
+    public TextMeshProUGUI ReflectorStock_Red_Text;
+    [BoxGroup("TextMeshPro UI")]
+    public TextMeshProUGUI ReflectorStock_Blue_Text;
+    [BoxGroup("TextMeshPro UI")]
+    public TextMeshProUGUI ReflectorStock_Yellow_Text;
 
+    [BoxGroup("Reflector Sprites")]
     public Sprite reflectorSprite_Basic_White;
+    [BoxGroup("Reflector Sprites")]
     public Sprite reflectorSprite_Basic_Red;
+    [BoxGroup("Reflector Sprites")]
     public Sprite reflectorSprite_Basic_Blue;
+    [BoxGroup("Reflector Sprites")]
     public Sprite reflectorSprite_Basic_Yellow;
 
+    [BoxGroup("Reflector Sprites")]
     public Sprite reflectorSprite_Translucent_White;
+    [BoxGroup("Reflector Sprites")]
     public Sprite reflectorSprite_Translucent_Red;
+    [BoxGroup("Reflector Sprites")]
     public Sprite reflectorSprite_Translucent_Blue;
+    [BoxGroup("Reflector Sprites")]
     public Sprite reflectorSprite_Translucent_Yellow;
 
+    [BoxGroup("Reflector Sprites")]
     public Sprite reflectorSprite_DoubleWay_White;
+    [BoxGroup("Reflector Sprites")]
     public Sprite reflectorSprite_DoubleWay_Red;
+    [BoxGroup("Reflector Sprites")]
     public Sprite reflectorSprite_DoubleWay_Blue;
+    [BoxGroup("Reflector Sprites")]
     public Sprite reflectorSprite_DoubleWay_Yellow;
 
+    [BoxGroup("Reflector Sprites")]
     public Sprite reflectorSprite_Split;
 
+    [BoxGroup("Reflector Sprites")]
     public Sprite reflectorSprite_ThreeWay_White;
+    [BoxGroup("Reflector Sprites")]
     public Sprite reflectorSprite_ThreeWay_Red;
+    [BoxGroup("Reflector Sprites")]
     public Sprite reflectorSprite_ThreeWay_Blue;
+    [BoxGroup("Reflector Sprites")]
     public Sprite reflectorSprite_ThreeWay_Yellow;
 
+    [BoxGroup("Reflector Color Panel Variables")]
     public GameObject reflectorColorsPanel; //Panel that contains the buttons for the different reflector color buttons
-
-    Color tempColor;
-
+    [BoxGroup("Reflector Color Panel Variables")]
     public bool isReflectorColorPanelActive = false;
 
-    #region Variables: End Point
+    #region End Point Variables
 
     private GameObject[] allEndPoints;
     private int numOfEndPoints = 0;
@@ -79,25 +113,33 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
+    #region Gameplay Related Variables
+
     private float currentWindowTime;
     private float maxWindowTime;
+    [HideInInspector]
     public bool beginCountDown = false;
 
-    #region Variables : Dissolve Effect
+    #endregion
 
+    #region Dissolve Effect Variables
+
+    [BoxGroup("Dissolve Effect Variables")]
     public Material dissolveMaterial;
+    [BoxGroup("Dissolve Effect Variables")]
     public Material reflectorPanel_DissolveMaterial;
 
     private float dissolveFade = 0.0f;
     private float reflectorPanel_dissolveFade = 0.0f;
 
+    [HideInInspector]
     public bool activateDissolve = true;
+    [HideInInspector]
     public bool fadeIn = false;
 
     #endregion
 
-
-    #region TEST CODE
+    #region Reflector Stock Variables
 
     private int ReflectorStock_Basic_White;
     private int ReflectorStock_Basic_Red;
@@ -124,12 +166,15 @@ public class GameManager : MonoBehaviour
     private int ReflectorStock_ThreeWay_Blue;
     private int ReflectorStock_ThreeWay_Yellow;
 
-    public TextMeshProUGUI ReflectorStock_White_Text;
-    public TextMeshProUGUI ReflectorStock_Red_Text;
-    public TextMeshProUGUI ReflectorStock_Blue_Text;
-    public TextMeshProUGUI ReflectorStock_Yellow_Text;
+    //private int ReflectorStock_Basic;
+    //private int ReflectorStock_Translucent;
+    //private int ReflectorStock_DoubleWay;
+    //private int ReflectorStock_Split;
+    //private int ReflectorStock_ThreeWay;
 
     #endregion
+
+    private Color tempColor;
 
     void Awake()
     {
@@ -230,8 +275,11 @@ public class GameManager : MonoBehaviour
                             if (hit.collider.tag == "Grid")
                             {
                                 Debug.LogWarning("Hit Grid while Reflector Color panel is active");
-                                reflectorColorsPanel.SetActive(false);
-                                isReflectorColorPanelActive = false;
+                                reflectorColorsPanel.GetComponent<Animator>().SetBool("ReflectorColorPanelDisplayed", false);
+                                
+                                //Below 2 lines will be executed using an Animation Event
+                                //reflectorColorsPanel.SetActive(false);
+                                //isReflectorColorPanelActive = false;
                             }
                             else if (hit.collider.tag == "UI")
                             {
@@ -241,8 +289,11 @@ public class GameManager : MonoBehaviour
                         else
                         {
                             Debug.LogWarning("Hit nothing. So still close Reflectors Color Panel");
-                            reflectorColorsPanel.SetActive(false);
-                            isReflectorColorPanelActive = false;
+                            reflectorColorsPanel.GetComponent<Animator>().SetBool("ReflectorColorPanelDisplayed", false);
+                            
+                            //Below 2 lines will be executed using an Animation Event
+                            //reflectorColorsPanel.SetActive(false);
+                            //isReflectorColorPanelActive = false;
                         }
 
                         break;
@@ -265,8 +316,11 @@ public class GameManager : MonoBehaviour
                     if (hit.collider.tag == "Grid")
                     {
                         Debug.LogWarning("Hit Grid while Reflector Color panel is active");
-                        reflectorColorsPanel.SetActive(false);
-                        isReflectorColorPanelActive = false;
+                        reflectorColorsPanel.GetComponent<Animator>().SetBool("ReflectorColorPanelDisplayed", false);
+
+                        //Below 2 lines will be executed using an Animation Event
+                        //reflectorColorsPanel.SetActive(false);
+                        //isReflectorColorPanelActive = false;
                     }
                     else if (hit.collider.tag == "UI")
                     {
@@ -276,8 +330,11 @@ public class GameManager : MonoBehaviour
                 else
                 {
                     Debug.LogWarning("Hit nothing. So still close Reflectors Color Panel");
-                    reflectorColorsPanel.SetActive(false);
-                    isReflectorColorPanelActive = false;
+                    reflectorColorsPanel.GetComponent<Animator>().SetBool("ReflectorColorPanelDisplayed", false);
+
+                    //Below 2 lines will be executed using an Animation Event
+                    //reflectorColorsPanel.SetActive(false);
+                    //isReflectorColorPanelActive = false;
                 }
             }
         }
@@ -331,6 +388,8 @@ public class GameManager : MonoBehaviour
         activationToggle_Reflector = false;
     }
 
+    //ATTN: This function is not being used at the moment, so it is likely to be removed in the future
+    //
     //This function checks if the stock for a type of reflector is available or not and returns a bool based on the result.
     //The parameter is a string which helps to identify which button is pressed so the function knows which part of the code to execute.
     //
@@ -338,6 +397,7 @@ public class GameManager : MonoBehaviour
     //function. Then, the function checks for the if statement that has the same tag and executes the corressponding code
     //
     //Note: The tag for each button can be set in the editor
+    /*
     public bool checkReflectorStockAvailability(string pressedReflectorTypeButtonTag)
     {
         bool isReflectorInStock = false;
@@ -419,7 +479,7 @@ public class GameManager : MonoBehaviour
 
         return isReflectorInStock;
     }
-
+    */
     //This function sets the color of the reflector to be spawned by the player. This is achieved by returning a string which determines which
     //object pool the game will 'need to pull' the reflector from. The parameters passed are strings which help identify the reflector type
     //and reflector color. Based on these parameters, a string with the appropriate object pool name is returned. The returned string acts a 
@@ -972,14 +1032,16 @@ public class GameManager : MonoBehaviour
              {
                  TimerSuccessText.text = "WIN";
                  beginCountDown = false; //Only when beginCountdown is false, we can reset the game by clicking on any of the starting points again
+                 findAndReturnLasersToPool();
                  //Reset();
              }
              else if(allLasersHaveReached == true)
              {
                 TimerSuccessText.text = "FAIL";
                 beginCountDown = false; //Only when beginCountdown is false, we can reset the game by clicking on any of the starting points again
+                findAndReturnLasersToPool();
                 //Reset();
-            }
+             }
              else
              {
                 currentWindowTime -= Time.smoothDeltaTime;
@@ -989,7 +1051,7 @@ public class GameManager : MonoBehaviour
          else if (currentWindowTime <= 0.0f)
          {
              TimerSuccessText.text = "FAIL";
-             findAndDestroyLasers();
+             findAndReturnLasersToPool();
              beginCountDown = false; //Only when beginCountdown is false, we can reset the game by clicking on any of the starting points again
              //Reset();
         }
@@ -1023,7 +1085,7 @@ public class GameManager : MonoBehaviour
         */
     }
 
-    //This function is called whenever a laser has its OnDestroy() function called. If there are still lasers in the scene, game continues as usual
+    //If there are still lasers in the scene, game continues as usual
     //If there are no more lasers in the scene, the timer is directly set to 0, therefore resetting the game state.
     //
     //This function was created to ensure if all the lasers were destroyed and none of them reached all the end points, the player would not have to
@@ -1032,24 +1094,20 @@ public class GameManager : MonoBehaviour
     {
         GameObject[] activeLasers = GameObject.FindGameObjectsWithTag("Laser");
 
-        if(activeLasers.Length <= 0)
+        //Set to <= 1 because when OnDisable() is called on a projectile, (OnDisable() is where we call this function), it still counts the laser that calls this function. 
+        //Meaning even if there is only 1 laser left in the scene and it calls this function upon disable, the FindGameObjectsWithTag() function will still count the invoking laser.
+        if (activeLasers.Length <= 1) 
         {
             currentWindowTime = 0.0f;
-
-            //If there are no more active reflectors in the scene, deactivate their animator components so they can be reflected again
-            GameObject[] allActiveReflectors = GameObject.FindGameObjectsWithTag("ReflectorGM");
-            foreach(GameObject activeReflector in allActiveReflectors)
-            {
-                //activeReflector.GetComponent<Animator>().enabled = false;
-            }
         }
         else
         {
-            Debug.Log("Still got lasers");
+            //Debug.Log("Still got lasers");
+            //Debug.Log("Active Lasers : " + activeLasers.Length);
         }
     }
 
-    public void findAndDestroyLasers()
+    public void findAndReturnLasersToPool()
     {
         GameObject[] activeLasers = GameObject.FindGameObjectsWithTag("Laser");
 
@@ -1057,9 +1115,12 @@ public class GameManager : MonoBehaviour
         {
             foreach (GameObject laser in activeLasers)
             {
-                Destroy(laser);
+                //Destroy(laser);
+                laser.GetComponent<Proto_Projectile>().returnLaserToPool(laser);
+                laser.SetActive(false);
             }
-            Debug.Log("Destroyed all stray lasers");
+
+            Debug.Log("Lasers In Stock : " + LaserPooler.instance_LaserPoolList.laserPoolDictionary["LaserStock"].Count);
         }
     }
 
@@ -1317,7 +1378,7 @@ public class GameManager : MonoBehaviour
     }
 
     #region Accessor Functions
-
+    /*
     public int ReflectorStockBasic_Accessor
     {
         get
@@ -1362,7 +1423,7 @@ public class GameManager : MonoBehaviour
         set 
         { ReflectorStock_ThreeWay = value; }
     }
-
+    */
     public float currentWindowTime_Accessor
     {
         get
@@ -1371,7 +1432,6 @@ public class GameManager : MonoBehaviour
         set
         { currentWindowTime = value; }
     }
-
 
     public int ReflectorStockBasicWhite_Accessor
     {

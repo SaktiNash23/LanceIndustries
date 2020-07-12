@@ -63,8 +63,6 @@ public class Raycast : MonoBehaviour
                     {
                         if (hit.transform.gameObject.GetComponent<Proto_Grid>().isOccupied_Grid == false)
                         {
-                            //Debug.Log("HITTT");
-
                             transform.position = hit.transform.position;
 
                             hit.transform.gameObject.GetComponent<Proto_Grid>().isOccupied_Grid = true;
@@ -78,6 +76,8 @@ public class Raycast : MonoBehaviour
                             gridReference = hit.transform.gameObject;
 
                             inGrid = true;
+
+                            gameObject.GetComponent<ReflectorAnimation>().activateBuildAnimation(gameObject.transform.rotation.eulerAngles.z); //Displays the hammer building animation
                         }
                     }
                     else
@@ -111,7 +111,6 @@ public class Raycast : MonoBehaviour
                                                                                //since their Box Colliders have not been reenabled.
 
                     //Destroy(gameObject); //Uncomment if using traditional Instantiate & Destroy. Object Pooling technique does not require this
-                    //Debug.Log("Hit nothing");
                 }
 
                 #endregion
@@ -136,7 +135,6 @@ public class Raycast : MonoBehaviour
                 isHoldingDown = true;
 
                 mousePhase = MousePhase.BEGAN;
-                //Debug.Log("BEGAN");
 
                 if (GameManager.gameManagerInstance.activationToggle_Grid == false)
                 {
@@ -358,12 +356,11 @@ public class Raycast : MonoBehaviour
         #endregion
 
         #endif
-
+        //ATTN: Remember that any code you add in the Mouse Input must also be added in the respective parts for the Touch Input
         #region Touch Input
 
         if (GameManager.gameManagerInstance.DebugMode_PC == false)
         {
-
             if (Input.touchCount > 0)
             {
                 Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
@@ -371,10 +368,9 @@ public class Raycast : MonoBehaviour
 
                 if (isHoldingDown == true)
                 {
-
                     if (GameManager.gameManagerInstance.activationToggle_Grid == false)//Purpose of this bool is to ensure the code only runs once in Update()
                     {
-                        //If this shape is currently attached to a grid
+                        //If the reflector is currently attached to a grid
                         if (isOccupied == true)
                         {
                             gridReference.GetComponent<Proto_Grid>().reflectorStored_Grid = null;
@@ -414,7 +410,7 @@ public class Raycast : MonoBehaviour
 
                             if (hit)
                             {
-                                if (hit.collider.tag == "Grid")//If reflector collides with Grid, highlight the grid
+                                if (hit.collider.tag == "Grid")//If reflector collides with Grid, highlight the grid outline (blue box)
                                 {
                                     if (highlightedGrid != null)
                                     {
@@ -434,7 +430,7 @@ public class Raycast : MonoBehaviour
                                 }
                             }
                             else
-                                GameManager.gameManagerInstance.resetGridAlpha(); //Reset all the alpha values of all grids to 0 when reflecto not hitting any grid
+                                GameManager.gameManagerInstance.resetGridAlpha(); //Reset all the alpha values of all grids to 0 when reflector not hitting any grid
 
                             break;
 
@@ -443,7 +439,7 @@ public class Raycast : MonoBehaviour
 
                             if (hit)
                             {
-                                if (hit.collider.tag == "Grid")
+                                if (hit.collider.tag == "Grid") //If reflector collides with Grid, highlight the grid outline (blue box)
                                 {
                                     if (highlightedGrid != null)
                                     {
@@ -473,8 +469,7 @@ public class Raycast : MonoBehaviour
 
                             if (hit)
                             {
-
-                                if (hit.collider.tag == "Grid")
+                                if (hit.collider.tag == "Grid")//If reflector is let go over a grid, place the reflector in the grid and perform other related actions
                                 {
                                     if (hit.transform.gameObject.GetComponent<Proto_Grid>().isOccupied_Grid == false)
                                     {
@@ -491,6 +486,8 @@ public class Raycast : MonoBehaviour
                                         gridReference = hit.transform.gameObject;
 
                                         inGrid = true;
+
+                                        gameObject.GetComponent<ReflectorAnimation>().activateBuildAnimation(gameObject.transform.rotation.eulerAngles.z); //Displays the hammer building animation
                                     }
                                 }
                                 else

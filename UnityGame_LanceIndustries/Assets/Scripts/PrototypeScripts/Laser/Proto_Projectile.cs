@@ -1,14 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using NaughtyAttributes;
 
 public class Proto_Projectile : MonoBehaviour
 {
     public float projectileSpeed;
     public float projectileRaycastLength;
-    private Vector3 directionVector;
-    private Rigidbody2D rb;
-    private bool reflectorHit = false;
+    public Vector3 directionVector;
+    public bool reflectorHit = false;
     public RaycastHit2D hitStore;
     public LayerMask layerMaskStruct; //Set the layers that you want the Laser to ignore in the script attached to Projectile2D prefab
     private bool destroyCheck = false; //Purpose of this variable is to ensure OnDestroy() contents are only called if the laser hits specific game objects
@@ -26,20 +26,31 @@ public class Proto_Projectile : MonoBehaviour
     Color tempColor;
     public float ColorIntensity;
 
+    public Sprite laserSprite_Red;
+    public Sprite laserSprite_Blue;
+    public Sprite laserSprite_Yellow;
+    public Sprite laserSprite_White;
+
+    public enum LaserDirection
+    {
+        UP,
+        DOWN,
+        LEFT,
+        RIGHT
+    }
+
+    public LaserDirection laserDirection;
+
     void Awake()
     {
-        directionVector = new Vector3(0.0f, 1.0f, 0.0f);
-        rb = GetComponent<Rigidbody2D>();
     }
 
     void FixedUpdate()
     {
-        rb.MovePosition(transform.position + directionVector.normalized * projectileSpeed * Time.fixedDeltaTime);
-
         if (reflectorHit == false)
         {
-            RaycastHit2D hitStore = Physics2D.Raycast(transform.position, directionVector, projectileRaycastLength, ~layerMaskStruct); //LayerMask is inversed so it ignores the layers that is set
-            Debug.DrawRay(transform.position, directionVector * projectileRaycastLength);
+            hitStore = Physics2D.Raycast(transform.position, directionVector, (directionVector.normalized * projectileSpeed * Time.fixedDeltaTime).magnitude , ~layerMaskStruct); //LayerMask is inversed so it ignores the layers that is set
+            //Debug.DrawRay(transform.position, transform.position + (directionVector.normalized * projectileSpeed * Time.fixedDeltaTime));
 
             if (hitStore)
             {
@@ -106,7 +117,8 @@ public class Proto_Projectile : MonoBehaviour
                         }
                         //Three Way does not have Invalid Bounds
 
-                        Destroy(gameObject, 0.0f);
+                        returnLaserToPool(this.gameObject);
+                        gameObject.SetActive(false);
                         break;
                     #endregion
 
@@ -114,7 +126,8 @@ public class Proto_Projectile : MonoBehaviour
                     case "Border":
                         projectileSpeed = 0.0f;
                         destroyCheck = true; //If true, it means the projectile was destroyed by hitting invalid bounds or border
-                        Destroy(gameObject, 0.0f);
+                        returnLaserToPool(this.gameObject);
+                        gameObject.SetActive(false);                                                                  
                         break;
                     #endregion
 
@@ -123,7 +136,14 @@ public class Proto_Projectile : MonoBehaviour
                         hitStore.collider.gameObject.GetComponent<EndPoint>().checkIfCorrectLaserHit(gameObject);
                         projectileSpeed = 0.0f;
                         destroyCheck = true;
-                        Destroy(gameObject, 0.1f);
+
+                        //Destroy(gameObject, 0.1f);
+
+                        LaserPooler.instance_LaserPoolList.laserPoolDictionary["LaserStock"].Enqueue(this.gameObject);
+                        gameObject.transform.position = GameObject.FindGameObjectWithTag("InactivePooledLasers").transform.position;
+                        gameObject.transform.rotation = Quaternion.identity;
+                        gameObject.SetActive(false);
+                        projectileSpeed = 7.0f;
                         break;
                     #endregion
 
@@ -143,18 +163,18 @@ public class Proto_Projectile : MonoBehaviour
                         hitStore.collider.gameObject.GetComponent<ColoredBorder>().checkIfCorrectLaserHit(gameObject);
                         break;
 
-                        //If hit object with tag: "BorderColored"
-                        //Use same script concept as EndPoint script. Each border have enum that you set the color.
-                        //Then check the laser color enum with colored border enum, then perform the appropriate response
                     #endregion
                 }
             }
-        }     
+        }
+
+        transform.position += directionVector.normalized * projectileSpeed * Time.fixedDeltaTime;
     }
 
     #region Accessor Functions
 
-    public Vector3 DirectionVector
+    /*
+    public Vector3 directionVector
     {
         get
         {
@@ -166,7 +186,7 @@ public class Proto_Projectile : MonoBehaviour
             directionVector = value;
         }
     }
-
+    */
     public bool ReflectorHit
     {
         get
@@ -206,20 +226,25 @@ public class Proto_Projectile : MonoBehaviour
         switch (laserColor_Enum.ToString())
         {
             case "RED":
-                tempColor = Color.red;       
+                tempColor = Color.red;
+                //GetComponent<SpriteRenderer>().sprite = laserSprite_Red;
                 break;
-
+                
             case "BLUE":
                 tempColor = Color.blue;
+                //GetComponent<SpriteRenderer>().sprite = laserSprite_Blue;
                 break;
 
             case "YELLOW":
-                tempColor = Color.yellow;          
+                tempColor = Color.yellow;
+                //GetComponent<SpriteRenderer>().sprite = laserSprite_Yellow;
                 break;
-
+                
             case "WHITE":
                 tempColor = Color.white;
+                //GetComponent<SpriteRenderer>().sprite = laserSprite_White;
                 break;
+                    
         }
 
         tempColor = tempColor * ColorIntensity;
@@ -230,17 +255,54 @@ public class Proto_Projectile : MonoBehaviour
     {
         if(GameManager.gameManagerInstance.gimmick_LaserSpeedDecrease == true)
         {
-            projectileSpeed = Mathf.Clamp(--projectileSpeed, 2.0f, 7.0f);
+            projectileSpeed = Mathf.Clamp(--projectileSpeed, 2.0f, 7.0f);      
         }
     }
 
-    void OnDestroy()
+    private void OnEnable()
     {
+        directionVector = transform.up;
+        reflectorHit = false;
+        projectileSpeed = 7.0f;
+    }
+
+    private void OnDisable()
+    {
+        reflectorHit = false;
+        projectileSpeed = 0.0f;
+
         if (destroyCheck == true)
         {
-            Debug.Log("Destroy Check True");
             GameManager.gameManagerInstance.checkForAnyLasersInScene();
         }
     }
- 
+
+    public void returnLaserToPool(GameObject laserToReturn)
+    {
+        LaserPooler.instance_LaserPoolList.laserPoolDictionary["LaserStock"].Enqueue(laserToReturn);
+        laserToReturn.transform.position = GameObject.FindGameObjectWithTag("InactivePooledLasers").transform.position;
+        laserToReturn.transform.rotation = Quaternion.identity;
+    }
+
+    public void setLaserDirectionEnum(float laserOrigin_zRotation)
+    {
+        switch (Mathf.RoundToInt(laserOrigin_zRotation))
+        {
+            case 0:
+                laserDirection = LaserDirection.RIGHT;
+                break;
+
+            case 90:
+                laserDirection = LaserDirection.UP;
+                break;
+
+            case 180:
+                laserDirection = LaserDirection.LEFT;
+                break;
+
+            case 270:
+                laserDirection = LaserDirection.DOWN;
+                break;
+        }
+    }
 }

@@ -38,7 +38,6 @@ public class EndPoint : MonoBehaviour
                 isHitByCorrectLaser = true;
                 GameManager.gameManagerInstance.updateEndPointStatus(true);
                 endPointAnim.SetBool("EndPointOn", true);
-                //turnOnEndPoint();//Change the sprite to the ON version
 
             }
             else

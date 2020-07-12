@@ -21,6 +21,7 @@ TagManager:
   - TeleporterSetC
   - ColoredBorder
   - StartingPoint
+  - InactivePooledLasers
   layers:
   - Default
   - TransparentFX

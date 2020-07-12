@@ -122,6 +122,16 @@ PrefabInstance:
       propertyPath: m_Size.y
       value: 0.25936148
       objectReference: {fileID: 0}
+    - target: {fileID: 4135731932440447852, guid: b9b5cf7d5cdfdad409df300149b409f1,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4135731932440447852, guid: b9b5cf7d5cdfdad409df300149b409f1,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4484847296560477120, guid: b9b5cf7d5cdfdad409df300149b409f1,
         type: 3}
       propertyPath: reflectorAnimationScript

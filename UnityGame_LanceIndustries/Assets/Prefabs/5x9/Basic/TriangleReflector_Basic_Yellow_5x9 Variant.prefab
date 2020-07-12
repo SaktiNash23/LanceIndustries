@@ -162,6 +162,16 @@ PrefabInstance:
       propertyPath: reflectorAnimationScript
       value: 
       objectReference: {fileID: 4787818222585409288}
+    - target: {fileID: 2008010075619087011, guid: b5708ab605cb1bb48815c301e5b955a1,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2008010075619087011, guid: b5708ab605cb1bb48815c301e5b955a1,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2341513103120875487, guid: b5708ab605cb1bb48815c301e5b955a1,
         type: 3}
       propertyPath: m_LocalPosition.x

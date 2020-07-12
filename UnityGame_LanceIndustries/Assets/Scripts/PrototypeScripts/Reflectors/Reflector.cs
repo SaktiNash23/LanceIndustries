@@ -44,7 +44,7 @@ public class Reflector : MonoBehaviour
 
     public void retrieveLaserProperties(RaycastHit2D hitParam, GameObject projectile)
     {
-        referenceVector = projectile.GetComponent<Proto_Projectile>().DirectionVector;
+        referenceVector = projectile.GetComponent<Proto_Projectile>().directionVector;
         referenceHitParam = hitParam;
         referenceProjectile = projectile;
     }
@@ -61,58 +61,64 @@ public class Reflector : MonoBehaviour
             case 0:
                 if (referenceVector == Vector2.down)
                 {
-                    referenceProjectile.gameObject.GetComponent<Proto_Projectile>().DirectionVector = Vector2.right;
-                    referenceProjectile.transform.rotation = Quaternion.AngleAxis(90.0f, Vector3.forward);
+                    referenceProjectile.gameObject.GetComponent<Proto_Projectile>().directionVector = Vector2.right;
+                    referenceProjectile.transform.rotation = Quaternion.AngleAxis(-90.0f, Vector3.forward);
+                    referenceProjectile.GetComponent<Proto_Projectile>().laserDirection = Proto_Projectile.LaserDirection.RIGHT;
                 }
                 else if (referenceVector == Vector2.left)
                 {
-                    referenceProjectile.gameObject.GetComponent<Proto_Projectile>().DirectionVector = Vector2.up;
+                    referenceProjectile.gameObject.GetComponent<Proto_Projectile>().directionVector = Vector2.up;
                     referenceProjectile.transform.rotation = Quaternion.AngleAxis(0.0f, Vector3.forward);
+                    referenceProjectile.GetComponent<Proto_Projectile>().laserDirection = Proto_Projectile.LaserDirection.UP;
                 }
                 break;
 
             case 90:
                 if (referenceVector == Vector2.right)
                 {
-                    referenceProjectile.GetComponent<Proto_Projectile>().DirectionVector = Vector3.up;
+                    referenceProjectile.GetComponent<Proto_Projectile>().directionVector = Vector3.up;
                     referenceProjectile.transform.rotation = Quaternion.AngleAxis(0.0f, Vector3.forward);
+                    referenceProjectile.GetComponent<Proto_Projectile>().laserDirection = Proto_Projectile.LaserDirection.UP;
                 }
                 else if (referenceVector == Vector2.down)
                 {
-                    referenceProjectile.GetComponent<Proto_Projectile>().DirectionVector = Vector2.left;
-                    referenceProjectile.transform.rotation = Quaternion.AngleAxis(-90.0f, Vector3.forward);
+                    referenceProjectile.GetComponent<Proto_Projectile>().directionVector = Vector2.left;
+                    referenceProjectile.transform.rotation = Quaternion.AngleAxis(90.0f, Vector3.forward);
+                    referenceProjectile.GetComponent<Proto_Projectile>().laserDirection = Proto_Projectile.LaserDirection.LEFT;
                 }
                 break;
 
             case 180:
                 if (referenceVector == Vector2.up)
                 {
-                    referenceProjectile.gameObject.GetComponent<Proto_Projectile>().DirectionVector = Vector2.left;
-                    referenceProjectile.transform.rotation = Quaternion.AngleAxis(-90.0f, Vector3.forward);
+                    referenceProjectile.gameObject.GetComponent<Proto_Projectile>().directionVector = Vector2.left;
+                    referenceProjectile.transform.rotation = Quaternion.AngleAxis(90.0f, Vector3.forward);
+                    referenceProjectile.GetComponent<Proto_Projectile>().laserDirection = Proto_Projectile.LaserDirection.LEFT;
                 }
                 else if (referenceVector == Vector2.right)
                 {
-                    referenceProjectile.GetComponent<Proto_Projectile>().DirectionVector = Vector2.down;
+                    referenceProjectile.GetComponent<Proto_Projectile>().directionVector = Vector2.down;
                     referenceProjectile.transform.rotation = Quaternion.AngleAxis(180.0f, Vector3.forward);
+                    referenceProjectile.GetComponent<Proto_Projectile>().laserDirection = Proto_Projectile.LaserDirection.DOWN;
                 }
                 break;
 
             case 270:
                 if (referenceVector == Vector2.up)
                 {
-                    referenceProjectile.GetComponent<Proto_Projectile>().DirectionVector = Vector2.right;
-                    referenceProjectile.transform.rotation = Quaternion.AngleAxis(90.0f, Vector3.forward);
+                    referenceProjectile.GetComponent<Proto_Projectile>().directionVector = Vector2.right;
+                    referenceProjectile.transform.rotation = Quaternion.AngleAxis(-90.0f, Vector3.forward);
+                    referenceProjectile.GetComponent<Proto_Projectile>().laserDirection = Proto_Projectile.LaserDirection.RIGHT;
                 }
                 else if (referenceVector == Vector2.left)
                 {
-                    referenceProjectile.GetComponent<Proto_Projectile>().DirectionVector = Vector2.down;
+                    referenceProjectile.GetComponent<Proto_Projectile>().directionVector = Vector2.down;
                     referenceProjectile.transform.rotation = Quaternion.AngleAxis(180.0f, Vector3.forward);
+                    referenceProjectile.GetComponent<Proto_Projectile>().laserDirection = Proto_Projectile.LaserDirection.DOWN;
                 }
                 break;
 
             default:
-                Debug.Log("NO HIT");
-                Debug.Log(transform.parent.rotation.eulerAngles.z);
                 break;
         }
 
@@ -135,9 +141,6 @@ public class Reflector : MonoBehaviour
 
     public virtual void setReflectorLaserColor()
     {
-        referenceProjectile.GetComponent<TrailRenderer>().material = reflectorBase_SO.laserMaterialToChange;
-        //referenceProjectile.GetComponent<SpriteRenderer>().color = reflectorBase_SO.laserColorToChange;
-
         switch (reflectorColor_Enum)
         {
             case ReflectorColor_Enum.RED:

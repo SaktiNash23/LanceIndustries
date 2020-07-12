@@ -240,8 +240,11 @@ public class ReflectorColor_UIButton : MonoBehaviour
                             break;
                     }
 
-                    GameManager.gameManagerInstance.reflectorColorsPanel.SetActive(false);
-                    GameManager.gameManagerInstance.isReflectorColorPanelActive = false;
+                    GameManager.gameManagerInstance.reflectorColorsPanel.GetComponent<Animator>().SetBool("ReflectorColorPanelDisplayed", false);
+
+                    //The below 2 lines will be executed in an Animation Event
+                    //GameManager.gameManagerInstance.reflectorColorsPanel.SetActive(false);
+                    //GameManager.gameManagerInstance.isReflectorColorPanelActive = false;
                 }
                 else if(reflectorColorInStock == false)
                 {
@@ -399,8 +402,11 @@ public class ReflectorColor_UIButton : MonoBehaviour
                         break;
                 }
 
-                GameManager.gameManagerInstance.reflectorColorsPanel.SetActive(false);
-                GameManager.gameManagerInstance.isReflectorColorPanelActive = false;
+                GameManager.gameManagerInstance.reflectorColorsPanel.GetComponent<Animator>().SetBool("ReflectorColorPanelDisplayed", false);
+
+                //The 2 lines of code below will be executed as an Animation Event
+                //GameManager.gameManagerInstance.reflectorColorsPanel.SetActive(false);
+                //GameManager.gameManagerInstance.isReflectorColorPanelActive = false;
             }
             else if(reflectorColorInStock == false)
             {

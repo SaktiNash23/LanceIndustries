@@ -22,52 +22,60 @@ public class Reflector_Translucent : Reflector
             case 0:
                 if (base.referenceVector == Vector2.down)
                 {
-                    newProjectile = Instantiate(projectile, transform.parent.GetChild(4).transform.position, Quaternion.AngleAxis(180.0f, Vector3.forward));
-                    newProjectile.GetComponent<Proto_Projectile>().DirectionVector = Vector2.down;
+                    newProjectile = Instantiate(projectile, transform.parent.Find("ProjectileSpawner1").transform.position, Quaternion.AngleAxis(180.0f, Vector3.forward));
+                    newProjectile.GetComponent<Proto_Projectile>().directionVector = Vector2.down;
+                    newProjectile.GetComponent<Proto_Projectile>().laserDirection = Proto_Projectile.LaserDirection.DOWN;
                 }
                 else if (base.referenceVector == Vector2.left)
                 {
-                    newProjectile = Instantiate(projectile, transform.parent.GetChild(3).transform.position, Quaternion.AngleAxis(-90.0f, Vector3.forward));
-                    newProjectile.GetComponent<Proto_Projectile>().DirectionVector = Vector2.left;
+                    newProjectile = Instantiate(projectile, transform.parent.Find("ProjectileSpawner0").transform.position, Quaternion.AngleAxis(90.0f, Vector3.forward));
+                    newProjectile.GetComponent<Proto_Projectile>().directionVector = Vector2.left;
+                    newProjectile.GetComponent<Proto_Projectile>().laserDirection = Proto_Projectile.LaserDirection.LEFT;
                 }
                 break;
 
             case 90:
                 if (base.referenceVector == Vector2.right)
                 {
-                    newProjectile = Instantiate(projectile, transform.parent.GetChild(4).transform.position, Quaternion.AngleAxis(90.0f, Vector3.forward));
-                    newProjectile.GetComponent<Proto_Projectile>().DirectionVector = Vector2.right;
+                    newProjectile = Instantiate(projectile, transform.parent.Find("ProjectileSpawner1").transform.position, Quaternion.AngleAxis(-90.0f, Vector3.forward));
+                    newProjectile.GetComponent<Proto_Projectile>().directionVector = Vector2.right;
+                    newProjectile.GetComponent<Proto_Projectile>().laserDirection = Proto_Projectile.LaserDirection.RIGHT;
                 }
                 else if (base.referenceVector == Vector2.down)
                 {
-                    newProjectile = Instantiate(projectile, transform.parent.GetChild(3).transform.position, Quaternion.AngleAxis(180.0f, Vector3.forward));
-                    newProjectile.GetComponent<Proto_Projectile>().DirectionVector = Vector2.down;
+                    newProjectile = Instantiate(projectile, transform.parent.Find("ProjectileSpawner0").transform.position, Quaternion.AngleAxis(180.0f, Vector3.forward));
+                    newProjectile.GetComponent<Proto_Projectile>().directionVector = Vector2.down;
+                    newProjectile.GetComponent<Proto_Projectile>().laserDirection = Proto_Projectile.LaserDirection.DOWN;
                 }
                 break;
 
             case 180:
                 if (base.referenceVector == Vector2.up)
                 {
-                    newProjectile = Instantiate(projectile, transform.parent.GetChild(4).transform.position, Quaternion.AngleAxis(0.0f, Vector3.forward));
-                    newProjectile.GetComponent<Proto_Projectile>().DirectionVector = Vector2.up;
+                    newProjectile = Instantiate(projectile, transform.parent.Find("ProjectileSpawner1").transform.position, Quaternion.AngleAxis(0.0f, Vector3.forward));
+                    newProjectile.GetComponent<Proto_Projectile>().directionVector = Vector2.up;
+                    newProjectile.GetComponent<Proto_Projectile>().laserDirection = Proto_Projectile.LaserDirection.UP;
                 }
                 else if (base.referenceVector == Vector2.right)
                 {
-                    newProjectile = Instantiate(projectile, transform.parent.GetChild(3).transform.position, Quaternion.AngleAxis(90.0f, Vector3.forward));
-                    newProjectile.GetComponent<Proto_Projectile>().DirectionVector = Vector2.right;
+                    newProjectile = Instantiate(projectile, transform.parent.Find("ProjectileSpawner0").transform.position, Quaternion.AngleAxis(-90.0f, Vector3.forward));
+                    newProjectile.GetComponent<Proto_Projectile>().directionVector = Vector2.right;
+                    newProjectile.GetComponent<Proto_Projectile>().laserDirection = Proto_Projectile.LaserDirection.RIGHT;
                 }
                 break;
 
             case 270:
                 if (base.referenceVector == Vector2.up)
                 {
-                    newProjectile = Instantiate(projectile, transform.parent.GetChild(3).transform.position, Quaternion.AngleAxis(0.0f, Vector3.forward));
-                    newProjectile.GetComponent<Proto_Projectile>().DirectionVector = Vector2.up;
+                    newProjectile = Instantiate(projectile, transform.parent.Find("ProjectileSpawner0").transform.position, Quaternion.AngleAxis(0.0f, Vector3.forward));
+                    newProjectile.GetComponent<Proto_Projectile>().directionVector = Vector2.up;
+                    newProjectile.GetComponent<Proto_Projectile>().laserDirection = Proto_Projectile.LaserDirection.UP;
                 }
                 else if (base.referenceVector == Vector2.left)
                 {
-                    newProjectile = Instantiate(projectile, transform.parent.GetChild(4).transform.position, Quaternion.AngleAxis(-90.0f, Vector3.forward));
-                    newProjectile.GetComponent<Proto_Projectile>().DirectionVector = Vector2.left;
+                    newProjectile = Instantiate(projectile, transform.parent.Find("ProjectileSpawner1").transform.position, Quaternion.AngleAxis(90.0f, Vector3.forward));
+                    newProjectile.GetComponent<Proto_Projectile>().directionVector = Vector2.left;
+                    newProjectile.GetComponent<Proto_Projectile>().laserDirection = Proto_Projectile.LaserDirection.LEFT;
                 }
                 break;
         }
@@ -84,36 +92,26 @@ public class Reflector_Translucent : Reflector
 
     public override void setReflectorLaserColor()
     {
-        referenceProjectile.GetComponent<TrailRenderer>().material = reflectorTranslucent_SO.laserMaterialToChange;
-        newProjectile.GetComponent<TrailRenderer>().material = reflectorTranslucent_SO.laserMaterialToChange;
-
-        //referenceProjectile.GetComponent<SpriteRenderer>().color = reflectorTranslucent_SO.laserColorToChange;
-        //newProjectile.GetComponent<SpriteRenderer>().color = reflectorTranslucent_SO.laserColorToChange;
-
         switch (reflectorColor_Enum)
         {
             case ReflectorColor_Enum.RED:
                 referenceProjectile.GetComponent<Proto_Projectile>().laserColor_Enum = Proto_Projectile.LaserColor_Enum.RED;
                 newProjectile.GetComponent<Proto_Projectile>().laserColor_Enum = Proto_Projectile.LaserColor_Enum.RED;
-                //Maybe in the future, change glow of laser here
                 break;
 
             case ReflectorColor_Enum.BLUE:
                 referenceProjectile.GetComponent<Proto_Projectile>().laserColor_Enum = Proto_Projectile.LaserColor_Enum.BLUE;
                 newProjectile.GetComponent<Proto_Projectile>().laserColor_Enum = Proto_Projectile.LaserColor_Enum.BLUE;
-                //Maybe in the future, change glow of laser here
                 break;
 
             case ReflectorColor_Enum.YELLOW:
                 referenceProjectile.GetComponent<Proto_Projectile>().laserColor_Enum = Proto_Projectile.LaserColor_Enum.YELLOW;
                 newProjectile.GetComponent<Proto_Projectile>().laserColor_Enum = Proto_Projectile.LaserColor_Enum.YELLOW;
-                //Maybe in the future, change glow of laser here
                 break;
 
             case ReflectorColor_Enum.WHITE:
                 referenceProjectile.GetComponent<Proto_Projectile>().laserColor_Enum = Proto_Projectile.LaserColor_Enum.WHITE;
                 newProjectile.GetComponent<Proto_Projectile>().laserColor_Enum = Proto_Projectile.LaserColor_Enum.WHITE;
-                //Maybe in the future, change glow of laser here
                 break;
         }
 

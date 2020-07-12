@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4185421489143442179}
   - component: {fileID: 4185421489143442178}
   - component: {fileID: 3449685703640890184}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Origin2D
   m_TagString: StartingPoint
   m_Icon: {fileID: 0}
@@ -143,7 +143,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4668505482462744933}
   - component: {fileID: 37519169824939777}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ColorIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -212,6 +212,6 @@ SpriteRenderer:
   m_Size: {x: 1.3253906, y: 1.4499999}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
