@@ -43,26 +43,32 @@ public class Proto_LaserOrigin : MonoBehaviour
 
     void OnMouseUp()
     {
-        if (GameManager.gameManagerInstance.beginCountDown == false)
+        if (GameManager.gameManagerInstance.gameIsPaused == false)
         {
-            GameManager.gameManagerInstance.Reset();
-            GameManager.gameManagerInstance.beginCountDown = true; //Disable this line if you want to test without timer
-
-            GameObject[] allStartingPoints = GameObject.FindGameObjectsWithTag("StartingPoint");
-
-            for (int i = 0; i < allStartingPoints.Length; ++i)
+            if (GameManager.gameManagerInstance.beginCountDown == false)
             {
-                allStartingPoints[i].GetComponent<Proto_LaserOrigin>().shootLaser();
-            }
+                GameManager.gameManagerInstance.Reset();
+                GameManager.gameManagerInstance.beginCountDown = true; //Disable this line if you want to test without timer
 
+                GameObject[] allStartingPoints = GameObject.FindGameObjectsWithTag("StartingPoint");
+
+                for (int i = 0; i < allStartingPoints.Length; ++i)
+                {
+                    allStartingPoints[i].GetComponent<Proto_LaserOrigin>().shootLaser();
+                }
+
+            }
         }
     }
 
     void OnMouseOver()
     {
-        if (Input.GetMouseButtonDown(1))
+        if (GameManager.gameManagerInstance.gameIsPaused == false)
         {
-            shootLaser();
+            if (Input.GetMouseButtonDown(1))
+            {
+                shootLaser();
+            }
         }
     }
 

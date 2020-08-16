@@ -176,6 +176,9 @@ public class GameManager : MonoBehaviour
 
     private Color tempColor;
 
+    //Bool to check if game is paused. If paused, gameplay updates won't run
+    public bool gameIsPaused;
+
     void Awake()
     {
         #region Initialize GM instance
@@ -188,69 +191,72 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (dissolveFade < 1.0f)
+        //If the game is paused, this stops the checks for touch or clicks to close reflector panels, else it runs the checks normally
+        if (gameIsPaused == false)
         {
-            dissolveFade += Time.deltaTime;
-            dissolveMaterial.SetFloat("_Fade", dissolveFade);
-        }
-
-
-        #region Reflector Color Panel Dissolve Test Code
-        /*
-        if (activateDissolve == true)
-        {
-            if(fadeIn == false)
+            if (dissolveFade < 1.0f)
             {
-                if (reflectorPanel_dissolveFade < 1.0f)
-                {
-                    Debug.LogWarning("DISSOLVE");
-                    reflectorPanel_dissolveFade += Time.deltaTime;
-                    reflectorPanel_DissolveMaterial.SetFloat("_Fade", reflectorPanel_dissolveFade);
-                }
-                else
-                {
-                    reflectorPanel_dissolveFade = 1.0f;
-                    fadeIn = true;
-                    activateDissolve = false;
-                }               
+                dissolveFade += Time.deltaTime;
+                dissolveMaterial.SetFloat("_Fade", dissolveFade);
             }
-            else if(fadeIn == true)
+
+            #region Reflector Color Panel Dissolve Test Code
+            /*
+            if (activateDissolve == true)
             {
-                if(reflectorPanel_dissolveFade > 0.0f)
+                if(fadeIn == false)
                 {
-                    reflectorPanel_dissolveFade -= Time.deltaTime;
-                    reflectorPanel_DissolveMaterial.SetFloat("_Fade", reflectorPanel_dissolveFade);
+                    if (reflectorPanel_dissolveFade < 1.0f)
+                    {
+                        Debug.LogWarning("DISSOLVE");
+                        reflectorPanel_dissolveFade += Time.deltaTime;
+                        reflectorPanel_DissolveMaterial.SetFloat("_Fade", reflectorPanel_dissolveFade);
+                    }
+                    else
+                    {
+                        reflectorPanel_dissolveFade = 1.0f;
+                        fadeIn = true;
+                        activateDissolve = false;
+                    }               
                 }
-                else
+                else if(fadeIn == true)
                 {
-                    reflectorPanel_dissolveFade = 0.0f;
-                    fadeIn = false;
-                    reflectorColorsPanel.SetActive(false);
-                    activateDissolve = false;
+                    if(reflectorPanel_dissolveFade > 0.0f)
+                    {
+                        reflectorPanel_dissolveFade -= Time.deltaTime;
+                        reflectorPanel_DissolveMaterial.SetFloat("_Fade", reflectorPanel_dissolveFade);
+                    }
+                    else
+                    {
+                        reflectorPanel_dissolveFade = 0.0f;
+                        fadeIn = false;
+                        reflectorColorsPanel.SetActive(false);
+                        activateDissolve = false;
 
+                    }
                 }
             }
-        }
-        */
-        #endregion
+            */
+            #endregion
 
+            if (beginCountDown == true)
+            {
+                checkTimingWindowForLaser();
+            }
 
-        if (beginCountDown == true)
-        {
-            checkTimingWindowForLaser();
-        }
+            if (Input.touchCount == 1)
+            {
+                checkForTouchToCloseReflectorPanel();
+            }
 
-        if (Input.touchCount == 1)
-        {
-            checkForTouchToCloseReflectorPanel();
-        }
+            #if UNITY_EDITOR
+            if (Input.GetMouseButtonDown(0))
+            {
+                checkForClickToCloseReflectorPanel();
+            }
+            #endif
 
-        #if UNITY_EDITOR
-        if(Input.GetMouseButtonDown(0))
-        {
-            checkForClickToCloseReflectorPanel();
         }
-        #endif
     }
 
     //This function checks for a touch when the reflector color panel is active. If a touch is detected on the grid or empty space in the level

@@ -47,128 +47,130 @@ public class Proto_Projectile : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (reflectorHit == false)
+        if (GameManager.gameManagerInstance.gameIsPaused == false)
         {
-            hitStore = Physics2D.Raycast(transform.position, directionVector, (directionVector.normalized * projectileSpeed * Time.fixedDeltaTime).magnitude , ~layerMaskStruct); //LayerMask is inversed so it ignores the layers that is set
-            //Debug.DrawRay(transform.position, transform.position + (directionVector.normalized * projectileSpeed * Time.fixedDeltaTime));
-
-            if (hitStore)
+            if (reflectorHit == false)
             {
-                switch(hitStore.collider.gameObject.tag)
+                hitStore = Physics2D.Raycast(transform.position, directionVector, (directionVector.normalized * projectileSpeed * Time.fixedDeltaTime).magnitude, ~layerMaskStruct); //LayerMask is inversed so it ignores the layers that is set
+                                                                                                                                                                                     //Debug.DrawRay(transform.position, transform.position + (directionVector.normalized * projectileSpeed * Time.fixedDeltaTime));
+                if (hitStore)
                 {
-                    #region HIT: Basic Reflector
+                    switch (hitStore.collider.gameObject.tag)
+                    {
+                        #region HIT: Basic Reflector
 
-                    case "Reflector":
-                        reflectorHit = true;
-                        reduceLaserSpeed();
-                        hitStore.collider.gameObject.GetComponent<Reflector>().calculateLaser_Basic(hitStore, gameObject);
-                        break;
+                        case "Reflector":
+                            reflectorHit = true;
+                            reduceLaserSpeed();
+                            hitStore.collider.gameObject.GetComponent<Reflector>().calculateLaser_Basic(hitStore, gameObject);
+                            break;
 
-                    #endregion
+                        #endregion
 
-                    #region HIT: Translucent Reflector
-                    case "ReflectorTranslucent":
-                        reflectorHit = true;
-                        reduceLaserSpeed();
-                        hitStore.collider.gameObject.GetComponent<Reflector_Translucent>().calculateLaser_Translucent(hitStore, gameObject);
-                        break;
-                    #endregion
+                        #region HIT: Translucent Reflector
+                        case "ReflectorTranslucent":
+                            reflectorHit = true;
+                            reduceLaserSpeed();
+                            hitStore.collider.gameObject.GetComponent<Reflector_Translucent>().calculateLaser_Translucent(hitStore, gameObject);
+                            break;
+                        #endregion
 
-                    #region HIT: Double Way Reflector
-                    case "ReflectorDoubleWay":
-                        reflectorHit = true;
-                        reduceLaserSpeed();
-                        hitStore.collider.gameObject.GetComponent<Reflector_DoubleWay>().calculateLaser_DoubleWay(hitStore, gameObject);
-                        break;
-                    #endregion
+                        #region HIT: Double Way Reflector
+                        case "ReflectorDoubleWay":
+                            reflectorHit = true;
+                            reduceLaserSpeed();
+                            hitStore.collider.gameObject.GetComponent<Reflector_DoubleWay>().calculateLaser_DoubleWay(hitStore, gameObject);
+                            break;
+                        #endregion
 
-                    #region HIT: Split Reflector
-                    case "ReflectorSplit":
-                        reflectorHit = true;
-                        reduceLaserSpeed();
-                        hitStore.collider.gameObject.GetComponent<Reflector_Split>().calculateLaser_Split(hitStore, gameObject);
-                        break;
-                    #endregion
+                        #region HIT: Split Reflector
+                        case "ReflectorSplit":
+                            reflectorHit = true;
+                            reduceLaserSpeed();
+                            hitStore.collider.gameObject.GetComponent<Reflector_Split>().calculateLaser_Split(hitStore, gameObject);
+                            break;
+                        #endregion
 
-                    #region HIT: Three Way Reflector
-                    case "ReflectorThreeWay":
-                        reflectorHit = true;
-                        reduceLaserSpeed();
-                        hitStore.collider.gameObject.GetComponent<Reflector_ThreeWay>().calculateLaser_ThreeWay(hitStore, gameObject);
-                        break;
-                    #endregion
+                        #region HIT: Three Way Reflector
+                        case "ReflectorThreeWay":
+                            reflectorHit = true;
+                            reduceLaserSpeed();
+                            hitStore.collider.gameObject.GetComponent<Reflector_ThreeWay>().calculateLaser_ThreeWay(hitStore, gameObject);
+                            break;
+                        #endregion
 
-                    #region HIT: Invalid Bounds
-                    case "InvalidBounds":
-                        projectileSpeed = 0.0f;
-                        destroyCheck = true; //If true, it means the projectile was destroyed by hitting invalid bounds or border
+                        #region HIT: Invalid Bounds
+                        case "InvalidBounds":
+                            projectileSpeed = 0.0f;
+                            destroyCheck = true; //If true, it means the projectile was destroyed by hitting invalid bounds or border
 
-                        if (hitStore.collider.gameObject.transform.parent.name.Contains("Basic"))
-                        {
-                            hitStore.collider.gameObject.transform.parent.GetChild(0).GetComponent<Reflector>().playInvalidHitAnimation();
-                        }
-                        else if (hitStore.collider.gameObject.transform.parent.name.Contains("Translucent"))
-                        {
-                            hitStore.collider.gameObject.transform.parent.GetChild(0).GetComponent<Reflector_Translucent>().playInvalidHitAnimation();
-                        }
-                        else if (hitStore.collider.gameObject.transform.parent.name.Contains("DoubleWay"))
-                        {
-                            hitStore.collider.gameObject.transform.parent.GetChild(0).GetComponent<Reflector_DoubleWay>().playInvalidHitAnimation();
-                        }
-                        //Three Way does not have Invalid Bounds
+                            if (hitStore.collider.gameObject.transform.parent.name.Contains("Basic"))
+                            {
+                                hitStore.collider.gameObject.transform.parent.GetChild(0).GetComponent<Reflector>().playInvalidHitAnimation();
+                            }
+                            else if (hitStore.collider.gameObject.transform.parent.name.Contains("Translucent"))
+                            {
+                                hitStore.collider.gameObject.transform.parent.GetChild(0).GetComponent<Reflector_Translucent>().playInvalidHitAnimation();
+                            }
+                            else if (hitStore.collider.gameObject.transform.parent.name.Contains("DoubleWay"))
+                            {
+                                hitStore.collider.gameObject.transform.parent.GetChild(0).GetComponent<Reflector_DoubleWay>().playInvalidHitAnimation();
+                            }
+                            //Three Way does not have Invalid Bounds
 
-                        returnLaserToPool(this.gameObject);
-                        gameObject.SetActive(false);
-                        break;
-                    #endregion
+                            returnLaserToPool(this.gameObject);
+                            gameObject.SetActive(false);
+                            break;
+                        #endregion
 
-                    #region HIT: Border
-                    case "Border":
-                        projectileSpeed = 0.0f;
-                        destroyCheck = true; //If true, it means the projectile was destroyed by hitting invalid bounds or border
-                        returnLaserToPool(this.gameObject);
-                        gameObject.SetActive(false);                                                                  
-                        break;
-                    #endregion
+                        #region HIT: Border
+                        case "Border":
+                            projectileSpeed = 0.0f;
+                            destroyCheck = true; //If true, it means the projectile was destroyed by hitting invalid bounds or border
+                            returnLaserToPool(this.gameObject);
+                            gameObject.SetActive(false);
+                            break;
+                        #endregion
 
-                    #region HIT: End Point
-                    case "EndPoint":
-                        hitStore.collider.gameObject.GetComponent<EndPoint>().checkIfCorrectLaserHit(gameObject);
-                        projectileSpeed = 0.0f;
-                        destroyCheck = true;
+                        #region HIT: End Point
+                        case "EndPoint":
+                            hitStore.collider.gameObject.GetComponent<EndPoint>().checkIfCorrectLaserHit(gameObject);
+                            projectileSpeed = 0.0f;
+                            destroyCheck = true;
 
-                        //Destroy(gameObject, 0.1f);
+                            //Destroy(gameObject, 0.1f);
 
-                        LaserPooler.instance_LaserPoolList.laserPoolDictionary["LaserStock"].Enqueue(this.gameObject);
-                        gameObject.transform.position = GameObject.FindGameObjectWithTag("InactivePooledLasers").transform.position;
-                        gameObject.transform.rotation = Quaternion.identity;
-                        gameObject.SetActive(false);
-                        projectileSpeed = 7.0f;
-                        break;
-                    #endregion
+                            LaserPooler.instance_LaserPoolList.laserPoolDictionary["LaserStock"].Enqueue(this.gameObject);
+                            gameObject.transform.position = GameObject.FindGameObjectWithTag("InactivePooledLasers").transform.position;
+                            gameObject.transform.rotation = Quaternion.identity;
+                            gameObject.SetActive(false);
+                            projectileSpeed = 7.0f;
+                            break;
+                        #endregion
 
-                    #region HIT: Teleporters
+                        #region HIT: Teleporters
 
-                    case "TeleporterSetA":
-                    case "TeleporterSetB":
-                    case "TeleporterSetC":
-                        Debug.Log("HIT TELEPORTER SET");
-                        hitStore.collider.gameObject.GetComponentInParent<Teleporter>().teleportLaser(gameObject, hitStore.collider.gameObject);
-                        break;
+                        case "TeleporterSetA":
+                        case "TeleporterSetB":
+                        case "TeleporterSetC":
+                            Debug.Log("HIT TELEPORTER SET");
+                            hitStore.collider.gameObject.GetComponentInParent<Teleporter>().teleportLaser(gameObject, hitStore.collider.gameObject);
+                            break;
 
-                    #endregion
+                        #endregion
 
-                    #region HIT: Colored Border
-                    case "ColoredBorder":
-                        hitStore.collider.gameObject.GetComponent<ColoredBorder>().checkIfCorrectLaserHit(gameObject);
-                        break;
+                        #region HIT: Colored Border
+                        case "ColoredBorder":
+                            hitStore.collider.gameObject.GetComponent<ColoredBorder>().checkIfCorrectLaserHit(gameObject);
+                            break;
 
-                    #endregion
+                            #endregion
+                    }
                 }
             }
-        }
 
-        transform.position += directionVector.normalized * projectileSpeed * Time.fixedDeltaTime;
+            transform.position += directionVector.normalized * projectileSpeed * Time.fixedDeltaTime;
+        }
     }
 
     #region Accessor Functions
