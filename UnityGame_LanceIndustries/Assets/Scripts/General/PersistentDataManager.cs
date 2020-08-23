@@ -27,10 +27,7 @@ public class PersistentDataManager : MonoBehaviour
             if (dontDestroyOnLoad)
                 DontDestroyOnLoad(gameObject);
         }
-    }
 
-    private void Start()
-    {
         PopulateMapDataHolderNamePairs();
     }
 
