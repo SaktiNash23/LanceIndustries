@@ -18,8 +18,8 @@ public class UIHelper : MonoBehaviour
     public UI_HELPER_FUNCTION_TYPES helperFunctionType;
 
     public CanvasGroup cgParent;
-    public Image imgCgParentToUnpopWindow;
-    public Button btnCgParentToUnpopWindow;
+    public Image imgBgToUnpopWindow;
+    public Button btnBgToUnpopWindow;
     public CanvasGroup cgPopTarget;
     public float maxAlphaImgToUnpopWindow = 0.5f;
     public Vector3 maxScale;
@@ -36,6 +36,7 @@ public class UIHelper : MonoBehaviour
     public RectTransform rtTargetToMove;
     public Vector3 moveOffset;
     public float moveDuration;
+    public bool useBgToClose = true;
 
     private UnityAction<bool> btnCallbackActionBool = null;
     private UnityAction btnCallbackActionNoParam = null;
@@ -98,12 +99,21 @@ public class UIHelper : MonoBehaviour
         if (pop)
         {
             Vector3 initialScale = new Vector3(0f, 0f, 0f);
-            LeanTween.value(this.gameObject, initialScale, maxScale, popDuration).setEaseOutBack().setOnUpdate((Vector3 targetScale) => WindowScaleUpdate(targetScale)).setOnComplete(() =>
+
+            if (imgBgToUnpopWindow)
             {
-                imgCgParentToUnpopWindow.raycastTarget = true;
+                imgBgToUnpopWindow.raycastTarget = true;
+                btnBgToUnpopWindow.onClick.RemoveAllListeners();
+            }
+
+            LeanTween.value(this.gameObject, initialScale, maxScale, popDuration).setEaseOutBack().setOnUpdate((Vector3 targetScale) => WindowScaleUpdate(targetScale)).setIgnoreTimeScale(true).setOnComplete(() =>
+            {
                 cgPopTarget.interactable = true;
                 cgPopTarget.blocksRaycasts = true;
-                btnCgParentToUnpopWindow.onClick.AddListener(() => ExecuteUIHandlingAction(false));
+
+                if(useBgToClose)
+                    btnBgToUnpopWindow.onClick.AddListener(() => ExecuteUIHandlingAction(false));
+
                 if (callbacksAfterPop != null)
                     callbacksAfterPop.Invoke();
 
@@ -111,25 +121,34 @@ public class UIHelper : MonoBehaviour
                     scrollRect.enabled = true;
 
             });
-            LeanTween.value(0f, maxAlphaImgToUnpopWindow, popDuration).setOnUpdate(ImgParentBgAlphaUpdate);
+
+            if(imgBgToUnpopWindow)
+                LeanTween.value(0f, maxAlphaImgToUnpopWindow, popDuration).setOnUpdate(ImgParentBgAlphaUpdate).setIgnoreTimeScale(true);
 
             if (scrollRect)
                 scrollRect.content.anchoredPosition = Vector2.zero;
-
         }
         else
         {
             Vector3 initialScale = cgPopTarget.transform.localScale;
+
+            if (imgBgToUnpopWindow)
+            {
+                btnBgToUnpopWindow.onClick.RemoveAllListeners();
+            }
+
             cgPopTarget.interactable = false;
             cgPopTarget.blocksRaycasts = false;
-            LeanTween.value(this.gameObject, initialScale, new Vector3(0f, 0f, 0f), popDuration).setEaseOutCubic().setOnUpdate((Vector3 targetScale) => WindowScaleUpdate(targetScale));
-            btnCgParentToUnpopWindow.onClick.RemoveAllListeners();
-            LeanTween.value(maxAlphaImgToUnpopWindow, 0.0f, popDuration).setOnUpdate(ImgParentBgAlphaUpdate).setOnComplete(() =>
+            LeanTween.value(this.gameObject, initialScale, new Vector3(0f, 0f, 0f), popDuration).setEaseOutCubic().setOnUpdate((Vector3 targetScale) => WindowScaleUpdate(targetScale)).setIgnoreTimeScale(true).setOnComplete(() => imgBgToUnpopWindow.raycastTarget = false);
+
+            if (imgBgToUnpopWindow)
             {
-                imgCgParentToUnpopWindow.raycastTarget = false;
-                if (callbacksAfterUnPop != null)
-                    callbacksAfterUnPop.Invoke();
-            });
+                LeanTween.value(maxAlphaImgToUnpopWindow, 0.0f, popDuration).setOnUpdate(ImgParentBgAlphaUpdate).setIgnoreTimeScale(true).setOnComplete(() =>
+                {
+                    if (callbacksAfterUnPop != null)
+                        callbacksAfterUnPop.Invoke();
+                });
+            }
 
             if (scrollRect)
                 scrollRect.enabled = false;
@@ -143,7 +162,7 @@ public class UIHelper : MonoBehaviour
 
     private void ImgParentBgAlphaUpdate(float value)
     {
-        imgCgParentToUnpopWindow.color = new Color(imgCgParentToUnpopWindow.color.r, imgCgParentToUnpopWindow.color.g, imgCgParentToUnpopWindow.color.b, value);
+        imgBgToUnpopWindow.color = new Color(imgBgToUnpopWindow.color.r, imgBgToUnpopWindow.color.g, imgBgToUnpopWindow.color.b, value);
     }
 
     //----------------------------- MOVE HANDLING FUNCTIONS -----------------------------//

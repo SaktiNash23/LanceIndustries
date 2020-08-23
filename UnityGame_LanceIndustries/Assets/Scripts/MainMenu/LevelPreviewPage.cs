@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using NaughtyAttributes;
 
@@ -8,8 +9,11 @@ public class LevelPreviewPage : MonoBehaviour
 {
     [BoxGroup("REFERENCES")] [SerializeField] TMP_Text txtStageNumber;
     [BoxGroup("REFERENCES")] [SerializeField] TMP_Text txtHighScoreNumber;
+    [BoxGroup("REFERENCES")] [SerializeField] Button btnSelectStage;
 
     [BoxGroup("REFERENCES")] [SerializeField] GameObject levelLayout;
+
+    private MapDataHolder mapData = null;
 
     public void PopularizeDisplay(MainMenuLevelUI mainMenuLevelUI)
     {
@@ -32,10 +36,23 @@ public class LevelPreviewPage : MonoBehaviour
 
         txtStageNumber.text = targetStageStr;
 
-        MapDataHolder mapDataHolder = PersistentDataManager.Instance.GetMapDataHolder(mainMenuLevelUI.TargetMapInfo.mapName);
+        mapData = PersistentDataManager.Instance.GetMapDataHolder(mainMenuLevelUI.TargetMapInfo.mapName);
+
+        btnSelectStage.onClick.RemoveAllListeners();
+
+        btnSelectStage.onClick.AddListener(() =>
+        {
+            if (!MainMenuUIManager.Instance.SwitchingLevelPage)
+            {
+                PersistentDataManager.Instance.SelectedMapDataHolderNamePair = PersistentDataManager.Instance.GetMapDataHolderNamePair(mainMenuLevelUI.TargetMapInfo.mapName);
+                PersistentDataManager.Instance.UpdateSelectedMapIndex();
+                btnSelectStage.interactable = false;
+                SceneLoader.Instance.LoadSceneWithLoadingScreen(SCENE_ENUM.GAMEPLAY_SCENE);
+            }
+        });
 
         // Toggle all to off
-        for(int i = 0; i < levelLayout.transform.childCount; i++)
+        for (int i = 0; i < levelLayout.transform.childCount; i++)
         {
             levelLayout.transform.GetChild(i).GetComponent<MapGridUI>().ToggleAllWalls(false);
             levelLayout.transform.GetChild(i).GetComponent<MapGridUI>().ToggleOriginPoint(default, Quaternion.identity, false);
@@ -44,7 +61,7 @@ public class LevelPreviewPage : MonoBehaviour
         }
 
         // Toggle those right one
-        foreach(var inSceneObj in mapDataHolder.inSceneObjectDatas)
+        foreach(var inSceneObj in mapData.inSceneObjectDatas)
         {
             switch (inSceneObj.inSceneObjectType)
             {

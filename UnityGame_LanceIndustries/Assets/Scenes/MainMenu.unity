@@ -445,6 +445,50 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dca3d8e99e00847489cba4dc54bd2a6a, type: 3}
+--- !u!1 &302857636
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 302857638}
+  - component: {fileID: 302857637}
+  m_Layer: 0
+  m_Name: SceneLoader
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &302857637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 302857636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca88486e30cf7854dbc7f64ed5b0107a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dontDestroyOnLoad: 1
+--- !u!4 &302857638
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 302857636}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &302947885 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3929530277424659594, guid: d7e361026b8d8c346920303adec5dd38,
@@ -601,8 +645,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   helperFunctionType: 1
   cgParent: {fileID: 341353988}
-  imgCgParentToUnpopWindow: {fileID: 1439230035}
-  btnCgParentToUnpopWindow: {fileID: 1439230032}
+  imgBgToUnpopWindow: {fileID: 1439230035}
+  btnBgToUnpopWindow: {fileID: 1439230032}
   cgPopTarget: {fileID: 341353988}
   maxAlphaImgToUnpopWindow: 0
   maxScale: {x: 1, y: 1, z: 1}
@@ -630,6 +674,7 @@ MonoBehaviour:
   rtTargetToMove: {fileID: 0}
   moveOffset: {x: 0, y: 0, z: 0}
   moveDuration: 0
+  useBgToClose: 1
 --- !u!225 &341353988
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -983,8 +1028,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   helperFunctionType: 0
   cgParent: {fileID: 0}
-  imgCgParentToUnpopWindow: {fileID: 0}
-  btnCgParentToUnpopWindow: {fileID: 0}
+  imgBgToUnpopWindow: {fileID: 0}
+  btnBgToUnpopWindow: {fileID: 0}
   cgPopTarget: {fileID: 0}
   maxAlphaImgToUnpopWindow: 0.5
   maxScale: {x: 0, y: 0, z: 0}
@@ -1204,6 +1249,7 @@ MonoBehaviour:
   rtTargetToMove: {fileID: 0}
   moveOffset: {x: 0, y: 0, z: 0}
   moveDuration: 0
+  useBgToClose: 1
 --- !u!114 &882729286
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1911,6 +1957,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dontDestroyOnLoad: 1
+  selectedMapIndex: -1
 --- !u!1 &1562876683
 GameObject:
   m_ObjectHideFlags: 0
@@ -2019,7 +2066,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1603683950
 GameObject:
@@ -2079,7 +2126,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1636148077
 GameObject:

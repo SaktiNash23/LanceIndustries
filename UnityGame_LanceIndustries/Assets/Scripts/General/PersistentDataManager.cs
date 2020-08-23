@@ -10,7 +10,10 @@ public class PersistentDataManager : MonoBehaviour
     private static PersistentDataManager _instance;
     public static PersistentDataManager Instance { get => _instance; }
 
-    public List<MapDataHolderNamePair> MapDataHolderNamePairs { get; set; } = new List<MapDataHolderNamePair>();
+    public List<MapDataHolderNamePair> MapDataHolderNamePairs = new List<MapDataHolderNamePair>();
+    public MapDataHolderNamePair SelectedMapDataHolderNamePair { get; set; }
+
+    public int selectedMapIndex = -1;
 
     private void Awake()
     {
@@ -26,6 +29,20 @@ public class PersistentDataManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        PopulateMapDataHolderNamePairs();
+    }
+
+    public void PopulateMapDataHolderNamePairs()
+    {
+        List<MapInfo> mapInfos = new List<MapInfo>(Resources.LoadAll<MapInfo>("Map Infos"));
+        foreach(var mapInfo in mapInfos)
+        {
+            MapDataHolderNamePairs.Add(new MapDataHolderNamePair() { mapName = mapInfo.mapName, mapDataHolder = JsonUtility.FromJson<MapDataHolder>(mapInfo.mapData.text) });
+        }
+    }
+
     public MapDataHolder GetMapDataHolder(string mapName)
     {
         foreach(var mapDataHolderNamePair in MapDataHolderNamePairs)
@@ -36,8 +53,41 @@ public class PersistentDataManager : MonoBehaviour
 
         return null;
     }
+
+    public MapDataHolderNamePair GetMapDataHolderNamePair(string mapName)
+    {
+        foreach(var mapDataHolderNamePair in MapDataHolderNamePairs)
+        {
+            if (mapDataHolderNamePair.mapName == mapName)
+                return mapDataHolderNamePair;
+        }
+
+        return null;
+    }
+
+    public MapDataHolderNamePair GetMapDataHolderNamePair(int index)
+    {
+        if (index < MapDataHolderNamePairs.Count)
+        {
+            return MapDataHolderNamePairs[index];
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    public void UpdateSelectedMapIndex()
+    {
+        selectedMapIndex = MapDataHolderNamePairs.IndexOf(SelectedMapDataHolderNamePair);
+    }
+
+    public int GetSelectedMapIndex() => selectedMapIndex;
+
+    public void SetTimeScale(float value) => Time.timeScale = value;
 }
 
+[System.Serializable]
 public class MapDataHolderNamePair
 {
     public string mapName;

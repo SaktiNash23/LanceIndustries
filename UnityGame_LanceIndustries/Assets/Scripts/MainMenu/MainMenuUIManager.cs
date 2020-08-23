@@ -30,6 +30,8 @@ public class MainMenuUIManager : MonoBehaviour
 
     public List<MainMenuLevelUI> LevelUIs { get; set; } = new List<MainMenuLevelUI>();
 
+    public bool SwitchingLevelPage { get; set; } = false;
+
     private void Awake()
     {
         if (_instance != null && _instance != this)
@@ -53,24 +55,28 @@ public class MainMenuUIManager : MonoBehaviour
             btnSwitchLevelLeft.gameObject.SetActive(false);
             btnSwitchLevelRight.gameObject.SetActive(false);
             btnBackToLevelSelection.gameObject.SetActive(false);
+            SwitchingLevelPage = true;
         }, () =>
         {
             btnSwitchLevelLeft.gameObject.SetActive(true);
             btnSwitchLevelRight.gameObject.SetActive(true);
             btnBackToLevelSelection.gameObject.SetActive(true);
             ShowLevelPreview(true, --selectedMapPreviewIndex);
+            SwitchingLevelPage = false;
         }));
         btnSwitchLevelRight.onClick.AddListener(() => UIHelperManager.Instance.ScrollSnapping(uiHelperPanelLevelPreview, true, () =>
         {
             btnSwitchLevelLeft.gameObject.SetActive(false);
             btnSwitchLevelRight.gameObject.SetActive(false);
             btnBackToLevelSelection.gameObject.SetActive(false);
+            SwitchingLevelPage = true;
         }, () =>
         {
             btnSwitchLevelLeft.gameObject.SetActive(true);
             btnSwitchLevelRight.gameObject.SetActive(true);
             btnBackToLevelSelection.gameObject.SetActive(true);
             ShowLevelPreview(true, ++selectedMapPreviewIndex);
+            SwitchingLevelPage = false;
         }));
     }
 
@@ -218,6 +224,8 @@ public class MainMenuUIManager : MonoBehaviour
             LevelPage levelPage = Instantiate(levelPagePrefab, rtContentLevels, false);
             levelPage.PopularizeDisplay(mapInfos);
         }
+
+        LevelPage.ResetCurrentPopularizedMapIndex();
 
         if(mapCount == 2)
         {

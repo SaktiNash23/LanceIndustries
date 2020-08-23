@@ -43,7 +43,7 @@ public class Proto_LaserOrigin : MonoBehaviour
 
     void OnMouseUp()
     {
-        if (GameManager.gameManagerInstance.gameIsPaused == false)
+        if (GameManager.gameManagerInstance.gameIsPaused == false && !GameManager.gameManagerInstance.AllCorrectLasersHaveReached)
         {
             if (GameManager.gameManagerInstance.beginCountDown == false)
             {

@@ -20,9 +20,8 @@ public class UIHelperEditor : Editor
         switch (targetScript.helperFunctionType)
         {
             case UI_HELPER_FUNCTION_TYPES.NONE:
-                EditorGUILayout.LabelField("---OPTIONAL---", EditorStyles.boldLabel);
-                EditorGUILayout.PropertyField(serializedObject.FindProperty("content"));
                 EditorGUILayout.LabelField("---SCROLL SNAPPING SETTINGS (OPTIONAL)---", EditorStyles.boldLabel);
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("content"));
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("onScrollLeftStartCallback"));
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("onScrollRightStartCallback"));
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("onScrollLeftCompleteCallback"));
@@ -31,16 +30,17 @@ public class UIHelperEditor : Editor
                 break;
             case UI_HELPER_FUNCTION_TYPES.POP:
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("cgParent"));
-                EditorGUILayout.PropertyField(serializedObject.FindProperty("imgCgParentToUnpopWindow"));
-                EditorGUILayout.PropertyField(serializedObject.FindProperty("btnCgParentToUnpopWindow"));
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("imgBgToUnpopWindow"));
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("btnBgToUnpopWindow"));
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("cgPopTarget"));
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("maxAlphaImgToUnpopWindow"));
                 targetScript.maxScale = EditorGUILayout.Vector3Field("Max Scale", targetScript.maxScale);
                 targetScript.popDuration = EditorGUILayout.FloatField("Pop Duration", targetScript.popDuration);
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("useBgToClose"));
                 EditorGUILayout.LabelField("---OPTIONAL---", EditorStyles.boldLabel);
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("scrollRect"));
-                EditorGUILayout.PropertyField(serializedObject.FindProperty("content"));
                 EditorGUILayout.LabelField("---SCROLL SNAPPING SETTINGS (OPTIONAL)---", EditorStyles.boldLabel);
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("content"));
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("onScrollLeftStartCallback"));
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("onScrollRightStartCallback"));
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("onScrollLeftCompleteCallback"));

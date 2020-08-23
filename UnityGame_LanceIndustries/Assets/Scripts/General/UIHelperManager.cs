@@ -92,13 +92,13 @@ public class UIHelperManager : MonoBehaviour
                 }
 
                 uiHelper.GetComponent<EventTrigger>().enabled = false;
-                if(uiHelper.imgCgParentToUnpopWindow)
-                    uiHelper.imgCgParentToUnpopWindow.raycastTarget = false;
+                if(uiHelper.imgBgToUnpopWindow)
+                    uiHelper.imgBgToUnpopWindow.raycastTarget = false;
                 LeanTween.moveLocalX(uiHelper.content.gameObject, (targetPageIndex * -canvasScaler.referenceResolution.x) - canvasScaler.referenceResolution.x / 2, scrollDuration).setEaseOutCirc().setOnComplete(() =>
                 {
                     uiHelper.GetComponent<EventTrigger>().enabled = true;
-                    if(uiHelper.imgCgParentToUnpopWindow)
-                        uiHelper.imgCgParentToUnpopWindow.raycastTarget = true;
+                    if(uiHelper.imgBgToUnpopWindow)
+                        uiHelper.imgBgToUnpopWindow.raycastTarget = true;
                     if(scrollRight)
                     {
                         if (uiHelper.onScrollRightCompleteCallback != null)
@@ -116,9 +116,6 @@ public class UIHelperManager : MonoBehaviour
 
     public void ScrollSnapping(UIHelper targetUI, bool scrollRight, UnityAction callbackOnStart = null, UnityAction callbackOnCompleted = null)
     {
-        if (callbackOnStart != null)
-            callbackOnStart.Invoke();
-
         int maxPageIndex = targetUI.content.childCount - 1;
 
         int currentPageIndex = Mathf.RoundToInt(Mathf.Abs(targetUI.content.anchoredPosition.x / canvasScaler.referenceResolution.x));
@@ -127,14 +124,17 @@ public class UIHelperManager : MonoBehaviour
 
         if (currentPageIndex != targetPageIndex)
         {
+            if (callbackOnStart != null)
+                callbackOnStart.Invoke();
+
             targetUI.GetComponent<EventTrigger>().enabled = false;
-            if (targetUI.imgCgParentToUnpopWindow)
-                targetUI.imgCgParentToUnpopWindow.raycastTarget = false;
+            if (targetUI.imgBgToUnpopWindow)
+                targetUI.imgBgToUnpopWindow.raycastTarget = false;
             LeanTween.moveLocalX(targetUI.content.gameObject, (targetPageIndex * -canvasScaler.referenceResolution.x) - canvasScaler.referenceResolution.x / 2, scrollDuration).setEaseOutCirc().setOnComplete(() =>
             {
                 targetUI.GetComponent<EventTrigger>().enabled = true;
-                if (targetUI.imgCgParentToUnpopWindow)
-                    targetUI.imgCgParentToUnpopWindow.raycastTarget = true;
+                if (targetUI.imgBgToUnpopWindow)
+                    targetUI.imgBgToUnpopWindow.raycastTarget = true;
                 if (callbackOnCompleted != null)
                 {
                     callbackOnCompleted.Invoke();
