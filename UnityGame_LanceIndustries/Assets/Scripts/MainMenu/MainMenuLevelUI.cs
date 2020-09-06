@@ -14,6 +14,8 @@ public class MainMenuLevelUI : MonoBehaviour
 
     public MapInfo TargetMapInfo { get; set; }
 
+    //------------------------------- MONOBEHAVIOUR FUNCTIONS -------------------------------//
+
     private void OnEnable()
     {
         btnLevel.onClick.AddListener(() => MainMenuUIManager.Instance.ShowLevelPreview(true, MapIndex));
@@ -23,6 +25,8 @@ public class MainMenuLevelUI : MonoBehaviour
     {
         btnLevel.onClick.RemoveAllListeners();
     }
+
+    //------------------------------- POPULARIZATION -------------------------------//
 
     public void PopularizeDisplay(MapInfo mapInfo)
     {

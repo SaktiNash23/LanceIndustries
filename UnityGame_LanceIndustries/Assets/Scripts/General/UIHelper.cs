@@ -30,9 +30,12 @@ public class UIHelper : MonoBehaviour
     public UnityEvent onScrollRightStartCallback = null;
     public UnityEvent onScrollLeftCompleteCallback = null;
     public UnityEvent onScrollRightCompleteCallback = null;
+    public UnityEvent onBeginDrag = null;
+    public UnityEvent onEndDrag = null;
+    public UnityEvent onSnappingBegin = null;
+    public UnityEvent onSnappingEnd = null;
     public ScrollRect scrollRect;
     public RectTransform content;
-
     public RectTransform rtTargetToMove;
     public Vector3 moveOffset;
     public float moveDuration;
@@ -194,5 +197,12 @@ public class UIHelper : MonoBehaviour
     private void WindowMoveUpdate(Vector3 pos)
     {
         rtTargetToMove.anchoredPosition = pos;
+    }
+
+    //----------------------------- SCROLL SNAPPING FUNCTIONS -----------------------------//
+    
+    public void ScrollRectOnValueChanged(Vector2 value)
+    {
+        
     }
 }

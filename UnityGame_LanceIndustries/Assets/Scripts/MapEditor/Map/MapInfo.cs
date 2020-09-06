@@ -7,6 +7,24 @@ public class MapInfo : LibraryItemBase
 {
     [BoxGroup("MAP INFO")] public string mapName;
     [BoxGroup("MAP INFO")] public TextAsset mapData;
+    [BoxGroup("MAP INFO")] public Sprite levelPreview;
+
+    public string DisplayMapName
+    {
+        get
+        {
+            string targetString = "";
+            int startBracketIndex = mapName.IndexOf('(');
+            int closeBrackedIndex = mapName.IndexOf(')');
+
+            for (int i = startBracketIndex + 1; i < closeBrackedIndex; i++)
+            {
+                targetString += mapName[i];
+            }
+
+            return targetString;
+        }
+    }
 }
 
 [System.Serializable]

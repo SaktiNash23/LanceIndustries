@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1752395132077049230}
   - component: {fileID: 2108158741779433040}
   m_Layer: 5
-  m_Name: imgLevelLayoutBg
+  m_Name: imgLevelLayout
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -354,6 +354,7 @@ MonoBehaviour:
   txtStageNumber: {fileID: 1752395132288557422}
   txtHighScoreNumber: {fileID: 1752395132790952175}
   btnSelectStage: {fileID: 2108158741779433040}
+  imgLevelLayout: {fileID: 1752395132077049230}
   levelLayout: {fileID: 0}
 --- !u!1 &1752395132790952161
 GameObject:
