@@ -13311,8 +13311,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   helperFunctionType: 2
   cgParent: {fileID: 0}
-  imgCgParentToUnpopWindow: {fileID: 0}
-  btnCgParentToUnpopWindow: {fileID: 0}
+  imgBgToUnpopWindow: {fileID: 0}
+  btnBgToUnpopWindow: {fileID: 0}
   cgPopTarget: {fileID: 0}
   maxAlphaImgToUnpopWindow: 0.5
   maxScale: {x: 0, y: 0, z: 0}
@@ -13321,6 +13321,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   callbacksAfterUnPop:
+    m_PersistentCalls:
+      m_Calls: []
+  onScrollLeftStartCallback:
+    m_PersistentCalls:
+      m_Calls: []
+  onScrollRightStartCallback:
     m_PersistentCalls:
       m_Calls: []
   onScrollLeftCompleteCallback:
@@ -13334,6 +13340,7 @@ MonoBehaviour:
   rtTargetToMove: {fileID: 652824533}
   moveOffset: {x: 600, y: 0, z: 0}
   moveDuration: 0.5
+  useBgToClose: 1
 --- !u!114 &652824535
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24626,8 +24633,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   helperFunctionType: 2
   cgParent: {fileID: 0}
-  imgCgParentToUnpopWindow: {fileID: 0}
-  btnCgParentToUnpopWindow: {fileID: 0}
+  imgBgToUnpopWindow: {fileID: 0}
+  btnBgToUnpopWindow: {fileID: 0}
   cgPopTarget: {fileID: 0}
   maxAlphaImgToUnpopWindow: 0.5
   maxScale: {x: 0, y: 0, z: 0}
@@ -24636,6 +24643,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   callbacksAfterUnPop:
+    m_PersistentCalls:
+      m_Calls: []
+  onScrollLeftStartCallback:
+    m_PersistentCalls:
+      m_Calls: []
+  onScrollRightStartCallback:
     m_PersistentCalls:
       m_Calls: []
   onScrollLeftCompleteCallback:
@@ -24649,6 +24662,7 @@ MonoBehaviour:
   rtTargetToMove: {fileID: 1290528952}
   moveOffset: {x: 500, y: 0, z: 0}
   moveDuration: 0.5
+  useBgToClose: 1
 --- !u!114 &1290528954
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30446,8 +30460,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   helperFunctionType: 1
   cgParent: {fileID: 1507278544}
-  imgCgParentToUnpopWindow: {fileID: 84323732}
-  btnCgParentToUnpopWindow: {fileID: 84323734}
+  imgBgToUnpopWindow: {fileID: 84323732}
+  btnBgToUnpopWindow: {fileID: 84323734}
   cgPopTarget: {fileID: 1564686556}
   maxAlphaImgToUnpopWindow: 0.5
   maxScale: {x: 1, y: 1, z: 1}
@@ -30470,6 +30484,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  onScrollLeftStartCallback:
+    m_PersistentCalls:
+      m_Calls: []
+  onScrollRightStartCallback:
+    m_PersistentCalls:
+      m_Calls: []
   onScrollLeftCompleteCallback:
     m_PersistentCalls:
       m_Calls: []
@@ -30481,6 +30501,7 @@ MonoBehaviour:
   rtTargetToMove: {fileID: 0}
   moveOffset: {x: 0, y: 0, z: 0}
   moveDuration: 0
+  useBgToClose: 1
 --- !u!225 &1564686556
 CanvasGroup:
   m_ObjectHideFlags: 0

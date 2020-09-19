@@ -40,16 +40,14 @@ public class UIHelperManager : MonoBehaviour
             touchId = Input.touches[0].fingerId;
         }
 #endif
+
+        UIHelper uiHelper = eventData.selectedObject.GetComponentInParent<UIHelper>();
+
+        uiHelper.onBeginDrag?.Invoke();
     }
 
     public void SnappingOnEndDrag(BaseEventData eventData)
     {
-        UIHelper uiHelper = eventData.selectedObject.GetComponentInParent<UIHelper>();
-
-        int maxPageIndex = uiHelper.content.childCount - 1;
-
-        int currentPageIndex = Mathf.RoundToInt(Mathf.Abs(uiHelper.content.anchoredPosition.x / canvasScaler.referenceResolution.x));
-
 #if UNITY_EDITOR
         pointerEndDragPos = ((PointerEventData)eventData).position;
 #elif UNITY_IOS || UNITY_ANDROID
@@ -60,65 +58,90 @@ public class UIHelperManager : MonoBehaviour
         }
 #endif
 
-        if (Mathf.Abs(pointerEndDragPos.x - pointerStartDragPos.x) > requiredXOffset)
-        {
-            int targetPageIndex = 0;
+        UIHelper uiHelper = eventData.selectedObject.GetComponentInParent<UIHelper>();
 
-            bool scrollRight = false;
+        #region OLD SCROLL SNAP SYSTEM
+        //int maxPageIndex = uiHelper.content.childCount - 1;
 
-            // Swiping Left or Right
-            if (pointerEndDragPos.x < pointerStartDragPos.x)
-            {
-                targetPageIndex = Mathf.Clamp(currentPageIndex + 1, 0, maxPageIndex);
-                scrollRight = true;
-            }
-            else
-            {
-                targetPageIndex = Mathf.Clamp(currentPageIndex - 1, 0, maxPageIndex);
-                scrollRight = false;
-            }
+        //int currentPageIndex = Mathf.RoundToInt(Mathf.Abs(uiHelper.content.anchoredPosition.x / canvasScaler.referenceResolution.x));
 
-            if (currentPageIndex != targetPageIndex)
-            {
-                if(scrollRight)
-                {
-                    if (uiHelper.onScrollRightStartCallback.GetPersistentEventCount() > 0)
-                        uiHelper.onScrollRightStartCallback.Invoke();
-                }
-                else
-                {
-                    if (uiHelper.onScrollLeftStartCallback.GetPersistentEventCount() > 0)
-                        uiHelper.onScrollLeftStartCallback.Invoke();
-                }
 
-                uiHelper.GetComponent<EventTrigger>().enabled = false;
-                if(uiHelper.imgCgParentToUnpopWindow)
-                    uiHelper.imgCgParentToUnpopWindow.raycastTarget = false;
-                LeanTween.moveLocalX(uiHelper.content.gameObject, (targetPageIndex * -canvasScaler.referenceResolution.x) - canvasScaler.referenceResolution.x / 2, scrollDuration).setEaseOutCirc().setOnComplete(() =>
-                {
-                    uiHelper.GetComponent<EventTrigger>().enabled = true;
-                    if(uiHelper.imgCgParentToUnpopWindow)
-                        uiHelper.imgCgParentToUnpopWindow.raycastTarget = true;
-                    if(scrollRight)
-                    {
-                        if (uiHelper.onScrollRightCompleteCallback != null)
-                            uiHelper.onScrollRightCompleteCallback.Invoke();
-                    }
-                    else
-                    {
-                        if (uiHelper.onScrollLeftCompleteCallback != null)
-                            uiHelper.onScrollLeftCompleteCallback.Invoke();
-                    }
-                });
-            }
-        }
+        //if (Mathf.Abs(pointerEndDragPos.x - pointerStartDragPos.x) > requiredXOffset)
+        //{
+        //    int targetPageIndex = 0;
+
+        //    bool scrollRight = false;
+
+        //    // Swiping Left or Right
+        //    if (pointerEndDragPos.x < pointerStartDragPos.x)
+        //    {
+        //        targetPageIndex = Mathf.Clamp(currentPageIndex + 1, 0, maxPageIndex);
+        //        scrollRight = true;
+        //    }
+        //    else
+        //    {
+        //        targetPageIndex = Mathf.Clamp(currentPageIndex - 1, 0, maxPageIndex);
+        //        scrollRight = false;
+        //    }
+
+        //    if (currentPageIndex != targetPageIndex)
+        //    {
+        //        if(scrollRight)
+        //        {
+        //            if (uiHelper.onScrollRightStartCallback.GetPersistentEventCount() > 0)
+        //                uiHelper.onScrollRightStartCallback.Invoke();
+        //        }
+        //        else
+        //        {
+        //            if (uiHelper.onScrollLeftStartCallback.GetPersistentEventCount() > 0)
+        //                uiHelper.onScrollLeftStartCallback.Invoke();
+        //        }
+
+        //        uiHelper.GetComponent<EventTrigger>().enabled = false;
+        //        if(uiHelper.imgBgToUnpopWindow)
+        //            uiHelper.imgBgToUnpopWindow.raycastTarget = false;
+        //        LeanTween.moveLocalX(uiHelper.content.gameObject, (targetPageIndex * -canvasScaler.referenceResolution.x) - canvasScaler.referenceResolution.x / 2, scrollDuration).setEaseOutCirc().setOnComplete(() =>
+        //        {
+        //            uiHelper.GetComponent<EventTrigger>().enabled = true;
+        //            if(uiHelper.imgBgToUnpopWindow)
+        //                uiHelper.imgBgToUnpopWindow.raycastTarget = true;
+        //            if(scrollRight)
+        //            {
+        //                if (uiHelper.onScrollRightCompleteCallback != null)
+        //                    uiHelper.onScrollRightCompleteCallback.Invoke();
+        //            }
+        //            else
+        //            {
+        //                if (uiHelper.onScrollLeftCompleteCallback != null)
+        //                    uiHelper.onScrollLeftCompleteCallback.Invoke();
+        //            }
+        //        });
+        //    }
+        //}
+        #endregion
+
+        #region NEW SCROLL SNAP SYSTEM
+
+        int maxPageIndex = uiHelper.content.childCount - 1;
+
+        float scrollRectXValue = uiHelper.scrollRect.horizontalNormalizedPosition;
+
+        int targetPageIndex = Mathf.RoundToInt(scrollRectXValue * maxPageIndex);
+        targetPageIndex = Mathf.Clamp(targetPageIndex, 0, maxPageIndex);
+
+        float targetPageHorizontalNormalizedPosition = (float)targetPageIndex / maxPageIndex;
+
+        uiHelper.scrollRect.velocity = Vector2.zero;
+        LeanTween.cancel(uiHelper.scrollRect.gameObject);
+        LeanTween.value(uiHelper.scrollRect.gameObject, uiHelper.scrollRect.horizontalNormalizedPosition, targetPageHorizontalNormalizedPosition, 0.15f).setOnUpdate((value) => uiHelper.scrollRect.horizontalNormalizedPosition = value).setOnComplete(() => uiHelper.onEndDrag?.Invoke());
+        
+        #endregion
     }
+
+    //------------------------------ OLD SCROLL SNAP SYSTEM ------------------------------//
 
     public void ScrollSnapping(UIHelper targetUI, bool scrollRight, UnityAction callbackOnStart = null, UnityAction callbackOnCompleted = null)
     {
-        if (callbackOnStart != null)
-            callbackOnStart.Invoke();
-
         int maxPageIndex = targetUI.content.childCount - 1;
 
         int currentPageIndex = Mathf.RoundToInt(Mathf.Abs(targetUI.content.anchoredPosition.x / canvasScaler.referenceResolution.x));
@@ -127,19 +150,51 @@ public class UIHelperManager : MonoBehaviour
 
         if (currentPageIndex != targetPageIndex)
         {
+            if (callbackOnStart != null)
+                callbackOnStart.Invoke();
+
             targetUI.GetComponent<EventTrigger>().enabled = false;
-            if (targetUI.imgCgParentToUnpopWindow)
-                targetUI.imgCgParentToUnpopWindow.raycastTarget = false;
+            if (targetUI.imgBgToUnpopWindow)
+                targetUI.imgBgToUnpopWindow.raycastTarget = false;
             LeanTween.moveLocalX(targetUI.content.gameObject, (targetPageIndex * -canvasScaler.referenceResolution.x) - canvasScaler.referenceResolution.x / 2, scrollDuration).setEaseOutCirc().setOnComplete(() =>
             {
                 targetUI.GetComponent<EventTrigger>().enabled = true;
-                if (targetUI.imgCgParentToUnpopWindow)
-                    targetUI.imgCgParentToUnpopWindow.raycastTarget = true;
+                if (targetUI.imgBgToUnpopWindow)
+                    targetUI.imgBgToUnpopWindow.raycastTarget = true;
                 if (callbackOnCompleted != null)
                 {
                     callbackOnCompleted.Invoke();
                 }
             });
+        }
+    }
+
+    //------------------------------ NEW SCROLL SNAP SYSTEM ------------------------------//
+
+    public void ScrollSnapping(UIHelper targetUI, bool scrollRight)
+    {
+        int maxPageIndex = targetUI.content.childCount - 1;
+
+        int currentPageIndex = Mathf.RoundToInt(targetUI.scrollRect.horizontalNormalizedPosition * maxPageIndex);
+
+        int targetPageIndex = Mathf.Clamp(currentPageIndex + (scrollRight ? 1 : -1), 0, maxPageIndex);
+
+        float targetNormalizedPosX = (float)targetPageIndex / maxPageIndex;
+
+        targetUI.onSnappingBegin?.Invoke();
+
+        if(currentPageIndex != targetPageIndex)
+        {
+            targetUI.onBeginDrag?.Invoke();
+            if (targetUI.imgBgToUnpopWindow)
+                targetUI.imgBgToUnpopWindow.raycastTarget = false;
+
+            LeanTween.cancel(targetUI.gameObject);
+            LeanTween.value(targetUI.gameObject, targetUI.scrollRect.horizontalNormalizedPosition, targetNormalizedPosX, 0.25f).setOnComplete(() => targetUI.onSnappingEnd.Invoke());
+        }
+        else
+        {
+            targetUI.onSnappingEnd?.Invoke();
         }
     }
 }

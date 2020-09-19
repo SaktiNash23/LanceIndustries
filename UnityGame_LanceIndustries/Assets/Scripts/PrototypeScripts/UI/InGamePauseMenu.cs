@@ -6,16 +6,10 @@ using NaughtyAttributes;
 
 public class InGamePauseMenu : MonoBehaviour
 {
-    public GameObject pauseMenuPanel;
     public Button inGameOptionsButton;
 
     [BoxGroup("PAUSE: Reflector Type & Color Buttons")]
     public List<Button> reflectorButtons = new List<Button>();
-
-    private void Awake()
-    {
-        pauseMenuPanel.SetActive(false);
-    }
 
     public void PauseGame()
     {
@@ -28,7 +22,6 @@ public class InGamePauseMenu : MonoBehaviour
             reflectorButton.GetComponent<Image>().raycastTarget = false;
         }
 
-        pauseMenuPanel.SetActive(true);
         inGameOptionsButton.GetComponent<Image>().raycastTarget = false;
         GameManager.gameManagerInstance.gameIsPaused = true;
         Time.timeScale = 0.0f; //Stops in-game time
@@ -43,7 +36,6 @@ public class InGamePauseMenu : MonoBehaviour
             reflectorButton.GetComponent<Image>().raycastTarget = true;
         }
 
-        pauseMenuPanel.SetActive(false);
         inGameOptionsButton.GetComponent<Image>().raycastTarget = true;
         GameManager.gameManagerInstance.gameIsPaused = false;
         Time.timeScale = 1.0f; //Resumes in-game time

@@ -102,14 +102,17 @@ public class GameManager : MonoBehaviour
     [BoxGroup("Reflector Color Panel Variables")]
     public bool isReflectorColorPanelActive = false;
 
+    [BoxGroup("Stage Clear References")] [SerializeField] UIHelper uiHelperPanelClearStage;
+    
+
     #region End Point Variables
 
     private GameObject[] allEndPoints;
     private int numOfEndPoints = 0;
     private int numOfSuccessEndPoints = 0;
     private int numOfHitEndPoints = 0;
-    private bool allCorrectLasersHaveReached = false;
     private bool allLasersHaveReached = false;
+    public bool AllCorrectLasersHaveReached { get; private set; } = false;
 
     #endregion
 
@@ -1012,7 +1015,10 @@ public class GameManager : MonoBehaviour
         {
             if (numOfSuccessEndPoints == numOfEndPoints)
             {
-                allCorrectLasersHaveReached = true;
+                // Show Stage Clear Panel
+                uiHelperPanelClearStage.ExecuteUIHandlingAction(true);
+
+                AllCorrectLasersHaveReached = true;
                 Debug.Log("All Correct Lasers Have Reached!");
             }
             else
@@ -1034,7 +1040,7 @@ public class GameManager : MonoBehaviour
     {  
          if(currentWindowTime > 0.0f)
          {
-             if (allCorrectLasersHaveReached == true)
+             if (AllCorrectLasersHaveReached == true)
              {
                  TimerSuccessText.text = "WIN";
                  beginCountDown = false; //Only when beginCountdown is false, we can reset the game by clicking on any of the starting points again
@@ -1077,7 +1083,7 @@ public class GameManager : MonoBehaviour
 
         numOfHitEndPoints = 0;
         numOfSuccessEndPoints = 0;
-        allCorrectLasersHaveReached = false;
+        AllCorrectLasersHaveReached = false;
         allLasersHaveReached = false;
         beginCountDown = false;
 
