@@ -15,3 +15,4 @@ MonoBehaviour:
   idNo: 005
   mapName: 01 Level_05_A
   mapData: {fileID: 4900000, guid: 16642b8fbcf892c48860023299636d1c, type: 3}
+  levelPreview: {fileID: 21300000, guid: 762690055a954404b815817d82bfe58a, type: 3}

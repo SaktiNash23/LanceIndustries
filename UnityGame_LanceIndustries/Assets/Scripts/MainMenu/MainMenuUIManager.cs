@@ -57,34 +57,34 @@ public class MainMenuUIManager : MonoBehaviour
 
         #region OLD SCROLL SNAPPING SYSTEM
 
-        btnSwitchLevelLeft.onClick.AddListener(() => UIHelperManager.Instance.ScrollSnapping(uiHelperPanelLevelPreview, false, () => 
-        { 
-            btnSwitchLevelLeft.gameObject.SetActive(false);
-            btnSwitchLevelRight.gameObject.SetActive(false);
-            btnBackToLevelSelection.gameObject.SetActive(false);
-            SwitchingLevelPage = true;
-        }, () =>
-        {
-            btnSwitchLevelLeft.gameObject.SetActive(true);
-            btnSwitchLevelRight.gameObject.SetActive(true);
-            btnBackToLevelSelection.gameObject.SetActive(true);
-            ShowLevelPreview(true, --selectedMapPreviewIndex);
-            SwitchingLevelPage = false;
-        }));
-        btnSwitchLevelRight.onClick.AddListener(() => UIHelperManager.Instance.ScrollSnapping(uiHelperPanelLevelPreview, true, () =>
-        {
-            btnSwitchLevelLeft.gameObject.SetActive(false);
-            btnSwitchLevelRight.gameObject.SetActive(false);
-            btnBackToLevelSelection.gameObject.SetActive(false);
-            SwitchingLevelPage = true;
-        }, () =>
-        {
-            btnSwitchLevelLeft.gameObject.SetActive(true);
-            btnSwitchLevelRight.gameObject.SetActive(true);
-            btnBackToLevelSelection.gameObject.SetActive(true);
-            ShowLevelPreview(true, ++selectedMapPreviewIndex);
-            SwitchingLevelPage = false;
-        }));
+        //btnSwitchLevelLeft.onClick.AddListener(() => UIHelperManager.Instance.ScrollSnapping(uiHelperPanelLevelPreview, false, () => 
+        //{ 
+        //    btnSwitchLevelLeft.gameObject.SetActive(false);
+        //    btnSwitchLevelRight.gameObject.SetActive(false);
+        //    btnBackToLevelSelection.gameObject.SetActive(false);
+        //    SwitchingLevelPage = true;
+        //}, () =>
+        //{
+        //    btnSwitchLevelLeft.gameObject.SetActive(true);
+        //    btnSwitchLevelRight.gameObject.SetActive(true);
+        //    btnBackToLevelSelection.gameObject.SetActive(true);
+        //    ShowLevelPreview(true, --selectedMapPreviewIndex);
+        //    SwitchingLevelPage = false;
+        //}));
+        //btnSwitchLevelRight.onClick.AddListener(() => UIHelperManager.Instance.ScrollSnapping(uiHelperPanelLevelPreview, true, () =>
+        //{
+        //    btnSwitchLevelLeft.gameObject.SetActive(false);
+        //    btnSwitchLevelRight.gameObject.SetActive(false);
+        //    btnBackToLevelSelection.gameObject.SetActive(false);
+        //    SwitchingLevelPage = true;
+        //}, () =>
+        //{
+        //    btnSwitchLevelLeft.gameObject.SetActive(true);
+        //    btnSwitchLevelRight.gameObject.SetActive(true);
+        //    btnBackToLevelSelection.gameObject.SetActive(true);
+        //    ShowLevelPreview(true, ++selectedMapPreviewIndex);
+        //    SwitchingLevelPage = false;
+        //}));
 
         #endregion
 

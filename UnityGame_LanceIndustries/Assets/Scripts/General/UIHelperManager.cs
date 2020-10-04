@@ -181,20 +181,20 @@ public class UIHelperManager : MonoBehaviour
 
         float targetNormalizedPosX = (float)targetPageIndex / maxPageIndex;
 
-        targetUI.onSnappingBegin?.Invoke();
+        targetUI.onBeginDrag?.Invoke();
 
         if(currentPageIndex != targetPageIndex)
         {
             targetUI.onBeginDrag?.Invoke();
             if (targetUI.imgBgToUnpopWindow)
                 targetUI.imgBgToUnpopWindow.raycastTarget = false;
-
-            LeanTween.cancel(targetUI.gameObject);
-            LeanTween.value(targetUI.gameObject, targetUI.scrollRect.horizontalNormalizedPosition, targetNormalizedPosX, 0.25f).setOnComplete(() => targetUI.onSnappingEnd.Invoke());
+            LeanTween.cancel(targetUI.scrollRect.gameObject);
+            LeanTween.value(targetUI.scrollRect.gameObject, targetUI.scrollRect.horizontalNormalizedPosition, targetNormalizedPosX, 0.25f).setOnUpdate((value) => targetUI.scrollRect.horizontalNormalizedPosition = value).setOnComplete(() => targetUI.onEndDrag?.Invoke());
+            targetUI.scrollRect.horizontalNormalizedPosition = 0.5f;
         }
         else
         {
-            targetUI.onSnappingEnd?.Invoke();
+            targetUI.onEndDrag?.Invoke();
         }
     }
 }
