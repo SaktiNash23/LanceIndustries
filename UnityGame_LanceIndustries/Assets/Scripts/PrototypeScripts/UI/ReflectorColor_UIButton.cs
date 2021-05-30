@@ -6,18 +6,29 @@ using UnityEngine.EventSystems;
 
 public class ReflectorColor_UIButton : MonoBehaviour
 {
-    public string reflectorTypeTag; //Determines the the type of reflector
-    public string reflectorColorTag; //Determines the color of the reflector
-    private GameObject returnedReflector = null;
-    private string reflectorPoolTag = System.String.Empty;
-    private bool reflectorColorInStock = false;
+    #region Old Implementation
+    // public string reflectorTypeTag; //Determines the the type of reflector
+    // public string reflectorColorTag; //Determines the color of the reflector
+    // private string reflectorPoolTag = System.String.Empty;
+    // private bool reflectorColorInStock = false;
+    // public GameObject returnedReflector = null;
+    #endregion
+
+    public Image Image { get; private set; }
+    public REFLECTOR_TYPE ReflectorType { private get; set; }
+    public LASER_COLOR ReflectorColor { private get; set; }
+
     private Vector3 point;
 
-    // Start is called before the first frame update
+    private void Awake()
+    {
+        Image = GetComponent<Image>();
+    }
+
     void Start()
     {
         #region Initializing Event Triggers
-        
+
         EventTrigger eventTrigger = GetComponent<EventTrigger>();
 
         EventTrigger.Entry entryOnPointerDown = new EventTrigger.Entry();
@@ -31,7 +42,7 @@ public class ReflectorColor_UIButton : MonoBehaviour
 
         eventTrigger.triggers.Add(entryOnPointerDown);
         //eventTrigger.triggers.Add(entryOnPointerUp);
-        
+
         #endregion
     }
 
@@ -39,449 +50,432 @@ public class ReflectorColor_UIButton : MonoBehaviour
     //to drag & drop the reflector. Also, once the reflector is 'pulled' from its object pool, this function will also update the 
     //appropriate reflector stock
     public void OnPointerDown(PointerEventData pointerEventData)
-    {       
-        returnedReflector = null;
-        reflectorPoolTag = System.String.Empty;
-
+    {
         #region Touch Input
 
-        if (GameManager.gameManagerInstance.DebugMode_PC == false)
+        if (GameManager.Instance.DebugMode_PC == false)
         {
             if (Input.touchCount == 1)//Used to be Input.touchCount <= 1
             {
                 Touch touch = Input.GetTouch(0);
 
-                #region Original Code
+                #region Old Implementation
+                // reflectorColorInStock = GameManager.Instance.CheckReflectorColorStock(reflectorTypeTag, reflectorColorTag);
 
-                /*
+                // if (reflectorColorInStock == true)
+                // {
+                //     reflectorPoolTag = GameManager.Instance.setSelectedColorReflector(reflectorTypeTag, reflectorColorTag);
 
-                reflectorPoolTag = GameManager.gameManagerInstance.setSelectedColorReflector(reflectorTypeTag, reflectorColorTag);
+                //     // returnedReflector = ReflectorPooler.instance_reflectorPooler.reflectorPoolDictionary[reflectorPoolTag].Dequeue();
 
-                returnedReflector = ReflectorPooler.instance_reflectorPooler.reflectorPoolDictionary[reflectorPoolTag].Dequeue();
+                //     GameManager.Instance.allReflectorsInScene.Add(returnedReflector);
 
-                GameManager.gameManagerInstance.allReflectorsInScene.Add(returnedReflector);
+                //     returnedReflector.SetActive(true);
+                //     returnedReflector.GetComponent<BoxCollider2D>().enabled = true;
+                //     returnedReflector.GetComponent<Raycast>().timeUntilHold = 0.1f;
+                //     returnedReflector.GetComponent<Raycast>().isHoldingDownAccessor = true;
 
-                returnedReflector.SetActive(true);
-                returnedReflector.GetComponent<BoxCollider2D>().enabled = true;
-                returnedReflector.GetComponent<Raycast>().timeUntilHold = 0.1f;
-                returnedReflector.GetComponent<Raycast>().isHoldingDownAccessor = true;
+                //     point = Camera.main.ScreenToWorldPoint(touch.position);
+                //     point = new Vector3(point.x, point.y, 0.0f);
+                //     returnedReflector.transform.position = point;
 
-                point = Camera.main.ScreenToWorldPoint(touch.position);
-                point = new Vector3(point.x, point.y, 0.0f);
-                returnedReflector.transform.position = point;
-                     
+                //     switch (reflectorTypeTag)
+                //     {
+                //         case "Basic":
+                //             switch (reflectorColorTag)
+                //             {
+                //                 case "White":
+                //                     GameManager.Instance.ReflectorStockBasicWhite_Accessor--;
+                //                     break;
 
-                switch (reflectorTypeTag)
-                {
-                    case "Basic":
-                        GameManager.gameManagerInstance.ReflectorStockBasic_Accessor--;
-                        GameManager.gameManagerInstance.ReflectorStock_Basic_Text.text = GameManager.gameManagerInstance.ReflectorStockBasic_Accessor.ToString();
-                        break;
+                //                 case "Red":
+                //                     GameManager.Instance.ReflectorStockBasicRed_Accessor--;
+                //                     break;
 
-                    case "Translucent":
-                        GameManager.gameManagerInstance.ReflectorStockTranslucent_Accessor--;
-                        GameManager.gameManagerInstance.ReflectorStock_Translucent_Text.text = GameManager.gameManagerInstance.ReflectorStockTranslucent_Accessor.ToString();
-                        break;
+                //                 case "Blue":
+                //                     GameManager.Instance.ReflectorStockBasicBlue_Accessor--;
+                //                     break;
 
-                    case "DoubleWay":
-                        GameManager.gameManagerInstance.ReflectorStockDoubleWay_Accessor--;
-                        GameManager.gameManagerInstance.ReflectorStock_DoubleWay_Text.text = GameManager.gameManagerInstance.ReflectorStockDoubleWay_Accessor.ToString();
-                        break;
+                //                 case "Yellow":
+                //                     GameManager.Instance.ReflectorStockBasicYellow_Accessor--;
+                //                     break;
+                //             }
+                //             break;
 
-                    case "Split":
-                        GameManager.gameManagerInstance.ReflectorStockSplit_Accessor--;
-                        GameManager.gameManagerInstance.ReflectorStock_Split_Text.text = GameManager.gameManagerInstance.ReflectorStockSplit_Accessor.ToString();
-                        break;
+                //         case "Translucent":
+                //             switch (reflectorColorTag)
+                //             {
+                //                 case "White":
+                //                     GameManager.Instance.ReflectorStockTranslucentWhite_Accessor--;
+                //                     break;
 
-                    case "ThreeWay":
-                        GameManager.gameManagerInstance.ReflectorStockThreeWay_Accessor--;
-                        GameManager.gameManagerInstance.ReflectorStock_ThreeWay_Text.text = GameManager.gameManagerInstance.ReflectorStockThreeWay_Accessor.ToString();
-                        break;
+                //                 case "Red":
+                //                     GameManager.Instance.ReflectorStockTranslucentRed_Accessor--;
+                //                     break;
 
-                    default:
-                        Debug.LogWarning("No such reflectorTypeTag exists. Check whether the ReflectorTypeTag is spelled properly in editor");
-                        break;
-                }
+                //                 case "Blue":
+                //                     GameManager.Instance.ReflectorStockTranslucentBlue_Accessor--;
+                //                     break;
 
-                */
+                //                 case "Yellow":
+                //                     GameManager.Instance.ReflectorStockTranslucentYellow_Accessor--;
+                //                     break;
+                //             }
+                //             break;
 
-                #endregion
+                //         case "DoubleWay":
+                //             switch (reflectorColorTag)
+                //             {
+                //                 case "White":
+                //                     GameManager.Instance.ReflectorStockDoubleWayWhite_Accessor--;
+                //                     break;
 
-                #region TEST CODE
+                //                 case "Red":
+                //                     GameManager.Instance.ReflectorStockDoubleWayRed_Accessor--;
+                //                     break;
 
-                reflectorColorInStock = GameManager.gameManagerInstance.checkReflectorColorsStock(reflectorTypeTag, reflectorColorTag);
+                //                 case "Blue":
+                //                     GameManager.Instance.ReflectorStockDoubleWayBlue_Accessor--;
+                //                     break;
 
-                if(reflectorColorInStock == true)
-                {
-                    reflectorPoolTag = GameManager.gameManagerInstance.setSelectedColorReflector(reflectorTypeTag, reflectorColorTag);
+                //                 case "Yellow":
+                //                     GameManager.Instance.ReflectorStockDoubleWayYellow_Accessor--;
+                //                     break;
+                //             };
+                //             break;
 
-                    returnedReflector = ReflectorPooler.instance_reflectorPooler.reflectorPoolDictionary[reflectorPoolTag].Dequeue();
+                //         case "Split":
+                //             switch (reflectorColorTag)
+                //             {
+                //                 case "White":
+                //                     GameManager.Instance.ReflectorStockSplitWhite_Accessor--;
+                //                     break;
 
-                    GameManager.gameManagerInstance.allReflectorsInScene.Add(returnedReflector);
+                //                 case "Red":
+                //                     GameManager.Instance.ReflectorStockSplitRed_Accessor--;
+                //                     break;
 
-                    returnedReflector.SetActive(true);
-                    returnedReflector.GetComponent<BoxCollider2D>().enabled = true;
-                    returnedReflector.GetComponent<Raycast>().timeUntilHold = 0.1f;
-                    returnedReflector.GetComponent<Raycast>().isHoldingDownAccessor = true;
+                //                 case "Blue":
+                //                     GameManager.Instance.ReflectorStockSplitBlue_Accessor--;
+                //                     break;
 
-                    point = Camera.main.ScreenToWorldPoint(touch.position);
-                    point = new Vector3(point.x, point.y, 0.0f);
-                    returnedReflector.transform.position = point;
+                //                 case "Yellow":
+                //                     GameManager.Instance.ReflectorStockSplitYellow_Accessor--;
+                //                     break;
+                //             }
+                //             break;
 
-                    switch (reflectorTypeTag)
-                    {
-                        case "Basic":
-                            switch (reflectorColorTag)
-                            {
-                                case "White":
-                                    GameManager.gameManagerInstance.ReflectorStockBasicWhite_Accessor--;
-                                    break;
+                //         case "ThreeWay":
+                //             switch (reflectorColorTag)
+                //             {
+                //                 case "White":
+                //                     GameManager.Instance.ReflectorStockThreeWayWhite_Accessor--;
+                //                     break;
 
-                                case "Red":
-                                    GameManager.gameManagerInstance.ReflectorStockBasicRed_Accessor--;
-                                    break;
+                //                 case "Red":
+                //                     GameManager.Instance.ReflectorStockThreeWayRed_Accessor--;
+                //                     break;
 
-                                case "Blue":
-                                    GameManager.gameManagerInstance.ReflectorStockBasicBlue_Accessor--;
-                                    break;
+                //                 case "Blue":
+                //                     GameManager.Instance.ReflectorStockThreeWayBlue_Accessor--;
+                //                     break;
 
-                                case "Yellow":
-                                    GameManager.gameManagerInstance.ReflectorStockBasicYellow_Accessor--;
-                                    break;
-                            }
-                            break;
+                //                 case "Yellow":
+                //                     GameManager.Instance.ReflectorStockThreeWayYellow_Accessor--;
+                //                     break;
+                //             }
+                //             break;
 
-                        case "Translucent":
-                            switch (reflectorColorTag)
-                            {
-                                case "White":
-                                    GameManager.gameManagerInstance.ReflectorStockTranslucentWhite_Accessor--;
-                                    break;
+                //         default:
+                //             Debug.LogWarning("No such reflectorTypeTag exists. Check whether the ReflectorTypeTag is spelled properly in editor");
+                //             break;
+                //     }
 
-                                case "Red":
-                                    GameManager.gameManagerInstance.ReflectorStockTranslucentRed_Accessor--;
-                                    break;
+                //     GameManager.Instance.reflectorColorsPanel.GetComponent<Animator>().SetBool("ReflectorColorPanelDisplayed", false);
 
-                                case "Blue":
-                                    GameManager.gameManagerInstance.ReflectorStockTranslucentBlue_Accessor--;
-                                    break;
-
-                                case "Yellow":
-                                    GameManager.gameManagerInstance.ReflectorStockTranslucentYellow_Accessor--;
-                                    break;
-                            }
-                            break;
-
-                        case "DoubleWay":
-                            switch (reflectorColorTag)
-                            {
-                                case "White":
-                                    GameManager.gameManagerInstance.ReflectorStockDoubleWayWhite_Accessor--;
-                                    break;
-
-                                case "Red":
-                                    GameManager.gameManagerInstance.ReflectorStockDoubleWayRed_Accessor--;
-                                    break;
-
-                                case "Blue":
-                                    GameManager.gameManagerInstance.ReflectorStockDoubleWayBlue_Accessor--;
-                                    break;
-
-                                case "Yellow":
-                                    GameManager.gameManagerInstance.ReflectorStockDoubleWayYellow_Accessor--;
-                                    break;
-                            };
-                            break;
-
-                        case "Split":
-                            switch (reflectorColorTag)
-                            {
-                                case "White":
-                                    GameManager.gameManagerInstance.ReflectorStockSplitWhite_Accessor--;
-                                    break;
-
-                                case "Red":
-                                    GameManager.gameManagerInstance.ReflectorStockSplitRed_Accessor--;
-                                    break;
-
-                                case "Blue":
-                                    GameManager.gameManagerInstance.ReflectorStockSplitBlue_Accessor--;
-                                    break;
-
-                                case "Yellow":
-                                    GameManager.gameManagerInstance.ReflectorStockSplitYellow_Accessor--;
-                                    break;
-                            }
-                            break;
-
-                        case "ThreeWay":
-                            switch (reflectorColorTag)
-                            {
-                                case "White":
-                                    GameManager.gameManagerInstance.ReflectorStockThreeWayWhite_Accessor--;
-                                    break;
-
-                                case "Red":
-                                    GameManager.gameManagerInstance.ReflectorStockThreeWayRed_Accessor--;
-                                    break;
-
-                                case "Blue":
-                                    GameManager.gameManagerInstance.ReflectorStockThreeWayBlue_Accessor--;
-                                    break;
-
-                                case "Yellow":
-                                    GameManager.gameManagerInstance.ReflectorStockThreeWayYellow_Accessor--;
-                                    break;
-                            }
-                            break;
-
-                        default:
-                            Debug.LogWarning("No such reflectorTypeTag exists. Check whether the ReflectorTypeTag is spelled properly in editor");
-                            break;
-                    }
-
-                    GameManager.gameManagerInstance.reflectorColorsPanel.GetComponent<Animator>().SetBool("ReflectorColorPanelDisplayed", false);
-
-                    //The below 2 lines will be executed in an Animation Event
-                    //GameManager.gameManagerInstance.reflectorColorsPanel.SetActive(false);
-                    //GameManager.gameManagerInstance.isReflectorColorPanelActive = false;
-                }
-                else if(reflectorColorInStock == false)
-                {
-                    Debug.LogWarning("Reflector Color not in stock");
-                }
-
+                //     //The below 2 lines will be executed in an Animation Event
+                //     //GameManager.gameManagerInstance.reflectorColorsPanel.SetActive(false);
+                //     //GameManager.gameManagerInstance.isReflectorColorPanelActive = false;
+                // }
+                // else if (reflectorColorInStock == false)
+                // {
+                //     Debug.LogWarning("Reflector Color not in stock");
+                // }
                 #endregion
             }
         }
 
         #endregion
 
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
 
         #region Mouse Input
 
-        if (GameManager.gameManagerInstance.DebugMode_PC == true)
+        if (GameManager.Instance.DebugMode_PC == true)
         {
-            #region TEST CODE
+            Reflector reflector = null;
 
-            //Check if enough reflector for the specific type and color by passing in the 2 arguments, reflectorTypeTag & reflectorColorTag
-            reflectorColorInStock = GameManager.gameManagerInstance.checkReflectorColorsStock(reflectorTypeTag, reflectorColorTag);
+            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-            if(reflectorColorInStock == true)
+            if (GameManager.Instance.IsReflectorInStock(ReflectorType, ReflectorColor))
             {
-                reflectorPoolTag = GameManager.gameManagerInstance.setSelectedColorReflector(reflectorTypeTag, reflectorColorTag);
-
-                returnedReflector = ReflectorPooler.instance_reflectorPooler.reflectorPoolDictionary[reflectorPoolTag].Dequeue();
-
-                GameManager.gameManagerInstance.allReflectorsInScene.Add(returnedReflector);
-
-                returnedReflector.SetActive(true);
-                returnedReflector.GetComponent<BoxCollider2D>().enabled = true;
-                returnedReflector.GetComponent<Raycast>().timeUntilHold = 0.1f;
-                returnedReflector.GetComponent<Raycast>().isHoldingDownAccessor = true;
-
-
-                Vector2 pointVec2 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                returnedReflector.transform.position = pointVec2;
-                returnedReflector.GetComponent<Raycast>().currentMousePos = pointVec2;
-                returnedReflector.GetComponent<Raycast>().mouseIsDown = true;
-
-                returnedReflector.GetComponent<Raycast>().reflectorAttached = true;
-                GameManager.gameManagerInstance.toggleReflectorColliders(); //Ensures reflectors don't overlap when taking a reflector from the pool 
-
-                switch (reflectorTypeTag)
+                switch (ReflectorType)
                 {
-                    case "Basic":
-                        switch (reflectorColorTag)
+                    case REFLECTOR_TYPE.BASIC:
+                        reflector = ObjectPooler.Instance.PopOrCreate(GameManager.Instance.GetBasicReflectorPrefab, mousePos, Quaternion.identity);
+                        reflector.Initialization(ReflectorColor);
+                        reflector.RefreshReflectorColor();
+                        switch (ReflectorColor)
                         {
-                            case "White":
-                                GameManager.gameManagerInstance.ReflectorStockBasicWhite_Accessor--;
+                            case LASER_COLOR.WHITE:
+                                GameManager.Instance.BasicWhiteReflectorStock--;
                                 break;
-
-                            case "Red":
-                                GameManager.gameManagerInstance.ReflectorStockBasicRed_Accessor--;
+                            case LASER_COLOR.RED:
+                                GameManager.Instance.BasicRedReflectorStock--;
                                 break;
-
-                            case "Blue":
-                                GameManager.gameManagerInstance.ReflectorStockBasicBlue_Accessor--;
+                            case LASER_COLOR.BLUE:
+                                GameManager.Instance.BasicBlueReflectorStock--;
                                 break;
-
-                            case "Yellow":
-                                GameManager.gameManagerInstance.ReflectorStockBasicYellow_Accessor--;
+                            case LASER_COLOR.YELLOW:
+                                GameManager.Instance.BasicYellowReflectorStock--;
                                 break;
                         }
                         break;
-
-                    case "Translucent":
-                        switch (reflectorColorTag)
+                    case REFLECTOR_TYPE.TRANSLUCENT:
+                        reflector = ObjectPooler.Instance.PopOrCreate(GameManager.Instance.GetReflectorTranslucentPrefab, mousePos, Quaternion.identity);
+                        reflector.Initialization(ReflectorColor);
+                        reflector.RefreshReflectorColor();
+                        switch (ReflectorColor)
                         {
-                            case "White":
-                                GameManager.gameManagerInstance.ReflectorStockTranslucentWhite_Accessor--;
+                            case LASER_COLOR.WHITE:
+                                GameManager.Instance.TranslucentWhiteReflectorStock--;
                                 break;
-
-                            case "Red":
-                                GameManager.gameManagerInstance.ReflectorStockTranslucentRed_Accessor--;
+                            case LASER_COLOR.RED:
+                                GameManager.Instance.TranslucentRedReflectorStock--;
                                 break;
-
-                            case "Blue":
-                                GameManager.gameManagerInstance.ReflectorStockTranslucentBlue_Accessor--;
+                            case LASER_COLOR.BLUE:
+                                GameManager.Instance.TranslucentBlueReflectorStock--;
                                 break;
-
-                            case "Yellow":
-                                GameManager.gameManagerInstance.ReflectorStockTranslucentYellow_Accessor--;
+                            case LASER_COLOR.YELLOW:
+                                GameManager.Instance.TranslucentYellowReflectorStock--;
                                 break;
                         }
                         break;
-
-                    case "DoubleWay":
-                        switch (reflectorColorTag)
+                    case REFLECTOR_TYPE.DOUBLE_WAY:
+                        reflector = ObjectPooler.Instance.PopOrCreate(GameManager.Instance.GetReflectorDoubleWayPrefab, mousePos, Quaternion.identity);
+                        reflector.Initialization(ReflectorColor);
+                        reflector.RefreshReflectorColor();
+                        switch (ReflectorColor)
                         {
-                            case "White":
-                                GameManager.gameManagerInstance.ReflectorStockDoubleWayWhite_Accessor--;
+                            case LASER_COLOR.WHITE:
+                                GameManager.Instance.DoubleWayWhiteReflectorStock--;
                                 break;
-
-                            case "Red":
-                                GameManager.gameManagerInstance.ReflectorStockDoubleWayRed_Accessor--;
+                            case LASER_COLOR.RED:
+                                GameManager.Instance.DoubleWayRedReflectorStock--;
                                 break;
-
-                            case "Blue":
-                                GameManager.gameManagerInstance.ReflectorStockDoubleWayBlue_Accessor--;
+                            case LASER_COLOR.BLUE:
+                                GameManager.Instance.DoubleWayBlueReflectorStock--;
                                 break;
-
-                            case "Yellow":
-                                GameManager.gameManagerInstance.ReflectorStockDoubleWayYellow_Accessor--;
-                                break;
-                        };
-                        break;
-
-                    case "Split":
-                        switch (reflectorColorTag)
-                        {
-                            case "White":
-                                GameManager.gameManagerInstance.ReflectorStockSplitWhite_Accessor--;
-                                break;
-
-                            case "Red":
-                                GameManager.gameManagerInstance.ReflectorStockSplitRed_Accessor--;
-                                break;
-
-                            case "Blue":
-                                GameManager.gameManagerInstance.ReflectorStockSplitBlue_Accessor--;
-                                break;
-
-                            case "Yellow":
-                                GameManager.gameManagerInstance.ReflectorStockSplitYellow_Accessor--;
+                            case LASER_COLOR.YELLOW:
+                                GameManager.Instance.DoubleWayYellowReflectorStock--;
                                 break;
                         }
                         break;
-
-                    case "ThreeWay":
-                        switch (reflectorColorTag)
+                    case REFLECTOR_TYPE.THREE_WAY:
+                        reflector = ObjectPooler.Instance.PopOrCreate(GameManager.Instance.GetReflectorThreeWayPrefab, mousePos, Quaternion.identity);
+                        reflector.Initialization(ReflectorColor);
+                        reflector.RefreshReflectorColor();
+                        switch (ReflectorColor)
                         {
-                            case "White":
-                                GameManager.gameManagerInstance.ReflectorStockThreeWayWhite_Accessor--;
+                            case LASER_COLOR.WHITE:
+                                GameManager.Instance.ThreeWayWhiteReflectorStock--;
                                 break;
-
-                            case "Red":
-                                GameManager.gameManagerInstance.ReflectorStockThreeWayRed_Accessor--;
+                            case LASER_COLOR.RED:
+                                GameManager.Instance.ThreeWayRedReflectorStock--;
                                 break;
-
-                            case "Blue":
-                                GameManager.gameManagerInstance.ReflectorStockThreeWayBlue_Accessor--;
+                            case LASER_COLOR.BLUE:
+                                GameManager.Instance.ThreeWayBlueReflectorStock--;
                                 break;
-
-                            case "Yellow":
-                                GameManager.gameManagerInstance.ReflectorStockThreeWayYellow_Accessor--;
+                            case LASER_COLOR.YELLOW:
+                                GameManager.Instance.ThreeWayYellowReflectorStock--;
                                 break;
                         }
                         break;
-
-                    default:
-                        Debug.LogWarning("No such reflectorTypeTag exists. Check whether the ReflectorTypeTag is spelled properly in editor");
+                    case REFLECTOR_TYPE.DEFAULT:
                         break;
                 }
 
-                GameManager.gameManagerInstance.reflectorColorsPanel.GetComponent<Animator>().SetBool("ReflectorColorPanelDisplayed", false);
+                GameManager.Instance.AllReflectorsInScene.Add(reflector);
+                GameplayInputManager.Instance.SelectReflector(reflector);
 
-                //The 2 lines of code below will be executed as an Animation Event
-                //GameManager.gameManagerInstance.reflectorColorsPanel.SetActive(false);
-                //GameManager.gameManagerInstance.isReflectorColorPanelActive = false;
+                // reflector.RaycastComponent.timeUntilHold = 0.1f;
+                // reflector.RaycastComponent.IsHoldingDown = true;
+                // reflector.RaycastComponent.currentMousePos = mousePos;
+                // reflector.RaycastComponent.mouseIsDown = true;
+                // reflector.RaycastComponent.reflectorAttached = true;
+                // GameManager.Instance.toggleReflectorColliders(); //Ensures reflectors don't overlap when taking a reflector from the pool 
+
+                GameManager.Instance.reflectorColorsPanel.ReflectorColorPanelAnimator.SetBool("ReflectorColorPanelDisplayed", false);
             }
-            else if(reflectorColorInStock == false)
-            {
-                Debug.LogWarning("Reflector Color not in stock");
-            }
 
-            #endregion
+            #region Old Implementation
+            // #region TEST CODE
 
-            #region Original Code
-            /*
-            reflectorPoolTag = GameManager.gameManagerInstance.setSelectedColorReflector(reflectorTypeTag, reflectorColorTag);
+            // //Check if enough reflector for the specific type and color by passing in the 2 arguments, reflectorTypeTag & reflectorColorTag
+            // reflectorColorInStock = GameManager.gameManagerInstance.CheckReflectorColorStock(reflectorTypeTag, reflectorColorTag);
 
-            returnedReflector = ReflectorPooler.instance_reflectorPooler.reflectorPoolDictionary[reflectorPoolTag].Dequeue();
+            // if(reflectorColorInStock == true)
+            // {
+            //     reflectorPoolTag = GameManager.gameManagerInstance.setSelectedColorReflector(reflectorTypeTag, reflectorColorTag);
 
-            GameManager.gameManagerInstance.allReflectorsInScene.Add(returnedReflector);
+            //     returnedReflector = ReflectorPooler.instance_reflectorPooler.reflectorPoolDictionary[reflectorPoolTag].Dequeue();
 
-            returnedReflector.SetActive(true);
-            returnedReflector.GetComponent<BoxCollider2D>().enabled = true;
-            returnedReflector.GetComponent<Raycast>().timeUntilHold = 0.1f;
-            returnedReflector.GetComponent<Raycast>().isHoldingDownAccessor = true;
+            //     GameManager.gameManagerInstance.allReflectorsInScene.Add(returnedReflector);
 
+            //     returnedReflector.SetActive(true);
+            //     returnedReflector.GetComponent<BoxCollider2D>().enabled = true;
+            //     returnedReflector.GetComponent<Raycast>().timeUntilHold = 0.1f;
+            //     returnedReflector.GetComponent<Raycast>().isHoldingDownAccessor = true;
 
-            Vector2 pointVec2 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            returnedReflector.transform.position = pointVec2;
-            returnedReflector.GetComponent<Raycast>().currentMousePos = pointVec2;
-            returnedReflector.GetComponent<Raycast>().mouseIsDown = true;
+            //     Vector2 pointVec2 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            //     returnedReflector.transform.position = pointVec2;
+            //     returnedReflector.GetComponent<Raycast>().currentMousePos = pointVec2;
+            //     returnedReflector.GetComponent<Raycast>().mouseIsDown = true;
 
-            returnedReflector.GetComponent<Raycast>().reflectorAttached = true;
-            GameManager.gameManagerInstance.toggleReflectorColliders(); //Ensures reflectors don't overlap when taking a reflector from the pool 
+            //     returnedReflector.GetComponent<Raycast>().reflectorAttached = true;
+            //     GameManager.gameManagerInstance.toggleReflectorColliders(); //Ensures reflectors don't overlap when taking a reflector from the pool 
 
-            switch (reflectorTypeTag)
-            {
-                case "Basic":
-                    GameManager.gameManagerInstance.ReflectorStockBasic_Accessor--;
-                    GameManager.gameManagerInstance.ReflectorStock_Basic_Text.text = GameManager.gameManagerInstance.ReflectorStockBasic_Accessor.ToString();
-                    break;
+            //     switch (reflectorTypeTag)
+            //     {
+            //         case "Basic":
+            //             switch (reflectorColorTag)
+            //             {
+            //                 case "White":
+            //                     GameManager.gameManagerInstance.ReflectorStockBasicWhite_Accessor--;
+            //                     break;
 
-                case "Translucent":
-                    GameManager.gameManagerInstance.ReflectorStockTranslucent_Accessor--;
-                    GameManager.gameManagerInstance.ReflectorStock_Translucent_Text.text = GameManager.gameManagerInstance.ReflectorStockTranslucent_Accessor.ToString();
-                    break;
+            //                 case "Red":
+            //                     GameManager.gameManagerInstance.ReflectorStockBasicRed_Accessor--;
+            //                     break;
 
-                case "DoubleWay":
-                    GameManager.gameManagerInstance.ReflectorStockDoubleWay_Accessor--;
-                    GameManager.gameManagerInstance.ReflectorStock_DoubleWay_Text.text = GameManager.gameManagerInstance.ReflectorStockDoubleWay_Accessor.ToString();
-                    break;
+            //                 case "Blue":
+            //                     GameManager.gameManagerInstance.ReflectorStockBasicBlue_Accessor--;
+            //                     break;
 
-                case "Split":
-                    GameManager.gameManagerInstance.ReflectorStockSplit_Accessor--;
-                    GameManager.gameManagerInstance.ReflectorStock_Split_Text.text = GameManager.gameManagerInstance.ReflectorStockSplit_Accessor.ToString();
-                    break;
+            //                 case "Yellow":
+            //                     GameManager.gameManagerInstance.ReflectorStockBasicYellow_Accessor--;
+            //                     break;
+            //             }
+            //             break;
 
-                case "ThreeWay":
-                    GameManager.gameManagerInstance.ReflectorStockThreeWay_Accessor--;
-                    GameManager.gameManagerInstance.ReflectorStock_ThreeWay_Text.text = GameManager.gameManagerInstance.ReflectorStockThreeWay_Accessor.ToString();
-                    break;
+            //         case "Translucent":
+            //             switch (reflectorColorTag)
+            //             {
+            //                 case "White":
+            //                     GameManager.gameManagerInstance.ReflectorStockTranslucentWhite_Accessor--;
+            //                     break;
 
-                default:
-                    Debug.LogWarning("No such reflectorTypeTag exists. Check whether the ReflectorTypeTag is spelled properly in editor");
-                    break;
-            }
-            */
+            //                 case "Red":
+            //                     GameManager.gameManagerInstance.ReflectorStockTranslucentRed_Accessor--;
+            //                     break;
+
+            //                 case "Blue":
+            //                     GameManager.gameManagerInstance.ReflectorStockTranslucentBlue_Accessor--;
+            //                     break;
+
+            //                 case "Yellow":
+            //                     GameManager.gameManagerInstance.ReflectorStockTranslucentYellow_Accessor--;
+            //                     break;
+            //             }
+            //             break;
+
+            //         case "DoubleWay":
+            //             switch (reflectorColorTag)
+            //             {
+            //                 case "White":
+            //                     GameManager.gameManagerInstance.ReflectorStockDoubleWayWhite_Accessor--;
+            //                     break;
+
+            //                 case "Red":
+            //                     GameManager.gameManagerInstance.ReflectorStockDoubleWayRed_Accessor--;
+            //                     break;
+
+            //                 case "Blue":
+            //                     GameManager.gameManagerInstance.ReflectorStockDoubleWayBlue_Accessor--;
+            //                     break;
+
+            //                 case "Yellow":
+            //                     GameManager.gameManagerInstance.ReflectorStockDoubleWayYellow_Accessor--;
+            //                     break;
+            //             };
+            //             break;
+
+            //         case "Split":
+            //             switch (reflectorColorTag)
+            //             {
+            //                 case "White":
+            //                     GameManager.gameManagerInstance.ReflectorStockSplitWhite_Accessor--;
+            //                     break;
+
+            //                 case "Red":
+            //                     GameManager.gameManagerInstance.ReflectorStockSplitRed_Accessor--;
+            //                     break;
+
+            //                 case "Blue":
+            //                     GameManager.gameManagerInstance.ReflectorStockSplitBlue_Accessor--;
+            //                     break;
+
+            //                 case "Yellow":
+            //                     GameManager.gameManagerInstance.ReflectorStockSplitYellow_Accessor--;
+            //                     break;
+            //             }
+            //             break;
+
+            //         case "ThreeWay":
+            //             switch (reflectorColorTag)
+            //             {
+            //                 case "White":
+            //                     GameManager.gameManagerInstance.ReflectorStockThreeWayWhite_Accessor--;
+            //                     break;
+
+            //                 case "Red":
+            //                     GameManager.gameManagerInstance.ReflectorStockThreeWayRed_Accessor--;
+            //                     break;
+
+            //                 case "Blue":
+            //                     GameManager.gameManagerInstance.ReflectorStockThreeWayBlue_Accessor--;
+            //                     break;
+
+            //                 case "Yellow":
+            //                     GameManager.gameManagerInstance.ReflectorStockThreeWayYellow_Accessor--;
+            //                     break;
+            //             }
+            //             break;
+
+            //         default:
+            //             Debug.LogWarning("No such reflectorTypeTag exists. Check whether the ReflectorTypeTag is spelled properly in editor");
+            //             break;
+            //     }
+
+            //     GameManager.gameManagerInstance.reflectorColorsPanel.GetComponent<Animator>().SetBool("ReflectorColorPanelDisplayed", false);
+
+            //     //The 2 lines of code below will be executed as an Animation Event
+            //     //GameManager.gameManagerInstance.reflectorColorsPanel.SetActive(false);
+            //     //GameManager.gameManagerInstance.isReflectorColorPanelActive = false;
+            // }
+            // else if(reflectorColorInStock == false)
+            // {
+            //     Debug.LogWarning("Reflector Color not in stock");
+            // }
+
+            // #endregion
             #endregion
         }
 
         #endregion
 
-        #endif
+#endif
 
-        #region Original Code
-
-        //GameManager.gameManagerInstance.reflectorColorsPanel.SetActive(false);
-        //GameManager.gameManagerInstance.isReflectorColorPanelActive = false;
-
-        #endregion
     }
 
     public void OnPointerUp(PointerEventData pointerEventData)

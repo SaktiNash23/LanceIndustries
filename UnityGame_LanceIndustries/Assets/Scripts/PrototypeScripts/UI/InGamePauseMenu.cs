@@ -23,7 +23,7 @@ public class InGamePauseMenu : MonoBehaviour
         }
 
         inGameOptionsButton.GetComponent<Image>().raycastTarget = false;
-        GameManager.gameManagerInstance.gameIsPaused = true;
+        GameManager.Instance.isGamePaused = true;
         Time.timeScale = 0.0f; //Stops in-game time
     
     }
@@ -37,7 +37,7 @@ public class InGamePauseMenu : MonoBehaviour
         }
 
         inGameOptionsButton.GetComponent<Image>().raycastTarget = true;
-        GameManager.gameManagerInstance.gameIsPaused = false;
+        GameManager.Instance.isGamePaused = false;
         Time.timeScale = 1.0f; //Resumes in-game time
     }
 }

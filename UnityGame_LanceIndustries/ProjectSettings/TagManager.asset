@@ -33,7 +33,7 @@ TagManager:
   - 
   - IgnoredByProjectile
   - MapEditorInSceneObj
-  - ReflectorPlacement
+  - 
   - MapEditorBorderSnapper
   - MapEditorBoxSnapper
   - MapEditorPortalSnapper
@@ -43,6 +43,8 @@ TagManager:
   - 
   - 
   - 
+  - Reflector
+  - ReflectorPlacementBox
   - 
   - 
   - 
@@ -52,9 +54,7 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
+  - PostProcessing
   m_SortingLayers:
   - name: Default
     uniqueID: 0

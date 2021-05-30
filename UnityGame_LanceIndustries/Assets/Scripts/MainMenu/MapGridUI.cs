@@ -38,7 +38,7 @@ public class MapGridUI : MonoBehaviour
     [SerializeField] Sprite portalSetOneSprite;
     [SerializeField] Sprite portalSetTwoSprite;
 
-    public void ToggleWall(BorderColor wallColor, SNAPPING_DIR wallDir, bool show)
+    public void ToggleWall(LASER_COLOR wallColor, SNAPPING_DIR wallDir, bool show)
     {
         switch (wallDir)
         {
@@ -61,23 +61,23 @@ public class MapGridUI : MonoBehaviour
         }
     }
 
-    public void ToggleOriginPoint(BorderColor originPointColor, Quaternion targetRot, bool show)
+    public void ToggleOriginPoint(LASER_COLOR originPointColor, Quaternion targetRot, bool show)
     {
         switch (originPointColor)
         {
-            case BorderColor.WHITE:
+            case LASER_COLOR.WHITE:
                 originPoint.transform.rotation = targetRot;
                 originPoint.sprite = whiteOriginPointSprite;
                 break;
-            case BorderColor.RED:
+            case LASER_COLOR.RED:
                 originPoint.transform.rotation = targetRot;
                 originPoint.sprite = redOriginPointSprite;
                 break;
-            case BorderColor.YELLOW:
+            case LASER_COLOR.YELLOW:
                 originPoint.transform.rotation = targetRot;
                 originPoint.sprite = yellowOriginPointSprite;
                 break;
-            case BorderColor.BLUE:
+            case LASER_COLOR.BLUE:
                 originPoint.transform.rotation = targetRot;
                 originPoint.sprite = blueOriginPointSprite;
                 break;
@@ -88,23 +88,23 @@ public class MapGridUI : MonoBehaviour
         originPoint.enabled = show;
     }
 
-    public void ToggleDestinationPoint(BorderColor destinationPointColor, Quaternion targetRot, bool show)
+    public void ToggleDestinationPoint(LASER_COLOR destinationPointColor, Quaternion targetRot, bool show)
     {
         switch (destinationPointColor)
         {
-            case BorderColor.WHITE:
+            case LASER_COLOR.WHITE:
                 destinationPoint.transform.rotation = targetRot;
                 destinationPoint.sprite = whiteDestinationPointSprite;
                 break;
-            case BorderColor.RED:
+            case LASER_COLOR.RED:
                 destinationPoint.transform.rotation = targetRot;
                 destinationPoint.sprite = redDestinationPointSprite;
                 break;
-            case BorderColor.YELLOW:
+            case LASER_COLOR.YELLOW:
                 destinationPoint.transform.rotation = targetRot;
                 destinationPoint.sprite = yellowDestinationPointSprite;
                 break;
-            case BorderColor.BLUE:
+            case LASER_COLOR.BLUE:
                 destinationPoint.transform.rotation = targetRot;
                 destinationPoint.sprite = blueDestinationPointSprite;
                 break;
@@ -160,20 +160,20 @@ public class MapGridUI : MonoBehaviour
         leftPortal.enabled = rightPortal.enabled = topPortal.enabled = bottomPortal.enabled = show;
     }
 
-    private void ApplyWallColor(Image targetWall, BorderColor wallColor)
+    private void ApplyWallColor(Image targetWall, LASER_COLOR wallColor)
     {
         switch (wallColor)
         {
-            case BorderColor.WHITE:
+            case LASER_COLOR.WHITE:
                 targetWall.sprite = whiteWallSprite;
                 break;
-            case BorderColor.RED:
+            case LASER_COLOR.RED:
                 targetWall.sprite = redWallSprite;
                 break;
-            case BorderColor.YELLOW:
+            case LASER_COLOR.YELLOW:
                 targetWall.sprite = yellowWallSprite;
                 break;
-            case BorderColor.BLUE:
+            case LASER_COLOR.BLUE:
                 targetWall.sprite = blueWallSprite;
                 break;
             default:

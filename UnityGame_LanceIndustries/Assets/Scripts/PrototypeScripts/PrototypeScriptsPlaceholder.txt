@@ -1,3 +1,0 @@
-GitHub ignores empty folders when committing changes.
-That is why we have a placeholder txt file like this one in any empty folder in the project.
-Once you have added at least 1 item, (Ex: Scripts, Sprites, Audio files, etc...), you can remove these Placeholder txt files.

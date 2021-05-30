@@ -56,7 +56,7 @@ SpriteAtlas:
     - {fileID: 2800000, guid: 8439d413f0d056945bdf17980cfda8bc, type: 3}
     - {fileID: 2800000, guid: a573a5c7cf10c4c42be417b6d3d6a922, type: 3}
     - {fileID: 2800000, guid: 571738fd6b81000418e3d4f5a5d53dc6, type: 3}
-    totalSpriteSurfaceArea: 3934681
+    totalSpriteSurfaceArea: 5488243
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -155,76 +155,76 @@ SpriteAtlas:
   - {fileID: 21300000, guid: b4facddf292588a4bafcd0e544569883, type: 3}
   m_PackedSpriteNamesToIndex:
   - asset_reflector_3way_yellow
-  - saprk 1_00006
+  - sprite_spark_6
   - asset_reflector_basic_white
-  - saprk 1_00002
-  - asset_reciever_red
-  - saprk 1_00014
-  - asset_reciever_white
+  - sprite_spark_2
+  - asset_sprite_receiver_red_off
+  - sprite_spark_14
+  - asset_sprite_receiver_white_off
   - asset_reflector_double_blue
   - asset_reflector_3way_white
   - build_00010
-  - saprk 1_00019
+  - sprite_spark_19
   - build_00006
-  - asset_reciever_blue
+  - asset_sprite_receiver_blue_off
   - build_00001
   - asset_blaster_white
   - laser
-  - saprk 1_00009
-  - saprk 1_00003
+  - sprite_spark_9
+  - sprite_spark_3
   - build_00000
   - asset_reflector_translucent_blue
   - build_00013
   - asset_reflector_translucent_yellow
-  - saprk 1_00004
+  - sprite_spark_4
   - build_00005
   - BG
   - build_00002
   - asset_wall_blue
   - asset_reflector_translucent_red
   - asset_reflector_3way_blue
-  - saprk 1_00017
+  - sprite_spark_17
   - asset_wall_white
   - asset_reflector_basic_yellow
-  - saprk 1_00011
+  - sprite_spark_11
   - asset_reflector_basic_red
   - GridOutline
   - build_00018
-  - saprk 1_00005
+  - sprite_spark_5
   - asset_reflector_translucent_white
   - asset_reflector_3way_red
   - asset_reflector_basic_blue
   - build_00019
-  - saprk 1_00001
+  - sprite_spark_1
   - build_00020
-  - saprk 1_00016
+  - sprite_spark_16
   - build_00023
-  - saprk 1_00008
-  - asset_reciever_white_ON
-  - asset_reciever_yellow_ON
+  - sprite_spark_8
+  - asset_sprite_receiver_white_on
+  - asset_sprite_receiver_yellow_on
   - build_00021
   - asset_wall_basic
   - build_00016
   - asset_reflector_double_yellow
-  - saprk 1_00007
-  - saprk 1_00000
+  - sprite_spark_7
+  - sprite_spark_0
   - asset_wall_yellow
-  - saprk 1_00013
+  - sprite_spark_13
   - build_00012
-  - asset_reciever_red_ON
+  - asset_sprite_receiver_red_on
   - build_00022
-  - saprk 1_00015
+  - sprite_spark_15
   - asset_laser_white
   - asset_blaster_blue
   - asset_wall_portal2 A
   - build_00024
   - build_00003
-  - saprk 1_00010
+  - sprite_spark_10
   - asset_laser_yellow
   - build_00027
-  - saprk 1_00012
-  - asset_reciever_yellow
-  - asset_reciever_blue_ON
+  - sprite_spark_12
+  - asset_sprite_receiver_yellow_off
+  - asset_sprite_receiver_blue_on
   - asset_wall_red
   - build_00015
   - build_00017
@@ -238,7 +238,7 @@ SpriteAtlas:
   - build_00007
   - asset_reflector_double_red
   - asset_reflector_double_white
-  - saprk 1_00018
+  - sprite_spark_18
   - build_00014
   - grid
   - asset_blaster_yellow

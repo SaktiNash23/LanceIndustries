@@ -95,47 +95,47 @@ public class LevelPreviewPage : MonoBehaviour
             {
                 case IN_SCENE_OBJECT_TYPES.NORMAL_HORIZONTAL_LINE:
                 case IN_SCENE_OBJECT_TYPES.NORMAL_VERTICAL_LINE:
-                    levelLayout.transform.GetChild(inSceneObj.mapGridIndex).GetComponent<MapGridUI>().ToggleWall(BorderColor.NONE, inSceneObj.borderDir, true);
+                    levelLayout.transform.GetChild(inSceneObj.mapGridIndex).GetComponent<MapGridUI>().ToggleWall(LASER_COLOR.DEFAULT, inSceneObj.borderDir, true);
                     break;
                 case IN_SCENE_OBJECT_TYPES.WHITE_HORIZONTAL_LINE:
                 case IN_SCENE_OBJECT_TYPES.WHITE_VERTICAL_LINE:
-                    levelLayout.transform.GetChild(inSceneObj.mapGridIndex).GetComponent<MapGridUI>().ToggleWall(BorderColor.WHITE, inSceneObj.borderDir, true);
+                    levelLayout.transform.GetChild(inSceneObj.mapGridIndex).GetComponent<MapGridUI>().ToggleWall(LASER_COLOR.WHITE, inSceneObj.borderDir, true);
                     break;
                 case IN_SCENE_OBJECT_TYPES.RED_HORIZONTAL_LINE:
                 case IN_SCENE_OBJECT_TYPES.RED_VERTICAL_LINE:
-                    levelLayout.transform.GetChild(inSceneObj.mapGridIndex).GetComponent<MapGridUI>().ToggleWall(BorderColor.RED, inSceneObj.borderDir, true);
+                    levelLayout.transform.GetChild(inSceneObj.mapGridIndex).GetComponent<MapGridUI>().ToggleWall(LASER_COLOR.RED, inSceneObj.borderDir, true);
                     break;
                 case IN_SCENE_OBJECT_TYPES.YELLOW_HORIZONTAL_LINE:
                 case IN_SCENE_OBJECT_TYPES.YELLOW_VERTICAL_LINE:
-                    levelLayout.transform.GetChild(inSceneObj.mapGridIndex).GetComponent<MapGridUI>().ToggleWall(BorderColor.YELLOW, inSceneObj.borderDir, true);
+                    levelLayout.transform.GetChild(inSceneObj.mapGridIndex).GetComponent<MapGridUI>().ToggleWall(LASER_COLOR.YELLOW, inSceneObj.borderDir, true);
                     break;
                 case IN_SCENE_OBJECT_TYPES.BLUE_HORIZONTAL_LINE:
                 case IN_SCENE_OBJECT_TYPES.BLUE_VERTICAL_LINE:
-                    levelLayout.transform.GetChild(inSceneObj.mapGridIndex).GetComponent<MapGridUI>().ToggleWall(BorderColor.BLUE, inSceneObj.borderDir, true);
+                    levelLayout.transform.GetChild(inSceneObj.mapGridIndex).GetComponent<MapGridUI>().ToggleWall(LASER_COLOR.BLUE, inSceneObj.borderDir, true);
                     break;
                 case IN_SCENE_OBJECT_TYPES.ORIGIN_POINT_WHITE:
-                    levelLayout.transform.GetChild(inSceneObj.mapGridIndex).GetComponent<MapGridUI>().ToggleOriginPoint(BorderColor.WHITE, inSceneObj.rotation, true);
+                    levelLayout.transform.GetChild(inSceneObj.mapGridIndex).GetComponent<MapGridUI>().ToggleOriginPoint(LASER_COLOR.WHITE, inSceneObj.rotation, true);
                     break;
                 case IN_SCENE_OBJECT_TYPES.ORIGIN_POINT_RED:
-                    levelLayout.transform.GetChild(inSceneObj.mapGridIndex).GetComponent<MapGridUI>().ToggleOriginPoint(BorderColor.RED, inSceneObj.rotation, true);
+                    levelLayout.transform.GetChild(inSceneObj.mapGridIndex).GetComponent<MapGridUI>().ToggleOriginPoint(LASER_COLOR.RED, inSceneObj.rotation, true);
                     break;
                 case IN_SCENE_OBJECT_TYPES.ORIGIN_POINT_YELLOW:
-                    levelLayout.transform.GetChild(inSceneObj.mapGridIndex).GetComponent<MapGridUI>().ToggleOriginPoint(BorderColor.YELLOW, inSceneObj.rotation, true);
+                    levelLayout.transform.GetChild(inSceneObj.mapGridIndex).GetComponent<MapGridUI>().ToggleOriginPoint(LASER_COLOR.YELLOW, inSceneObj.rotation, true);
                     break;
                 case IN_SCENE_OBJECT_TYPES.ORIGIN_POINT_BLUE:
-                    levelLayout.transform.GetChild(inSceneObj.mapGridIndex).GetComponent<MapGridUI>().ToggleOriginPoint(BorderColor.RED, inSceneObj.rotation, true);
+                    levelLayout.transform.GetChild(inSceneObj.mapGridIndex).GetComponent<MapGridUI>().ToggleOriginPoint(LASER_COLOR.RED, inSceneObj.rotation, true);
                     break;
                 case IN_SCENE_OBJECT_TYPES.DESTINATION_POINT_WHITE:
-                    levelLayout.transform.GetChild(inSceneObj.mapGridIndex).GetComponent<MapGridUI>().ToggleDestinationPoint(BorderColor.WHITE, inSceneObj.rotation, true);
+                    levelLayout.transform.GetChild(inSceneObj.mapGridIndex).GetComponent<MapGridUI>().ToggleDestinationPoint(LASER_COLOR.WHITE, inSceneObj.rotation, true);
                     break;
                 case IN_SCENE_OBJECT_TYPES.DESTINATION_POINT_RED:
-                    levelLayout.transform.GetChild(inSceneObj.mapGridIndex).GetComponent<MapGridUI>().ToggleDestinationPoint(BorderColor.RED, inSceneObj.rotation, true);
+                    levelLayout.transform.GetChild(inSceneObj.mapGridIndex).GetComponent<MapGridUI>().ToggleDestinationPoint(LASER_COLOR.RED, inSceneObj.rotation, true);
                     break;
                 case IN_SCENE_OBJECT_TYPES.DESTINATION_POINT_YELLOW:
-                    levelLayout.transform.GetChild(inSceneObj.mapGridIndex).GetComponent<MapGridUI>().ToggleDestinationPoint(BorderColor.YELLOW, inSceneObj.rotation, true);
+                    levelLayout.transform.GetChild(inSceneObj.mapGridIndex).GetComponent<MapGridUI>().ToggleDestinationPoint(LASER_COLOR.YELLOW, inSceneObj.rotation, true);
                     break;
                 case IN_SCENE_OBJECT_TYPES.DESTINATION_POINT_BLUE:
-                    levelLayout.transform.GetChild(inSceneObj.mapGridIndex).GetComponent<MapGridUI>().ToggleDestinationPoint(BorderColor.BLUE, inSceneObj.rotation, true);
+                    levelLayout.transform.GetChild(inSceneObj.mapGridIndex).GetComponent<MapGridUI>().ToggleDestinationPoint(LASER_COLOR.BLUE, inSceneObj.rotation, true);
                     break;
                 case IN_SCENE_OBJECT_TYPES.PORTAL_1ST_SET_HORIZONTAL:
                 case IN_SCENE_OBJECT_TYPES.PORTAL_1ST_SET_VERTICAL:

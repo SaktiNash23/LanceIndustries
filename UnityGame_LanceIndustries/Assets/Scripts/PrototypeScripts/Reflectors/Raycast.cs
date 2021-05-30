@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿ using UnityEngine;
 public class Raycast : MonoBehaviour
 { 
     private Vector3 point;
@@ -7,7 +7,6 @@ public class Raycast : MonoBehaviour
     public float rayLength;
     public float timeUntilHold;
     public float minTimeHold;
-    private RaycastHit2D hit;
     public bool inGrid = false;
     private int layerMask;
     public bool isOccupied = false;
@@ -43,11 +42,11 @@ public class Raycast : MonoBehaviour
 
     void OnMouseUpAsButton()
     {
-        if (GameManager.gameManagerInstance.gameIsPaused == false)
+        if (GameManager.Instance.isGamePaused == false)
         {
             //#if UNITY_EDITOR
 
-            if (GameManager.gameManagerInstance.DebugMode_PC == true)
+            if (GameManager.Instance.DebugMode_PC == true)
             {
                 //Used to be mouseIsDown == true (Test Code)     
                 //When mouse button is released, if there is a reflector 'attached' to the mouse, run this code
@@ -56,18 +55,18 @@ public class Raycast : MonoBehaviour
                     mousePhase = MousePhase.ENDED;
 
                     #region MOUSE PHASE ENDED CODE
-                    hit = Physics2D.Raycast(transform.position, -transform.up, rayLength, layerMask);
+                    // hit = Physics.Raycast(transform.position, -transform.up, rayLength, layerMask);
 
-                    if (hit)
+                    if (Physics.Raycast(transform.position, Vector3.forward, out RaycastHit hit, rayLength, layerMask))
                     {
-
+                        Debug.Log("HIT OBJ: " + hit.transform.name);
                         if (hit.collider.tag == "Grid")
                         {
-                            if (hit.transform.gameObject.GetComponent<Proto_Grid>().isOccupied_Grid == false)
+                            if (hit.transform.gameObject.GetComponent<Proto_Grid>().IsOccupied == false)
                             {
                                 transform.position = hit.transform.position;
 
-                                hit.transform.gameObject.GetComponent<Proto_Grid>().isOccupied_Grid = true;
+                                hit.transform.gameObject.GetComponent<Proto_Grid>().IsOccupied = true;
                                 hit.transform.gameObject.GetComponent<Proto_Grid>().reflectorStored_Grid = this.gameObject;
                                 hit.transform.gameObject.GetComponent<BoxCollider2D>().enabled = false;
                                 tempColor = hit.transform.gameObject.GetComponent<SpriteRenderer>().color;
@@ -86,11 +85,11 @@ public class Raycast : MonoBehaviour
                         {
                             inGrid = false;
                             //Remove Reflector from allReflectorsInScene List from GameManager before destroying it
-                            GameManager.gameManagerInstance.removeReflector(gameObject);
+                            GameManager.Instance.removeReflector(gameObject);
                             //Check which Reflector it is and return it to the stock / return back to the pool
-                            GameManager.gameManagerInstance.returnReflectorToStock(gameObject);
+                            GameManager.Instance.returnReflectorToStock(gameObject);
 
-                            GameManager.gameManagerInstance.resetReflectorColliders(); //If the reflector hits an invalid spot, we need to reset the colliders
+                            GameManager.Instance.resetReflectorColliders(); //If the reflector hits an invalid spot, we need to reset the colliders
                                                                                        //for any reflectors that are still in the scene before this object gets 
                                                                                        //destroyed, else player cannot control the reflectors that are in the scene
                                                                                        //since their Box Colliders have not been reenabled.
@@ -103,11 +102,11 @@ public class Raycast : MonoBehaviour
                     {
                         inGrid = false;
                         //Remove Reflector from allReflectorsInScene List from GameManager before destroying it
-                        GameManager.gameManagerInstance.removeReflector(gameObject);
+                        GameManager.Instance.removeReflector(gameObject);
                         //Check which Reflector it is and return it to the stock / return back to the pool
-                        GameManager.gameManagerInstance.returnReflectorToStock(gameObject);
+                        GameManager.Instance.returnReflectorToStock(gameObject);
 
-                        GameManager.gameManagerInstance.resetReflectorColliders(); //If the reflector hits an invalid spot, we need to reset the colliders
+                        GameManager.Instance.resetReflectorColliders(); //If the reflector hits an invalid spot, we need to reset the colliders
                                                                                    //for any reflectors that are still in the scene before this object gets 
                                                                                    //destroyed, else player cannot control the reflectors that are in the scene
                                                                                    //since their Box Colliders have not been reenabled.
@@ -117,10 +116,10 @@ public class Raycast : MonoBehaviour
 
                     #endregion
 
-                    if (GameManager.gameManagerInstance.activationToggle_Reflector == true)
-                        GameManager.gameManagerInstance.resetReflectorColliders();
+                    if (GameManager.Instance.activationToggle_Reflector == true)
+                        GameManager.Instance.resetReflectorColliders();
 
-                    GameManager.gameManagerInstance.activationToggle_Grid = false;
+                    GameManager.Instance.activationToggle_Grid = false;
 
                     isHoldingDown = false;
                     mouseIsDown = false;
@@ -138,13 +137,13 @@ public class Raycast : MonoBehaviour
 
                     mousePhase = MousePhase.BEGAN;
 
-                    if (GameManager.gameManagerInstance.activationToggle_Grid == false)
+                    if (GameManager.Instance.activationToggle_Grid == false)
                     {
                         //If this shape is currently attached to a grid
                         if (isOccupied == true)
                         {
                             gridReference.GetComponent<Proto_Grid>().reflectorStored_Grid = null;
-                            gridReference.GetComponent<Proto_Grid>().isOccupied_Grid = false;
+                            gridReference.GetComponent<Proto_Grid>().IsOccupied = false;
                             gridReference.GetComponent<SpriteRenderer>().color = Color.white;
 
                             inGrid = false;
@@ -157,19 +156,19 @@ public class Raycast : MonoBehaviour
                             ;
                         }
 
-                        GameManager.gameManagerInstance.toggleGridColliders();
+                        GameManager.Instance.toggleGridColliders();
 
-                        GameManager.gameManagerInstance.activationToggle_Grid = true;
+                        GameManager.Instance.activationToggle_Grid = true;
                     }
 
-                    if (GameManager.gameManagerInstance.activationToggle_Reflector == false)
-                        GameManager.gameManagerInstance.toggleReflectorColliders();
+                    if (GameManager.Instance.activationToggle_Reflector == false)
+                        GameManager.Instance.toggleReflectorColliders();
 
                     reflectorAttached = true; //Test Code 
                 }
             }
 
-            if (GameManager.gameManagerInstance.DebugMode_PC == false)
+            if (GameManager.Instance.DebugMode_PC == false)
             {
                 if (inGrid && !isHoldingDown)
                 {
@@ -190,7 +189,7 @@ public class Raycast : MonoBehaviour
 
     void OnMouseOver()
     {
-        if (GameManager.gameManagerInstance.gameIsPaused == false)
+        if (GameManager.Instance.isGamePaused == false)
         {
 
             #if UNITY_ANDROID
@@ -212,7 +211,7 @@ public class Raycast : MonoBehaviour
 
             #if UNITY_EDITOR
 
-            if (GameManager.gameManagerInstance.DebugMode_PC == true)
+            if (GameManager.Instance.DebugMode_PC == true)
             {
                 if (Input.GetMouseButtonUp(1))
                 {
@@ -245,15 +244,16 @@ public class Raycast : MonoBehaviour
         //Debug.Log("Reflector Attached : " + reflectorAttached);
         #endif
 
-        if (GameManager.gameManagerInstance.gameIsPaused == false)
+        if (GameManager.Instance.isGamePaused == false)
         {
             #if UNITY_EDITOR
 
             //All the following code that is within the #region Mouse Input is only to control the movement of any reflector attached to the mouse
             #region Mouse Input
 
-            if (GameManager.gameManagerInstance.DebugMode_PC == true)
+            if (GameManager.Instance.DebugMode_PC == true)
             {
+                Debug.DrawRay(transform.position - Vector3.forward, Vector3.forward * rayLength, Color.green, 0.0f);
                 if (mouseIsDown == true)
                 {
                     isHoldingDown = true;
@@ -276,6 +276,7 @@ public class Raycast : MonoBehaviour
 
                     #endregion
 
+                    RaycastHit hit;
                     switch (mousePhase)
                     {
                         #region STATIONARY
@@ -283,9 +284,9 @@ public class Raycast : MonoBehaviour
                         case MousePhase.STATIONARY:
                             transform.position = new Vector3(currentMousePos.x, currentMousePos.y, 0.0f);
 
-                            hit = Physics2D.Raycast(transform.position, -transform.up, rayLength, layerMask);
+                            // hit = Physics2D.Raycast(transform.position, -transform.up, rayLength, layerMask);
 
-                            if (hit)
+                            if (Physics.Raycast(transform.position - Vector3.forward, Vector3.forward, out hit, rayLength, layerMask))
                             {
                                 if (hit.collider.tag == "Grid")
                                 {
@@ -304,11 +305,11 @@ public class Raycast : MonoBehaviour
                                 }
                                 else
                                 {
-                                    GameManager.gameManagerInstance.resetGridAlpha();
+                                    GameManager.Instance.ResetGridAlpha();
                                 }
                             }
                             else
-                                GameManager.gameManagerInstance.resetGridAlpha();
+                                GameManager.Instance.ResetGridAlpha();
                             break;
 
                         #endregion
@@ -318,9 +319,9 @@ public class Raycast : MonoBehaviour
                         case MousePhase.MOVED:
                             transform.position = new Vector3(currentMousePos.x, currentMousePos.y, 0.0f);
 
-                            hit = Physics2D.Raycast(transform.position, -transform.up, rayLength, layerMask);
+                            // hit = Physics2D.Raycast(transform.position, -transform.up, rayLength, layerMask);
 
-                            if (hit)
+                            if (Physics.Raycast(transform.position - Vector3.forward, Vector3.forward, out hit, rayLength, layerMask))
                             {
                                 if (hit.collider.tag == "Grid")
                                 {
@@ -338,11 +339,11 @@ public class Raycast : MonoBehaviour
                                 }
                                 else
                                 {
-                                    GameManager.gameManagerInstance.resetGridAlpha();
+                                    GameManager.Instance.ResetGridAlpha();
                                 }
                             }
                             else
-                                GameManager.gameManagerInstance.resetGridAlpha();
+                                GameManager.Instance.ResetGridAlpha();
                             break;
 
                             #endregion
@@ -357,7 +358,7 @@ public class Raycast : MonoBehaviour
             //ATTN: Remember that any code you add in the Mouse Input must also be added in the respective parts for the Touch Input
             #region Touch Input
 
-            if (GameManager.gameManagerInstance.DebugMode_PC == false)
+            if (GameManager.Instance.DebugMode_PC == false)
             {
                 if (Input.touchCount > 0)
                 {
@@ -366,13 +367,13 @@ public class Raycast : MonoBehaviour
 
                     if (isHoldingDown == true)
                     {
-                        if (GameManager.gameManagerInstance.activationToggle_Grid == false)//Purpose of this bool is to ensure the code only runs once in Update()
+                        if (GameManager.Instance.activationToggle_Grid == false)//Purpose of this bool is to ensure the code only runs once in Update()
                         {
                             //If the reflector is currently attached to a grid
                             if (isOccupied == true)
                             {
                                 gridReference.GetComponent<Proto_Grid>().reflectorStored_Grid = null;
-                                gridReference.GetComponent<Proto_Grid>().isOccupied_Grid = false;
+                                gridReference.GetComponent<Proto_Grid>().IsOccupied = false;
                                 gridReference.GetComponent<SpriteRenderer>().color = Color.white;
 
                                 inGrid = false;
@@ -386,12 +387,13 @@ public class Raycast : MonoBehaviour
                                 ;
                             }
 
-                            GameManager.gameManagerInstance.toggleGridColliders(); //If a grid is occupied, deactivate its 2D Collider and vice versa
+                            GameManager.Instance.toggleGridColliders(); //If a grid is occupied, deactivate its 2D Collider and vice versa
                         }
 
-                        if (GameManager.gameManagerInstance.activationToggle_Reflector == false) //Purpose of this bool is to ensure the code only runs once in Update()
-                            GameManager.gameManagerInstance.toggleReflectorColliders();
+                        if (GameManager.Instance.activationToggle_Reflector == false) //Purpose of this bool is to ensure the code only runs once in Update()
+                            GameManager.Instance.toggleReflectorColliders();
 
+                        RaycastHit hit;
                         switch (touch.phase)
                         {
                             case TouchPhase.Began:
@@ -403,10 +405,9 @@ public class Raycast : MonoBehaviour
                             case TouchPhase.Moved:
                                 point = Camera.main.ScreenToWorldPoint(touch.position);
                                 transform.position = new Vector3(point.x, point.y);
-                                hit = Physics2D.Raycast(transform.position, -transform.up, rayLength, layerMask);
+                                // hit = Physics2D.Raycast(transform.position, -transform.up, rayLength, layerMask);
 
-
-                                if (hit)
+                                if (Physics.Raycast(transform.position - Vector3.forward, Vector3.forward, out hit, rayLength, layerMask))
                                 {
                                     if (hit.collider.tag == "Grid")//If reflector collides with Grid, highlight the grid outline (blue box)
                                     {
@@ -424,18 +425,18 @@ public class Raycast : MonoBehaviour
                                     }
                                     else
                                     {
-                                        GameManager.gameManagerInstance.resetGridAlpha(); //Reset all the alpha values of all grids to 0 when reflecto not hitting any grid
+                                        GameManager.Instance.ResetGridAlpha(); //Reset all the alpha values of all grids to 0 when reflecto not hitting any grid
                                     }
                                 }
                                 else
-                                    GameManager.gameManagerInstance.resetGridAlpha(); //Reset all the alpha values of all grids to 0 when reflector not hitting any grid
+                                    GameManager.Instance.ResetGridAlpha(); //Reset all the alpha values of all grids to 0 when reflector not hitting any grid
 
                                 break;
 
                             case TouchPhase.Stationary:
-                                hit = Physics2D.Raycast(transform.position, -transform.up, rayLength, layerMask);
+                                // hit = Physics2D.Raycast(transform.position, -transform.up, rayLength, layerMask);
 
-                                if (hit)
+                                if (Physics.Raycast(transform.position - Vector3.forward, Vector3.forward, out hit, rayLength, layerMask))
                                 {
                                     if (hit.collider.tag == "Grid") //If reflector collides with Grid, highlight the grid outline (blue box)
                                     {
@@ -454,26 +455,26 @@ public class Raycast : MonoBehaviour
                                     }
                                     else
                                     {
-                                        GameManager.gameManagerInstance.resetGridAlpha();
+                                        GameManager.Instance.ResetGridAlpha();
                                     }
                                 }
                                 else
-                                    GameManager.gameManagerInstance.resetGridAlpha();
+                                    GameManager.Instance.ResetGridAlpha();
 
                                 break;
 
                             case TouchPhase.Ended:
-                                hit = Physics2D.Raycast(transform.position, -transform.up, rayLength, layerMask);
+                                // hit = Physics2D.Raycast(transform.position, -transform.up, rayLength, layerMask);
 
-                                if (hit)
+                                if (Physics.Raycast(transform.position - Vector3.forward, Vector3.forward, out hit, rayLength, layerMask))
                                 {
                                     if (hit.collider.tag == "Grid")//If reflector is let go over a grid, place the reflector in the grid and perform other related actions
                                     {
-                                        if (hit.transform.gameObject.GetComponent<Proto_Grid>().isOccupied_Grid == false)
+                                        if (hit.transform.gameObject.GetComponent<Proto_Grid>().IsOccupied == false)
                                         {
                                             transform.position = hit.transform.position;
 
-                                            hit.transform.gameObject.GetComponent<Proto_Grid>().isOccupied_Grid = true;
+                                            hit.transform.gameObject.GetComponent<Proto_Grid>().IsOccupied = true;
                                             hit.transform.gameObject.GetComponent<Proto_Grid>().reflectorStored_Grid = this.gameObject;
                                             hit.transform.gameObject.GetComponent<BoxCollider2D>().enabled = false;
                                             tempColor = hit.transform.gameObject.GetComponent<SpriteRenderer>().color;
@@ -492,11 +493,11 @@ public class Raycast : MonoBehaviour
                                     {
                                         inGrid = false;
                                         //Remove Reflector from allReflectorsInScene List from GameManager before destroying it
-                                        GameManager.gameManagerInstance.removeReflector(gameObject);
+                                        GameManager.Instance.removeReflector(gameObject);
                                         //Check which Reflector it is and return it to the stock / return back to the pool
-                                        GameManager.gameManagerInstance.returnReflectorToStock(gameObject);
+                                        GameManager.Instance.returnReflectorToStock(gameObject);
 
-                                        GameManager.gameManagerInstance.resetReflectorColliders(); //If the reflector hits an invalid spot, we need to reset the colliders
+                                        GameManager.Instance.resetReflectorColliders(); //If the reflector hits an invalid spot, we need to reset the colliders
                                                                                                    //for any reflectors that are still in the scene before this object gets 
                                                                                                    //destroyed, else player cannot control the reflectors that are in the scene
                                                                                                    //since their Box Colliders have not been reenabled.
@@ -509,11 +510,11 @@ public class Raycast : MonoBehaviour
                                 {
                                     inGrid = false;
                                     //Remove Reflector from allReflectorsInScene List from GameManager before destroying it
-                                    GameManager.gameManagerInstance.removeReflector(gameObject);
+                                    GameManager.Instance.removeReflector(gameObject);
                                     //Check which Reflector it is and return it to the stock / return back to the pool
-                                    GameManager.gameManagerInstance.returnReflectorToStock(gameObject);
+                                    GameManager.Instance.returnReflectorToStock(gameObject);
 
-                                    GameManager.gameManagerInstance.resetReflectorColliders(); //If the reflector hits an invalid spot, we need to reset the colliders
+                                    GameManager.Instance.resetReflectorColliders(); //If the reflector hits an invalid spot, we need to reset the colliders
                                                                                                //for any reflectors that are still in the scene before this object gets 
                                                                                                //destroyed, else player cannot control the reflectors that are in the scene
                                                                                                //since their Box Colliders have not been reenabled.
@@ -533,10 +534,10 @@ public class Raycast : MonoBehaviour
                         timeUntilHold = 0.0f;
                         isHoldingDown = false;
 
-                        if (GameManager.gameManagerInstance.activationToggle_Reflector == true)
-                            GameManager.gameManagerInstance.resetReflectorColliders(); //Reactivates all reflector's 2D Colliders that are in the grids
+                        if (GameManager.Instance.activationToggle_Reflector == true)
+                            GameManager.Instance.resetReflectorColliders(); //Reactivates all reflector's 2D Colliders that are in the grids
 
-                        GameManager.gameManagerInstance.activationToggle_Grid = false; //Reset the bool for the next time the function, toggleGridColliders() is called
+                        GameManager.Instance.activationToggle_Grid = false; //Reset the bool for the next time the function, toggleGridColliders() is called
 
                     }
                 }
@@ -582,7 +583,7 @@ public class Raycast : MonoBehaviour
         }        
     }
 
-    public bool isHoldingDownAccessor
+    public bool IsHoldingDown
     {
         get
         {

@@ -19,7 +19,7 @@ public class ReflectorAnimation : MonoBehaviour
         buildAnimator = transform.Find("BuildAnimator").GetComponent<Animator>();
     }
 
-    public void playDeflectAnimation(float reflector_zRotation)
+    public void PlayDeflectAnimation(float reflector_zRotation)
     {
         storeReflectorFloatZ = reflector_zRotation;
 
