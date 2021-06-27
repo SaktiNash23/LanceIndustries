@@ -619,6 +619,7 @@ public class GameManager : MonoBehaviour
                 TimerSuccessText.text = "WIN";
                 beginCountDown = false; //Only when beginCountdown is false, we can reset the game by clicking on any of the starting points again
                 findAndReturnLasersToPool();
+                GameplayInputManager.Instance.EnableInput = true;
                 //Reset();
             }
             else if (allLasersHaveReached == true)
@@ -626,6 +627,7 @@ public class GameManager : MonoBehaviour
                 TimerSuccessText.text = "FAIL";
                 beginCountDown = false; //Only when beginCountdown is false, we can reset the game by clicking on any of the starting points again
                 findAndReturnLasersToPool();
+                GameplayInputManager.Instance.EnableInput = true;
                 //Reset();
             }
             else
@@ -640,6 +642,7 @@ public class GameManager : MonoBehaviour
             findAndReturnLasersToPool();
             beginCountDown = false; //Only when beginCountdown is false, we can reset the game by clicking on any of the starting points again
                                     //Reset();
+            GameplayInputManager.Instance.EnableInput = true;
         }
     }
 
@@ -658,15 +661,6 @@ public class GameManager : MonoBehaviour
         AllCorrectLasersHaveReached = false;
         allLasersHaveReached = false;
         beginCountDown = false;
-
-        /*
-        Debug.Log("Current Window Time : " + currentWindowTime);
-        Debug.Log("Num of Hit End Points : " + numOfHitEndPoints);
-        Debug.Log("Num of Success End Points : " + numOfSuccessEndPoints);
-        Debug.Log("All Correct Lasers have reached : " + allCorrectLasersHaveReached);
-        Debug.Log("All Lasers Have Reached : " + allLasersHaveReached);
-        Debug.Log("Begin Countdown : " + beginCountDown);
-        */
     }
 
     //If there are still lasers in the scene, game continues as usual

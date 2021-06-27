@@ -113,6 +113,7 @@ public class GameplayInputManager : MonoBehaviour
             {
                 if (hitReflector.Interactable)
                     hitReflector?.Rotate90();
+                hitReflector = null;
             }
         }
 #elif UNITY_IOS || UNITY_ANDROID
@@ -188,6 +189,7 @@ public class GameplayInputManager : MonoBehaviour
             {
                 if (hitReflector.Interactable)
                     hitReflector?.Rotate90();
+                hitReflector = null;
             }
         }
 #endif

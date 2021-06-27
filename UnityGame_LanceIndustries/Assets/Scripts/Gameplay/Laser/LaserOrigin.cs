@@ -56,6 +56,8 @@ public class LaserOrigin : MonoBehaviour
                 {
                     allStartingPoints[i].GetComponent<LaserOrigin>().ShootLaser();
                 }
+
+                GameplayInputManager.Instance.EnableInput = false;
             }
         }
     }
