@@ -25,17 +25,10 @@ public class ReflectorUIButton : MonoBehaviour
         #endregion
     }
 
-    //When the button is pressed / clicked on, the game check if the reflector of the specific type is in stock. Then it activates or deactivates
-    //the reflector color panel based on the result
     public void OnPointerUp(PointerEventData pointerEventData)
     {
-        #region TEST CODE
-
-        // GameManager.Instance.updateReflectorColorStocks(buttonTypeTag);
-        GameManager.Instance.UpdateReflectorStockUI(reflectorType);
+        GameplayUIManager.Instance.RefreshReflectorStockUIs(reflectorType);
         ActivateReflectorColorUIPanel();
-
-        #endregion
     }
 
     public void ActivateReflectorColorUIPanel()

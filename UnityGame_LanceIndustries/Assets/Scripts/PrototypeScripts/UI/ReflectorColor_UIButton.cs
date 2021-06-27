@@ -67,20 +67,20 @@ public class ReflectorColor_UIButton : MonoBehaviour
                         switch (ReflectorColor)
                         {
                             case LASER_COLOR.WHITE:
-                                reflector.onPush += () => GameManager.Instance.BasicWhiteReflectorStock++;
-                                GameManager.Instance.BasicWhiteReflectorStock--;
+                                reflector.onPush += () => GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.BASIC, LASER_COLOR.WHITE, 1);
+                                GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.BASIC, LASER_COLOR.WHITE, -1);
                                 break;
                             case LASER_COLOR.RED:
-                                reflector.onPush += () => GameManager.Instance.BasicRedReflectorStock++;
-                                GameManager.Instance.BasicRedReflectorStock--;
+                                reflector.onPush += () => GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.BASIC, LASER_COLOR.RED, 1);
+                                GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.BASIC, LASER_COLOR.RED, -1);
                                 break;
                             case LASER_COLOR.BLUE:
-                                reflector.onPush += () => GameManager.Instance.BasicBlueReflectorStock++;
-                                GameManager.Instance.BasicBlueReflectorStock--;
+                                reflector.onPush += () => GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.BASIC, LASER_COLOR.BLUE, 1);
+                                GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.BASIC, LASER_COLOR.BLUE, -1);
                                 break;
                             case LASER_COLOR.YELLOW:
-                                reflector.onPush += () => GameManager.Instance.BasicYellowReflectorStock++;
-                                GameManager.Instance.BasicYellowReflectorStock--;
+                                reflector.onPush += () => GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.BASIC, LASER_COLOR.YELLOW, 1);
+                                GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.BASIC, LASER_COLOR.YELLOW, -1);
                                 break;
                         }
                         break;
@@ -91,20 +91,20 @@ public class ReflectorColor_UIButton : MonoBehaviour
                         switch (ReflectorColor)
                         {
                             case LASER_COLOR.WHITE:
-                                reflector.onPush += () => GameManager.Instance.TranslucentWhiteReflectorStock++;
-                                GameManager.Instance.TranslucentWhiteReflectorStock--;
+                                reflector.onPush += () => GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.TRANSLUCENT, LASER_COLOR.WHITE, 1);
+                                GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.TRANSLUCENT, LASER_COLOR.WHITE, -1);
                                 break;
                             case LASER_COLOR.RED:
-                                reflector.onPush += () => GameManager.Instance.TranslucentRedReflectorStock++;
-                                GameManager.Instance.TranslucentRedReflectorStock--;
+                                reflector.onPush += () => GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.TRANSLUCENT, LASER_COLOR.RED, 1);
+                                GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.TRANSLUCENT, LASER_COLOR.RED, -1);
                                 break;
                             case LASER_COLOR.BLUE:
-                                reflector.onPush += () => GameManager.Instance.TranslucentBlueReflectorStock++;
-                                GameManager.Instance.TranslucentBlueReflectorStock--;
+                                reflector.onPush += () => GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.TRANSLUCENT, LASER_COLOR.BLUE, 1);
+                                GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.TRANSLUCENT, LASER_COLOR.BLUE, -1);
                                 break;
                             case LASER_COLOR.YELLOW:
-                                reflector.onPush += () => GameManager.Instance.TranslucentYellowReflectorStock++;
-                                GameManager.Instance.TranslucentYellowReflectorStock--;
+                                reflector.onPush += () => GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.TRANSLUCENT, LASER_COLOR.YELLOW, 1);
+                                GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.TRANSLUCENT, LASER_COLOR.YELLOW, -1);
                                 break;
                         }
                         break;
@@ -115,20 +115,20 @@ public class ReflectorColor_UIButton : MonoBehaviour
                         switch (ReflectorColor)
                         {
                             case LASER_COLOR.WHITE:
-                                reflector.onPush += () => GameManager.Instance.DoubleWayWhiteReflectorStock++;
-                                GameManager.Instance.DoubleWayWhiteReflectorStock--;
+                                reflector.onPush += () => GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.DOUBLE_WAY, LASER_COLOR.WHITE, 1);
+                                GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.DOUBLE_WAY, LASER_COLOR.WHITE, -1);
                                 break;
                             case LASER_COLOR.RED:
-                                reflector.onPush += () => GameManager.Instance.DoubleWayRedReflectorStock++;
-                                GameManager.Instance.DoubleWayRedReflectorStock--;
+                                reflector.onPush += () => GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.DOUBLE_WAY, LASER_COLOR.RED, 1);
+                                GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.DOUBLE_WAY, LASER_COLOR.RED, -1);
                                 break;
                             case LASER_COLOR.BLUE:
-                                reflector.onPush += () => GameManager.Instance.DoubleWayBlueReflectorStock++;
-                                GameManager.Instance.DoubleWayBlueReflectorStock--;
+                                reflector.onPush += () => GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.DOUBLE_WAY, LASER_COLOR.BLUE, 1);
+                                GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.DOUBLE_WAY, LASER_COLOR.BLUE, -1);
                                 break;
                             case LASER_COLOR.YELLOW:
-                                reflector.onPush += () => GameManager.Instance.DoubleWayYellowReflectorStock++;
-                                GameManager.Instance.DoubleWayYellowReflectorStock--;
+                                reflector.onPush += () => GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.DOUBLE_WAY, LASER_COLOR.YELLOW, 1);
+                                GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.DOUBLE_WAY, LASER_COLOR.YELLOW, -1);
                                 break;
                         }
                         break;
@@ -139,20 +139,20 @@ public class ReflectorColor_UIButton : MonoBehaviour
                         switch (ReflectorColor)
                         {
                             case LASER_COLOR.WHITE:
-                                reflector.onPush += () => GameManager.Instance.ThreeWayWhiteReflectorStock++;
-                                GameManager.Instance.ThreeWayWhiteReflectorStock--;
+                                reflector.onPush += () => GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.THREE_WAY, LASER_COLOR.WHITE, 1);
+                                GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.THREE_WAY, LASER_COLOR.WHITE, -1);
                                 break;
                             case LASER_COLOR.RED:
-                                reflector.onPush += () => GameManager.Instance.ThreeWayRedReflectorStock++;
-                                GameManager.Instance.ThreeWayRedReflectorStock--;
+                                reflector.onPush += () => GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.THREE_WAY, LASER_COLOR.RED, 1);
+                                GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.THREE_WAY, LASER_COLOR.RED, -1);
                                 break;
                             case LASER_COLOR.BLUE:
-                                reflector.onPush += () => GameManager.Instance.ThreeWayBlueReflectorStock++;
-                                GameManager.Instance.ThreeWayBlueReflectorStock--;
+                                reflector.onPush += () => GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.THREE_WAY, LASER_COLOR.BLUE, 1);
+                                GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.THREE_WAY, LASER_COLOR.BLUE, -1);
                                 break;
                             case LASER_COLOR.YELLOW:
-                                reflector.onPush += () => GameManager.Instance.ThreeWayYellowReflectorStock++;
-                                GameManager.Instance.ThreeWayYellowReflectorStock--;
+                                reflector.onPush += () => GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.THREE_WAY, LASER_COLOR.YELLOW, 1);
+                                GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.THREE_WAY, LASER_COLOR.YELLOW, -1);
                                 break;
                         }
                         break;
@@ -163,15 +163,9 @@ public class ReflectorColor_UIButton : MonoBehaviour
                 GameManager.Instance.AllReflectorsInScene.Add(reflector);
                 GameplayInputManager.Instance.SelectReflector(reflector);
 
-                // GameplayInputManager.Instance.PendingPointerUp = true;
                 GameManager.Instance.ReflectorColorPanel.EnablePanel(false);
             }
         }
 #endif
-    }
-
-    public void OnPointerUp(PointerEventData pointerEventData)
-    {
-
     }
 }

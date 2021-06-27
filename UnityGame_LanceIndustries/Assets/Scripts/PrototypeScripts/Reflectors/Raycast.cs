@@ -42,7 +42,7 @@ public class Raycast : MonoBehaviour
 
     void OnMouseUpAsButton()
     {
-        if (GameManager.Instance.isGamePaused == false)
+        if (GameManager.Instance.IsGamePaused == false)
         {
             //#if UNITY_EDITOR
 
@@ -189,7 +189,7 @@ public class Raycast : MonoBehaviour
 
     void OnMouseOver()
     {
-        if (GameManager.Instance.isGamePaused == false)
+        if (GameManager.Instance.IsGamePaused == false)
         {
 
             #if UNITY_ANDROID
@@ -244,7 +244,7 @@ public class Raycast : MonoBehaviour
         //Debug.Log("Reflector Attached : " + reflectorAttached);
         #endif
 
-        if (GameManager.Instance.isGamePaused == false)
+        if (GameManager.Instance.IsGamePaused == false)
         {
             #if UNITY_EDITOR
 

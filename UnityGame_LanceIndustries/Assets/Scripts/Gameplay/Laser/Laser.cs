@@ -61,7 +61,7 @@ public class Laser : PoolObject
 
     void FixedUpdate()
     {
-        if (GameManager.Instance.isGamePaused == false)
+        if (GameManager.Instance.IsGamePaused == false)
         {
             RaycastHit2D hit = Physics2D.Raycast(transform.position, directionVector, (directionVector.normalized * projectileSpeed * Time.fixedDeltaTime).magnitude, ~layerMaskStruct);
             if (hit)

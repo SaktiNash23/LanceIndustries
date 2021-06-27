@@ -37,25 +37,7 @@ public class GameManager : MonoBehaviour
     public bool activationToggle_Reflector = false;
 
     [BoxGroup("TextMeshPro UI")]
-    public TextMeshProUGUI ReflectorStock_Basic_Text;
-    [BoxGroup("TextMeshPro UI")]
-    public TextMeshProUGUI ReflectorStock_Translucent_Text;
-    [BoxGroup("TextMeshPro UI")]
-    public TextMeshProUGUI ReflectorStock_DoubleWay_Text;
-    [BoxGroup("TextMeshPro UI")]
-    public TextMeshProUGUI ReflectorStock_Split_Text;
-    [BoxGroup("TextMeshPro UI")]
-    public TextMeshProUGUI ReflectorStock_ThreeWay_Text;
-    [BoxGroup("TextMeshPro UI")]
     public TextMeshProUGUI TimerSuccessText;
-    [BoxGroup("TextMeshPro UI")]
-    public TextMeshProUGUI ReflectorStock_White_Text;
-    [BoxGroup("TextMeshPro UI")]
-    public TextMeshProUGUI ReflectorStock_Red_Text;
-    [BoxGroup("TextMeshPro UI")]
-    public TextMeshProUGUI ReflectorStock_Blue_Text;
-    [BoxGroup("TextMeshPro UI")]
-    public TextMeshProUGUI ReflectorStock_Yellow_Text;
 
     [BoxGroup("Reflector Sprites")]
     public Sprite reflectorSprite_Basic_White;
@@ -150,37 +132,37 @@ public class GameManager : MonoBehaviour
 
     #region Reflector Stock Variables
 
-    public int BasicWhiteReflectorStock { get; set; }
-    public int BasicRedReflectorStock { get; set; }
-    public int BasicBlueReflectorStock { get; set; }
-    public int BasicYellowReflectorStock { get; set; }
+    public int BasicWhiteReflectorStock { get; private set; }
+    public int BasicRedReflectorStock { get; private set; }
+    public int BasicBlueReflectorStock { get; private set; }
+    public int BasicYellowReflectorStock { get; private set; }
 
-    public int TranslucentWhiteReflectorStock { get; set; }
-    public int TranslucentRedReflectorStock { get; set; }
-    public int TranslucentBlueReflectorStock { get; set; }
-    public int TranslucentYellowReflectorStock { get; set; }
+    public int TranslucentWhiteReflectorStock { get; private set; }
+    public int TranslucentRedReflectorStock { get; private set; }
+    public int TranslucentBlueReflectorStock { get; private set; }
+    public int TranslucentYellowReflectorStock { get; private set; }
 
-    public int DoubleWayWhiteReflectorStock { get; set; }
-    public int DoubleWayRedReflectorStock { get; set; }
-    public int DoubleWayBlueReflectorStock { get; set; }
-    public int DoubleWayYellowReflectorStock { get; set; }
+    public int DoubleWayWhiteReflectorStock { get; private set; }
+    public int DoubleWayRedReflectorStock { get; private set; }
+    public int DoubleWayBlueReflectorStock { get; private set; }
+    public int DoubleWayYellowReflectorStock { get; private set; }
 
-    public int SplitWhiteReflectorStock { get; set; }
-    public int SplitRedReflectorStock { get; set; }
-    public int SplitBlueReflectorStock { get; set; }
-    public int SplitYellowReflectorStock { get; set; }
+    public int SplitWhiteReflectorStock { get; private set; }
+    public int SplitRedReflectorStock { get; private set; }
+    public int SplitBlueReflectorStock { get; private set; }
+    public int SplitYellowReflectorStock { get; private set; }
 
-    public int ThreeWayWhiteReflectorStock { get; set; }
-    public int ThreeWayRedReflectorStock { get; set; }
-    public int ThreeWayBlueReflectorStock { get; set; }
-    public int ThreeWayYellowReflectorStock { get; set; }
+    public int ThreeWayWhiteReflectorStock { get; private set; }
+    public int ThreeWayRedReflectorStock { get; private set; }
+    public int ThreeWayBlueReflectorStock { get; private set; }
+    public int ThreeWayYellowReflectorStock { get; private set; }
 
     #endregion
 
     private Color tempColor;
 
     //Bool to check if game is paused. If paused, gameplay updates won't run
-    public bool isGamePaused;
+    public bool IsGamePaused { get; set; }
 
     #region MonoBehaviour
     void Awake()
@@ -198,7 +180,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         //If the game is paused, this stops the checks for touch or clicks to close reflector panels, else it runs the checks normally
-        if (isGamePaused == false)
+        if (IsGamePaused == false)
         {
             if (dissolveFade < 1.0f)
             {
@@ -249,110 +231,9 @@ public class GameManager : MonoBehaviour
             {
                 checkTimingWindowForLaser();
             }
-
-            if (Input.touchCount == 1)
-            {
-                checkForTouchToCloseReflectorPanel();
-            }
-
-#if UNITY_EDITOR
-            if (Input.GetMouseButtonDown(0))
-            {
-                checkForClickToCloseReflectorPanel();
-            }
-#endif
-
         }
     }
     #endregion
-
-    //This function checks for a touch when the reflector color panel is active. If a touch is detected on the grid or empty space in the level
-    //, while the reflector color panel is active, the reflector color panel will be deactivated
-    private void checkForTouchToCloseReflectorPanel()
-    {
-        // Touch touch = Input.GetTouch(0);
-
-        // if (!EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
-        // {
-        //     if (isReflectorColorPanelActive == true)
-        //     {
-        //         Debug.DrawRay(touch.position, -transform.up, Color.red, 3.0f);
-
-        //         switch (touch.phase)
-        //         {
-        //             case TouchPhase.Began:
-        //                 RaycastHit2D hit = Physics2D.Raycast(touch.position, -transform.up, 0.4f);
-
-        //                 if (hit)
-        //                 {
-        //                     if (hit.collider.tag == "Grid")
-        //                     {
-        //                         Debug.LogWarning("Hit Grid while Reflector Color panel is active");
-        //                         reflectorColorsPanel.GetComponent<Animator>().SetBool("ReflectorColorPanelDisplayed", false);
-
-        //                         //Below 2 lines will be executed using an Animation Event
-        //                         //reflectorColorsPanel.SetActive(false);
-        //                         //isReflectorColorPanelActive = false;
-        //                     }
-        //                     else if (hit.collider.tag == "UI")
-        //                     {
-        //                         Debug.LogWarning("Hit something, but don't know what it is");
-        //                     }
-        //                 }
-        //                 else
-        //                 {
-        //                     Debug.LogWarning("Hit nothing. So still close Reflectors Color Panel");
-        //                     reflectorColorsPanel.GetComponent<Animator>().SetBool("ReflectorColorPanelDisplayed", false);
-
-        //                     //Below 2 lines will be executed using an Animation Event
-        //                     //reflectorColorsPanel.SetActive(false);
-        //                     //isReflectorColorPanelActive = false;
-        //                 }
-
-        //                 break;
-        //         }
-        //     }
-        // }
-    }
-
-#if UNITY_EDITOR
-    private void checkForClickToCloseReflectorPanel()
-    {
-        if (!EventSystem.current.IsPointerOverGameObject())
-        {
-            if (isReflectorColorPanelActive == true)
-            {
-                RaycastHit2D hit = Physics2D.Raycast(Input.mousePosition, -transform.up, 0.4f);
-
-                if (hit)
-                {
-                    if (hit.collider.tag == "Grid")
-                    {
-                        Debug.LogWarning("Hit Grid while Reflector Color panel is active");
-                        reflectorColorPanel.GetComponent<Animator>().SetBool("ReflectorColorPanelDisplayed", false);
-
-                        //Below 2 lines will be executed using an Animation Event
-                        //reflectorColorsPanel.SetActive(false);
-                        //isReflectorColorPanelActive = false;
-                    }
-                    else if (hit.collider.tag == "UI")
-                    {
-                        Debug.LogWarning("Hit something, but don't know what it is");
-                    }
-                }
-                else
-                {
-                    Debug.LogWarning("Hit nothing. So still close Reflectors Color Panel");
-                    reflectorColorPanel.GetComponent<Animator>().SetBool("ReflectorColorPanelDisplayed", false);
-
-                    //Below 2 lines will be executed using an Animation Event
-                    //reflectorColorsPanel.SetActive(false);
-                    //isReflectorColorPanelActive = false;
-                }
-            }
-        }
-    }
-#endif
 
     //Toggles the active state of the grid's 2D Colliders. If a grid is currently occupied by a reflector, the 2D Collider is deactivated.
     //If the grid is currently unoccupied, the 2D Collider is activated
@@ -700,33 +581,77 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void UpdateReflectorStockUI(REFLECTOR_TYPE reflectorType)
+    public void UpdateReflectorStock(REFLECTOR_TYPE reflectorType, LASER_COLOR reflectorColor, int amount)
     {
         switch (reflectorType)
         {
             case REFLECTOR_TYPE.BASIC:
-                ReflectorStock_White_Text.text = BasicWhiteReflectorStock.ToString();
-                ReflectorStock_Red_Text.text = BasicRedReflectorStock.ToString();
-                ReflectorStock_Blue_Text.text = BasicBlueReflectorStock.ToString();
-                ReflectorStock_Yellow_Text.text = BasicYellowReflectorStock.ToString();
+                switch (reflectorColor)
+                {
+                    case LASER_COLOR.WHITE:
+                        BasicWhiteReflectorStock += amount;
+                        break;
+                    case LASER_COLOR.RED:
+                        BasicRedReflectorStock += amount;
+                        break;
+                    case LASER_COLOR.BLUE:
+                        BasicBlueReflectorStock += amount;
+                        break;
+                    case LASER_COLOR.YELLOW:
+                        BasicYellowReflectorStock += amount;
+                        break;
+                }
                 break;
             case REFLECTOR_TYPE.TRANSLUCENT:
-                ReflectorStock_White_Text.text = TranslucentWhiteReflectorStock.ToString();
-                ReflectorStock_Red_Text.text = TranslucentRedReflectorStock.ToString();
-                ReflectorStock_Blue_Text.text = TranslucentBlueReflectorStock.ToString();
-                ReflectorStock_Yellow_Text.text = TranslucentYellowReflectorStock.ToString();
+                switch (reflectorColor)
+                {
+                    case LASER_COLOR.WHITE:
+                        TranslucentWhiteReflectorStock += amount;
+                        break;
+                    case LASER_COLOR.RED:
+                        TranslucentRedReflectorStock += amount;
+                        break;
+                    case LASER_COLOR.BLUE:
+                        TranslucentBlueReflectorStock += amount;
+                        break;
+                    case LASER_COLOR.YELLOW:
+                        TranslucentYellowReflectorStock += amount;
+                        break;
+                }
                 break;
             case REFLECTOR_TYPE.DOUBLE_WAY:
-                ReflectorStock_White_Text.text = DoubleWayWhiteReflectorStock.ToString();
-                ReflectorStock_Red_Text.text = DoubleWayRedReflectorStock.ToString();
-                ReflectorStock_Blue_Text.text = DoubleWayBlueReflectorStock.ToString();
-                ReflectorStock_Yellow_Text.text = DoubleWayYellowReflectorStock.ToString();
+                switch (reflectorColor)
+                {
+                    case LASER_COLOR.WHITE:
+                        DoubleWayWhiteReflectorStock += amount;
+                        break;
+                    case LASER_COLOR.RED:
+                        DoubleWayRedReflectorStock += amount;
+                        break;
+                    case LASER_COLOR.BLUE:
+                        DoubleWayBlueReflectorStock += amount;
+                        break;
+                    case LASER_COLOR.YELLOW:
+                        DoubleWayYellowReflectorStock += amount;
+                        break;
+                }
                 break;
             case REFLECTOR_TYPE.THREE_WAY:
-                ReflectorStock_White_Text.text = ThreeWayWhiteReflectorStock.ToString();
-                ReflectorStock_Red_Text.text = ThreeWayRedReflectorStock.ToString();
-                ReflectorStock_Blue_Text.text = ThreeWayBlueReflectorStock.ToString();
-                ReflectorStock_Yellow_Text.text = ThreeWayYellowReflectorStock.ToString();
+                switch (reflectorColor)
+                {
+                    case LASER_COLOR.WHITE:
+                        ThreeWayWhiteReflectorStock += amount;
+                        break;
+                    case LASER_COLOR.RED:
+                        ThreeWayRedReflectorStock += amount;
+                        break;
+                    case LASER_COLOR.BLUE:
+                        ThreeWayBlueReflectorStock += amount;
+                        break;
+                    case LASER_COLOR.YELLOW:
+                        ThreeWayYellowReflectorStock += amount;
+                        break;
+                }
                 break;
         }
     }
@@ -804,33 +729,24 @@ public class GameManager : MonoBehaviour
     {
         #region Initialize Grids
         Proto_Grid[] gridOutlines = FindObjectsOfType<Proto_Grid>();
-
         for (int j = 0; j < gridOutlines.Length; ++j)
         {
             this.gridOutlines.Add(gridOutlines[j]);
         }
-
         ResetGridAlpha();
         #endregion
 
-        // reflectorColorPanel.gameObject.SetActive(false);
-
         #region Initialize End Points
-
         allEndPoints = GameObject.FindGameObjectsWithTag("EndPoint");
         numOfEndPoints = allEndPoints.Length;
-
         #endregion
 
         #region Initialize Max Window Time
-
         currentWindowTime = maxWindowTime = mapDataHolder.timeLimit;
         TimerSuccessText.text = maxWindowTime.ToString("F2");
-
         #endregion
 
         #region Initialize Reflector Amount
-
         BasicWhiteReflectorStock = mapDataHolder.basicReflectorAmount;
         BasicRedReflectorStock = mapDataHolder.redBasicReflectorAmount;
         BasicYellowReflectorStock = mapDataHolder.yellowBasicReflectorAmount;
@@ -851,7 +767,6 @@ public class GameManager : MonoBehaviour
         ThreeWayRedReflectorStock = mapDataHolder.redThreeWayReflectorAmount;
         ThreeWayYellowReflectorStock = mapDataHolder.yellowThreeWayReflectorAmount;
         ThreeWayBlueReflectorStock = mapDataHolder.blueThreeWayReflectorAmount;
-
         #endregion
     }
 }

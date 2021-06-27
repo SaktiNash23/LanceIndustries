@@ -33,17 +33,18 @@ public class LaserOrigin : MonoBehaviour
 
     private GameObject[] allActiveReflectors;
 
-    #region MonoBehaviour
     private void OnMouseOver()
     {
-        if (!GameManager.Instance.isGamePaused)
+#if UNITY_EDITOR
+        if (!GameManager.Instance.IsGamePaused)
             if (Input.GetMouseButtonDown(1))
-                ShootLaser();
+                Fire();
+#endif
     }
 
-    private void OnMouseUp()
+    private void OnMouseDown()
     {
-        if (GameManager.Instance.isGamePaused == false && !GameManager.Instance.AllCorrectLasersHaveReached)
+        if (GameManager.Instance.IsGamePaused == false && !GameManager.Instance.AllCorrectLasersHaveReached)
         {
             if (GameManager.Instance.beginCountDown == false)
             {
@@ -54,16 +55,14 @@ public class LaserOrigin : MonoBehaviour
 
                 for (int i = 0; i < allStartingPoints.Length; ++i)
                 {
-                    allStartingPoints[i].GetComponent<LaserOrigin>().ShootLaser();
+                    allStartingPoints[i].GetComponent<LaserOrigin>().Fire();
                 }
 
                 GameplayInputManager.Instance.EnableInput = false;
             }
         }
     }
-    #endregion
 
-    #region Laser Origin
     public void Initialization()
     {
         switch (LaserColor)
@@ -86,46 +85,10 @@ public class LaserOrigin : MonoBehaviour
         }
     }
 
-    [Button("SHOOT")]
-    public void ShootLaser()
+    protected void Fire()
     {
-        Quaternion laserRotation = barrel.rotation;
-
-        Laser laser = ObjectPooler.Instance.PopOrCreate(laserPrefab, barrel.position, laserRotation);
-
-        // laser.GetComponent<Proto_Projectile>().setLaserDirectionEnum(transform.rotation.eulerAngles.z);
-
-        switch (LaserColor.ToString())
-        {
-            case "RED":
-                laser.GetComponent<Laser>().LaserColor = LASER_COLOR.RED;
-                break;
-
-            case "BLUE":
-                laser.GetComponent<Laser>().LaserColor = LASER_COLOR.BLUE;
-                break;
-
-            case "YELLOW":
-                laser.GetComponent<Laser>().LaserColor = LASER_COLOR.YELLOW;
-                break;
-
-            case "WHITE":
-                laser.GetComponent<Laser>().LaserColor = LASER_COLOR.WHITE;
-                break;
-        }
-
+        Laser laser = ObjectPooler.Instance.PopOrCreate(laserPrefab, barrel.position, barrel.rotation);
+        laser.LaserColor = laserColor;
         laser.RefreshLaserMaterialColor();
     }
-
-    private void activateAnimatorComponentsOnReflectors()
-    {
-        allActiveReflectors = System.Array.Empty<GameObject>();
-        allActiveReflectors = GameObject.FindGameObjectsWithTag("ReflectorGM");
-
-        foreach (GameObject activeReflector in allActiveReflectors)
-        {
-            activeReflector.GetComponent<Animator>().enabled = true;
-        }
-    }
-    #endregion
 }
