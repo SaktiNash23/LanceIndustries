@@ -4,19 +4,20 @@ using UnityEngine;
 
 public class ReflectorColorPanel : MonoBehaviour
 {
-    public Animator ReflectorColorPanelAnimator { get; private set; }
+    [SerializeField] Animator animator;
 
-    void Awake()
+    int panelDisplayedHash;
+
+    public bool Enabled { get; private set; }
+
+    private void Start()
     {
-        ReflectorColorPanelAnimator = GetComponent<Animator>();
+        panelDisplayedHash = Animator.StringToHash("Enabled");
     }
 
-    //This function is called in the ReflectorColorPanel_Popdown animation as an Animation Event, cause we want the popdown animation to play until
-    //finished, then only disable the reflector color panel
-    public void disableReflectorColorPanel()
+    public void EnablePanel(bool enable)
     {
-        GameManager.Instance.isReflectorColorPanelActive = false;
-        gameObject.SetActive(false);
+        animator.SetBool(panelDisplayedHash, enable);
+        Enabled = enable;
     }
-
 }

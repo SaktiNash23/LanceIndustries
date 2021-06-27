@@ -163,87 +163,87 @@ SpriteAtlas:
   - asset_sprite_receiver_white_off
   - asset_reflector_double_blue
   - asset_reflector_3way_white
-  - build_00010
+  - asset_sprite_build_hammer_10
   - sprite_spark_19
-  - build_00006
+  - asset_sprite_build_hammer_06
   - asset_sprite_receiver_blue_off
-  - build_00001
-  - asset_blaster_white
+  - asset_sprite_build_hammer_01
+  - asset_sprite_laser_origin_white
   - laser
   - sprite_spark_9
   - sprite_spark_3
-  - build_00000
+  - asset_sprite_build_hammer_00
   - asset_reflector_translucent_blue
-  - build_00013
+  - asset_sprite_build_hammer_13
   - asset_reflector_translucent_yellow
   - sprite_spark_4
-  - build_00005
+  - asset_sprite_build_hammer_05
   - BG
-  - build_00002
-  - asset_wall_blue
+  - asset_sprite_build_hammer_02
+  - asset_sprite_wall_blue
   - asset_reflector_translucent_red
   - asset_reflector_3way_blue
   - sprite_spark_17
-  - asset_wall_white
+  - asset_sprite_wall_white
   - asset_reflector_basic_yellow
   - sprite_spark_11
   - asset_reflector_basic_red
   - GridOutline
-  - build_00018
+  - asset_sprite_build_hammer_18
   - sprite_spark_5
   - asset_reflector_translucent_white
   - asset_reflector_3way_red
   - asset_reflector_basic_blue
-  - build_00019
+  - asset_sprite_build_hammer_19
   - sprite_spark_1
-  - build_00020
+  - asset_sprite_build_hammer_20
   - sprite_spark_16
-  - build_00023
+  - asset_sprite_build_hammer_23
   - sprite_spark_8
   - asset_sprite_receiver_white_on
   - asset_sprite_receiver_yellow_on
-  - build_00021
-  - asset_wall_basic
-  - build_00016
+  - asset_sprite_build_hammer_21
+  - asset_sprite_wall_basic
+  - asset_sprite_build_hammer_16
   - asset_reflector_double_yellow
   - sprite_spark_7
   - sprite_spark_0
-  - asset_wall_yellow
+  - asset_sprite_wall_yellow
   - sprite_spark_13
-  - build_00012
+  - asset_sprite_build_hammer_12
   - asset_sprite_receiver_red_on
-  - build_00022
+  - asset_sprite_build_hammer_22
   - sprite_spark_15
   - asset_laser_white
-  - asset_blaster_blue
-  - asset_wall_portal2 A
-  - build_00024
-  - build_00003
+  - asset_sprite_laser_origin_blue
+  - asset_sprite_portal_A
+  - asset_sprite_build_hammer_24
+  - asset_sprite_build_hammer_03
   - sprite_spark_10
   - asset_laser_yellow
-  - build_00027
+  - asset_sprite_build_hammer_27
   - sprite_spark_12
   - asset_sprite_receiver_yellow_off
   - asset_sprite_receiver_blue_on
-  - asset_wall_red
-  - build_00015
-  - build_00017
-  - build_00004
-  - build_00025
-  - asset_wall_portal2 B
-  - build_00011
-  - build_00026
+  - asset_sprite_wall_red
+  - asset_sprite_build_hammer_15
+  - asset_sprite_build_hammer_17
+  - asset_sprite_build_hammer_04
+  - asset_sprite_build_hammer_25
+  - asset_sprite_portal_B
+  - asset_sprite_build_hammer_11
+  - asset_sprite_build_hammer_26
   - asset_laser_red
-  - build_00008
-  - build_00007
+  - asset_sprite_build_hammer_08
+  - asset_sprite_build_hammer_07
   - asset_reflector_double_red
   - asset_reflector_double_white
   - sprite_spark_18
-  - build_00014
+  - asset_sprite_build_hammer_14
   - grid
-  - asset_blaster_yellow
+  - asset_sprite_laser_origin_yellow
   - asset_laser_blue
-  - asset_blaster_red
-  - build_00009
+  - asset_sprite_laser_origin_red
+  - asset_sprite_build_hammer_09
   m_Tag: SpriteAtlas
   m_IsVariant: 0

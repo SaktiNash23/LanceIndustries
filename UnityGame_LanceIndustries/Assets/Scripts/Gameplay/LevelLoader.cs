@@ -143,12 +143,12 @@ public class LevelLoader : MonoBehaviour
                 case IN_SCENE_OBJECT_TYPES.PORTAL_1ST_SET_HORIZONTAL:
                 case IN_SCENE_OBJECT_TYPES.PORTAL_1ST_SET_VERTICAL:
                     Teleporter teleporter1stSet = Instantiate(teleporterSetAPrefab, transformBorders.GetChild(inSceneObjData.mapGridIndex).GetComponent<MapGridGameplay>().GetBorderTransform(inSceneObjData.borderDir));
-                    teleporter1stSet.SetRotation(inSceneObjData.borderDir);
+                    teleporter1stSet.Initialization(inSceneObjData.borderDir, 1);
                     break;
                 case IN_SCENE_OBJECT_TYPES.PORTAL_2ND_SET_HORIZONTAL:
                 case IN_SCENE_OBJECT_TYPES.PORTAL_2ND_SET_VERTICAL:
                     Teleporter teleporter2ndSet = Instantiate(teleporterSetBPrefab, transformBorders.GetChild(inSceneObjData.mapGridIndex).GetComponent<MapGridGameplay>().GetBorderTransform(inSceneObjData.borderDir));
-                    teleporter2ndSet.SetRotation(inSceneObjData.borderDir);
+                    teleporter2ndSet.Initialization(inSceneObjData.borderDir, 2);
                     break;
             }
         }
@@ -234,12 +234,12 @@ public class LevelLoader : MonoBehaviour
                 case IN_SCENE_OBJECT_TYPES.PORTAL_1ST_SET_HORIZONTAL:
                 case IN_SCENE_OBJECT_TYPES.PORTAL_1ST_SET_VERTICAL:
                     Teleporter teleporter1stSet = Instantiate(teleporterSetAPrefab, transformBorders.GetChild(inSceneObjData.mapGridIndex).GetComponent<MapGridGameplay>().GetBorderTransform(inSceneObjData.borderDir));
-                    teleporter1stSet.SetRotation(inSceneObjData.borderDir);
+                    teleporter1stSet.Initialization(inSceneObjData.borderDir, 1);
                     break;
                 case IN_SCENE_OBJECT_TYPES.PORTAL_2ND_SET_HORIZONTAL:
                 case IN_SCENE_OBJECT_TYPES.PORTAL_2ND_SET_VERTICAL:
                     Teleporter teleporter2ndSet = Instantiate(teleporterSetBPrefab, transformBorders.GetChild(inSceneObjData.mapGridIndex).GetComponent<MapGridGameplay>().GetBorderTransform(inSceneObjData.borderDir));
-                    teleporter2ndSet.SetRotation(inSceneObjData.borderDir);
+                    teleporter2ndSet.Initialization(inSceneObjData.borderDir, 2);
                     break;
             }
         }
@@ -324,12 +324,12 @@ public class LevelLoader : MonoBehaviour
                 case IN_SCENE_OBJECT_TYPES.PORTAL_1ST_SET_HORIZONTAL:
                 case IN_SCENE_OBJECT_TYPES.PORTAL_1ST_SET_VERTICAL:
                     Teleporter teleporter1stSet = Instantiate(teleporterSetAPrefab, transformBorders.GetChild(inSceneObjData.mapGridIndex).GetComponent<MapGridGameplay>().GetBorderTransform(inSceneObjData.borderDir));
-                    teleporter1stSet.SetRotation(inSceneObjData.borderDir);
+                    teleporter1stSet.Initialization(inSceneObjData.borderDir, 1);
                     break;
                 case IN_SCENE_OBJECT_TYPES.PORTAL_2ND_SET_HORIZONTAL:
                 case IN_SCENE_OBJECT_TYPES.PORTAL_2ND_SET_VERTICAL:
                     Teleporter teleporter2ndSet = Instantiate(teleporterSetBPrefab, transformBorders.GetChild(inSceneObjData.mapGridIndex).GetComponent<MapGridGameplay>().GetBorderTransform(inSceneObjData.borderDir));
-                    teleporter2ndSet.SetRotation(inSceneObjData.borderDir);
+                    teleporter2ndSet.Initialization(inSceneObjData.borderDir, 2);
                     break;
             }
         }

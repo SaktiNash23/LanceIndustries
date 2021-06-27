@@ -50,16 +50,14 @@ public class ReflectorThreeWay : Reflector
 
         ValidReflection();
         SpawnSpark(hit.point, normal.rotation);
+        Debug.Log("HIT POINT: " + hit.point);
 
         spawnedLaser.LaserColor = reflectorColor;
         spawnedLaser.RefreshLaserMaterialColor();
-        StartCoroutine(spawnedLaser.SetReflectorHitFalse(0.02f));
         spawnedLaser2.LaserColor = reflectorColor;
         spawnedLaser2.RefreshLaserMaterialColor();
-        StartCoroutine(spawnedLaser2.SetReflectorHitFalse(0.02f));
         spawnedLaser3.LaserColor = reflectorColor;
         spawnedLaser3.RefreshLaserMaterialColor();
-        StartCoroutine(spawnedLaser3.SetReflectorHitFalse(0.02f));
 
         laser.Push();
     }

@@ -16,12 +16,9 @@ public class ReflectorDoubleWay : Reflector
         Laser spawnedLaser = ObjectPooler.Instance.PopOrCreate(laserPrefab, laserBarrel.position, laserBarrel.rotation);
         spawnedLaser.LaserColor = reflectorColor;
         spawnedLaser.RefreshLaserMaterialColor();
-        StartCoroutine(spawnedLaser.SetReflectorHitFalse(0.02f));
         Laser spawnedLaser2 = ObjectPooler.Instance.PopOrCreate(laserPrefab, laserBarrel2.position, laserBarrel2.rotation);
         spawnedLaser2.LaserColor = reflectorColor;
         spawnedLaser2.RefreshLaserMaterialColor();
-        StartCoroutine(spawnedLaser2.SetReflectorHitFalse(0.02f));
-
         laser.Push();
     }
 

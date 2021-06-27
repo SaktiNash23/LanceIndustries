@@ -14,6 +14,8 @@ public enum REFLECTOR_TYPE
 
 public class Reflector : PoolObject, ILaserInteractable
 {
+    public System.Action onPush = null;
+
     [Header("VISUAL SETTINGS")]
     [SerializeField] protected float validReflectionAnimationAngleChange = 15.0f;
     [SerializeField] protected float validReflectionAnimationDuration = 0.1f;
@@ -42,6 +44,12 @@ public class Reflector : PoolObject, ILaserInteractable
     public Proto_Grid OccupiedGridOutline { get; private set; }
 
     private Laser hitProjectile;
+
+    private void OnDisable()
+    {
+        onPush?.Invoke();
+        onPush = null;
+    }
 
     public void Initialization(LASER_COLOR reflectorColor)
     {
@@ -78,7 +86,6 @@ public class Reflector : PoolObject, ILaserInteractable
         laser.transform.position = referencePoint.position;
         laser.LaserColor = reflectorColor;
         laser.RefreshLaserMaterialColor();
-        StartCoroutine(laser.SetReflectorHitFalse(0.02f));
     }
 
     public virtual void SetLaserColor()

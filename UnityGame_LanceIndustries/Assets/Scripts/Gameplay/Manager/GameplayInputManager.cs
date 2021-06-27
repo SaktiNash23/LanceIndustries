@@ -7,13 +7,18 @@ public class GameplayInputManager : MonoBehaviour
     private static GameplayInputManager instance;
     public static GameplayInputManager Instance { get { return instance; } }
 
+    [Header("REFERENCES")]
+    [SerializeField] protected ReflectorColorPanel reflectorColorPanel;
+
     [Header("SETTINGS")]
+    [SerializeField] protected float dragThreshold = 1000f;
     [SerializeField] private LayerMask reflectorLayerMask;
     [SerializeField] private LayerMask reflectorPlacementBoxLayerMask;
 
     private Camera mainCamera;
     private Reflector selectedReflector;
     private Proto_Grid highlightedGrid;
+    public bool SelectingReflector => selectedReflector;
 
     private void Awake()
     {
@@ -30,23 +35,100 @@ public class GameplayInputManager : MonoBehaviour
         }
     }
 
-    private bool acceptInput = true;
+    public bool EnableInput { get; set; } = true;
+    private Vector3 pointerDownStartPos = Vector2.zero;
+    Reflector hitReflector;
     private void Update()
     {
-        if (!acceptInput)
+        if (!EnableInput)
             return;
 
 #if UNITY_EDITOR
+        // if (selectedReflector)
+        // {
+        //     Vector3 mouseWorldPos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+        //     mouseWorldPos.z = selectedReflector.transform.position.z;
+        //     selectedReflector.transform.position = mouseWorldPos;
+
+        //     Ray mouseRay = mainCamera.ScreenPointToRay(Input.mousePosition);
+
+        //     // Highlight of Grid Outline
+        //     if (Physics.Raycast(mouseRay, out RaycastHit hit, Mathf.Abs(mainCamera.transform.position.z), reflectorPlacementBoxLayerMask))
+        //     {
+        //         Proto_Grid gridOutline = hit.collider.GetComponent<Proto_Grid>();
+        //         if (gridOutline && !gridOutline.IsOccupied)
+        //         {
+        //             if (highlightedGrid != null && highlightedGrid != gridOutline)
+        //                 highlightedGrid.ShowGrid(false);
+
+        //             gridOutline.ShowGrid(true);
+        //             highlightedGrid = gridOutline;
+        //         }
+        //     }
+
+        //     if (Input.GetMouseButtonUp(0))
+        //     {
+        //         // If highlighted grid available, start the placement
+        //         // Else cancel the placement
+        //         if (highlightedGrid)
+        //         {
+        //             selectedReflector.transform.position = highlightedGrid.transform.position;
+        //             selectedReflector.Build();
+        //             selectedReflector.OccupyGridOutline(highlightedGrid);
+        //             highlightedGrid.OccupyReflector(selectedReflector);
+        //             highlightedGrid.ShowGrid(false);
+        //             selectedReflector = null;
+        //             highlightedGrid = null;
+        //         }
+        //         else
+        //         {
+        //             selectedReflector.Push();
+        //             selectedReflector = null;
+        //             highlightedGrid?.ShowGrid(false);
+        //             highlightedGrid = null;
+        //         }
+        //     }
+        // }
+        // else
+        // {
+        //     if (Input.GetMouseButtonDown(0))
+        //     {
+        //         pointerDownStartPos = Input.mousePosition;
+        //         Ray mouseRay = mainCamera.ScreenPointToRay(Input.mousePosition);
+        //         if (Physics.Raycast(mouseRay, out RaycastHit hit, Mathf.Abs(mainCamera.transform.position.z), reflectorLayerMask))
+        //             hitReflector = hit.transform.GetComponentInParent<Reflector>();
+        //     }
+        //     else if (Input.GetMouseButton(0) && hitReflector)
+        //     {
+        //         if (Vector3.SqrMagnitude(pointerDownStartPos - Input.mousePosition) > dragThreshold && hitReflector.Interactable)
+        //         {
+        //             SelectReflector(hitReflector);
+        //             hitReflector.OccupiedGridOutline.OccupyReflector(null);
+        //             hitReflector.OccupyGridOutline(null);
+        //             hitReflector = null;
+        //         }
+        //     }
+
+        //     if (Input.GetMouseButtonUp(0) && hitReflector)
+        //     {
+        //         if (hitReflector.Interactable)
+        //             hitReflector?.Rotate90();
+        //     }
+        // }
+// #elif UNITY_IOS || UNITY_ANDROID
+        if(Input.touchCount <= 0)
+            return;
+
         if (selectedReflector)
         {
-            Vector3 mouseWorldPos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
-            mouseWorldPos.z = selectedReflector.transform.position.z;
-            selectedReflector.transform.position = mouseWorldPos;
+            Vector3 touchWorldPos = mainCamera.ScreenToWorldPoint(Input.GetTouch(0).position);
+            touchWorldPos.z = selectedReflector.transform.position.z;
+            selectedReflector.transform.position = touchWorldPos;
 
-            Ray mouseRay = mainCamera.ScreenPointToRay(Input.mousePosition);
+            Ray touchRay = mainCamera.ScreenPointToRay(Input.GetTouch(0).position);
 
             // Highlight of Grid Outline
-            if (Physics.Raycast(mouseRay, out RaycastHit hit, Mathf.Abs(mainCamera.transform.position.z), reflectorPlacementBoxLayerMask))
+            if (Physics.Raycast(touchRay, out RaycastHit hit, Mathf.Abs(mainCamera.transform.position.z), reflectorPlacementBoxLayerMask))
             {
                 Proto_Grid gridOutline = hit.collider.GetComponent<Proto_Grid>();
                 if (gridOutline && !gridOutline.IsOccupied)
@@ -59,9 +141,10 @@ public class GameplayInputManager : MonoBehaviour
                 }
             }
 
-            // Placement of Reflector
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetTouch(0).phase == TouchPhase.Ended)
             {
+                // If highlighted grid available, start the placement
+                // Else cancel the placement
                 if (highlightedGrid)
                 {
                     selectedReflector.transform.position = highlightedGrid.transform.position;
@@ -72,37 +155,41 @@ public class GameplayInputManager : MonoBehaviour
                     selectedReflector = null;
                     highlightedGrid = null;
                 }
+                else
+                {
+                    selectedReflector.Push();
+                    selectedReflector = null;
+                    highlightedGrid?.ShowGrid(false);
+                    highlightedGrid = null;
+                }
             }
         }
         else
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetTouch(0).phase == TouchPhase.Began)
             {
-                Ray mouseRay = mainCamera.ScreenPointToRay(Input.mousePosition);
-                if (Physics.Raycast(mouseRay, out RaycastHit hit, Mathf.Abs(mainCamera.transform.position.z), reflectorLayerMask))
+                pointerDownStartPos = Input.mousePosition;
+                Ray touchRay = mainCamera.ScreenPointToRay(Input.GetTouch(0).position);
+                if (Physics.Raycast(touchRay, out RaycastHit hit, Mathf.Abs(mainCamera.transform.position.z), reflectorLayerMask))
+                    hitReflector = hit.transform.GetComponentInParent<Reflector>();
+            }
+            else if (Input.GetTouch(0).phase == TouchPhase.Moved && hitReflector)
+            {
+                if (Vector2.SqrMagnitude(new Vector2(pointerDownStartPos.x, pointerDownStartPos.y) - Input.GetTouch(0).position) > dragThreshold && hitReflector.Interactable)
                 {
-                    Reflector reflector = hit.transform.GetComponentInParent<Reflector>();
-                    if (reflector && reflector.Interactable)
-                    {
-                        reflector.OccupiedGridOutline.OccupyReflector(null);
-                        reflector.OccupyGridOutline(null);
-                        SelectReflector(reflector);
-                    }
+                    SelectReflector(hitReflector);
+                    hitReflector.OccupiedGridOutline.OccupyReflector(null);
+                    hitReflector.OccupyGridOutline(null);
+                    hitReflector = null;
                 }
             }
-            else if(Input.GetMouseButtonDown(1))
+
+            if (Input.GetTouch(0).phase == TouchPhase.Ended && hitReflector)
             {
-                Ray mouseRay = mainCamera.ScreenPointToRay(Input.mousePosition);
-                if(Physics.Raycast(mouseRay, out RaycastHit hit, Mathf.Abs(mainCamera.transform.position.z), reflectorLayerMask))
-                {
-                    Reflector reflector = hit.transform.GetComponentInParent<Reflector>();
-                    if(reflector && reflector.Interactable)
-                        reflector.Rotate90();
-                }
+                if (hitReflector.Interactable)
+                    hitReflector?.Rotate90();
             }
         }
-#elif UNITY_IOS || UNITY_ANDROID
-
 #endif
     }
 

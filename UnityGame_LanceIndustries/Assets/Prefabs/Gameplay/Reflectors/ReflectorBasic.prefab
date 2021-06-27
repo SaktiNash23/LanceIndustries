@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a069f405742d4e64e9c79578dd9fdeb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  validReflectionAnimationAngle: 15
+  validReflectionAnimationAngleChange: 15
   validReflectionAnimationDuration: 0.2
   redColorSprite: {fileID: 21300000, guid: 63b55876cdc75ce48ab16a0dd683fb83, type: 3}
   blueColorSprite: {fileID: 21300000, guid: 9dc9e657692926d41a7201c8a7eb60cb, type: 3}

@@ -16,11 +16,9 @@ public class ReflectorTranslucent : Reflector
         laser.transform.position = referencePoint.position;
         laser.LaserColor = reflectorColor;
         laser.RefreshLaserMaterialColor();
-        StartCoroutine(laser.SetReflectorHitFalse(0.02f));
         Laser spawnedLaser = ObjectPooler.Instance.PopOrCreate(laserPrefab, laserBarrel.position, laserBarrel.rotation);
         spawnedLaser.LaserColor = reflectorColor;
         spawnedLaser.RefreshLaserMaterialColor();
-        StartCoroutine(spawnedLaser.SetReflectorHitFalse(0.02f));
     }
 
     // public void calculateLaser_Translucent(RaycastHit2D hitParam, GameObject projectile)

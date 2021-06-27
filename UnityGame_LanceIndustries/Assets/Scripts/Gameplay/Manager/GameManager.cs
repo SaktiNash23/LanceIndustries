@@ -97,12 +97,13 @@ public class GameManager : MonoBehaviour
     public Sprite reflectorSprite_ThreeWay_Yellow;
 
     [BoxGroup("Reflector Color Panel Variables")]
-    public ReflectorColorPanel reflectorColorsPanel; //Panel that contains the buttons for the different reflector color buttons
+    [SerializeField] protected ReflectorColorPanel reflectorColorPanel;
     [BoxGroup("Reflector Color Panel Variables")]
     public bool isReflectorColorPanelActive = false;
 
     [BoxGroup("Stage Clear References")] [SerializeField] UIHelper uiHelperPanelClearStage;
 
+    public ReflectorColorPanel ReflectorColorPanel { get => reflectorColorPanel; }
     public Reflector GetBasicReflectorPrefab { get { return reflectorPrefab; } }
     public ReflectorTranslucent GetReflectorTranslucentPrefab { get { return reflectorTranslucentPrefab; } }
     public ReflectorDoubleWay GetReflectorDoubleWayPrefab { get { return reflectorDoubleWayPrefab; } }
@@ -269,49 +270,49 @@ public class GameManager : MonoBehaviour
     //, while the reflector color panel is active, the reflector color panel will be deactivated
     private void checkForTouchToCloseReflectorPanel()
     {
-        Touch touch = Input.GetTouch(0);
+        // Touch touch = Input.GetTouch(0);
 
-        if (!EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
-        {
-            if (isReflectorColorPanelActive == true)
-            {
-                Debug.DrawRay(touch.position, -transform.up, Color.red, 3.0f);
+        // if (!EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
+        // {
+        //     if (isReflectorColorPanelActive == true)
+        //     {
+        //         Debug.DrawRay(touch.position, -transform.up, Color.red, 3.0f);
 
-                switch (touch.phase)
-                {
-                    case TouchPhase.Began:
-                        RaycastHit2D hit = Physics2D.Raycast(touch.position, -transform.up, 0.4f);
+        //         switch (touch.phase)
+        //         {
+        //             case TouchPhase.Began:
+        //                 RaycastHit2D hit = Physics2D.Raycast(touch.position, -transform.up, 0.4f);
 
-                        if (hit)
-                        {
-                            if (hit.collider.tag == "Grid")
-                            {
-                                Debug.LogWarning("Hit Grid while Reflector Color panel is active");
-                                reflectorColorsPanel.GetComponent<Animator>().SetBool("ReflectorColorPanelDisplayed", false);
+        //                 if (hit)
+        //                 {
+        //                     if (hit.collider.tag == "Grid")
+        //                     {
+        //                         Debug.LogWarning("Hit Grid while Reflector Color panel is active");
+        //                         reflectorColorsPanel.GetComponent<Animator>().SetBool("ReflectorColorPanelDisplayed", false);
 
-                                //Below 2 lines will be executed using an Animation Event
-                                //reflectorColorsPanel.SetActive(false);
-                                //isReflectorColorPanelActive = false;
-                            }
-                            else if (hit.collider.tag == "UI")
-                            {
-                                Debug.LogWarning("Hit something, but don't know what it is");
-                            }
-                        }
-                        else
-                        {
-                            Debug.LogWarning("Hit nothing. So still close Reflectors Color Panel");
-                            reflectorColorsPanel.GetComponent<Animator>().SetBool("ReflectorColorPanelDisplayed", false);
+        //                         //Below 2 lines will be executed using an Animation Event
+        //                         //reflectorColorsPanel.SetActive(false);
+        //                         //isReflectorColorPanelActive = false;
+        //                     }
+        //                     else if (hit.collider.tag == "UI")
+        //                     {
+        //                         Debug.LogWarning("Hit something, but don't know what it is");
+        //                     }
+        //                 }
+        //                 else
+        //                 {
+        //                     Debug.LogWarning("Hit nothing. So still close Reflectors Color Panel");
+        //                     reflectorColorsPanel.GetComponent<Animator>().SetBool("ReflectorColorPanelDisplayed", false);
 
-                            //Below 2 lines will be executed using an Animation Event
-                            //reflectorColorsPanel.SetActive(false);
-                            //isReflectorColorPanelActive = false;
-                        }
+        //                     //Below 2 lines will be executed using an Animation Event
+        //                     //reflectorColorsPanel.SetActive(false);
+        //                     //isReflectorColorPanelActive = false;
+        //                 }
 
-                        break;
-                }
-            }
-        }
+        //                 break;
+        //         }
+        //     }
+        // }
     }
 
 #if UNITY_EDITOR
@@ -328,7 +329,7 @@ public class GameManager : MonoBehaviour
                     if (hit.collider.tag == "Grid")
                     {
                         Debug.LogWarning("Hit Grid while Reflector Color panel is active");
-                        reflectorColorsPanel.GetComponent<Animator>().SetBool("ReflectorColorPanelDisplayed", false);
+                        reflectorColorPanel.GetComponent<Animator>().SetBool("ReflectorColorPanelDisplayed", false);
 
                         //Below 2 lines will be executed using an Animation Event
                         //reflectorColorsPanel.SetActive(false);
@@ -342,7 +343,7 @@ public class GameManager : MonoBehaviour
                 else
                 {
                     Debug.LogWarning("Hit nothing. So still close Reflectors Color Panel");
-                    reflectorColorsPanel.GetComponent<Animator>().SetBool("ReflectorColorPanelDisplayed", false);
+                    reflectorColorPanel.GetComponent<Animator>().SetBool("ReflectorColorPanelDisplayed", false);
 
                     //Below 2 lines will be executed using an Animation Event
                     //reflectorColorsPanel.SetActive(false);
@@ -398,155 +399,6 @@ public class GameManager : MonoBehaviour
         //Debug.LogWarning("Reset Reflector Colliders");
 
         activationToggle_Reflector = false;
-    }
-
-    //This function sets the color of the reflector to be spawned by the player. This is achieved by returning a string which determines which
-    //object pool the game will 'need to pull' the reflector from. The parameters passed are strings which help identify the reflector type
-    //and reflector color. Based on these parameters, a string with the appropriate object pool name is returned. The returned string acts a 
-    //Key (Key-Value Pair) which is used to access a specific entry in the reflectorPoolDictionary
-    //
-    //The parameters passed, reflectorType and reflectorColor can be set in the editor on the appropriate Reflector Color UI Buttons
-    public string setSelectedColorReflector(string reflectorType, string reflectorColor)
-    {
-        string reflectorPoolTag = System.String.Empty;
-
-        if (reflectorType == "Basic")
-        {
-            if (reflectorColor == "White")
-            {
-                reflectorPoolTag = "ReflectorPool_Basic_White";
-            }
-            else if (reflectorColor == "Red")
-            {
-                reflectorPoolTag = "ReflectorPool_Basic_Red";
-            }
-            else if (reflectorColor == "Blue")
-            {
-                reflectorPoolTag = "ReflectorPool_Basic_Blue";
-            }
-            else if (reflectorColor == "Yellow")
-            {
-                reflectorPoolTag = "ReflectorPool_Basic_Yellow";
-            }
-            else
-            {
-                Debug.LogWarning("No such reflector color exist. Check if the reflectorColorTag is set properly in editor and if " +
-                    "it matches the ones in the conditional statements");
-            }
-
-        }
-
-        else if (reflectorType == "Translucent")
-        {
-            if (reflectorColor == "White")
-            {
-                reflectorPoolTag = "ReflectorPool_Translucent_White";
-            }
-            else if (reflectorColor == "Red")
-            {
-                reflectorPoolTag = "ReflectorPool_Translucent_Red";
-            }
-            else if (reflectorColor == "Blue")
-            {
-                reflectorPoolTag = "ReflectorPool_Translucent_Blue";
-            }
-            else if (reflectorColor == "Yellow")
-            {
-                reflectorPoolTag = "ReflectorPool_Translucent_Yellow";
-            }
-            else
-            {
-                Debug.LogWarning("No such reflector color exist. Check if the reflectorColorTag is set properly in editor and if " +
-                    "it matches the ones in the conditional statements");
-            }
-
-        }
-
-        else if (reflectorType == "DoubleWay")
-        {
-            if (reflectorColor == "White")
-            {
-                reflectorPoolTag = "ReflectorPool_DoubleWay_White";
-            }
-            else if (reflectorColor == "Red")
-            {
-                reflectorPoolTag = "ReflectorPool_DoubleWay_Red";
-            }
-            else if (reflectorColor == "Blue")
-            {
-                reflectorPoolTag = "ReflectorPool_DoubleWay_Blue";
-            }
-            else if (reflectorColor == "Yellow")
-            {
-                reflectorPoolTag = "ReflectorPool_DoubleWay_Yellow";
-            }
-            else
-            {
-                Debug.LogWarning("No such reflector color exist. Check if the reflectorColorTag is set properly in editor and if " +
-                    "it matches the ones in the conditional statements");
-            }
-
-        }
-
-        else if (reflectorType == "Split")
-        {
-            if (reflectorColor == "White")
-            {
-                reflectorPoolTag = "ReflectorPool_Split_White";
-            }
-            else if (reflectorColor == "Red")
-            {
-                reflectorPoolTag = "ReflectorPool_Split_Red";
-            }
-            else if (reflectorColor == "Blue")
-            {
-                reflectorPoolTag = "ReflectorPool_Split_Blue";
-            }
-            else if (reflectorColor == "Yellow")
-            {
-                reflectorPoolTag = "ReflectorPool_Split_Yellow";
-            }
-            else
-            {
-                Debug.LogWarning("No such reflector color exist. Check if the reflectorColorTag is set properly in editor and if " +
-                    "it matches the ones in the conditional statements");
-            }
-
-        }
-
-        else if (reflectorType == "ThreeWay")
-        {
-            if (reflectorColor == "White")
-            {
-                reflectorPoolTag = "ReflectorPool_ThreeWay_White";
-            }
-            else if (reflectorColor == "Red")
-            {
-                reflectorPoolTag = "ReflectorPool_ThreeWay_Red";
-            }
-            else if (reflectorColor == "Blue")
-            {
-                reflectorPoolTag = "ReflectorPool_ThreeWay_Blue";
-            }
-            else if (reflectorColor == "Yellow")
-            {
-                reflectorPoolTag = "ReflectorPool_ThreeWay_Yellow";
-            }
-            else
-            {
-                Debug.LogWarning("No such reflector color exist. Check if the reflectorColorTag is set properly in editor and if " +
-                    "it matches the ones in the conditional statements");
-            }
-
-        }
-
-        else
-        {
-            Debug.LogWarning("No such reflectorType exists. Check if the ReflectorTypeTag is set correctly in editor and if it matches in the" +
-                "conditional statement");
-        }
-
-        return reflectorPoolTag;
     }
 
     //This function returns a reflector to its stock by returning the reflector to its appropriate reflector object pool
@@ -967,7 +819,7 @@ public class GameManager : MonoBehaviour
         ResetGridAlpha();
         #endregion
 
-        reflectorColorsPanel.gameObject.SetActive(false);
+        // reflectorColorPanel.gameObject.SetActive(false);
 
         #region Initialize End Points
 

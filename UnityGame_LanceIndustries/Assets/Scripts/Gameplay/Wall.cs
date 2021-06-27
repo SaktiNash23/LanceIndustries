@@ -47,23 +47,13 @@ public class Wall : MonoBehaviour, ILaserInteractable
 
     public void OnLaserOverlap(Laser laser, RaycastHit2D hit)
     {
-        //         if (projectile.GetComponent<Laser>().LaserColor.ToString() == borderColor.ToString())
-        // {
-        //     //Do nothing
-        // }
-        // else
-        // {
-        //     projectile.GetComponent<Laser>().DestroyCheck = true;
-        //     projectile.GetComponent<Laser>().projectileSpeed = 0.0f;
-        //     Destroy(projectile);
-        // }
         if (laser.LaserColor != wallColor)
         {
             laser.Push();
         }
         else
         {
-
+            Debug.Log("WALL COLOR: " + wallColor);
         }
     }
 }
