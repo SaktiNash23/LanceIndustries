@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using NaughtyAttributes;
 
-public class ReflectorColor_UIButton : MonoBehaviour
+public class ReflectorButton : MonoBehaviour
 {
     public Image Image { get; private set; }
     public REFLECTOR_TYPE ReflectorType { private get; set; }
@@ -45,7 +46,6 @@ public class ReflectorColor_UIButton : MonoBehaviour
             if (Input.touchCount == 1)//Used to be Input.touchCount <= 1
             {
                 Touch touch = Input.GetTouch(0);
-
             }
         }
 

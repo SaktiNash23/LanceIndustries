@@ -67,7 +67,6 @@ public class Raycast : MonoBehaviour
                                 transform.position = hit.transform.position;
 
                                 hit.transform.gameObject.GetComponent<Proto_Grid>().IsOccupied = true;
-                                hit.transform.gameObject.GetComponent<Proto_Grid>().reflectorStored_Grid = this.gameObject;
                                 hit.transform.gameObject.GetComponent<BoxCollider2D>().enabled = false;
                                 tempColor = hit.transform.gameObject.GetComponent<SpriteRenderer>().color;
                                 tempColor.a = 0.0f;
@@ -142,7 +141,6 @@ public class Raycast : MonoBehaviour
                         //If this shape is currently attached to a grid
                         if (isOccupied == true)
                         {
-                            gridReference.GetComponent<Proto_Grid>().reflectorStored_Grid = null;
                             gridReference.GetComponent<Proto_Grid>().IsOccupied = false;
                             gridReference.GetComponent<SpriteRenderer>().color = Color.white;
 
@@ -372,7 +370,6 @@ public class Raycast : MonoBehaviour
                             //If the reflector is currently attached to a grid
                             if (isOccupied == true)
                             {
-                                gridReference.GetComponent<Proto_Grid>().reflectorStored_Grid = null;
                                 gridReference.GetComponent<Proto_Grid>().IsOccupied = false;
                                 gridReference.GetComponent<SpriteRenderer>().color = Color.white;
 
@@ -475,7 +472,6 @@ public class Raycast : MonoBehaviour
                                             transform.position = hit.transform.position;
 
                                             hit.transform.gameObject.GetComponent<Proto_Grid>().IsOccupied = true;
-                                            hit.transform.gameObject.GetComponent<Proto_Grid>().reflectorStored_Grid = this.gameObject;
                                             hit.transform.gameObject.GetComponent<BoxCollider2D>().enabled = false;
                                             tempColor = hit.transform.gameObject.GetComponent<SpriteRenderer>().color;
                                             tempColor.a = 0.0f;

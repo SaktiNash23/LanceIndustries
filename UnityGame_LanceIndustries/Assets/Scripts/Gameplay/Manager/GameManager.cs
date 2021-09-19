@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
     [BoxGroup("Buttons")]
     public List<Button> allReflectorButtons = new List<Button>();
     [BoxGroup("Buttons")]
-    public List<ReflectorColor_UIButton> allReflectorColorButtons = new List<ReflectorColor_UIButton>();
+    public List<ReflectorButton> allReflectorColorButtons = new List<ReflectorButton>();
 
     [HideInInspector]
     public bool activationToggle_Grid = false;
@@ -65,9 +65,6 @@ public class GameManager : MonoBehaviour
     public Sprite reflectorSprite_DoubleWay_Blue;
     [BoxGroup("Reflector Sprites")]
     public Sprite reflectorSprite_DoubleWay_Yellow;
-
-    [BoxGroup("Reflector Sprites")]
-    public Sprite reflectorSprite_Split;
 
     [BoxGroup("Reflector Sprites")]
     public Sprite reflectorSprite_ThreeWay_White;
@@ -161,7 +158,6 @@ public class GameManager : MonoBehaviour
 
     private Color tempColor;
 
-    //Bool to check if game is paused. If paused, gameplay updates won't run
     public bool IsGamePaused { get; set; }
 
     #region MonoBehaviour
@@ -234,6 +230,12 @@ public class GameManager : MonoBehaviour
         }
     }
     #endregion
+
+    public void Pause(bool pause)
+    {
+        IsGamePaused = pause;
+        Time.timeScale = pause ? 0.0f : 1.0f;
+    }
 
     //Toggles the active state of the grid's 2D Colliders. If a grid is currently occupied by a reflector, the 2D Collider is deactivated.
     //If the grid is currently unoccupied, the 2D Collider is activated

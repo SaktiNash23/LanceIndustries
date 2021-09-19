@@ -7,9 +7,6 @@ public class GameplayInputManager : MonoBehaviour
     private static GameplayInputManager instance;
     public static GameplayInputManager Instance { get { return instance; } }
 
-    [Header("REFERENCES")]
-    [SerializeField] protected ReflectorColorPanel reflectorColorPanel;
-
     [Header("SETTINGS")]
     [SerializeField] protected float dragThreshold = 1000f;
     [SerializeField] private LayerMask reflectorLayerMask;
@@ -61,7 +58,7 @@ public class GameplayInputManager : MonoBehaviour
                     if (highlightedGrid != null && highlightedGrid != gridOutline)
                         highlightedGrid.ShowGrid(false);
 
-                    gridOutline.ShowGrid(true);
+                    gridOutline.ShowGrid(true, true);
                     highlightedGrid = gridOutline;
                 }
             }
@@ -70,7 +67,7 @@ public class GameplayInputManager : MonoBehaviour
             {
                 // If highlighted grid available, start the placement
                 // Else cancel the placement
-                if (highlightedGrid)
+                if (highlightedGrid && !highlightedGrid.IsOccupied)
                 {
                     selectedReflector.transform.position = highlightedGrid.transform.position;
                     selectedReflector.Build();

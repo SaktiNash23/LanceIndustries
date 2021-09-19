@@ -9,6 +9,9 @@ public class GameplayUIManager : MonoBehaviour
     private static GameplayUIManager instance;
     public static GameplayUIManager Instance { get => instance; }
 
+    [Header("REFERENCES")]
+    public ReflectorColorPanel reflectorColorPanel;
+
     [Header("REFLECTOR")]
     public TextMeshProUGUI txtReflectorStockWhite;
     public TextMeshProUGUI txtReflectorStockRed;

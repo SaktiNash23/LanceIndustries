@@ -43,9 +43,9 @@ public class UIHelper : MonoBehaviour
 
     private UnityAction<bool> btnCallbackActionBool = null;
     private UnityAction btnCallbackActionNoParam = null;
-   
+
     public bool InTransition { get; set; } = false;
-    
+
     private bool moved;
     private Vector3 originPos;
 
@@ -59,7 +59,7 @@ public class UIHelper : MonoBehaviour
         {
             btnCallbackActionBool += Pop;
         }
-        else if(helperFunctionType == UI_HELPER_FUNCTION_TYPES.MOVE_IN_OUT)
+        else if (helperFunctionType == UI_HELPER_FUNCTION_TYPES.MOVE_IN_OUT)
         {
             originPos = rtTargetToMove.anchoredPosition;
             btnCallbackActionNoParam += Move;
@@ -106,7 +106,7 @@ public class UIHelper : MonoBehaviour
             if (imgBgToUnpopWindow)
             {
                 imgBgToUnpopWindow.raycastTarget = true;
-                btnBgToUnpopWindow.onClick.RemoveAllListeners();
+                if (btnBgToUnpopWindow) btnBgToUnpopWindow.onClick.RemoveAllListeners();
             }
 
             LeanTween.value(this.gameObject, initialScale, maxScale, popDuration).setEaseOutBack().setOnUpdate((Vector3 targetScale) => WindowScaleUpdate(targetScale)).setIgnoreTimeScale(true).setOnComplete(() =>
@@ -114,7 +114,7 @@ public class UIHelper : MonoBehaviour
                 cgPopTarget.interactable = true;
                 cgPopTarget.blocksRaycasts = true;
 
-                if(useBgToClose)
+                if (useBgToClose)
                     btnBgToUnpopWindow.onClick.AddListener(() => ExecuteUIHandlingAction(false));
 
                 if (callbacksAfterPop != null)
@@ -125,7 +125,7 @@ public class UIHelper : MonoBehaviour
 
             });
 
-            if(imgBgToUnpopWindow)
+            if (imgBgToUnpopWindow)
                 LeanTween.value(0f, maxAlphaImgToUnpopWindow, popDuration).setOnUpdate(ImgParentBgAlphaUpdate).setIgnoreTimeScale(true);
 
             if (scrollRect)
@@ -172,7 +172,7 @@ public class UIHelper : MonoBehaviour
 
     private void Move()
     {
-        if(!moved)
+        if (!moved)
         {
             if (!InTransition)
             {
@@ -200,9 +200,9 @@ public class UIHelper : MonoBehaviour
     }
 
     //----------------------------- SCROLL SNAPPING FUNCTIONS -----------------------------//
-    
+
     public void ScrollRectOnValueChanged(Vector2 value)
     {
-        
+
     }
 }

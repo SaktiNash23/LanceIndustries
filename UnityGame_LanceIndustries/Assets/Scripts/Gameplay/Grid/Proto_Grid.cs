@@ -7,17 +7,18 @@ public class Proto_Grid : MonoBehaviour
 {
     [SerializeField] protected SpriteRenderer spriteRend;
 
-    public GameObject reflectorStored_Grid;
+    [SerializeField] protected Sprite spriteHoverValid;
+    [SerializeField] protected Sprite spriteHoverInvalid;
 
     public bool IsOccupied { get; set; }
     public Reflector OccupiedReflector { get; private set; }
 
     #region MonoBehaviour
-    private void OnTriggerStay(Collider col)
+    private void OnTriggerEnter(Collider col)
     {
-        if (!IsOccupied && col.GetComponentInParent<Reflector>())
+        if (GameplayInputManager.Instance.SelectingReflector && col.GetComponentInParent<Reflector>())
         {
-            ShowGrid(true);
+            ShowGrid(true, !IsOccupied);
             GameplayInputManager.Instance.HighlightGridOutline(this);
         }
     }
@@ -32,9 +33,10 @@ public class Proto_Grid : MonoBehaviour
     }
     #endregion
 
-    public void ShowGrid(bool show)
+    public void ShowGrid(bool show, bool valid = false)
     {
         spriteRend.color = new Color(1f, 1f, 1f, show ? 1f : 0f);
+        spriteRend.sprite = valid ? spriteHoverValid : spriteHoverInvalid;
     }
 
     public void OccupyReflector(Reflector reflector)

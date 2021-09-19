@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -89,11 +89,8 @@ public class MainMenuUIManager : MonoBehaviour
         #endregion
 
         #region NEW SCROLL SNAPPING SYSTEM
-
         btnSwitchLevelLeft.onClick.AddListener(() => UIHelperManager.Instance.ScrollSnapping(uiHelperPanelLevelPreview, false));
-
         btnSwitchLevelRight.onClick.AddListener(() => UIHelperManager.Instance.ScrollSnapping(uiHelperPanelLevelPreview, true));
-
         #endregion
     }
 

@@ -43,8 +43,6 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: 3a751e5742bf622498bef9f9a3cab619, type: 3}
-    - {fileID: 102900000, guid: efea493c4ed2b9e46847ad4abdceffb3, type: 3}
-    - {fileID: 102900000, guid: b5b3d465f8906384c8f7a502b750ea47, type: 3}
     - {fileID: 102900000, guid: 5d71dbbbb8d966c4b89bf716612048d2, type: 3}
     - {fileID: 102900000, guid: 55c07922b3c51504081a03e456829bb6, type: 3}
     - {fileID: 102900000, guid: 5c74f430a24eaf647a73b497bf182f73, type: 3}
@@ -56,7 +54,7 @@ SpriteAtlas:
     - {fileID: 2800000, guid: 8439d413f0d056945bdf17980cfda8bc, type: 3}
     - {fileID: 2800000, guid: a573a5c7cf10c4c42be417b6d3d6a922, type: 3}
     - {fileID: 2800000, guid: 571738fd6b81000418e3d4f5a5d53dc6, type: 3}
-    totalSpriteSurfaceArea: 5488243
+    totalSpriteSurfaceArea: 5318787
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -66,17 +64,13 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 75d9499072139c6498aeff6664fcddee, type: 3}
   - {fileID: 21300000, guid: dfcd8bd0bb4b508489002e651cd3cc85, type: 3}
   - {fileID: 21300000, guid: 9da235f03e583734697cbd872c929d0c, type: 3}
-  - {fileID: 21300000, guid: 5092b9f069b127644816288363804999, type: 3}
   - {fileID: 21300000, guid: 83ec5b013325a3d408ebfe363da0efab, type: 3}
-  - {fileID: 21300000, guid: 92bbe531dafb98d4db2794737ce3da7c, type: 3}
   - {fileID: 21300000, guid: bb3b5e31e414d4d43b8856091e4733fd, type: 3}
   - {fileID: 21300000, guid: 8939c4d1b1014d5478838a295a8eda90, type: 3}
   - {fileID: 21300000, guid: cb3c101276e2eb94eb0f7aec3d3b765f, type: 3}
   - {fileID: 21300000, guid: f00f5c1254c3a914580c3d4235961995, type: 3}
   - {fileID: 21300000, guid: 430ce572b3ffe7d4cb8fcd78f3ea773d, type: 3}
-  - {fileID: 21300000, guid: 79109772958f43b428c4db7190f244d0, type: 3}
   - {fileID: 21300000, guid: 7a0529a2d04b2fe4880309ea10300dbd, type: 3}
-  - {fileID: 21300000, guid: 36c1e8d207e067347adb2813c9a008cb, type: 3}
   - {fileID: 21300000, guid: 8439d413f0d056945bdf17980cfda8bc, type: 3}
   - {fileID: 21300000, guid: 2e93ce23c811aea47bb1020bfca0557e, type: 3}
   - {fileID: 21300000, guid: 77b37293a3b8c4941870550211c72d97, type: 3}
@@ -108,8 +102,6 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 52c23d18bcb03a642a8bb26178ee4143, type: 3}
   - {fileID: 21300000, guid: 1dc727a8e3ef9fd48bf4d3a86dd50611, type: 3}
   - {fileID: 21300000, guid: b013c1b8a05cad745a30b631433f9f5b, type: 3}
-  - {fileID: 21300000, guid: d28638c8813d6f249aeb9a2ccc4e1486, type: 3}
-  - {fileID: 21300000, guid: c38f0009fb258f045acc91c72c308715, type: 3}
   - {fileID: 21300000, guid: 2a1b4519cd3fa5e4283fc4a46a05ee3b, type: 3}
   - {fileID: 21300000, guid: bf2b2839b6155834e905b76046d2e6c8, type: 3}
   - {fileID: 21300000, guid: 0ff0dec9177c7de42ab87b071fdaee0a, type: 3}
@@ -119,11 +111,9 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 7b4ef19a3c854584698fe5d9523c2e7b, type: 3}
   - {fileID: 21300000, guid: 1b692dcae113c284ca7f550f59e21068, type: 3}
   - {fileID: 21300000, guid: d52fe4daf9d03f9498666365c43058cd, type: 3}
-  - {fileID: 21300000, guid: 0cd8d2ea63db57041a8c20cc2430a0d0, type: 3}
   - {fileID: 21300000, guid: 2526d11bb3f0c3243940cc8752bc9d0b, type: 3}
   - {fileID: 21300000, guid: 3e64f63be4f072b4c8ec5f5243466fd3, type: 3}
   - {fileID: 21300000, guid: 76bd7d5bf3561ca4f9727a9da9cfdf1d, type: 3}
-  - {fileID: 21300000, guid: a8dc5d7b8ed9fc6438bd86dfe8856e46, type: 3}
   - {fileID: 21300000, guid: bfb752cb0e063d2448e69ffb872d44bc, type: 3}
   - {fileID: 21300000, guid: 09fdd20c68660d54c90cb11ede84f4dc, type: 3}
   - {fileID: 21300000, guid: 601c791cd1f7a2a4c96b81b3ecac539a, type: 3}
@@ -131,8 +121,6 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 4ff3c82cf04f9ba42ab2a8b27ce04677, type: 3}
   - {fileID: 21300000, guid: 8a1231bc3283b574ab3e8f0bacd64acc, type: 3}
   - {fileID: 21300000, guid: 5b0a37cc356419e45bea0a93f3a99254, type: 3}
-  - {fileID: 21300000, guid: bb15bedcb7954be44b6b863ad26abc77, type: 3}
-  - {fileID: 21300000, guid: 7396d0fccb52a094498d158ed84f94a7, type: 3}
   - {fileID: 21300000, guid: 470858fc5ae413b4a8232497634b3d6f, type: 3}
   - {fileID: 21300000, guid: 7c92790df744fb749830a23099df9c1a, type: 3}
   - {fileID: 21300000, guid: 8ea8d64d62412f24aa0ead025d40e618, type: 3}
@@ -149,26 +137,20 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 5ebf671f4499e4a4e8676e41dca2aa33, type: 3}
   - {fileID: 21300000, guid: 62b2615fa154c6c43ba495177721c17b, type: 3}
   - {fileID: 21300000, guid: 3c20458f38c89794bbdd40087bd6f3cf, type: 3}
-  - {fileID: 21300000, guid: 2eecf09f13255bd489541131b5d5f263, type: 3}
   - {fileID: 21300000, guid: b0f5d6af3dac480479077a3d93362503, type: 3}
-  - {fileID: 21300000, guid: 57de17df4675f10479c9b1107489596a, type: 3}
   - {fileID: 21300000, guid: b4facddf292588a4bafcd0e544569883, type: 3}
   m_PackedSpriteNamesToIndex:
   - asset_reflector_3way_yellow
   - sprite_spark_6
   - asset_reflector_basic_white
   - sprite_spark_2
-  - asset_sprite_receiver_red_off
   - sprite_spark_14
-  - asset_sprite_receiver_white_off
   - asset_reflector_double_blue
   - asset_reflector_3way_white
   - asset_sprite_build_hammer_10
   - sprite_spark_19
   - asset_sprite_build_hammer_06
-  - asset_sprite_receiver_blue_off
   - asset_sprite_build_hammer_01
-  - asset_sprite_laser_origin_white
   - laser
   - sprite_spark_9
   - sprite_spark_3
@@ -200,8 +182,6 @@ SpriteAtlas:
   - sprite_spark_16
   - asset_sprite_build_hammer_23
   - sprite_spark_8
-  - asset_sprite_receiver_white_on
-  - asset_sprite_receiver_yellow_on
   - asset_sprite_build_hammer_21
   - asset_sprite_wall_basic
   - asset_sprite_build_hammer_16
@@ -211,11 +191,9 @@ SpriteAtlas:
   - asset_sprite_wall_yellow
   - sprite_spark_13
   - asset_sprite_build_hammer_12
-  - asset_sprite_receiver_red_on
   - asset_sprite_build_hammer_22
   - sprite_spark_15
   - asset_laser_white
-  - asset_sprite_laser_origin_blue
   - asset_sprite_portal_A
   - asset_sprite_build_hammer_24
   - asset_sprite_build_hammer_03
@@ -223,8 +201,6 @@ SpriteAtlas:
   - asset_laser_yellow
   - asset_sprite_build_hammer_27
   - sprite_spark_12
-  - asset_sprite_receiver_yellow_off
-  - asset_sprite_receiver_blue_on
   - asset_sprite_wall_red
   - asset_sprite_build_hammer_15
   - asset_sprite_build_hammer_17
@@ -241,9 +217,7 @@ SpriteAtlas:
   - sprite_spark_18
   - asset_sprite_build_hammer_14
   - grid
-  - asset_sprite_laser_origin_yellow
   - asset_laser_blue
-  - asset_sprite_laser_origin_red
   - asset_sprite_build_hammer_09
   m_Tag: SpriteAtlas
   m_IsVariant: 0
