@@ -2421,57 +2421,10 @@ MonoBehaviour:
     type: 3}
   reflectorThreeWayPrefab: {fileID: 4062535225335805943, guid: a0dc2aad6eeba6143b92f7b1b8bf63f6,
     type: 3}
-  DebugMode_PC: 1
-  gimmick_LaserSpeedDecrease: 1
-  gridOutlines: []
-  allReflectorButtons:
-  - {fileID: 2000285401}
-  - {fileID: 638089091}
-  - {fileID: 1482078258}
-  - {fileID: 0}
-  - {fileID: 507172789}
-  allReflectorColorButtons:
-  - {fileID: 1484710757}
-  - {fileID: 1089048974}
-  - {fileID: 1563389123}
-  - {fileID: 1889050871}
   activationToggle_Grid: 0
   activationToggle_Reflector: 0
   TimerSuccessText: {fileID: 1901183096}
-  reflectorSprite_Basic_White: {fileID: 21300000, guid: dfcd8bd0bb4b508489002e651cd3cc85,
-    type: 3}
-  reflectorSprite_Basic_Red: {fileID: 21300000, guid: 63b55876cdc75ce48ab16a0dd683fb83,
-    type: 3}
-  reflectorSprite_Basic_Blue: {fileID: 21300000, guid: 9dc9e657692926d41a7201c8a7eb60cb,
-    type: 3}
-  reflectorSprite_Basic_Yellow: {fileID: 21300000, guid: f4bb5726b8f768f4785ebeb9021d4f73,
-    type: 3}
-  reflectorSprite_Translucent_White: {fileID: 21300000, guid: cda2f907539342d43a5961607a020500,
-    type: 3}
-  reflectorSprite_Translucent_Red: {fileID: 21300000, guid: a27ee595858def34bb8c942e0cb4a9d3,
-    type: 3}
-  reflectorSprite_Translucent_Blue: {fileID: 21300000, guid: 4a3f9a04a06db4943bc9b33bab040066,
-    type: 3}
-  reflectorSprite_Translucent_Yellow: {fileID: 21300000, guid: b232bf5485bfb2348a0414b7674c64d7,
-    type: 3}
-  reflectorSprite_DoubleWay_White: {fileID: 21300000, guid: 26d90eaebed502d4ba88c795893e0478,
-    type: 3}
-  reflectorSprite_DoubleWay_Red: {fileID: 21300000, guid: 22168c9e35de03a428ff81c74d25db7a,
-    type: 3}
-  reflectorSprite_DoubleWay_Blue: {fileID: 21300000, guid: bb3b5e31e414d4d43b8856091e4733fd,
-    type: 3}
-  reflectorSprite_DoubleWay_Yellow: {fileID: 21300000, guid: fa5ce45a204a2914d92613693a3b282a,
-    type: 3}
-  reflectorSprite_ThreeWay_White: {fileID: 21300000, guid: 8939c4d1b1014d5478838a295a8eda90,
-    type: 3}
-  reflectorSprite_ThreeWay_Red: {fileID: 21300000, guid: d1de0d07aa084b64eae31931e7445465,
-    type: 3}
-  reflectorSprite_ThreeWay_Blue: {fileID: 21300000, guid: 6e398cb510a4e984b83fd8f9123f6fa3,
-    type: 3}
-  reflectorSprite_ThreeWay_Yellow: {fileID: 21300000, guid: 2ec60220260fac544a07157a57cdd308,
-    type: 3}
   reflectorColorPanel: {fileID: 952090227}
-  isReflectorColorPanelActive: 0
   uiHelperPanelClearStage: {fileID: 377431185}
   beginCountDown: 0
   dissolveMaterial: {fileID: 2100000, guid: 893b9a5ef9af3564e88f1a3306fd40e3, type: 2}
@@ -5549,6 +5502,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 111282493}
     m_Modifications:
+    - target: {fileID: 1272815311097381992, guid: f48e0c7e48c81ca4eb682ea090f1b03f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5090675728073452874, guid: f48e0c7e48c81ca4eb682ea090f1b03f,
         type: 3}
       propertyPath: m_LocalPosition.x

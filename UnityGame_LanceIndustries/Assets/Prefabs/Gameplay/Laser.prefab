@@ -44,10 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef68d360027abe242b51c6ad946495b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  initialProjectileSpeed: 7
+  minProjectileSpeed: 2
+  speedReductionUponReflected: 1
   spriteRend: {fileID: 3685207896214443797}
-  projectileSpeed: 7
-  projectileRaycastLength: 0.1
-  directionVector: {x: 0, y: 0, z: 0}
   layerMaskStruct:
     serializedVersion: 2
     m_Bits: 130870
