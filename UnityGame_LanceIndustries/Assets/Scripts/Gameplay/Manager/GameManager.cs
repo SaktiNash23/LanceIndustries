@@ -146,7 +146,7 @@ public class GameManager : MonoBehaviour
         {
             if (numOfSuccessEndPoints == numOfEndPoints)
             {
-                GameplayUIManager.Instance.ShowGameClearPanel(true);
+                GameplayUIManager.Instance.ShowGameClearPanel();
                 AllCorrectLasersHaveReached = true;
             }
             else

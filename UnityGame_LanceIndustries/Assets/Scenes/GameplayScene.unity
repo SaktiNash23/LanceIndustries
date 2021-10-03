@@ -436,6 +436,7 @@ GameObject:
   - component: {fileID: 41101242}
   - component: {fileID: 41101239}
   - component: {fileID: 41101241}
+  - component: {fileID: 41101243}
   - component: {fileID: 41101240}
   m_Layer: 5
   m_Name: contentPause
@@ -583,6 +584,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 41101237}
   m_CullTransparentMesh: 0
+--- !u!114 &41101243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 41101237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a84cdf7682605c943a79fb36b5b04597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  btnResume: {fileID: 2003786591}
+  btnMainMenu: {fileID: 940705654}
 --- !u!1 &111282492
 GameObject:
   m_ObjectHideFlags: 0
@@ -1615,13 +1630,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reflectorColorPanel: {fileID: 952090227}
   gameClearPanel: {fileID: 377431189}
+  pausePanel: {fileID: 41101243}
   txtReflectorStockWhite: {fileID: 1695614069}
   txtReflectorStockRed: {fileID: 1392255457}
   txtReflectorStockBlue: {fileID: 409159821}
   txtReflectorStockYellow: {fileID: 625114230}
-  btnReturnToMainMenu: {fileID: 940705654}
-  btnNextStage: {fileID: 905340866}
-  btnStageSelection: {fileID: 250781176}
+  btnPause: {fileID: 1176842834}
 --- !u!4 &269993391
 Transform:
   m_ObjectHideFlags: 0
@@ -7848,31 +7862,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1176842835}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 401026882}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: Pause
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 41101240}
-        m_TargetAssemblyTypeName: UIHelper, Assembly-CSharp
-        m_MethodName: ExecuteUIHandlingAction
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1176842835
 MonoBehaviour:
   m_ObjectHideFlags: 0

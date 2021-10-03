@@ -12,6 +12,7 @@ public class GameplayUIManager : MonoBehaviour
     [Header("References")]
     public ReflectorColorPanel reflectorColorPanel;
     public GameClearPanel gameClearPanel;
+    public PausePanel pausePanel;
 
     [Header("Texts")]
     public TextMeshProUGUI txtReflectorStockWhite;
@@ -20,13 +21,11 @@ public class GameplayUIManager : MonoBehaviour
     public TextMeshProUGUI txtReflectorStockYellow;
 
     [Header("Buttons")]
-    public Button btnReturnToMainMenu;
-    public Button btnNextStage;
-    public Button btnStageSelection;
+    public Button btnPause;
 
     private void Awake()
     {
-        if(instance != null && instance != this)
+        if (instance != null && instance != this)
         {
             Destroy(gameObject);
         }
@@ -38,17 +37,12 @@ public class GameplayUIManager : MonoBehaviour
 
     private void OnEnable()
     {
-        btnReturnToMainMenu.onClick.AddListener(() => PersistentDataManager.Instance.SetTimeScale(1f));
-        btnReturnToMainMenu.onClick.AddListener(() => SceneLoader.Instance.LoadSceneWithLoadingScreen(SCENE_ENUM.MAIN_MENU));
-        btnStageSelection.onClick.AddListener(() => PersistentDataManager.Instance.SetTimeScale(1f));
-        btnStageSelection.onClick.AddListener(() => SceneLoader.Instance.LoadSceneWithLoadingScreen(SCENE_ENUM.MAIN_MENU));
+        btnPause.onClick.AddListener(ShowPausePanel);
     }
 
     private void OnDisable()
     {
-        btnReturnToMainMenu.onClick.RemoveAllListeners();
-        btnStageSelection.onClick.RemoveAllListeners();
-        btnNextStage.onClick.RemoveAllListeners();
+        btnPause.onClick.RemoveListener(ShowPausePanel);
     }
 
     public void RefreshReflectorStockUIs(REFLECTOR_TYPE reflectorType)
@@ -82,8 +76,14 @@ public class GameplayUIManager : MonoBehaviour
         }
     }
 
-    public void ShowGameClearPanel(bool show)
+    public void ShowGameClearPanel()
     {
-        gameClearPanel.UIHelper.ExecuteUIHandlingAction(show, gameClearPanel.RefreshButtonInteractable);
+        gameClearPanel.UIHelper.ExecuteUIHandlingAction(true, gameClearPanel.RefreshButtonInteractable);
+    }
+
+    public void ShowPausePanel()
+    {
+        GameManager.Instance.Pause(true);
+        pausePanel.UIHelper.ExecuteUIHandlingAction(true);
     }
 }
