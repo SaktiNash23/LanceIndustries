@@ -41,12 +41,10 @@ public class GameplayUIManager : MonoBehaviour
         btnReturnToMainMenu.onClick.AddListener(() => SceneLoader.Instance.LoadSceneWithLoadingScreen(SCENE_ENUM.MAIN_MENU));
         btnStageSelection.onClick.AddListener(() => PersistentDataManager.Instance.SetTimeScale(1f));
         btnStageSelection.onClick.AddListener(() => SceneLoader.Instance.LoadSceneWithLoadingScreen(SCENE_ENUM.MAIN_MENU));
-        if (PersistentDataManager.Instance.GetSelectedMapIndex() < PersistentDataManager.Instance.MapDataHolderNamePairs.Count - 1)
+        if (PersistentDataManager.Instance.HasNextMap())
         {
-            int targetMapIndex = PersistentDataManager.Instance.GetSelectedMapIndex() + 1;
             btnNextStage.onClick.AddListener(() => PersistentDataManager.Instance.SetTimeScale(1f));
-            btnNextStage.onClick.AddListener(() => PersistentDataManager.Instance.SelectedMapDataHolderNamePair = PersistentDataManager.Instance.MapDataHolderNamePairs[targetMapIndex]);
-            btnNextStage.onClick.AddListener(() => PersistentDataManager.Instance.UpdateSelectedMapIndex());
+            btnNextStage.onClick.AddListener(() => PersistentDataManager.Instance.SelectNextMap());
             btnNextStage.onClick.AddListener(() => SceneLoader.Instance.LoadSceneWithLoadingScreen(SCENE_ENUM.GAMEPLAY_SCENE));
         }
         else

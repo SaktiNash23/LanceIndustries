@@ -212,6 +212,7 @@ public class Reflector : PoolObject, ILaserInteractable
 
     public virtual void OnLaserOverlap(Laser laser, RaycastHit2D hit)
     {
+        laser.ReduceLaserSpeed();
         CalculateLaser(laser, hit);
     }
 }

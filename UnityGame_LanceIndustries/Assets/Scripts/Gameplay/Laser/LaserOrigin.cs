@@ -90,5 +90,6 @@ public class LaserOrigin : MonoBehaviour
         Laser laser = ObjectPooler.Instance.PopOrCreate(laserPrefab, barrel.position, barrel.rotation);
         laser.LaserColor = laserColor;
         laser.RefreshLaserMaterialColor();
+        GameManager.Instance.Lasers.Add(laser);
     }
 }

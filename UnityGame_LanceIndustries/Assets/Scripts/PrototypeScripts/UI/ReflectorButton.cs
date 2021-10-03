@@ -41,131 +41,118 @@ public class ReflectorButton : MonoBehaviour
 
     public void OnPointerDown(PointerEventData pointerEventData)
     {
-        if (GameManager.Instance.DebugMode_PC == false)
+        Reflector reflector = null;
+
+        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        if (!GameplayInputManager.Instance.SelectingReflector && GameManager.Instance.IsReflectorInStock(ReflectorType, ReflectorColor))
         {
-            if (Input.touchCount == 1)//Used to be Input.touchCount <= 1
+            switch (ReflectorType)
             {
-                Touch touch = Input.GetTouch(0);
+                case REFLECTOR_TYPE.BASIC:
+                    reflector = ObjectPooler.Instance.PopOrCreate(GameManager.Instance.GetBasicReflectorPrefab, mousePos, Quaternion.identity);
+                    reflector.Initialization(ReflectorColor);
+                    reflector.RefreshReflectorColor();
+                    switch (ReflectorColor)
+                    {
+                        case LASER_COLOR.WHITE:
+                            reflector.onPush += () => GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.BASIC, LASER_COLOR.WHITE, 1);
+                            GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.BASIC, LASER_COLOR.WHITE, -1);
+                            break;
+                        case LASER_COLOR.RED:
+                            reflector.onPush += () => GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.BASIC, LASER_COLOR.RED, 1);
+                            GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.BASIC, LASER_COLOR.RED, -1);
+                            break;
+                        case LASER_COLOR.BLUE:
+                            reflector.onPush += () => GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.BASIC, LASER_COLOR.BLUE, 1);
+                            GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.BASIC, LASER_COLOR.BLUE, -1);
+                            break;
+                        case LASER_COLOR.YELLOW:
+                            reflector.onPush += () => GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.BASIC, LASER_COLOR.YELLOW, 1);
+                            GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.BASIC, LASER_COLOR.YELLOW, -1);
+                            break;
+                    }
+                    break;
+                case REFLECTOR_TYPE.TRANSLUCENT:
+                    reflector = ObjectPooler.Instance.PopOrCreate(GameManager.Instance.GetReflectorTranslucentPrefab, mousePos, Quaternion.identity);
+                    reflector.Initialization(ReflectorColor);
+                    reflector.RefreshReflectorColor();
+                    switch (ReflectorColor)
+                    {
+                        case LASER_COLOR.WHITE:
+                            reflector.onPush += () => GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.TRANSLUCENT, LASER_COLOR.WHITE, 1);
+                            GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.TRANSLUCENT, LASER_COLOR.WHITE, -1);
+                            break;
+                        case LASER_COLOR.RED:
+                            reflector.onPush += () => GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.TRANSLUCENT, LASER_COLOR.RED, 1);
+                            GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.TRANSLUCENT, LASER_COLOR.RED, -1);
+                            break;
+                        case LASER_COLOR.BLUE:
+                            reflector.onPush += () => GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.TRANSLUCENT, LASER_COLOR.BLUE, 1);
+                            GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.TRANSLUCENT, LASER_COLOR.BLUE, -1);
+                            break;
+                        case LASER_COLOR.YELLOW:
+                            reflector.onPush += () => GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.TRANSLUCENT, LASER_COLOR.YELLOW, 1);
+                            GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.TRANSLUCENT, LASER_COLOR.YELLOW, -1);
+                            break;
+                    }
+                    break;
+                case REFLECTOR_TYPE.DOUBLE_WAY:
+                    reflector = ObjectPooler.Instance.PopOrCreate(GameManager.Instance.GetReflectorDoubleWayPrefab, mousePos, Quaternion.identity);
+                    reflector.Initialization(ReflectorColor);
+                    reflector.RefreshReflectorColor();
+                    switch (ReflectorColor)
+                    {
+                        case LASER_COLOR.WHITE:
+                            reflector.onPush += () => GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.DOUBLE_WAY, LASER_COLOR.WHITE, 1);
+                            GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.DOUBLE_WAY, LASER_COLOR.WHITE, -1);
+                            break;
+                        case LASER_COLOR.RED:
+                            reflector.onPush += () => GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.DOUBLE_WAY, LASER_COLOR.RED, 1);
+                            GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.DOUBLE_WAY, LASER_COLOR.RED, -1);
+                            break;
+                        case LASER_COLOR.BLUE:
+                            reflector.onPush += () => GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.DOUBLE_WAY, LASER_COLOR.BLUE, 1);
+                            GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.DOUBLE_WAY, LASER_COLOR.BLUE, -1);
+                            break;
+                        case LASER_COLOR.YELLOW:
+                            reflector.onPush += () => GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.DOUBLE_WAY, LASER_COLOR.YELLOW, 1);
+                            GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.DOUBLE_WAY, LASER_COLOR.YELLOW, -1);
+                            break;
+                    }
+                    break;
+                case REFLECTOR_TYPE.THREE_WAY:
+                    reflector = ObjectPooler.Instance.PopOrCreate(GameManager.Instance.GetReflectorThreeWayPrefab, mousePos, Quaternion.identity);
+                    reflector.Initialization(ReflectorColor);
+                    reflector.RefreshReflectorColor();
+                    switch (ReflectorColor)
+                    {
+                        case LASER_COLOR.WHITE:
+                            reflector.onPush += () => GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.THREE_WAY, LASER_COLOR.WHITE, 1);
+                            GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.THREE_WAY, LASER_COLOR.WHITE, -1);
+                            break;
+                        case LASER_COLOR.RED:
+                            reflector.onPush += () => GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.THREE_WAY, LASER_COLOR.RED, 1);
+                            GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.THREE_WAY, LASER_COLOR.RED, -1);
+                            break;
+                        case LASER_COLOR.BLUE:
+                            reflector.onPush += () => GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.THREE_WAY, LASER_COLOR.BLUE, 1);
+                            GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.THREE_WAY, LASER_COLOR.BLUE, -1);
+                            break;
+                        case LASER_COLOR.YELLOW:
+                            reflector.onPush += () => GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.THREE_WAY, LASER_COLOR.YELLOW, 1);
+                            GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.THREE_WAY, LASER_COLOR.YELLOW, -1);
+                            break;
+                    }
+                    break;
+                case REFLECTOR_TYPE.DEFAULT:
+                    break;
             }
+
+            GameManager.Instance.Reflectors.Add(reflector);
+            GameplayInputManager.Instance.SelectReflector(reflector);
+
+            GameManager.Instance.ReflectorColorPanel.EnablePanel(false);
         }
-
-#if UNITY_EDITOR
-        if (GameManager.Instance.DebugMode_PC == true)
-        {
-            Reflector reflector = null;
-
-            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-            if (!GameplayInputManager.Instance.SelectingReflector && GameManager.Instance.IsReflectorInStock(ReflectorType, ReflectorColor))
-            {
-                switch (ReflectorType)
-                {
-                    case REFLECTOR_TYPE.BASIC:
-                        reflector = ObjectPooler.Instance.PopOrCreate(GameManager.Instance.GetBasicReflectorPrefab, mousePos, Quaternion.identity);
-                        reflector.Initialization(ReflectorColor);
-                        reflector.RefreshReflectorColor();
-                        switch (ReflectorColor)
-                        {
-                            case LASER_COLOR.WHITE:
-                                reflector.onPush += () => GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.BASIC, LASER_COLOR.WHITE, 1);
-                                GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.BASIC, LASER_COLOR.WHITE, -1);
-                                break;
-                            case LASER_COLOR.RED:
-                                reflector.onPush += () => GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.BASIC, LASER_COLOR.RED, 1);
-                                GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.BASIC, LASER_COLOR.RED, -1);
-                                break;
-                            case LASER_COLOR.BLUE:
-                                reflector.onPush += () => GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.BASIC, LASER_COLOR.BLUE, 1);
-                                GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.BASIC, LASER_COLOR.BLUE, -1);
-                                break;
-                            case LASER_COLOR.YELLOW:
-                                reflector.onPush += () => GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.BASIC, LASER_COLOR.YELLOW, 1);
-                                GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.BASIC, LASER_COLOR.YELLOW, -1);
-                                break;
-                        }
-                        break;
-                    case REFLECTOR_TYPE.TRANSLUCENT:
-                        reflector = ObjectPooler.Instance.PopOrCreate(GameManager.Instance.GetReflectorTranslucentPrefab, mousePos, Quaternion.identity);
-                        reflector.Initialization(ReflectorColor);
-                        reflector.RefreshReflectorColor();
-                        switch (ReflectorColor)
-                        {
-                            case LASER_COLOR.WHITE:
-                                reflector.onPush += () => GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.TRANSLUCENT, LASER_COLOR.WHITE, 1);
-                                GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.TRANSLUCENT, LASER_COLOR.WHITE, -1);
-                                break;
-                            case LASER_COLOR.RED:
-                                reflector.onPush += () => GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.TRANSLUCENT, LASER_COLOR.RED, 1);
-                                GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.TRANSLUCENT, LASER_COLOR.RED, -1);
-                                break;
-                            case LASER_COLOR.BLUE:
-                                reflector.onPush += () => GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.TRANSLUCENT, LASER_COLOR.BLUE, 1);
-                                GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.TRANSLUCENT, LASER_COLOR.BLUE, -1);
-                                break;
-                            case LASER_COLOR.YELLOW:
-                                reflector.onPush += () => GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.TRANSLUCENT, LASER_COLOR.YELLOW, 1);
-                                GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.TRANSLUCENT, LASER_COLOR.YELLOW, -1);
-                                break;
-                        }
-                        break;
-                    case REFLECTOR_TYPE.DOUBLE_WAY:
-                        reflector = ObjectPooler.Instance.PopOrCreate(GameManager.Instance.GetReflectorDoubleWayPrefab, mousePos, Quaternion.identity);
-                        reflector.Initialization(ReflectorColor);
-                        reflector.RefreshReflectorColor();
-                        switch (ReflectorColor)
-                        {
-                            case LASER_COLOR.WHITE:
-                                reflector.onPush += () => GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.DOUBLE_WAY, LASER_COLOR.WHITE, 1);
-                                GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.DOUBLE_WAY, LASER_COLOR.WHITE, -1);
-                                break;
-                            case LASER_COLOR.RED:
-                                reflector.onPush += () => GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.DOUBLE_WAY, LASER_COLOR.RED, 1);
-                                GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.DOUBLE_WAY, LASER_COLOR.RED, -1);
-                                break;
-                            case LASER_COLOR.BLUE:
-                                reflector.onPush += () => GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.DOUBLE_WAY, LASER_COLOR.BLUE, 1);
-                                GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.DOUBLE_WAY, LASER_COLOR.BLUE, -1);
-                                break;
-                            case LASER_COLOR.YELLOW:
-                                reflector.onPush += () => GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.DOUBLE_WAY, LASER_COLOR.YELLOW, 1);
-                                GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.DOUBLE_WAY, LASER_COLOR.YELLOW, -1);
-                                break;
-                        }
-                        break;
-                    case REFLECTOR_TYPE.THREE_WAY:
-                        reflector = ObjectPooler.Instance.PopOrCreate(GameManager.Instance.GetReflectorThreeWayPrefab, mousePos, Quaternion.identity);
-                        reflector.Initialization(ReflectorColor);
-                        reflector.RefreshReflectorColor();
-                        switch (ReflectorColor)
-                        {
-                            case LASER_COLOR.WHITE:
-                                reflector.onPush += () => GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.THREE_WAY, LASER_COLOR.WHITE, 1);
-                                GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.THREE_WAY, LASER_COLOR.WHITE, -1);
-                                break;
-                            case LASER_COLOR.RED:
-                                reflector.onPush += () => GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.THREE_WAY, LASER_COLOR.RED, 1);
-                                GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.THREE_WAY, LASER_COLOR.RED, -1);
-                                break;
-                            case LASER_COLOR.BLUE:
-                                reflector.onPush += () => GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.THREE_WAY, LASER_COLOR.BLUE, 1);
-                                GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.THREE_WAY, LASER_COLOR.BLUE, -1);
-                                break;
-                            case LASER_COLOR.YELLOW:
-                                reflector.onPush += () => GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.THREE_WAY, LASER_COLOR.YELLOW, 1);
-                                GameManager.Instance.UpdateReflectorStock(REFLECTOR_TYPE.THREE_WAY, LASER_COLOR.YELLOW, -1);
-                                break;
-                        }
-                        break;
-                    case REFLECTOR_TYPE.DEFAULT:
-                        break;
-                }
-
-                GameManager.Instance.AllReflectorsInScene.Add(reflector);
-                GameplayInputManager.Instance.SelectReflector(reflector);
-
-                GameManager.Instance.ReflectorColorPanel.EnablePanel(false);
-            }
-        }
-#endif
     }
 }

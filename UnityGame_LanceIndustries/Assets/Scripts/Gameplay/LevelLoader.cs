@@ -58,8 +58,7 @@ public class LevelLoader : MonoBehaviour
 
         if(debugMode && levelToLoad != null)
         {
-            PersistentDataManager.Instance.SelectedMapDataHolderNamePair = PersistentDataManager.Instance.GetMapDataHolderNamePair(levelToLoad.name);
-            PersistentDataManager.Instance.UpdateSelectedMapIndex();
+            PersistentDataManager.Instance.SelectMap(levelToLoad.name);
             LoadLevel(levelToLoad);
         }
     }

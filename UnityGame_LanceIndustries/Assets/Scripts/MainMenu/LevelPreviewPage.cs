@@ -32,8 +32,7 @@ public class LevelPreviewPage : MonoBehaviour
         {
             if (!MainMenuUIManager.Instance.SwitchingLevelPage)
             {
-                PersistentDataManager.Instance.SelectedMapDataHolderNamePair = PersistentDataManager.Instance.GetMapDataHolderNamePair(TargetMapInfo.mapName);
-                PersistentDataManager.Instance.UpdateSelectedMapIndex();
+                PersistentDataManager.Instance.SelectMap(TargetMapInfo.mapName);
                 btnSelectStage.interactable = false;
                 SceneLoader.Instance.LoadSceneWithLoadingScreen(SCENE_ENUM.GAMEPLAY_SCENE);
             }
@@ -72,8 +71,7 @@ public class LevelPreviewPage : MonoBehaviour
         {
             if (!MainMenuUIManager.Instance.SwitchingLevelPage)
             {
-                PersistentDataManager.Instance.SelectedMapDataHolderNamePair = PersistentDataManager.Instance.GetMapDataHolderNamePair(mainMenuLevelUI.TargetMapInfo.mapName);
-                PersistentDataManager.Instance.UpdateSelectedMapIndex();
+                PersistentDataManager.Instance.SelectMap(mainMenuLevelUI.TargetMapInfo.mapName);
                 btnSelectStage.interactable = false;
                 SceneLoader.Instance.LoadSceneWithLoadingScreen(SCENE_ENUM.GAMEPLAY_SCENE);
             }

@@ -13,11 +13,9 @@ public class PersistentDataManager : MonoBehaviour
     public List<MapDataHolderNamePair> MapDataHolderNamePairs = new List<MapDataHolderNamePair>();
     public MapDataHolderNamePair SelectedMapDataHolderNamePair { get; set; }
 
-    public int selectedMapIndex = -1;
-
     private void Awake()
     {
-        if(_instance != null && _instance != this)
+        if (_instance != null && _instance != this)
         {
             Destroy(gameObject);
         }
@@ -31,29 +29,35 @@ public class PersistentDataManager : MonoBehaviour
         PopulateMapDataHolderNamePairs();
     }
 
-    public void PopulateMapDataHolderNamePairs()
+    private void PopulateMapDataHolderNamePairs()
     {
         List<MapInfo> mapInfos = new List<MapInfo>(Resources.LoadAll<MapInfo>("Map Infos"));
-        foreach(var mapInfo in mapInfos)
-        {
+        foreach (var mapInfo in mapInfos)
             MapDataHolderNamePairs.Add(new MapDataHolderNamePair() { mapName = mapInfo.mapName, mapDataHolder = JsonUtility.FromJson<MapDataHolder>(mapInfo.mapData.text) });
+    }
+
+    public void SelectMap(string mapName)
+    {
+        foreach (var mapDataHolderNamePair in MapDataHolderNamePairs)
+        {
+            if (mapDataHolderNamePair.mapName == mapName)
+                SelectedMapDataHolderNamePair = mapDataHolderNamePair;
         }
     }
 
-    public MapDataHolder GetMapDataHolder(string mapName)
+    public void SelectNextMap()
     {
-        foreach(var mapDataHolderNamePair in MapDataHolderNamePairs)
-        {
-            if (mapDataHolderNamePair.mapName == mapName)
-                return mapDataHolderNamePair.mapDataHolder;
-        }
+        SelectedMapDataHolderNamePair = MapDataHolderNamePairs[MapDataHolderNamePairs.IndexOf(SelectedMapDataHolderNamePair) + 1];
+    }
 
-        return null;
+    public void SelectPreviousMap()
+    {
+        SelectedMapDataHolderNamePair = MapDataHolderNamePairs[MapDataHolderNamePairs.IndexOf(SelectedMapDataHolderNamePair) - 1];
     }
 
     public MapDataHolderNamePair GetMapDataHolderNamePair(string mapName)
     {
-        foreach(var mapDataHolderNamePair in MapDataHolderNamePairs)
+        foreach (var mapDataHolderNamePair in MapDataHolderNamePairs)
         {
             if (mapDataHolderNamePair.mapName == mapName)
                 return mapDataHolderNamePair;
@@ -62,24 +66,26 @@ public class PersistentDataManager : MonoBehaviour
         return null;
     }
 
-    public MapDataHolderNamePair GetMapDataHolderNamePair(int index)
+    public MapDataHolder GetMapDataHolder(string mapName)
     {
-        if (index < MapDataHolderNamePairs.Count)
+        foreach (var mapDataHolderNamePair in MapDataHolderNamePairs)
         {
-            return MapDataHolderNamePairs[index];
+            if (mapDataHolderNamePair.mapName == mapName)
+                return mapDataHolderNamePair.mapDataHolder;
         }
-        else
-        {
-            return null;
-        }
+
+        return null;
     }
 
-    public void UpdateSelectedMapIndex()
+    public bool HasNextMap()
     {
-        selectedMapIndex = MapDataHolderNamePairs.IndexOf(SelectedMapDataHolderNamePair);
+        return MapDataHolderNamePairs.IndexOf(SelectedMapDataHolderNamePair) + 1 < MapDataHolderNamePairs.Count;
     }
 
-    public int GetSelectedMapIndex() => selectedMapIndex;
+    public bool HasPreviousMap()
+    {
+        return MapDataHolderNamePairs.IndexOf(SelectedMapDataHolderNamePair) - 1 >= 0;
+    }
 
     public void SetTimeScale(float value) => Time.timeScale = value;
 }

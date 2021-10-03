@@ -28,7 +28,6 @@ public class GameplayInputManager : MonoBehaviour
         else
         {
             instance = this;
-            DontDestroyOnLoad(instance);
         }
     }
 
@@ -200,5 +199,12 @@ public class GameplayInputManager : MonoBehaviour
     public void HighlightGridOutline(Proto_Grid gridOutline)
     {
         highlightedGrid = gridOutline;
+    }
+
+    public void Reset()
+    {
+        mainCamera = Camera.main;
+        selectedReflector = null;
+        highlightedGrid = null;
     }
 }
