@@ -1614,6 +1614,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reflectorColorPanel: {fileID: 952090227}
+  gameClearPanel: {fileID: 377431189}
   txtReflectorStockWhite: {fileID: 1695614069}
   txtReflectorStockRed: {fileID: 1392255457}
   txtReflectorStockBlue: {fileID: 409159821}
@@ -1977,6 +1978,7 @@ GameObject:
   - component: {fileID: 377431188}
   - component: {fileID: 377431187}
   - component: {fileID: 377431186}
+  - component: {fileID: 377431189}
   - component: {fileID: 377431185}
   m_Layer: 5
   m_Name: contentClear
@@ -2124,6 +2126,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 377431183}
   m_CullTransparentMesh: 0
+--- !u!114 &377431189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 377431183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 921f64ba85593834bac152933b808aff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  btnNextStage: {fileID: 905340866}
+  btnMainMenu: {fileID: 250781176}
 --- !u!1001 &379106671
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2425,7 +2441,6 @@ MonoBehaviour:
   activationToggle_Reflector: 0
   TimerSuccessText: {fileID: 1901183096}
   reflectorColorPanel: {fileID: 952090227}
-  uiHelperPanelClearStage: {fileID: 377431185}
   beginCountDown: 0
   dissolveMaterial: {fileID: 2100000, guid: 893b9a5ef9af3564e88f1a3306fd40e3, type: 2}
   reflectorPanel_DissolveMaterial: {fileID: 2100000, guid: 89260f96a89ed0a42a7a0d60527a9c6a,
@@ -7336,7 +7351,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dontDestroyOnLoad: 1
   MapDataHolderNamePairs: []
-  selectedMapIndex: -1
 --- !u!4 &1146058611
 Transform:
   m_ObjectHideFlags: 0

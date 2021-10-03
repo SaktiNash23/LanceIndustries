@@ -25,8 +25,6 @@ public class GameManager : MonoBehaviour
     [BoxGroup("Reflector Color Panel Variables")]
     [SerializeField] protected ReflectorColorPanel reflectorColorPanel;
 
-    [BoxGroup("Stage Clear References")] [SerializeField] UIHelper uiHelperPanelClearStage;
-
     public ReflectorColorPanel ReflectorColorPanel { get => reflectorColorPanel; }
     public Reflector GetBasicReflectorPrefab { get { return reflectorPrefab; } }
     public ReflectorTranslucent GetReflectorTranslucentPrefab { get { return reflectorTranslucentPrefab; } }
@@ -148,9 +146,7 @@ public class GameManager : MonoBehaviour
         {
             if (numOfSuccessEndPoints == numOfEndPoints)
             {
-                // Show Stage Clear Panel
-                uiHelperPanelClearStage.ExecuteUIHandlingAction(true);
-
+                GameplayUIManager.Instance.ShowGameClearPanel(true);
                 AllCorrectLasersHaveReached = true;
             }
             else

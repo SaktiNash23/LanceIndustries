@@ -9,16 +9,17 @@ public class GameplayUIManager : MonoBehaviour
     private static GameplayUIManager instance;
     public static GameplayUIManager Instance { get => instance; }
 
-    [Header("REFERENCES")]
+    [Header("References")]
     public ReflectorColorPanel reflectorColorPanel;
+    public GameClearPanel gameClearPanel;
 
-    [Header("REFLECTOR")]
+    [Header("Texts")]
     public TextMeshProUGUI txtReflectorStockWhite;
     public TextMeshProUGUI txtReflectorStockRed;
     public TextMeshProUGUI txtReflectorStockBlue;
     public TextMeshProUGUI txtReflectorStockYellow;
 
-    [Header("PAUSE MENU")]
+    [Header("Buttons")]
     public Button btnReturnToMainMenu;
     public Button btnNextStage;
     public Button btnStageSelection;
@@ -41,16 +42,6 @@ public class GameplayUIManager : MonoBehaviour
         btnReturnToMainMenu.onClick.AddListener(() => SceneLoader.Instance.LoadSceneWithLoadingScreen(SCENE_ENUM.MAIN_MENU));
         btnStageSelection.onClick.AddListener(() => PersistentDataManager.Instance.SetTimeScale(1f));
         btnStageSelection.onClick.AddListener(() => SceneLoader.Instance.LoadSceneWithLoadingScreen(SCENE_ENUM.MAIN_MENU));
-        if (PersistentDataManager.Instance.HasNextMap())
-        {
-            btnNextStage.onClick.AddListener(() => PersistentDataManager.Instance.SetTimeScale(1f));
-            btnNextStage.onClick.AddListener(() => PersistentDataManager.Instance.SelectNextMap());
-            btnNextStage.onClick.AddListener(() => SceneLoader.Instance.LoadSceneWithLoadingScreen(SCENE_ENUM.GAMEPLAY_SCENE));
-        }
-        else
-        {
-            btnNextStage.interactable = false;
-        }
     }
 
     private void OnDisable()
@@ -89,5 +80,10 @@ public class GameplayUIManager : MonoBehaviour
                 txtReflectorStockYellow.text = GameManager.Instance.ThreeWayYellowReflectorStock.ToString();
                 break;
         }
+    }
+
+    public void ShowGameClearPanel(bool show)
+    {
+        gameClearPanel.UIHelper.ExecuteUIHandlingAction(show, gameClearPanel.RefreshButtonInteractable);
     }
 }
