@@ -10,7 +10,7 @@ public class PersistentDataManager : MonoBehaviour
     private static PersistentDataManager _instance;
     public static PersistentDataManager Instance { get => _instance; }
 
-    public List<MapDataHolderNamePair> MapDataHolderNamePairs = new List<MapDataHolderNamePair>();
+    private List<MapDataHolderNamePair> MapDataHolderNamePairs = new List<MapDataHolderNamePair>();
     public MapDataHolderNamePair SelectedMapDataHolderNamePair { get; set; }
 
     private void Awake()

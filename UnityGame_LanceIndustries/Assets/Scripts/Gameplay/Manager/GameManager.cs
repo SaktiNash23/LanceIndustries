@@ -31,40 +31,29 @@ public class GameManager : MonoBehaviour
     public ReflectorDoubleWay GetReflectorDoubleWayPrefab { get { return reflectorDoubleWayPrefab; } }
     public ReflectorThreeWay GetReflectorThreeWayPrefab { get { return reflectorThreeWayPrefab; } }
 
-    public List<Laser> Lasers { get; private set; } = new List<Laser>();
-    public List<Reflector> Reflectors { get; private set; } = new List<Reflector>();
-    public List<Proto_Grid> GridOutlines { get; private set; } = new List<Proto_Grid>();
-
-    private float elapsedTime;
+    private float timeLeft;
     private float timeLimit;
 
-    private GameObject[] allEndPoints;
-    private int numOfEndPoints = 0;
-    private int numOfSuccessEndPoints = 0;
-    private int numOfHitEndPoints = 0;
-    private bool allLasersHaveReached = false;
-    public bool AllCorrectLasersHaveReached { get; private set; } = false;
+    private float oneStarRequiredTime;
+    private float twoStarRequiredTime;
+    private float threeStarRequiredTime;
 
-    [HideInInspector]
-    public bool beginCountDown = false;
+    private List<Laser> lasers = new List<Laser>();
+    private List<LaserOrigin> laserOrigins = new List<LaserOrigin>();
+    private List<LaserDestination> laserDestinations = new List<LaserDestination>();
+    private List<Reflector> reflectors = new List<Reflector>();
+    private List<Proto_Grid> gridOutlines = new List<Proto_Grid>();
 
-
-    #region Dissolve Effect Variables
-
-    [BoxGroup("Dissolve Effect Variables")]
-    public Material dissolveMaterial;
-    [BoxGroup("Dissolve Effect Variables")]
-    public Material reflectorPanel_DissolveMaterial;
-
-    private float dissolveFade = 0.0f;
-    private float reflectorPanel_dissolveFade = 0.0f;
-
-    [HideInInspector]
-    public bool activateDissolve = true;
-    [HideInInspector]
-    public bool fadeIn = false;
-
-    #endregion
+    public bool IsGamePaused { get; private set; }
+    public bool GameStarted { get; private set; }
+    public bool GameClear { get; private set; }
+    public bool CanStartGame
+    {
+        get
+        {
+            return !IsGamePaused && !GameStarted && !GameClear;
+        }
+    }
 
     // Basic Reflector Stocks
     public int BasicWhiteReflectorStock { get; private set; }
@@ -96,7 +85,22 @@ public class GameManager : MonoBehaviour
     public int ThreeWayBlueReflectorStock { get; private set; }
     public int ThreeWayYellowReflectorStock { get; private set; }
 
-    public bool IsGamePaused { get; set; }
+    #region Dissolve Effect Variables
+
+    [BoxGroup("Dissolve Effect Variables")]
+    public Material dissolveMaterial;
+    [BoxGroup("Dissolve Effect Variables")]
+    public Material reflectorPanel_DissolveMaterial;
+
+    private float dissolveFade = 0.0f;
+    private float reflectorPanel_dissolveFade = 0.0f;
+
+    [HideInInspector]
+    public bool activateDissolve = true;
+    [HideInInspector]
+    public bool fadeIn = false;
+
+    #endregion
 
     #region MonoBehaviour
     void Awake()
@@ -120,14 +124,29 @@ public class GameManager : MonoBehaviour
                 dissolveFade += Time.deltaTime;
                 dissolveMaterial.SetFloat("_Fade", dissolveFade);
             }
+        }
 
-            if (beginCountDown == true)
+        if (!IsGamePaused && GameStarted)
+        {
+            timeLeft -= Time.deltaTime;
+            if (timeLeft <= 0.0f)
             {
-                checkTimingWindowForLaser();
+                TimerSuccessText.text = "FAIL";
+                GameStarted = false;
+            }
+            else
+            {
+                TimerSuccessText.text = timeLeft.ToString("F2");
             }
         }
     }
     #endregion
+
+    public void AddLaser(Laser laser) { lasers.Add(laser); }
+    public void RemoveLaser(Laser laser) { lasers.Remove(laser); }
+
+    public void AddReflector(Reflector reflector) { reflectors.Add(reflector); }
+    public void RemoveReflector(Reflector reflector) { reflectors.Remove(reflector); }
 
     public void Pause(bool pause)
     {
@@ -135,88 +154,102 @@ public class GameManager : MonoBehaviour
         Time.timeScale = pause ? 0.0f : 1.0f;
     }
 
-    public void UpdateEndPointStatus(bool hitSuccessEndPoint)
+    public void EndGameCheck()
     {
-        numOfHitEndPoints++;
+        if (!GameStarted)
+            return;
 
-        if (hitSuccessEndPoint)
-            numOfSuccessEndPoints++;
-
-        if (numOfHitEndPoints == numOfEndPoints)
+        bool allLaserDestinationsOn = true;
+        foreach (var laserDestination in laserDestinations)
         {
-            if (numOfSuccessEndPoints == numOfEndPoints)
+            if (!laserDestination.IsOn)
             {
-                GameplayUIManager.Instance.ShowGameClearPanel();
-                AllCorrectLasersHaveReached = true;
-            }
-            else
-            {
-                allLasersHaveReached = true;
+                allLaserDestinationsOn = false;
+                break;
             }
         }
-    }
 
-    //When a laser is fired and the countdown begins, this function performs various operations
-    //
-    // 1.) Checks if all the lasers have reached end points before time limit expires, then subsequently checks if the lasers hit are the correct ones
-    //
-    // 2.) Checks if the all the laser have NOT reached the end point when time limit expires, then it destroys any lasers that are still on screen and resets the timer
-    //
-    // 3.) Updates the Countdown Timer UI with the current time
-    public void checkTimingWindowForLaser()
-    {
-        if (elapsedTime > 0.0f)
+        if (allLaserDestinationsOn)
         {
-            if (AllCorrectLasersHaveReached == true)
-            {
-                TimerSuccessText.text = "WIN";
-                beginCountDown = false; //Only when beginCountdown is false, we can reset the game by clicking on any of the starting points again
-                GameplayInputManager.Instance.EnableInput = true;
-                //Reset();
-            }
-            else if (allLasersHaveReached == true)
-            {
-                TimerSuccessText.text = "FAIL";
-                beginCountDown = false; //Only when beginCountdown is false, we can reset the game by clicking on any of the starting points again
-                GameplayInputManager.Instance.EnableInput = true;
-                //Reset();
-            }
+            TimerSuccessText.text = "WIN";
+            GameClear = true;
+            GameStarted = false;
+            GameplayUIManager.Instance.ShowGameClearPanel();
+            if(timeLeft >= threeStarRequiredTime)
+                Debug.Log("Three Stars");
+            else if(timeLeft >= twoStarRequiredTime)
+                Debug.Log("Two Stars");
             else
-            {
-                elapsedTime -= Time.smoothDeltaTime;
-                TimerSuccessText.text = elapsedTime.ToString("F2");
-            }
+                Debug.Log("One Star");
+            return;
         }
-        else if (elapsedTime <= 0.0f)
+
+        if (lasers.Count <= 0)
         {
             TimerSuccessText.text = "FAIL";
-            beginCountDown = false; //Only when beginCountdown is false, we can reset the game by clicking on any of the starting points again
-                                    //Reset();
+            GameStarted = false;
             GameplayInputManager.Instance.EnableInput = true;
         }
     }
 
-    //This function resets the variables related to the game state, so that a new laser can be fired again
-    public void Reset()
+    // private void EndGameCheck()
+    // {
+    //     if(Lasers.Count <= 0 || timeLeft <= 0.0f)
+    //     {
+    //         TimerSuccessText.text = "FAIL";
+    //         beginCountDown = false;
+    //         GameplayInputManager.Instance.EnableInput = true;
+    //     }
+
+
+
+    //     // if (timeLeft > 0.0f)
+    //     // {
+    //     //     if (AllCorrectLasersHaveReached == true)
+    //     //     {
+    //     //         TimerSuccessText.text = "WIN";
+    //     //         beginCountDown = false; //Only when beginCountdown is false, we can reset the game by clicking on any of the starting points again
+    //     //         GameplayInputManager.Instance.EnableInput = true;
+    //     //         //Reset();
+    //     //     }
+    //     //     else if (allLasersHaveReached == true)
+    //     //     {
+    //     //         TimerSuccessText.text = "FAIL";
+    //     //         beginCountDown = false; //Only when beginCountdown is false, we can reset the game by clicking on any of the starting points again
+    //     //         GameplayInputManager.Instance.EnableInput = true;
+    //     //         //Reset();
+    //     //     }
+    //     //     else
+    //     //     {
+    //     //         timeLeft -= Time.smoothDeltaTime;
+    //     //         TimerSuccessText.text = timeLeft.ToString("F2");
+    //     //     }
+    //     // }
+    //     // else if (timeLeft <= 0.0f)
+    //     // {
+    //     //     TimerSuccessText.text = "FAIL";
+    //     //     beginCountDown = false; //Only when beginCountdown is false, we can reset the game by clicking on any of the starting points again
+    //     //                             //Reset();
+    //     //     GameplayInputManager.Instance.EnableInput = true;
+    //     // }
+    // }
+
+    public void StartGame()
     {
-        elapsedTime = timeLimit;
-
-        foreach (GameObject endPoint in allEndPoints)
-        {
-            endPoint.GetComponent<LaserDestination>().Reset();
-        }
-
-        numOfHitEndPoints = 0;
-        numOfSuccessEndPoints = 0;
-        AllCorrectLasersHaveReached = false;
-        allLasersHaveReached = false;
-        beginCountDown = false;
+        GameStarted = true;
+        foreach (var laserOrigin in laserOrigins)
+            laserOrigin.Fire();
+        GameplayInputManager.Instance.EnableInput = false;
     }
 
-    public void EndGameCheck()
+    public void Reset()
     {
-        if (Lasers.Count <= 0)
-            elapsedTime = 0.0f;
+        timeLeft = timeLimit;
+
+        foreach (var laserDestination in laserDestinations)
+            laserDestination.Reset();
+
+        GameStarted = false;
     }
 
     public void UpdateReflectorStock(REFLECTOR_TYPE reflectorType, LASER_COLOR reflectorColor, int amount)
@@ -365,26 +398,20 @@ public class GameManager : MonoBehaviour
 
     public void Initialization(MapDataHolder mapDataHolder)
     {
-        #region Initialize Grids
         Proto_Grid[] gridOutlines = FindObjectsOfType<Proto_Grid>();
         for (int i = 0; i < gridOutlines.Length; i++)
         {
-            this.GridOutlines.Add(gridOutlines[i]);
+            this.gridOutlines.Add(gridOutlines[i]);
             gridOutlines[i].ShowGrid(false);
         }
-        #endregion
 
-        #region Initialize End Points
-        allEndPoints = GameObject.FindGameObjectsWithTag("EndPoint");
-        numOfEndPoints = allEndPoints.Length;
-        #endregion
+        laserOrigins = new List<LaserOrigin>(FindObjectsOfType<LaserOrigin>());
 
-        #region Initialize Max Window Time
-        elapsedTime = timeLimit = mapDataHolder.timeLimit;
+        laserDestinations = new List<LaserDestination>(FindObjectsOfType<LaserDestination>());
+
+        timeLeft = timeLimit = mapDataHolder.timeLimit;
         TimerSuccessText.text = timeLimit.ToString("F2");
-        #endregion
 
-        #region Initialize Reflector Amount
         BasicWhiteReflectorStock = mapDataHolder.basicReflectorAmount;
         BasicRedReflectorStock = mapDataHolder.redBasicReflectorAmount;
         BasicYellowReflectorStock = mapDataHolder.yellowBasicReflectorAmount;
@@ -405,6 +432,9 @@ public class GameManager : MonoBehaviour
         ThreeWayRedReflectorStock = mapDataHolder.redThreeWayReflectorAmount;
         ThreeWayYellowReflectorStock = mapDataHolder.yellowThreeWayReflectorAmount;
         ThreeWayBlueReflectorStock = mapDataHolder.blueThreeWayReflectorAmount;
-        #endregion
+
+        oneStarRequiredTime = mapDataHolder.oneStarRequiredTime;
+        twoStarRequiredTime = mapDataHolder.twoStarRequiredTime;
+        threeStarRequiredTime = mapDataHolder.threeStarRequiredTime;
     }
 }

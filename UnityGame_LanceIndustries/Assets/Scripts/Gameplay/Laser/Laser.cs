@@ -46,7 +46,7 @@ public class Laser : PoolObject
 
     private void OnDisable()
     {
-        GameManager.Instance.Lasers.Remove(this);
+        GameManager.Instance.RemoveLaser(this);
         GameManager.Instance.EndGameCheck();
     }
 

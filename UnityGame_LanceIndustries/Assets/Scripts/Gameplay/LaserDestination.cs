@@ -19,12 +19,11 @@ public class LaserDestination : MonoBehaviour, ILaserInteractable
     [SerializeField] protected Sprite yellowOnSprite;
 
     public LASER_COLOR LaserColor { get; set; }
-    public bool IsHitByLaser { get; set; }
-    public bool IsHitByCorrectLaser { get; set; }
+    public bool IsOn { get; private set; }
 
     private int onAnimationHash;
 
-    protected void Awake()
+    protected void Start()
     {
         onAnimationHash = Animator.StringToHash("On");
     }
@@ -53,7 +52,7 @@ public class LaserDestination : MonoBehaviour, ILaserInteractable
 
     public void Reset()
     {
-        IsHitByLaser = IsHitByCorrectLaser = false;
+        IsOn = false;
         animator.SetBool(onAnimationHash, false);
 
         switch (LaserColor)
@@ -76,6 +75,22 @@ public class LaserDestination : MonoBehaviour, ILaserInteractable
         }
     }
 
+    public void OnLaserOverlap(Laser laser, RaycastHit2D hit)
+    {
+        if (IsOn)
+            return;
+
+        if (LaserColor == laser.LaserColor)
+        {
+            IsOn = true;
+            animator.SetBool(onAnimationHash, true);
+            GameManager.Instance.EndGameCheck();
+        }
+
+        laser.Push();
+    }
+
+    // Used in Animator Callback
     public void On()
     {
         switch (LaserColor)
@@ -96,43 +111,5 @@ public class LaserDestination : MonoBehaviour, ILaserInteractable
                 spriteRenderer.sprite = whiteOnSprite;
                 break;
         }
-    }
-
-    public void checkIfCorrectLaserHit(GameObject projectile)
-    {
-        if (IsHitByLaser == false)
-        {
-            if (projectile.GetComponent<Laser>().LaserColor.ToString() == LaserColor.ToString())
-            {
-                IsHitByLaser = true;
-                IsHitByCorrectLaser = true;
-                GameManager.Instance.UpdateEndPointStatus(true);
-            }
-            else
-            {
-                IsHitByLaser = true;
-                GameManager.Instance.UpdateEndPointStatus(false);
-            }
-        }
-    }
-
-    public void OnLaserOverlap(Laser laser, RaycastHit2D hit)
-    {
-        if(!IsHitByLaser)
-        {
-            if(laser.LaserColor == LaserColor)
-            {
-                animator.SetBool(onAnimationHash, true);
-                IsHitByLaser = IsHitByCorrectLaser = true;
-                GameManager.Instance.UpdateEndPointStatus(true);
-            }
-            else
-            {
-                IsHitByLaser = true;
-                GameManager.Instance.UpdateEndPointStatus(false);
-            }
-        }
-
-        laser.Push();
     }
 }

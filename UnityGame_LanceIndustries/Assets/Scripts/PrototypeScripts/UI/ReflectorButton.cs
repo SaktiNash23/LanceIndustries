@@ -41,6 +41,9 @@ public class ReflectorButton : MonoBehaviour
 
     public void OnPointerDown(PointerEventData pointerEventData)
     {
+        if (GameManager.Instance.GameStarted)
+            return;
+
         Reflector reflector = null;
 
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -149,7 +152,7 @@ public class ReflectorButton : MonoBehaviour
                     break;
             }
 
-            GameManager.Instance.Reflectors.Add(reflector);
+            GameManager.Instance.AddReflector(reflector);
             GameplayInputManager.Instance.SelectReflector(reflector);
 
             GameManager.Instance.ReflectorColorPanel.EnablePanel(false);

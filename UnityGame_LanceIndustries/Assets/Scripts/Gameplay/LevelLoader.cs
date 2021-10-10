@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
@@ -52,7 +52,6 @@ public class LevelLoader : MonoBehaviour
         if(PersistentDataManager.Instance?.SelectedMapDataHolderNamePair != null)
         {
             LoadLevel(PersistentDataManager.Instance.SelectedMapDataHolderNamePair.mapDataHolder);
-            PersistentDataManager.Instance.SelectedMapDataHolderNamePair = null;
             return;
         }
 

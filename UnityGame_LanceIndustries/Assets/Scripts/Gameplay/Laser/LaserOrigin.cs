@@ -44,22 +44,10 @@ public class LaserOrigin : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (GameManager.Instance.IsGamePaused == false && !GameManager.Instance.AllCorrectLasersHaveReached)
+        if (GameManager.Instance.CanStartGame)
         {
-            if (GameManager.Instance.beginCountDown == false)
-            {
-                GameManager.Instance.Reset();
-                GameManager.Instance.beginCountDown = true; //Disable this line if you want to test without timer
-
-                GameObject[] allStartingPoints = GameObject.FindGameObjectsWithTag("StartingPoint");
-
-                for (int i = 0; i < allStartingPoints.Length; ++i)
-                {
-                    allStartingPoints[i].GetComponent<LaserOrigin>().Fire();
-                }
-
-                GameplayInputManager.Instance.EnableInput = false;
-            }
+            GameManager.Instance.Reset();
+            GameManager.Instance.StartGame();
         }
     }
 
@@ -85,11 +73,11 @@ public class LaserOrigin : MonoBehaviour
         }
     }
 
-    protected void Fire()
+    public void Fire()
     {
         Laser laser = ObjectPooler.Instance.PopOrCreate(laserPrefab, barrel.position, barrel.rotation);
         laser.LaserColor = laserColor;
         laser.RefreshLaserMaterialColor();
-        GameManager.Instance.Lasers.Add(laser);
+        GameManager.Instance.AddLaser(laser);
     }
 }

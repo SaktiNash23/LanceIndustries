@@ -11,8 +11,6 @@ public class ReflectorTypeButton : MonoBehaviour
 
     private Button button;
 
-    private UnityAction onClickCallback;
-
     private void Awake()
     {
         button = GetComponent<Button>();
@@ -20,12 +18,17 @@ public class ReflectorTypeButton : MonoBehaviour
 
     private void OnEnable()
     {
-        onClickCallback = () => GameplayUIManager.Instance.reflectorColorPanel.EnablePanel(true, reflectorType);
-        button.onClick.AddListener(onClickCallback);
+        button.onClick.AddListener(EnablePanel);
     }
 
     private void OnDisable()
     {
-        button.onClick.RemoveListener(onClickCallback);
+        button.onClick.RemoveListener(EnablePanel);
+    }
+
+    private void EnablePanel()
+    {
+        if (!GameManager.Instance.GameStarted)
+            GameplayUIManager.Instance.reflectorColorPanel.EnablePanel(true, reflectorType);
     }
 }
